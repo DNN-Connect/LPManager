@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<dotnetnuke version="3.0" type="Module">
+ <folders>
+  <folder>
+   <name>Bring2mind\LocalizationEditor</name>
+   <friendlyname>Localization Editor</friendlyname>
+   <foldername>Bring2mind\LocalizationEditor</foldername>
+   <modulename>Bring2mind\LocalizationEditor</modulename>
+   <description>Edit and manage language packs</description>
+   <version>01.01.00</version>
+   <businesscontrollerclass/>
+   <resourcefile>Resources.zip</resourcefile>
+   <modules>
+    <module>
+     <friendlyname>LocalizationEditor</friendlyname>
+     <controls>
+      <control>
+       <title>Localization Editor</title>
+       <src>DesktopModules/Bring2mind/LocalizationEditor/LocalizationEditor.ascx</src>
+       <type>View</type>
+      </control>
+      <control>
+       <key>Edit</key>
+       <title>Edit Resources</title>
+       <src>DesktopModules/Bring2mind/LocalizationEditor/ResourceEditor.ascx</src>
+       <type>Edit</type>
+      </control>
+      <control>
+       <key>Verify</key>
+       <title>Verify Resources</title>
+       <src>DesktopModules/Bring2mind/LocalizationEditor/ResourceVerifier.ascx</src>
+       <type>View</type>
+      </control>
+      <control>
+       <key>Settings</key>
+       <title>Localization Editor Settings</title>
+       <src>DesktopModules/Bring2mind/LocalizationEditor/Settings.ascx</src>
+       <type>Admin</type>
+      </control>
+     </controls>
+    </module>
+   </modules>
+   <files>
+    <file>
+     <name>Bring2mind.DNN.Modules.LocalizationEditor.dll</name>
+    </file>
+   </files>
+  </folder>
+ </folders>
+</dotnetnuke>
