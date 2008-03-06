@@ -189,6 +189,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="_Installation\Bring2mind.LocalizationEditor.dnn" />
+    <None Include="_Installation\Bring2mind.LocalizationEditor_01.01.00.zip" />
+    <None Include="_Installation\Resources.zip" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_LocalResources\Settings.ascx.resx">
