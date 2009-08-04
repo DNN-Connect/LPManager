@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title></title>
+</head>
+<body>
+
+    <p>
+        Release Notes for DNNEurope LocalizationEditor</p>
+    <p>
+        Version 3.0.0 - 4-8-2009</p>
+    <ul>
+        <li>First DNN 5 version (DNN 5.1.1. is minimal required version)</li>
+        <li>Added support for Google Translation (for on the fly translation of resources)</li>
+        <li>Added import feature, which allows for translation of objects that are not 
+            installed</li>
+        <li></li>
+    </ul>
+
+</body>
+</html>
