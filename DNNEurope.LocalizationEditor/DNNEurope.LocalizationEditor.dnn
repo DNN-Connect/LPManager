@@ -25,7 +25,7 @@
         <moduleControls>
          <moduleControl>
           <controlKey>DownloadPack</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/DownloadPack.ascx</controlSrc>
           <supportsPartialRendering>False</supportsPartialRendering>
           <controlTitle>Download Pack</controlTitle>
           <controlType>View</controlType>
@@ -34,7 +34,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey />
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/LocalizationEditor.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Localization Editor</controlTitle>
           <controlType>View</controlType>
@@ -43,7 +43,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey>ManageObjects</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ManageObjects.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Manage modules</controlTitle>
           <controlType>View</controlType>
@@ -52,7 +52,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey>ObjectSummary</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ObjectSummary.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Object Localization Summary</controlTitle>
           <controlType>View</controlType>
@@ -61,7 +61,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey>Edit</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ResourceEditor.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Edit Resources</controlTitle>
           <controlType>View</controlType>
@@ -70,7 +70,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey>UploadPack</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/UploadPack.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Upload Pack</controlTitle>
           <controlType>View</controlType>
@@ -79,7 +79,7 @@
          </moduleControl>
          <moduleControl>
           <controlKey>Users</controlKey>
-          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\Users.ascx</controlSrc>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Users.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>User Permissions</controlTitle>
           <controlType>View</controlType>
