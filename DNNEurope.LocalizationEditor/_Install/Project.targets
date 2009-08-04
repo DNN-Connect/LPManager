@@ -41,7 +41,7 @@
     </Target>
     
     <!-- Set the version numbers in DNN file and Assembly -->
-    <Target Name="SetVersionInfo" Condition="Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
+    <Target Name="SetVersionInfo" Condition="'$(ConfigurationName)'=='Release' AND Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')" >
         <Message Text="MSBUILD: getting version from $(InstallDir)\version.txt ..." Importance="high"></Message>
         <!-- Obtain Version information from version.txt -->
         <Version BuildType="None" RevisionType="None" VersionFile="$(InstallDir)\version.txt">
