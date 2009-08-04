@@ -21,6 +21,8 @@ Imports DotNetNuke.Entities.Modules
 Imports System.IO
 Imports System.Xml
 Imports System.Collections.Generic
+Imports DotNetNuke.Security.Permissions
+Imports DotNetNuke.Common
 
 Namespace DNNEurope.Modules.LocalizationEditor
     Partial Public Class ManageObjects
@@ -29,7 +31,10 @@ Namespace DNNEurope.Modules.LocalizationEditor
 #Region " Event Handlers "
 
         Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-
+            If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, _
+                                                                    "ManageObjects") Then
+                Response.Redirect(AccessDeniedURL())
+            End If
             '// Force full postback when using upload control
             AJAX.RegisterPostBackControl(lbImportPackage)
 
