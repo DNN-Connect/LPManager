@@ -5,7 +5,7 @@
 </head>
 <body>
     <h3>
-        Contributors to DNNEurope LocalizationEditor:</h3>
+        Contributors to DNN-Europe LocalizationEditor:</h3>
     <ul>
         <li>Peter Donker / <a href="http://www.bring2mind.net">www.bring2mind.net</a> /
             <a href="mailto:info@bring2mind.net">info@bring2mind.net</a> </li>
@@ -17,62 +17,27 @@
     </ul>
     <p>
         &nbsp;</p>
+    <div id="licenseTextHolder" style="MARGIN: 1em">
+        Copyright (c) 2009 DNN Europe<br />
+        <br />
+        Permission is hereby granted, free of charge, to any person obtaining a copy of 
+        this software and associated documentation files (the &quot;Software&quot;), to deal in 
+        the Software without restriction, including without limitation the rights to 
+        use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of 
+        the Software, and to permit persons to whom the Software is furnished to do so, 
+        subject to the following conditions:<br />
+        <br />
+        The above copyright notice and this permission notice shall be included in all 
+        copies or substantial portions of the Software.<br />
+        <br />
+        THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+        FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+        COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER 
+        IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
+        CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </div>
     <h3>
-        Microsoft Public License (Ms-PL)</h3>
-    <p>
-        This license governs use of the accompanying software. If you use the software,
-        you accept this license. If you do not accept the license, do not use the software.</p>
-    <p>
-        <b>1. Definitions</b></p>
-    <p>
-        The terms &quot;reproduce,&quot; &quot;reproduction,&quot; &quot;derivative works,&quot;
-        and &quot;distribution&quot; have the same meaning here as under U.S. copyright
-        law.</p>
-    <p>
-        A &quot;contribution&quot; is the original software, or any additions or changes
-        to the software.</p>
-    <p>
-        A &quot;contributor&quot; is any person that distributes its contribution under
-        this license.</p>
-    <p>
-        &quot;Licensed patents&quot; are a contributor&#39;s patent claims that read directly
-        on its contribution.</p>
-    <p>
-        <b>2. Grant of Rights</b></p>
-    <p>
-        (A) Copyright Grant- Subject to the terms of this license, including the license
-        conditions and limitations in section 3, each contributor grants you a non-exclusive,
-        worldwide, royalty-free copyright license to reproduce its contribution, prepare
-        derivative works of its contribution, and distribute its contribution or any derivative
-        works that you create.</p>
-    <p>
-        (B) Patent Grant- Subject to the terms of this license, including the license conditions
-        and limitations in section 3, each contributor grants you a non-exclusive, worldwide,
-        royalty-free license under its licensed patents to make, have made, use, sell, offer
-        for sale, import, and/or otherwise dispose of its contribution in the software or
-        derivative works of the contribution in the software.</p>
-    <p>
-        <b>3. Conditions and Limitations</b></p>
-    <p>
-        (A) No Trademark License- This license does not grant you rights to use any contributors&#39;
-        name, logo, or trademarks.</p>
-    <p>
-        (B) If you bring a patent claim against any contributor over patents that you claim
-        are infringed by the software, your patent license from such contributor to the
-        software ends automatically.</p>
-    <p>
-        (C) If you distribute any portion of the software, you must retain all copyright,
-        patent, trademark, and attribution notices that are present in the software.</p>
-    <p>
-        (D) If you distribute any portion of the software in source code form, you may do
-        so only under this license by including a complete copy of this license with your
-        distribution. If you distribute any portion of the software in compiled or object
-        code form, you may only do so under a license that complies with this license.</p>
-    <p>
-    (E) The software is licensed &quot;as-is.&quot; You bear the risk of using it. The
-    contributors give no express warranties, guarantees or conditions. You may have
-    additional consumer rights under your local laws which this license cannot change.
-    To the extent permitted under your local laws, the contributors exclude the implied
-    warranties of merchantability, fitness for a particular purpose and non-infringement.
+        &nbsp;</h3>
 </body>
 </html>
