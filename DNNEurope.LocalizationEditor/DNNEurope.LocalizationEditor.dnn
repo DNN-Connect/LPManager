@@ -1,139 +1,139 @@
 ﻿<dotnetnuke type="Package" version="5.0">
-    <packages>
-        <package name="DNNEurope.LocalizationEditor" type="Module" version="03.00.00">
-            <friendlyName>Localization Editor</friendlyName>
-            <description>Editor for extension/core localization.</description>
-            <owner>
-                <name>DNN Europe</name>
-                <organization>DNN-Europe</organization>
-                <url>http://localizationeditor.codeplex.com//</url>
-                <email>no-reply@dnn-europe.net</email>
-            </owner>
-            <license  src="documentation/license.htm.resources"/>
-            <releaseNotes src="documentation/ReleaseNotes.htm.resources"/>
-            <components>
-                <component type="Module">
-                    <desktopModule>
-                        <moduleName>DNNEurope.Modules.LocalizationEditor</moduleName>
-                        <foldername>DNNEurope\LocalizationEditor</foldername>
-                        <businessControllerClass />
-                        <supportedFeatures />
-                        <moduleDefinitions>
-                            <moduleDefinition>
-                                <friendlyName>Localization Editor</friendlyName>
-                                <defaultCacheTime>-1</defaultCacheTime>
-                                <moduleControls>
-                                    <moduleControl>
-                                        <controlKey>DownloadPack</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Download Pack</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey />
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Localization Editor</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey>ManageObjects</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Manage modules</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey>ObjectSummary</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Object Localization Summary</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey>Edit</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Edit Resources</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey>UploadPack</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>Upload Pack</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                    <moduleControl>
-                                        <controlKey>Users</controlKey>
-                                        <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\Users.ascx</controlSrc>
-                                        <supportsPartialRendering>True</supportsPartialRendering>
-                                        <controlTitle>User Permissions</controlTitle>
-                                        <controlType>View</controlType>
-                                        <iconFile />
-                                        <helpUrl></helpUrl>
-                                    </moduleControl>
-                                </moduleControls>
-                            </moduleDefinition>
-                        </moduleDefinitions>
-                    </desktopModule>
-                </component>
-                <component type="Script">
-                    <scripts>
-                        <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-                         <script type="Install">
-                            <path>Providers\DataProviders\SqlDataProvider</path>
-                            <name>03.00.00.sqldataprovider</name>
-                            <version>03.00.00</version>
-                        </script>
-                        <script type="UnInstall">
-                            <path>Providers\DataProviders\SqlDataProvider</path>
-                            <name>Uninstall.sqldataprovider</name>
-                            <version>01.00.00</version>
-                        </script>
-                    </scripts>
-                </component>
-                <component type="Assembly">
-                    <assemblies>
-                        <basePath>bin</basePath>
-                        <assembly>
-                            <name>GoogleTranslateAPI.dll</name>
-                        </assembly>
-                        <assembly>
-                            <name>DNNEurope.Modules.LocalizationEditor.dll</name>
-                        </assembly>
-                    </assemblies>
-                </component>
-                <component type="File">
-                    <files>
-                        <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-                        <file>
-                            <name>DNNEurope.LocalizationEditor.dnn</name>
-                        </file>
-                    </files>
-                </component>
-                <component type="ResourceFile">
-                    <resourceFiles>
-                        <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-                        <resourceFile>
-                            <name>Resources.zip</name>
-                        </resourceFile>
-                    </resourceFiles>
-                </component>
-            </components>
-        </package>
-    </packages>
+ <packages>
+  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.00.00">
+   <friendlyName>Localization Editor</friendlyName>
+   <description>Editor for extension/core localization.</description>
+   <owner>
+    <name>DNN Europe</name>
+    <organization>DNN-Europe</organization>
+    <url>http://localizationeditor.codeplex.com//</url>
+    <email>no-reply@dnn-europe.net</email>
+   </owner>
+   <license  src="documentation/license.htm.resources"/>
+   <releaseNotes src="documentation/ReleaseNotes.htm.resources"/>
+   <components>
+    <component type="Module">
+     <desktopModule>
+      <moduleName>DNNEurope.Modules.LocalizationEditor</moduleName>
+      <foldername>DNNEurope\LocalizationEditor</foldername>
+      <businessControllerClass />
+      <supportedFeatures />
+      <moduleDefinitions>
+       <moduleDefinition>
+        <friendlyName>Localization Editor</friendlyName>
+        <defaultCacheTime>-1</defaultCacheTime>
+        <moduleControls>
+         <moduleControl>
+          <controlKey>DownloadPack</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx</controlSrc>
+          <supportsPartialRendering>False</supportsPartialRendering>
+          <controlTitle>Download Pack</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey />
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Localization Editor</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>ManageObjects</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Manage modules</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>ObjectSummary</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Object Localization Summary</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Edit</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Edit Resources</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>UploadPack</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Upload Pack</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Users</controlKey>
+          <controlSrc>DesktopModules\DNNEurope\LocalizationEditor\Users.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>User Permissions</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+        </moduleControls>
+       </moduleDefinition>
+      </moduleDefinitions>
+     </desktopModule>
+    </component>
+    <component type="Script">
+     <scripts>
+      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
+      <script type="Install">
+       <path>Providers\DataProviders\SqlDataProvider</path>
+       <name>03.00.00.sqldataprovider</name>
+       <version>03.00.00</version>
+      </script>
+      <script type="UnInstall">
+       <path>Providers\DataProviders\SqlDataProvider</path>
+       <name>Uninstall.sqldataprovider</name>
+       <version>01.00.00</version>
+      </script>
+     </scripts>
+    </component>
+    <component type="Assembly">
+     <assemblies>
+      <basePath>bin</basePath>
+      <assembly>
+       <name>GoogleTranslateAPI.dll</name>
+      </assembly>
+      <assembly>
+       <name>DNNEurope.Modules.LocalizationEditor.dll</name>
+      </assembly>
+     </assemblies>
+    </component>
+    <component type="File">
+     <files>
+      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
+      <file>
+       <name>DNNEurope.LocalizationEditor.dnn</name>
+      </file>
+     </files>
+    </component>
+    <component type="ResourceFile">
+     <resourceFiles>
+      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
+      <resourceFile>
+       <name>Resources.zip</name>
+      </resourceFile>
+     </resourceFiles>
+    </component>
+   </components>
+  </package>
+ </packages>
 </dotnetnuke>

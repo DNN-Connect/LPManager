@@ -71,6 +71,42 @@ Namespace DNNEurope.Modules.LocalizationEditor
         Protected WithEvents dgLocales As Global.System.Web.UI.WebControls.DataGrid
 
         '''<summary>
+  '''plLocale control.
+  '''</summary>
+  '''<remarks>
+  '''Auto-generated field.
+  '''To modify move field declaration from designer file to code-behind file.
+  '''</remarks>
+  Protected WithEvents plLocale As Global.System.Web.UI.UserControl
+
+  '''<summary>
+  '''txtLocale control.
+  '''</summary>
+  '''<remarks>
+  '''Auto-generated field.
+  '''To modify move field declaration from designer file to code-behind file.
+  '''</remarks>
+  Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
+
+  '''<summary>
+  '''cmdDownload control.
+  '''</summary>
+  '''<remarks>
+  '''Auto-generated field.
+  '''To modify move field declaration from designer file to code-behind file.
+  '''</remarks>
+  Protected WithEvents cmdDownload As Global.System.Web.UI.WebControls.Button
+
+  '''<summary>
+  '''regLocale control.
+  '''</summary>
+  '''<remarks>
+  '''Auto-generated field.
+  '''To modify move field declaration from designer file to code-behind file.
+  '''</remarks>
+  Protected WithEvents regLocale As Global.System.Web.UI.WebControls.RegularExpressionValidator
+
+  '''<summary>
         '''lblHelp control.
         '''</summary>
         '''<remarks>
