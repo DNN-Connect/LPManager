@@ -12,8 +12,6 @@ Option Strict On
 Option Explicit On
 
 
-Namespace DNNEurope.Modules.LocalizationEditor
 
-	Partial Public Class Pack
-	End Class
-End Namespace
+Partial Public Class Pack
+End Class

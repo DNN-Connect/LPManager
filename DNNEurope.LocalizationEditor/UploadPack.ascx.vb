@@ -1,22 +1,44 @@
-﻿Imports System.Xml
+﻿'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
 
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DotNetNuke.Common
-Imports DotNetNuke.Services.Localization.Localization
-
 Imports DNNEurope.Modules.LocalizationEditor.Business
+Imports DotNetNuke.Framework
+Imports DotNetNuke.Services.Localization
+Imports System.IO
+Imports ICSharpCode.SharpZipLib.Zip
+Imports System.Xml
+Imports System.Xml.XPath
 
 Namespace DNNEurope.Modules.LocalizationEditor
-	Partial Public Class Import
-		Inherits ModuleBase
+    Partial Public Class Import
+        Inherits ModuleBase
 
 #Region " Private Members "
+
         Private _ObjectId As Integer = -2
         Private _locale As String = ""
         Private _moduleFriendlyName As String = ""
         Private _tempDirectory As String = ""
+
 #End Region
 
 #Region " Properties "
+
         Public Property ModuleFriendlyName() As String
             Get
                 Return _moduleFriendlyName
@@ -52,10 +74,12 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 _tempDirectory = value
             End Set
         End Property
+
 #End Region
 
 #Region " Event Handlers "
-        Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+
+        Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
 
             Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
             Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
@@ -65,17 +89,23 @@ Namespace DNNEurope.Modules.LocalizationEditor
             ModuleFriendlyName = objObjectInfo.FriendlyName
         End Sub
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
             '// Force full postback for wizard
-            DotNetNuke.Framework.AJAX.RegisterPostBackControl(wzdImport)
+            AJAX.RegisterPostBackControl(wzdImport)
 
-            wzdImport.CancelButtonText = "<img src=""" + ApplicationPath + "/images/cancel.gif"" border=""0"" /> " + GetString("Cancel", Me.LocalResourceFile)
-            wzdImport.StartNextButtonText = "<img src=""" + ApplicationPath + "/images/rt.gif"" border=""0"" /> " + GetString("Next", Me.LocalResourceFile)
-            wzdImport.StepNextButtonText = "<img src=""" + ApplicationPath + "/images/rt.gif"" border=""0"" /> " + GetString("Next", Me.LocalResourceFile)
-            wzdImport.StepPreviousButtonText = "<img src=""" + ApplicationPath + "/images/lt.gif"" border=""0"" /> " + GetString("Previous", Me.LocalResourceFile)
-            wzdImport.FinishPreviousButtonText = "<img src=""" + ApplicationPath + "/images/lt.gif"" border=""0"" /> " + GetString("Previous", Me.LocalResourceFile)
-            wzdImport.FinishCompleteButtonText = "<img src=""" + ApplicationPath + "/images/save.gif"" border=""0"" /> " + GetString("Finish", Me.LocalResourceFile)
+            wzdImport.CancelButtonText = "<img src=""" + ApplicationPath + "/images/cancel.gif"" border=""0"" /> " + _
+                                         Localization.GetString("Cancel", Me.LocalResourceFile)
+            wzdImport.StartNextButtonText = "<img src=""" + ApplicationPath + "/images/rt.gif"" border=""0"" /> " + _
+                                            Localization.GetString("Next", Me.LocalResourceFile)
+            wzdImport.StepNextButtonText = "<img src=""" + ApplicationPath + "/images/rt.gif"" border=""0"" /> " + _
+                                           Localization.GetString("Next", Me.LocalResourceFile)
+            wzdImport.StepPreviousButtonText = "<img src=""" + ApplicationPath + "/images/lt.gif"" border=""0"" /> " + _
+                                               Localization.GetString("Previous", Me.LocalResourceFile)
+            wzdImport.FinishPreviousButtonText = "<img src=""" + ApplicationPath + "/images/lt.gif"" border=""0"" /> " + _
+                                                 Localization.GetString("Previous", Me.LocalResourceFile)
+            wzdImport.FinishCompleteButtonText = "<img src=""" + ApplicationPath + "/images/save.gif"" border=""0"" /> " + _
+                                                 Localization.GetString("Finish", Me.LocalResourceFile)
 
             If Not Me.IsPostBack Then
 
@@ -83,11 +113,14 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 If Locale = "" Or ObjectId = -2 Then
                     Throw New Exception("Access denied")
                 End If
-                If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, Locale) Then
+                If _
+                    Not _
+                    PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, _
+                                                     Locale) Then
                     Throw New Exception("Access denied")
                 End If
 
-                ddVersion.DataSource = Data.DataProvider.Instance.GetVersions(Me.ObjectId)
+                ddVersion.DataSource = DataProvider.Instance.GetVersions(Me.ObjectId)
                 ddVersion.DataBind()
 
             End If
@@ -95,20 +128,22 @@ Namespace DNNEurope.Modules.LocalizationEditor
 
         End Sub
 
-        Private Sub wzdImport_NextButtonClick(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.WizardNavigationEventArgs) Handles wzdImport.NextButtonClick
+        Private Sub wzdImport_NextButtonClick(ByVal sender As Object, ByVal e As WizardNavigationEventArgs) _
+            Handles wzdImport.NextButtonClick
 
             Select Case e.CurrentStepIndex
                 Case 0 'Upload
                     'Before we leave Page 1, the user must have uploaded a valid resource file
                     If Not ctlUpload.HasFile Then
-                        lblUploadError.Text = GetString("NoFile", LocalResourceFile)
+                        lblUploadError.Text = Localization.GetString("NoFile", LocalResourceFile)
                         e.Cancel = True
                         Exit Sub
                     End If
-                    TempDirectory = PortalSettings.HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
+                    TempDirectory = PortalSettings.HomeDirectoryMapPath & "LocalizationEditor\~tmp" & _
+                                    Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
                     Dim rep As New StringBuilder
                     If Not UnpackUploadedFile(rep) Then
-                        lblUploadError.Text = GetString("WrongFile", LocalResourceFile)
+                        lblUploadError.Text = Localization.GetString("WrongFile", LocalResourceFile)
                         lblUploadReport.Text = rep.ToString.Replace(vbCrLf, "<br />")
                         e.Cancel = True
                         Exit Sub
@@ -121,32 +156,36 @@ Namespace DNNEurope.Modules.LocalizationEditor
 
         End Sub
 
-        Private Sub wzdImport_CancelButtonClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles wzdImport.CancelButtonClick
+        Private Sub wzdImport_CancelButtonClick(ByVal sender As Object, ByVal e As EventArgs) _
+            Handles wzdImport.CancelButtonClick
             Try
                 If TempDirectory <> "" Then
-                    IO.Directory.Delete(TempDirectory)
+                    Directory.Delete(TempDirectory)
                 End If
             Catch
             End Try
             Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
         End Sub
 
-        Private Sub wzdImport_FinishButtonClick(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.WizardNavigationEventArgs) Handles wzdImport.FinishButtonClick
+        Private Sub wzdImport_FinishButtonClick(ByVal sender As Object, ByVal e As WizardNavigationEventArgs) _
+            Handles wzdImport.FinishButtonClick
             ImportPack()
             Try
                 If TempDirectory <> "" Then
-                    IO.Directory.Delete(TempDirectory)
+                    Directory.Delete(TempDirectory)
                 End If
             Catch
             End Try
             Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
         End Sub
+
 #End Region
 
 #Region " Private Methods "
+
         Private Function UnpackUploadedFile(ByRef report As StringBuilder) As Boolean
-            If Not IO.Directory.Exists(TempDirectory) Then
-                IO.Directory.CreateDirectory(TempDirectory)
+            If Not Directory.Exists(TempDirectory) Then
+                Directory.CreateDirectory(TempDirectory)
             Else
                 Throw New Exception("New directory " & TempDirectory & " already exists")
             End If
@@ -154,8 +193,8 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 Dim resFilename As String = ctlUpload.FileName
                 report.AppendLine("Uploaded " & resFilename)
                 report.AppendLine("Unpacking to " & TempDirectory)
-                Dim objZipEntry As ICSharpCode.SharpZipLib.Zip.ZipEntry
-                Using objZipInputStream As New ICSharpCode.SharpZipLib.Zip.ZipInputStream(ctlUpload.FileContent)
+                Dim objZipEntry As ZipEntry
+                Using objZipInputStream As New ZipInputStream(ctlUpload.FileContent)
                     objZipEntry = objZipInputStream.GetNextEntry
                     While Not objZipEntry Is Nothing
                         Dim strFileName As String = objZipEntry.Name.Replace("/", "\")
@@ -166,12 +205,12 @@ Namespace DNNEurope.Modules.LocalizationEditor
                             If strFileName.IndexOf("\"c) > 0 Then
                                 sFile = Mid(strFileName, strFileName.LastIndexOf("\"c) + 2)
                                 sPath = sPath & Left(strFileName, strFileName.LastIndexOf("\"c))
-                                If Not IO.Directory.Exists(sPath) Then
-                                    IO.Directory.CreateDirectory(sPath)
+                                If Not Directory.Exists(sPath) Then
+                                    Directory.CreateDirectory(sPath)
                                 End If
                                 sPath &= "\"
                             End If
-                            Using objFileStream As IO.FileStream = IO.File.Create(sPath & sFile)
+                            Using objFileStream As FileStream = File.Create(sPath & sFile)
                                 Dim intSize As Integer = 2048
                                 Dim arrData(2048) As Byte
                                 intSize = objZipInputStream.Read(arrData, 0, arrData.Length)
@@ -231,9 +270,12 @@ Namespace DNNEurope.Modules.LocalizationEditor
             report.AppendLine("Analyzing " & resFile)
             Dim res As New XmlDocument
             res.Load(TempDirectory & "\" & resFile)
-            Dim locPath As String = LocalizationController.GetCorrectPath(resFile, LocalResourceDirectory)
+            Dim locPath As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
             report.AppendLine("Mapped to " & locPath)
-            Using ir As IDataReader = Data.DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, locPath, Locale, ddVersion.SelectedValue, True)
+            Using _
+                ir As IDataReader = _
+                    DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, locPath, Locale, ddVersion.SelectedValue, _
+                                                                   True)
                 Do While ir.Read
                     Dim textKey As String = CStr(ir.Item("TextKey"))
                     Dim hasValue As Boolean = False
@@ -251,7 +293,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
                                 report.AppendLine("Add " & textKey)
                             End If
                         End If
-                    Catch ex As XPath.XPathException
+                    Catch ex As XPathException
                         report.AppendLine("!!!! Invalid token in attribute value: " & textKey)
                     End Try
                 Loop
@@ -276,12 +318,15 @@ Namespace DNNEurope.Modules.LocalizationEditor
         Private Sub ImportFile(ByVal resFile As String)
             Dim res As New XmlDocument
             res.Load(TempDirectory & "\" & resFile)
-            Dim locPath As String = LocalizationController.GetCorrectPath(resFile, LocalResourceDirectory)
+            Dim locPath As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
 
             'Fix slashes (from / to \ )
             locPath = locPath.Replace("/"c, "\"c)
 
-            Using ir As IDataReader = Data.DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, locPath, Locale, ddVersion.SelectedValue, True)
+            Using _
+                ir As IDataReader = _
+                    DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, locPath, Locale, ddVersion.SelectedValue, _
+                                                                   True)
                 Do While ir.Read
                     Dim textKey As String = CStr(ir.Item("TextKey"))
                     Dim textId As Integer = CInt(ir.Item("TextId"))
@@ -319,38 +364,40 @@ Namespace DNNEurope.Modules.LocalizationEditor
                                 ' ignore errors
                             End Try
                         End If
-                    Catch ex As XPath.XPathException
+                    Catch ex As XPathException
                         ' ignore XPath errors
                     End Try
                 Loop
             End Using
         End Sub
+
 #End Region
 
 #Region " ViewState Handling "
-		Protected Overrides Sub LoadViewState(ByVal savedState As Object)
 
-			If Not (savedState Is Nothing) Then
-				Dim myState As Object() = CType(savedState, Object())
-				If Not (myState(0) Is Nothing) Then
-					MyBase.LoadViewState(myState(0))
-				End If
-				If Not (myState(1) Is Nothing) Then
-					_tempDirectory = CType(myState(1), String)
-				End If
-			End If
+        Protected Overrides Sub LoadViewState(ByVal savedState As Object)
 
-		End Sub
+            If Not (savedState Is Nothing) Then
+                Dim myState As Object() = CType(savedState, Object())
+                If Not (myState(0) Is Nothing) Then
+                    MyBase.LoadViewState(myState(0))
+                End If
+                If Not (myState(1) Is Nothing) Then
+                    _tempDirectory = CType(myState(1), String)
+                End If
+            End If
 
-		Protected Overrides Function SaveViewState() As Object
+        End Sub
 
-			Dim allStates(1) As Object
-			allStates(0) = MyBase.SaveViewState()
-			allStates(1) = _tempDirectory
-			Return allStates
+        Protected Overrides Function SaveViewState() As Object
 
-		End Function
+            Dim allStates(1) As Object
+            allStates(0) = MyBase.SaveViewState()
+            allStates(1) = _tempDirectory
+            Return allStates
+
+        End Function
+
 #End Region
-
-	End Class
+    End Class
 End Namespace

@@ -1,27 +1,54 @@
-﻿Imports DNNEurope.Modules.LocalizationEditor.Helpers
+﻿' 
+' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+
+Imports Google.API
+Imports DotNetNuke.UI.UserControls
+Imports Google.API.Translate
+Imports DNNEurope.Modules.LocalizationEditor.Helpers
 
 Namespace DNNEurope.Modules.LocalizationEditor.Controls
-	Partial Public Class Editor
-		Inherits ModuleBase
+    Partial Public Class Editor
+        Inherits ModuleBase
 
 #Region " Unrecognized Controls "
-		Protected WithEvents teValue As DotNetNuke.UI.UserControls.TextEditor
+
+        Protected WithEvents teValue As TextEditor
+
 #End Region
 
 #Region " Private Members "
-		Private _translationId As Integer
-		Private _textId As Integer
-		Private _value As String
-		Private _originalValue As String
+
+        Private _translationId As Integer
+        Private _textId As Integer
+        Private _value As String
+        Private _originalValue As String
         Private _sourceValue As String
         Private _showHtml As Boolean = False
         Private _fromLocale As String
         Private _toLocale As String
         Private _autoTranslate As Boolean
         Private _panelID As Integer
+
 #End Region
 
 #Region " Properties "
+
         Public Property TranslationId() As Integer
             Get
                 Return _translationId
@@ -111,14 +138,16 @@ Namespace DNNEurope.Modules.LocalizationEditor.Controls
                 _panelID = value
             End Set
         End Property
+
 #End Region
 
 #Region " Events "
-        Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+
+        Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
 
         End Sub
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
             cmdSwitch.Visible = False
 
             If Not Me.IsPostBack Then
@@ -162,6 +191,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Controls
 #End Region
 
 #Region " Overrides "
+
         Public Overrides Sub DataBind()
             pnlHtmlValue.Visible = ShowHtml
             pnlTextbox.Visible = Not ShowHtml
@@ -181,29 +211,32 @@ Namespace DNNEurope.Modules.LocalizationEditor.Controls
                 '// Add default google translation value if empty
                 If AutoTranslate AndAlso String.IsNullOrEmpty(Value) Then
                     '// Determine from and to languages
-                    Dim fromLanguage As Google.API.Language = Google.API.Translate.LanguageUtility.GetLanguageFromLocale(FromLocale)
-                    Dim toLanguage As Google.API.Language = Google.API.Translate.LanguageUtility.GetLanguageFromLocale(ToLocale)
+                    Dim fromLanguage As Language = LanguageUtility.GetLanguageFromLocale(FromLocale)
+                    Dim toLanguage As Language = LanguageUtility.GetLanguageFromLocale(ToLocale)
 
-                    If fromLanguage = Google.API.Language.Unknown Then
-                        fromLanguage = Google.API.Language.English 'TODO Make default configurable?
+                    If fromLanguage = Language.Unknown Then
+                        fromLanguage = Language.English
+                        'TODO Make default configurable?
                     End If
 
                     '// Skip translation if a target language is unknown
-                    If toLanguage = Google.API.Language.Unknown Then Return
+                    If toLanguage = Language.Unknown Then Return
 
                     '// Perform translation and set to textbox
                     txtValue.Text = TranslateHelper.Translate(OriginalValue, fromLanguage, toLanguage)
                 End If
-            Catch ex As Google.API.GoogleAPIException
+            Catch ex As GoogleAPIException
                 DotNetNuke.Services.Exceptions.LogException(ex)
 
                 'TODO inform user that translation has failed
                 txtValue.Text = "?"
             End Try
         End Sub
+
 #End Region
 
 #Region " ViewState Handling "
+
         Protected Overrides Sub LoadViewState(ByVal savedState As Object)
             If Not (savedState Is Nothing) Then
                 Dim myState As Object() = CType(savedState, Object())
@@ -234,7 +267,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Controls
             allStates(4) = TranslationId
             Return allStates
         End Function
-#End Region
 
+#End Region
     End Class
 End Namespace

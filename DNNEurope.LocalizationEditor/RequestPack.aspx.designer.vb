@@ -14,132 +14,132 @@ Option Explicit On
 
 Namespace DNNEurope.Modules.LocalizationEditor
 
-	Partial Public Class RequestPack
+  Partial Public Class RequestPack
 
-		'''<summary>
-		'''form1 control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
+    '''<summary>
+    '''form1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
-		'''<summary>
-		'''dnnLOGO control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents dnnLOGO As Global.System.Web.UI.UserControl
+    '''<summary>
+    '''dnnLOGO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dnnLOGO As Global.System.Web.UI.UserControl
 
-		'''<summary>
-		'''pnlHeader control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents pnlHeader As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlHeader control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlHeader As Global.System.Web.UI.WebControls.Panel
 
-		'''<summary>
-		'''pnlTranslations control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents pnlTranslations As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlTranslations control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlTranslations As Global.System.Web.UI.WebControls.Panel
 
-		'''<summary>
-		'''lblVersion control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents lblVersion As Global.System.Web.UI.WebControls.Label
+    '''<summary>
+    '''lblVersion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblVersion As Global.System.Web.UI.WebControls.Label
 
-		'''<summary>
-		'''ddVersion control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents ddVersion As Global.System.Web.UI.WebControls.DropDownList
+    '''<summary>
+    '''ddVersion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddVersion As Global.System.Web.UI.WebControls.DropDownList
 
-		'''<summary>
-		'''lblTotalTranslations control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents lblTotalTranslations As Global.System.Web.UI.WebControls.Label
+    '''<summary>
+    '''lblTotalTranslations control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTotalTranslations As Global.System.Web.UI.WebControls.Label
 
-		'''<summary>
-		'''dgLocales control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents dgLocales As Global.System.Web.UI.WebControls.DataGrid
+    '''<summary>
+    '''dgLocales control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dgLocales As Global.System.Web.UI.WebControls.DataGrid
 
-		'''<summary>
-		'''lblHelp control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents lblHelp As Global.System.Web.UI.WebControls.Label
+    '''<summary>
+    '''lblHelp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHelp As Global.System.Web.UI.WebControls.Label
 
-		'''<summary>
-		'''plLocale control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents plLocale As Global.System.Web.UI.UserControl
+    '''<summary>
+    '''plLocale control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents plLocale As Global.System.Web.UI.UserControl
 
-		'''<summary>
-		'''txtLocale control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
+    '''<summary>
+    '''txtLocale control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
 
-		'''<summary>
-		'''cmdDownload control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents cmdDownload As Global.System.Web.UI.WebControls.Button
+    '''<summary>
+    '''cmdDownload control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdDownload As Global.System.Web.UI.WebControls.Button
 
-		'''<summary>
-		'''regLocale control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents regLocale As Global.System.Web.UI.WebControls.RegularExpressionValidator
+    '''<summary>
+    '''regLocale control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents regLocale As Global.System.Web.UI.WebControls.RegularExpressionValidator
 
-		'''<summary>
-		'''lblNoResourceFiles control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents lblNoResourceFiles As Global.System.Web.UI.WebControls.Label
-	End Class
+    '''<summary>
+    '''lblNoResourceFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoResourceFiles As Global.System.Web.UI.WebControls.Label
+  End Class
 End Namespace

@@ -1,17 +1,38 @@
-﻿Imports DNNEurope.Modules.LocalizationEditor.Business
+﻿'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+
+Imports DNNEurope.Modules.LocalizationEditor.Business
+Imports DotNetNuke.Framework
 
 Namespace DNNEurope.Modules.LocalizationEditor
-	Partial Public Class Pack
-		Inherits DotNetNuke.Framework.PageBase
+    Partial Public Class Pack
+        Inherits PageBase
 
 #Region " Private Members "
+
         Private _ObjectId As Integer = -1
         Private _locale As String = ""
         Private _moduleName As String = ""
         Private _version As String = ""
+
 #End Region
 
 #Region " Properties "
+
         Public Property ModuleName() As String
             Get
                 Return _moduleName
@@ -47,24 +68,27 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 _version = value
             End Set
         End Property
+
 #End Region
 
 #Region " Event Handlers "
-        Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+
+        Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
             Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
             Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
             Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
 
             Dim tm As ObjectInfo = ObjectController.GetObject(ObjectId)
-            If tm Is Nothing Then Throw New ArgumentException(String.Format("ObjectId with value {0} is not valid.", ObjectId))
+            If tm Is Nothing Then _
+                Throw New ArgumentException(String.Format("ObjectId with value {0} is not valid.", ObjectId))
             ModuleName = tm.ObjectName.Replace("\", "_").Replace("/", "_")
         End Sub
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
             Dim fn As String = LocalizationController.CreateResourcePack(ObjectId, ModuleName, Version, Locale)
             Me.Response.Redirect(DotNetNuke.Common.HostPath & "/LocalizationEditor/" & fn, False)
         End Sub
-#End Region
 
-	End Class
+#End Region
+    End Class
 End Namespace

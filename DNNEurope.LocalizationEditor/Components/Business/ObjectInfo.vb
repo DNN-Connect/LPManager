@@ -1,16 +1,35 @@
-Imports System
-Imports System.Data
-Imports System.Xml
-Imports System.Xml.Schema
-Imports System.Xml.Serialization
+' 
+' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
 
-Imports DotNetNuke.Common.Utilities
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports System.Xml.Serialization
 Imports DotNetNuke.Entities.Modules
 Imports DotNetNuke.Services.Tokens
+Imports System.Globalization
+Imports DotNetNuke.Entities.Users
+Imports System.Xml.Schema
+Imports System.Xml
+Imports DotNetNuke.Common.Utilities
+Imports DotNetNuke.Entities.Portals
 
 Namespace DNNEurope.Modules.LocalizationEditor.Business
 
 #Region " ObjectInfo "
+
     <Serializable(), XmlRoot("Object")> _
     Public Class ObjectInfo
         Implements IHydratable
@@ -23,6 +42,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
         Private _FriendlyName As String
 
 #Region " Constructors "
+
         Public Sub New()
         End Sub
 
@@ -31,6 +51,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
             Me.ObjectName = Objectname
             Me.FriendlyName = FriendlyName
         End Sub
+
 #End Region
 
 #Region " Public Properties "
@@ -65,6 +86,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
 #End Region
 
 #Region " IHydratable Implementation "
+
         ''' -----------------------------------------------------------------------------
         ''' <summary>
         ''' Fill hydrates the object from a Datareader
@@ -82,6 +104,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
             FriendlyName = Convert.ToString(Null.SetNull(dr.Item("FriendlyName"), FriendlyName))
 
         End Sub
+
         ''' -----------------------------------------------------------------------------
         ''' <summary>
         ''' Gets and sets the Key ID
@@ -100,12 +123,17 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
                 ObjectId = value
             End Set
         End Property
+
 #End Region
 
 #Region " IPropertyAccess Implementation "
-        Public Function GetProperty(ByVal strPropertyName As String, ByVal strFormat As String, ByVal formatProvider As System.Globalization.CultureInfo, ByVal AccessingUser As DotNetNuke.Entities.Users.UserInfo, ByVal AccessLevel As DotNetNuke.Services.Tokens.Scope, ByRef PropertyNotFound As Boolean) As String Implements DotNetNuke.Services.Tokens.IPropertyAccess.GetProperty
+
+        Public Function GetProperty(ByVal strPropertyName As String, ByVal strFormat As String, _
+                                     ByVal formatProvider As CultureInfo, ByVal AccessingUser As UserInfo, _
+                                     ByVal AccessLevel As Scope, ByRef PropertyNotFound As Boolean) As String _
+            Implements IPropertyAccess.GetProperty
             Dim OutputFormat As String = String.Empty
-            Dim portalSettings As DotNetNuke.Entities.Portals.PortalSettings = DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings()
+            Dim portalSettings As PortalSettings = PortalController.GetCurrentPortalSettings()
             If strFormat = String.Empty Then
                 OutputFormat = "D"
             Else
@@ -125,14 +153,16 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
             Return Null.NullString
         End Function
 
-        Public ReadOnly Property Cacheability() As DotNetNuke.Services.Tokens.CacheLevel Implements DotNetNuke.Services.Tokens.IPropertyAccess.Cacheability
+        Public ReadOnly Property Cacheability() As CacheLevel Implements IPropertyAccess.Cacheability
             Get
                 Return CacheLevel.fullyCacheable
             End Get
         End Property
+
 #End Region
 
 #Region " IXmlSerializable Implementation "
+
         Public Function GetSchema() As XmlSchema Implements IXmlSerializable.GetSchema
             Return Nothing
         End Function
@@ -191,10 +221,9 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
             writer.WriteElementString("FriendlyName", FriendlyName)
             writer.WriteEndElement()
         End Sub
+
 #End Region
-
-
     End Class
-#End Region
 
+#End Region
 End Namespace

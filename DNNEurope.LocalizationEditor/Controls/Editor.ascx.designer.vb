@@ -14,51 +14,51 @@ Option Explicit On
 
 Namespace DNNEurope.Modules.LocalizationEditor.Controls
 
-	Partial Public Class Editor
+  Partial Public Class Editor
 
-		'''<summary>
-		'''pnlEditor control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents pnlEditor As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlEditor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlEditor As Global.System.Web.UI.WebControls.Panel
 
-		'''<summary>
-		'''pnlTextbox control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents pnlTextbox As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlTextbox control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlTextbox As Global.System.Web.UI.WebControls.Panel
 
-		'''<summary>
-		'''txtValue control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents txtValue As Global.System.Web.UI.WebControls.TextBox
+    '''<summary>
+    '''txtValue control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtValue As Global.System.Web.UI.WebControls.TextBox
 
-		'''<summary>
-		'''pnlHtmlValue control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents pnlHtmlValue As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlHtmlValue control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlHtmlValue As Global.System.Web.UI.WebControls.Panel
 
-		'''<summary>
-		'''cmdSwitch control.
-		'''</summary>
-		'''<remarks>
-		'''Auto-generated field.
-		'''To modify move field declaration from designer file to code-behind file.
-		'''</remarks>
-		Protected WithEvents cmdSwitch As Global.System.Web.UI.WebControls.LinkButton
-	End Class
+    '''<summary>
+    '''cmdSwitch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmdSwitch As Global.System.Web.UI.WebControls.LinkButton
+  End Class
 End Namespace

@@ -7,15 +7,15 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("DotNetNuke Localization Editor")> 
+<Assembly: AssemblyTitle("DNNEurope.Modules.LocalizationEditor")> 
 <Assembly: AssemblyDescription("Editor for module/core localization")> 
 <Assembly: AssemblyCompany("DNN-Europe")> 
-<Assembly: AssemblyProduct("LocalizationEditor")> 
-<Assembly: AssemblyCopyright("DotNetNuke")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyProduct("DNN-Europe LocalizationEditor")> 
+<Assembly: AssemblyCopyright("(c)2009 DNN-Europe")> 
+<Assembly: AssemblyTrademark("http://www.dnn-europe.net")> 
 <Assembly: CLSCompliant(True)> 
 
-<Assembly: GuidAttribute("64877293-5555-47d6-a82a-b0d736eff0b6")> 
+<Assembly: Guid("64877293-5555-47d6-a82a-b0d736eff0b6")> 
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -27,9 +27,9 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("03.00.00.00")> 
-<Assembly: AssemblyFileVersionAttribute("03.00.00.00")> 
-<Assembly: AssemblyInformationalVersion("03.00.00.00")> 
+<Assembly: AssemblyVersion("03.00.01.00")> 
+<Assembly: AssemblyFileVersionAttribute("03.00.01.00")> 
+<Assembly: AssemblyInformationalVersion("03.00.01.00")> 
 
 'History
 '01.00.10 2009-07-30 Janga: User Interface.

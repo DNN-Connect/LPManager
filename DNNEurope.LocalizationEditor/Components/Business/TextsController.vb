@@ -1,45 +1,84 @@
-Imports DotNetNuke.Common.Utilities
+' 
+' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
 Imports System.Collections.Generic
+Imports DNNEurope.Modules.LocalizationEditor.Data
+Imports DotNetNuke.Common.Utilities
 
 Namespace DNNEurope.Modules.LocalizationEditor.Business
 
 #Region " TextsController "
-	Public Class TextsController
 
-		Public Shared Function GetText(ByVal TextId As Integer) As TextInfo
-            Return CType(CBO.FillObject(Data.DataProvider.Instance().GetText(TextId), GetType(TextInfo)), TextInfo)
+    Public Class TextsController
+        Public Shared Function GetText(ByVal TextId As Integer) As TextInfo
+            Return CType(CBO.FillObject(DataProvider.Instance().GetText(TextId), GetType(TextInfo)), TextInfo)
         End Function
 
-		Public Shared Function AddText(ByVal objText As TextInfo) As Integer
-            Return CType(Data.DataProvider.Instance().AddText(objText.DeprecatedIn, objText.FilePath, objText.ObjectId, objText.OriginalValue, objText.TextKey, objText.Version), Integer)
+        Public Shared Function AddText(ByVal objText As TextInfo) As Integer
+            Return _
+                CType( _
+                    DataProvider.Instance().AddText(objText.DeprecatedIn, objText.FilePath, objText.ObjectId, _
+                                                     objText.OriginalValue, objText.TextKey, objText.Version), Integer)
         End Function
 
         Public Shared Sub UpdateText(ByVal objText As TextInfo)
-            Data.DataProvider.Instance().UpdateText(objText.TextId, objText.DeprecatedIn, objText.FilePath, objText.ObjectId, objText.OriginalValue, objText.TextKey, objText.Version)
+            DataProvider.Instance().UpdateText(objText.TextId, objText.DeprecatedIn, objText.FilePath, objText.ObjectId, _
+                                                objText.OriginalValue, objText.TextKey, objText.Version)
         End Sub
 
         Public Shared Sub DeleteText(ByVal TextId As Integer)
-            Data.DataProvider.Instance().DeleteText(TextId)
+            DataProvider.Instance().DeleteText(TextId)
         End Sub
 
-        Public Shared Function GetLatestText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal TextKey As String) As TextInfo
-            Return CType(CBO.FillObject(Data.DataProvider.Instance().GetLatestText(ObjectId, FilePath, Locale, TextKey), GetType(TextInfo)), TextInfo)
+        Public Shared Function GetLatestText(ByVal ObjectId As Integer, ByVal FilePath As String, _
+                                              ByVal Locale As String, ByVal TextKey As String) As TextInfo
+            Return _
+                CType( _
+                    CBO.FillObject(DataProvider.Instance().GetLatestText(ObjectId, FilePath, Locale, TextKey), _
+                                    GetType(TextInfo)), TextInfo)
         End Function
 
-        Public Shared Function GetText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal TextKey As String) As TextInfo
-            Return CType(CBO.FillObject(Data.DataProvider.Instance().GetText(ObjectId, FilePath, Locale, Version, TextKey), GetType(TextInfo)), TextInfo)
+        Public Shared Function GetText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, _
+                                        ByVal Version As String, ByVal TextKey As String) As TextInfo
+            Return _
+                CType( _
+                    CBO.FillObject(DataProvider.Instance().GetText(ObjectId, FilePath, Locale, Version, TextKey), _
+                                    GetType(TextInfo)), TextInfo)
         End Function
 
-        Public Shared Function GetTextsByObject(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDictionary(Of Integer, TextInfo)
-            Return CBO.FillDictionary(Of TextInfo)(Data.DataProvider.Instance.GetTextsByObject(ObjectId, Locale, Version))
+        Public Shared Function GetTextsByObject(ByVal ObjectId As Integer, ByVal Locale As String, _
+                                                 ByVal Version As String) As IDictionary(Of Integer, TextInfo)
+            Return CBO.FillDictionary(Of TextInfo)(DataProvider.Instance.GetTextsByObject(ObjectId, Locale, Version))
         End Function
 
-        Public Shared Function GetTextsByObjectAndFile(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDictionary(Of Integer, TextInfo)
-            Return CBO.FillDictionary(Of TextInfo)(Data.DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, FilePath, Locale, Version, IncludeNonTranslated))
+        Public Shared Function GetTextsByObjectAndFile(ByVal ObjectId As Integer, ByVal FilePath As String, _
+                                                        ByVal Locale As String, ByVal Version As String, _
+                                                        ByVal IncludeNonTranslated As Boolean) _
+            As IDictionary(Of Integer, TextInfo)
+            Return _
+                CBO.FillDictionary(Of TextInfo)( _
+                                                  DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, FilePath, _
+                                                                                                 Locale, Version, _
+                                                                                                 IncludeNonTranslated))
         End Function
 
         Public Shared Function CurrentVersion(ByVal ObjectId As Integer, ByVal Locale As String) As String
-            Using ir As IDataReader = Data.DataProvider.Instance.CurrentVersion(ObjectId, Locale)
+            Using ir As IDataReader = DataProvider.Instance.CurrentVersion(ObjectId, Locale)
                 If ir.Read Then
                     Return Globals.GetAString(ir.Item(0))
                 End If
@@ -48,7 +87,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
         End Function
 
         Public Shared Function NrOfChangedTexts(ByVal ObjectId As Integer, ByVal Version As String) As Integer
-            Using ir As IDataReader = Data.DataProvider.Instance.NrOfChangedTexts(ObjectId, Version)
+            Using ir As IDataReader = DataProvider.Instance.NrOfChangedTexts(ObjectId, Version)
                 If ir.Read Then
                     Return Globals.GetAnInteger(ir.Item(0))
                 End If
@@ -57,7 +96,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
         End Function
 
         Public Shared Function NrOfFiles(ByVal ObjectId As Integer, ByVal Version As String) As Integer
-            Using ir As IDataReader = Data.DataProvider.Instance.NrOfFiles(ObjectId, Version)
+            Using ir As IDataReader = DataProvider.Instance.NrOfFiles(ObjectId, Version)
                 If ir.Read Then
                     Return Globals.GetAnInteger(ir.Item(0))
                 End If
@@ -66,7 +105,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
         End Function
 
         Public Shared Function NrOfItems(ByVal ObjectId As Integer, ByVal Version As String) As Integer
-            Using ir As IDataReader = Data.DataProvider.Instance.NrOfItems(ObjectId, Version)
+            Using ir As IDataReader = DataProvider.Instance.NrOfItems(ObjectId, Version)
                 If ir.Read Then
                     Return Globals.GetAnInteger(ir.Item(0))
                 End If
@@ -74,8 +113,9 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
             Return -1
         End Function
 
-        Public Shared Function NrOfMissingTranslations(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As Integer
-            Using ir As IDataReader = Data.DataProvider.Instance.NrOfMissingTranslations(ObjectId, Locale, Version)
+        Public Shared Function NrOfMissingTranslations(ByVal ObjectId As Integer, ByVal Locale As String, _
+                                                        ByVal Version As String) As Integer
+            Using ir As IDataReader = DataProvider.Instance.NrOfMissingTranslations(ObjectId, Locale, Version)
                 If ir.Read Then
                     Return Globals.GetAnInteger(ir.Item(0))
                 End If
@@ -85,7 +125,7 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
 
         Public Shared Function GetVersions(ByVal ObjectId As Integer) As List(Of String)
             Dim res As New List(Of String)
-            Using ir As IDataReader = Data.DataProvider.Instance.GetVersions(ObjectId)
+            Using ir As IDataReader = DataProvider.Instance.GetVersions(ObjectId)
                 Do While ir.Read
                     res.Add(Globals.GetAString(ir.Item(0)))
                 Loop
@@ -95,14 +135,14 @@ Namespace DNNEurope.Modules.LocalizationEditor.Business
 
         Public Shared Function GetFileList(ByVal ObjectId As Integer, ByVal Version As String) As List(Of String)
             Dim res As New List(Of String)
-            Using ir As IDataReader = Data.DataProvider.Instance.GetFiles(ObjectId, Version)
+            Using ir As IDataReader = DataProvider.Instance.GetFiles(ObjectId, Version)
                 Do While ir.Read
                     res.Add(Globals.GetAString(ir.Item(0)))
                 Loop
             End Using
             Return res
         End Function
-	End Class
-#End Region
+    End Class
 
+#End Region
 End Namespace

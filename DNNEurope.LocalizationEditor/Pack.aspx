@@ -1,1 +1,3 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Pack.aspx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.Pack" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Pack.aspx.vb" Inherits="Pack" %>
+<%@ Import Namespace="DNNEurope.Modules.LocalizationEditor"%>
+

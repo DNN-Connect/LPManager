@@ -1,31 +1,53 @@
+' 
+' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+
+Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DotNetNuke.Common.Utilities
 
 Namespace DNNEurope.Modules.LocalizationEditor.Business
 
 #Region " ObjectController "
-    Public Class ObjectController
 
+    Public Class ObjectController
         Public Shared Function GetObject(ByVal ObjectId As Integer) As ObjectInfo
-            Return CType(CBO.FillObject(Data.DataProvider.Instance().GetObject(ObjectId), GetType(ObjectInfo)), ObjectInfo)
+            Return _
+                CType(CBO.FillObject(DataProvider.Instance().GetObject(ObjectId), GetType(ObjectInfo)), ObjectInfo)
         End Function
 
         Public Shared Function GetObjectByObjectName(ByVal ObjectName As String) As ObjectInfo
-            Return CType(CBO.FillObject(Data.DataProvider.Instance().GetObjectByObjectName(ObjectName), GetType(ObjectInfo)), ObjectInfo)
+            Return _
+                CType(CBO.FillObject(DataProvider.Instance().GetObjectByObjectName(ObjectName), GetType(ObjectInfo)),  _
+                    ObjectInfo)
         End Function
 
         Public Shared Function GetObjectList() As ArrayList
-            Return DotNetNuke.Common.Utilities.CBO.FillCollection(Data.DataProvider.Instance().GetObjectList(), GetType(ObjectInfo))
+            Return CBO.FillCollection(DataProvider.Instance().GetObjectList(), GetType(ObjectInfo))
         End Function
 
         Public Shared Function AddObject(ByVal objObject As ObjectInfo) As Integer
-            Return CType(Data.DataProvider.Instance().AddObject(objObject.ObjectName, objObject.FriendlyName), Integer)
+            Return CType(DataProvider.Instance().AddObject(objObject.ObjectName, objObject.FriendlyName), Integer)
         End Function
 
         Public Shared Sub DeleteObject(ByVal ObjectId As Integer)
-            Data.DataProvider.Instance().DeleteObject(ObjectId)
+            DataProvider.Instance().DeleteObject(ObjectId)
         End Sub
-
     End Class
-#End Region
 
+#End Region
 End Namespace

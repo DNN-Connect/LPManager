@@ -1,21 +1,37 @@
-﻿Imports System.Collections.Generic
+﻿'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports DNNEurope.Modules.LocalizationEditor.Business
+Imports DotNetNuke.Framework
+Imports DotNetNuke.Services.Localization
+Imports DotNetNuke.Entities.Modules
 Imports System.IO
 Imports System.Xml
-
-Imports DotNetNuke.Services.Localization.Localization
-
-Imports DNNEurope.Modules.LocalizationEditor.Business
+Imports System.Collections.Generic
 
 Namespace DNNEurope.Modules.LocalizationEditor
-
     Partial Public Class ManageObjects
         Inherits ModuleBase
 
 #Region " Event Handlers "
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
             '// Force full postback when using upload control
-            DotNetNuke.Framework.AJAX.RegisterPostBackControl(lbImportPackage)
+            AJAX.RegisterPostBackControl(lbImportPackage)
 
             If Not Me.IsPostBack Then
                 BindData()
@@ -31,7 +47,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
         Private Sub lbImportPackage_Click(ByVal sender As Object, ByVal e As EventArgs) Handles lbImportPackage.Click
             '// Check if a file is given
             If Not ctlUpload.HasFile Then
-                lblUploadError.Text = GetString("NoFile", LocalResourceFile)
+                lblUploadError.Text = Localization.GetString("NoFile", LocalResourceFile)
                 Return
             End If
 
@@ -47,7 +63,8 @@ Namespace DNNEurope.Modules.LocalizationEditor
         ''' <param name="sender"></param>
         ''' <param name="e"></param>
         ''' <remarks></remarks>
-        Private Sub lbImportInstalledModule_Click(ByVal sender As Object, ByVal e As EventArgs) Handles lbImportInstalledObject.Click
+        Private Sub lbImportInstalledModule_Click(ByVal sender As Object, ByVal e As EventArgs) _
+            Handles lbImportInstalledObject.Click
             '// Get the id of the installed module
             Dim desktopModuleId As Integer
             If Not Integer.TryParse(ddlInstalledObjects.SelectedValue, desktopModuleId) Then
@@ -55,7 +72,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
             End If
 
             '// Get the desktopmodule information 
-            Dim dm As DotNetNuke.Entities.Modules.DesktopModuleInfo = DotNetNuke.Entities.Modules.DesktopModuleController.GetDesktopModule(desktopModuleId, PortalId)
+            Dim dm As DesktopModuleInfo = DesktopModuleController.GetDesktopModule(desktopModuleId, PortalId)
 
             '// Add the module into the localization editor
             Dim tm As New ObjectInfo(0, dm.ModuleName, dm.FriendlyName)
@@ -68,18 +85,21 @@ Namespace DNNEurope.Modules.LocalizationEditor
             BindData()
         End Sub
 
-        Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdReturn.Click
+        Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdReturn.Click
             Me.Response.Redirect(DotNetNuke.Common.NavigateURL, False)
         End Sub
 
-        Private Sub dlTranslateObjects_DeleteCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.DataListCommandEventArgs) Handles dlTranslateObjects.DeleteCommand
+        Private Sub dlTranslateObjects_DeleteCommand(ByVal source As Object, ByVal e As DataListCommandEventArgs) _
+            Handles dlTranslateObjects.DeleteCommand
             Dim ObjectId As Integer = CInt(dlTranslateObjects.DataKeys(e.Item.ItemIndex))
             ObjectController.DeleteObject(ObjectId)
             BindData()
         End Sub
+
 #End Region
 
 #Region " Private Methods "
+
         Private Sub BindData()
             '// Load all imported modules
             Dim translatedModules As ArrayList = ObjectController.GetObjectList()
@@ -88,7 +108,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
 
             '// Load the installed modules
             ddlInstalledObjects.Items.Clear()
-            For Each dm As DotNetNuke.Entities.Modules.DesktopModuleInfo In DotNetNuke.Entities.Modules.DesktopModuleController.GetDesktopModules(PortalId).Values
+            For Each dm As DesktopModuleInfo In DesktopModuleController.GetDesktopModules(PortalId).Values
                 '// If the module is not already imported add it to the list
                 Dim isImported As Boolean = False
                 For Each tm As ObjectInfo In translatedModules
@@ -118,22 +138,24 @@ Namespace DNNEurope.Modules.LocalizationEditor
         ''' <remarks></remarks>
         Private Sub ImportModulePackage(ByVal modulePackagePath As String)
             '// Create a temporary directory to unpack the package
-            Dim tempDirectory As String = PortalSettings.HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
+            Dim _
+                tempDirectory As String = PortalSettings.HomeDirectoryMapPath & "LocalizationEditor\~tmp" & _
+                                          Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
 
             '// Check if the temporary directory already exists
-            If Not IO.Directory.Exists(tempDirectory) Then
-                IO.Directory.CreateDirectory(tempDirectory)
+            If Not Directory.Exists(tempDirectory) Then
+                Directory.CreateDirectory(tempDirectory)
             Else
-                Throw New IO.IOException("New directory " & tempDirectory & " already exists")
+                Throw New IOException("New directory " & tempDirectory & " already exists")
             End If
 
             '// Unzip file contents
             ZipHelper.Unzip(ctlUpload.FileContent, tempDirectory)
 
             '// Find the DNN manifest file
-            Dim dnnFiles As String() = IO.Directory.GetFiles(tempDirectory, "*.dnn")
-            If dnnFiles.Length = 0 Then Throw New IO.FileNotFoundException("No DNN Manifest file found")
-            If dnnFiles.Length > 1 Then Throw New IO.IOException("Multiple DNN Manifest files found")
+            Dim dnnFiles As String() = Directory.GetFiles(tempDirectory, "*.dnn")
+            If dnnFiles.Length = 0 Then Throw New FileNotFoundException("No DNN Manifest file found")
+            If dnnFiles.Length > 1 Then Throw New IOException("Multiple DNN Manifest files found")
             Dim dnnManifestFile As String = dnnFiles(0)
 
             '// Parse DNN manifest file
@@ -165,7 +187,8 @@ Namespace DNNEurope.Modules.LocalizationEditor
                     If Not packageNode.SelectSingleNode("@version") Is Nothing Then
                         manifestModule.Version = packageNode.SelectSingleNode("@version").InnerText.Trim
                         If String.IsNullOrEmpty(manifestModule.Version) Then
-                            manifestModule.Version = "0"    '2009-06-26 Janga:  Default version.
+                            manifestModule.Version = "0"
+                            '2009-06-26 Janga:  Default version.
                         End If
                     Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
                     End If
@@ -212,7 +235,13 @@ Namespace DNNEurope.Modules.LocalizationEditor
                         If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
                             '// Determine the resource directory and key for the module
                             Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
-                            Dim resKey As String = Path.Combine(Path.Combine(Path.Combine("DesktopModules", manifestModule.FolderName), resDir), resFile)
+                            Dim _
+                                resKey As String = _
+                                    Path.Combine( _
+                                                  Path.Combine( _
+                                                                Path.Combine("DesktopModules", _
+                                                                              manifestModule.FolderName), resDir), _
+                                                  resFile)
 
                             manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
                         End If
@@ -252,7 +281,8 @@ Namespace DNNEurope.Modules.LocalizationEditor
                     If Not folderNode("version") Is Nothing Then
                         manifestModule.Version = folderNode("version").InnerText.Trim
                         If String.IsNullOrEmpty(manifestModule.Version) Then
-                            manifestModule.Version = "0"    '2009-06-26 Janga:  Default version.
+                            manifestModule.Version = "0"
+                            '2009-06-26 Janga:  Default version.
                         End If
                     Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
                     End If
@@ -269,7 +299,13 @@ Namespace DNNEurope.Modules.LocalizationEditor
                         If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
                             '// Determine the resource directory and key for the module
                             Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
-                            Dim resKey As String = Path.Combine(Path.Combine(Path.Combine("DesktopModules", manifestModule.FolderName), resDir), resFile)
+                            Dim _
+                                resKey As String = _
+                                    Path.Combine( _
+                                                  Path.Combine( _
+                                                                Path.Combine("DesktopModules", _
+                                                                              manifestModule.FolderName), resDir), _
+                                                  resFile)
 
                             manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
                         End If
@@ -294,7 +330,8 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 End If
 
                 '// Import or update resource files for this module
-                LocalizationController.ProcessResourceFiles(manifestModule.ResourceFiles, tempDirectory, objObjectInfo, manifestModule.Version)
+                LocalizationController.ProcessResourceFiles(manifestModule.ResourceFiles, tempDirectory, objObjectInfo, _
+                                                             manifestModule.Version)
             Next
 
             'TODO
@@ -304,7 +341,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
             'Dim tm As New ObjectInfo(0, "Testje", "Lalala")
             'ObjectController.AddObject(tm)
         End Sub
-#End Region
 
+#End Region
     End Class
 End Namespace

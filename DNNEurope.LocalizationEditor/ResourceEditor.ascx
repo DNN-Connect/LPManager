@@ -1,11 +1,14 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="ResourceEditor.ascx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.ResourceEditor" %>
-
-<p><asp:placeholder id="PlaceHolder1" runat="server" /></p>
-
-<p style="margin-top:20px;">
-    <asp:LinkButton runat="server" ID="cmdUpdate" resourcekey="cmdUpdate" Text="Update" CssClass="CommandButton" />&nbsp;&nbsp;
-    <asp:LinkButton runat="server" ID="cmdCancel" resourcekey="cmdCancel" Text="Cancel" CssClass="CommandButton" />&nbsp;&nbsp;
-    <asp:LinkButton runat="server" ID="cmdSave" resourcekey="cmdSave" Text="Save" CssClass="CommandButton" />
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="ResourceEditor.ascx.vb"
+  Inherits="DNNEurope.Modules.LocalizationEditor.ResourceEditor" %>
+<p>
+  <asp:PlaceHolder ID="PlaceHolder1" runat="server" />
+</p>
+<p style="margin-top: 20px;">
+  <asp:LinkButton runat="server" ID="cmdUpdate" resourcekey="cmdUpdate" Text="Update"
+    CssClass="CommandButton" />&nbsp;&nbsp;
+  <asp:LinkButton runat="server" ID="cmdCancel" resourcekey="cmdCancel" Text="Cancel"
+    CssClass="CommandButton" />&nbsp;&nbsp;
+  <asp:LinkButton runat="server" ID="cmdSave" resourcekey="cmdSave" Text="Save" CssClass="CommandButton" />
 </p>
 
 <script type="text/javascript" src="http://www.google.com/jsapi">
@@ -142,8 +145,8 @@ function clearAllTextValues(panelID) {
 </script>
 
 <asp:UpdatePanel ID="KeepAlivePanel" runat="server">
-    <ContentTemplate>
-        <asp:Timer ID="KeepAliveTimer" runat="server" OnTick="AjaxTimerTick" Interval="60000" />
-        <asp:Label runat="server" ID="lblTimeCheck" />
-    </ContentTemplate>
+  <ContentTemplate>
+    <asp:Timer ID="KeepAliveTimer" runat="server" OnTick="AjaxTimerTick" Interval="60000" />
+    <asp:Label runat="server" ID="lblTimeCheck" />
+  </ContentTemplate>
 </asp:UpdatePanel>

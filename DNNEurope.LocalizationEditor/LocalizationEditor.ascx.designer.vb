@@ -14,42 +14,42 @@ Option Explicit On
 
 Namespace DNNEurope.Modules.LocalizationEditor
 
-    Partial Public Class LocalizationEditor
+  Partial Public Class LocalizationEditor
 
-        '''<summary>
-        '''pnlEdit control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents pnlEdit As Global.System.Web.UI.WebControls.Panel
+    '''<summary>
+    '''pnlEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlEdit As Global.System.Web.UI.WebControls.Panel
 
-        '''<summary>
-        '''dlObjects control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents dlObjects As Global.System.Web.UI.WebControls.DataList
+    '''<summary>
+    '''dlObjects control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents dlObjects As Global.System.Web.UI.WebControls.DataList
 
-        '''<summary>
-        '''lbManageObjects control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lbManageObjects As Global.System.Web.UI.WebControls.LinkButton
+    '''<summary>
+    '''lbManageObjects control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbManageObjects As Global.System.Web.UI.WebControls.LinkButton
 
-        '''<summary>
-        '''lbManagePermissions control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lbManagePermissions As Global.System.Web.UI.WebControls.LinkButton
-    End Class
+    '''<summary>
+    '''lbManagePermissions control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbManagePermissions As Global.System.Web.UI.WebControls.LinkButton
+  End Class
 End Namespace

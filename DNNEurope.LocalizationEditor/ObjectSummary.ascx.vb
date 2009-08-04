@@ -1,20 +1,39 @@
-﻿Imports DotNetNuke.Services.Localization.Localization
+﻿'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
 
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DNNEurope.Modules.LocalizationEditor.Business
+Imports DotNetNuke.Services.Localization
 
 Namespace DNNEurope.Modules.LocalizationEditor
-	Partial Public Class ObjectSummary
-		Inherits ModuleBase
+    Partial Public Class ObjectSummary
+        Inherits ModuleBase
 
 #Region " Private Members "
+
         Private _ObjectId As Integer
         Private _locale As String
         Private _moduleFriendlyName As String
         Private _original As LocalizationController.ObjectMetrics
         Private _target As LocalizationController.ObjectMetrics
+
 #End Region
 
 #Region " Properties "
+
         Public Property ModuleFriendlyName() As String
             Get
                 Return _moduleFriendlyName
@@ -59,10 +78,12 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 _original = value
             End Set
         End Property
+
 #End Region
 
 #Region " Event Handlers "
-        Private Sub Page_Init(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+
+        Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
 
             Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
             Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
@@ -79,31 +100,39 @@ Namespace DNNEurope.Modules.LocalizationEditor
 
         End Sub
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
             If Not Me.IsPostBack Then
 
                 ' Permission check here
-                If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, Locale) Then
+                If _
+                    Not _
+                    PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, _
+                                                     Locale) Then
                     Throw New Exception("Access denied")
                 End If
 
-                ddSourceLocale.DataSource = Data.DataProvider.Instance.GetLocalesForUserObject(ObjectId, PortalSettings.AdministratorId, PortalId, ModuleId)
+                ddSourceLocale.DataSource = _
+                    DataProvider.Instance.GetLocalesForUserObject(ObjectId, PortalSettings.AdministratorId, PortalId, _
+                                                                   ModuleId)
                 ddSourceLocale.DataBind()
-                ddSourceLocale.Items.Insert(0, New ListItem(GetString("NoSource", Me.LocalResourceFile), ""))
+                ddSourceLocale.Items.Insert(0, _
+                                             New ListItem(Localization.GetString("NoSource", Me.LocalResourceFile), ""))
 
-                ddVersion.DataSource = Data.DataProvider.Instance.GetVersions(ObjectId)
+                ddVersion.DataSource = DataProvider.Instance.GetVersions(ObjectId)
                 ddVersion.DataBind()
                 Try
                     ddVersion.Items.FindByValue(Original.CurrentVersion).Selected = True
                 Catch
                 End Try
 
-                ddSelection.DataSource = Data.DataProvider.Instance().GetFiles(ObjectId, Original.CurrentVersion)
+                ddSelection.DataSource = DataProvider.Instance().GetFiles(ObjectId, Original.CurrentVersion)
                 ddSelection.DataBind()
-                ddSelection.Items.Insert(0, New ListItem(GetString("All", Me.LocalResourceFile), "All"))
-                ddSelection.Items.Insert(0, New ListItem(GetString("New", Me.LocalResourceFile), "New"))
-                ddSelection.Items.Insert(0, New ListItem(GetString("Untranslated", Me.LocalResourceFile), "Untranslated"))
+                ddSelection.Items.Insert(0, New ListItem(Localization.GetString("All", Me.LocalResourceFile), "All"))
+                ddSelection.Items.Insert(0, New ListItem(Localization.GetString("New", Me.LocalResourceFile), "New"))
+                ddSelection.Items.Insert(0, _
+                                          New ListItem(Localization.GetString("Untranslated", Me.LocalResourceFile), _
+                                                        "Untranslated"))
 
                 cmdDownload.NavigateUrl = EditUrl("ObjectId", ObjectId.ToString, "DownloadPack")
                 cmdUpload.NavigateUrl = EditUrl("ObjectId", ObjectId.ToString, "UploadPack", "Locale=" & Locale)
@@ -113,16 +142,23 @@ Namespace DNNEurope.Modules.LocalizationEditor
 
         End Sub
 
-        Private Sub cmdEdit_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdEdit.Click
+        Private Sub cmdEdit_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdEdit.Click
             Dim url As String = ""
             If ddSourceLocale.SelectedValue = "" Then
-                url = EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, "Version=" & ddVersion.SelectedValue, "Selection=" & ddSelection.SelectedValue) ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
+                url = _
+                    EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, _
+                             "Version=" & ddVersion.SelectedValue, "Selection=" & ddSelection.SelectedValue)
+                ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
             Else
-                url = EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, "Version=" & ddVersion.SelectedValue, "SourceLocale=" & ddSourceLocale.SelectedValue, "Selection=" & ddSelection.SelectedValue) ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
+                url = _
+                    EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, _
+                             "Version=" & ddVersion.SelectedValue, "SourceLocale=" & ddSourceLocale.SelectedValue, _
+                             "Selection=" & ddSelection.SelectedValue)
+                ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
             End If
             Me.Response.Redirect(url, False)
         End Sub
-#End Region
 
-	End Class
+#End Region
+    End Class
 End Namespace
