@@ -1,0 +1,56 @@
+/* ================================
+    CSS STYLES FOR Module LocalizationEditor
+   ================================
+*/
+.LabelEditTextClass
+{
+ background-color: White;
+}
+.EditBox
+{
+ background-color: White;
+ padding: 6px;
+ width: 100%;
+}
+table.fileTable
+{
+ width: 100%;
+}
+table.fileTable td.fileTable_Header
+{
+ font-weight: bold;
+}
+table.fileTable td.fileTable_Key
+{
+ width: 20%;
+}
+table.fileTable td.fileTable_Original
+{
+ width: 40%;
+}
+table.fileTable td.fileTable_Translated
+{
+ width: 40%;
+}
+
+div.suggestions 
+{
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid black;
+    position: absolute;   
+    background-color: #ffffff;
+}
+
+div.suggestions div 
+{
+    cursor: default;
+    padding: 0px 3px;
+}
+
+div.suggestions div.current 
+{
+    background-color: #3366cc;
+    color: white;
+}
+
