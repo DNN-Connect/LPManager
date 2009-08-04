@@ -1,0 +1,334 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{226428FF-8685-4150-B5CE-F56A8C6D93FA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>DNNEurope.Modules.LocalizationEditor</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>On</OptionStrict>
+    <RootNamespace>
+    </RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <MyType>Windows</MyType>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>DNNEurope.Modules.LocalizationEditor.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>DNNEurope.Modules.LocalizationEditor.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>None</DebugType>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNetNuke, Version=4.9.4.17, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\DotNetNuke.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.WebControls, Version=1.5.3.20116, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\DotNetNuke.WebControls.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="DotNetNuke.WebUtility, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\DotNetNuke.WebUtility.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GoogleTranslateAPI, Version=0.2.0.0, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>_References\GoogleTranslateAPI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\Microsoft.ApplicationBlocks.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpZipLib, Version=0.81.0.1407, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\bin\SharpZipLib.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.HtmlControls" />
+    <Import Include="System.Web.UI.WebControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Components\Business\ObjectInfo.vb" />
+    <Compile Include="Components\Business\ObjectController.vb" />
+    <Compile Include="Components\Business\UsersController.vb" />
+    <Compile Include="Components\Business\TranslationInfo.vb" />
+    <Compile Include="Components\Business\TranslationsController.vb" />
+    <Compile Include="Components\Business\LocalizationController.vb" />
+    <Compile Include="Components\Business\PermissionInfo.vb" />
+    <Compile Include="Components\Business\PermissionsController.vb" />
+    <Compile Include="Components\Business\TextInfo.vb" />
+    <Compile Include="Components\Data\DataProvider.vb" />
+    <Compile Include="Components\Globals.vb" />
+    <Compile Include="Components\Helpers\TranslateHelper.vb" />
+    <Compile Include="Components\Helpers\ZipHelper.vb" />
+    <Compile Include="Components\LocaleFile\LanguagePackType.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFileCollection.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFileInfo.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFilePack.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFilePackReader.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFileUtil.vb" />
+    <Compile Include="Components\LocaleFile\LocaleType.vb" />
+    <Compile Include="Components\Logger.vb" />
+    <Compile Include="Components\ModuleBase.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Components\ModuleSettings.vb" />
+    <Compile Include="Components\Business\TextsController.vb" />
+    <Compile Include="Components\Data\SqlDataProvider.vb" />
+    <Compile Include="Components\LocaleFile\LocaleFilePackWriter.vb" />
+    <Compile Include="Controls\Editor.ascx.designer.vb">
+      <DependentUpon>Editor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Editor.ascx.vb">
+      <DependentUpon>Editor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DownloadPack.ascx.designer.vb">
+      <DependentUpon>DownloadPack.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DownloadPack.ascx.vb">
+      <DependentUpon>DownloadPack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageObjects.ascx.designer.vb">
+      <DependentUpon>ManageObjects.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageObjects.ascx.vb">
+      <DependentUpon>ManageObjects.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="UploadPack.ascx.designer.vb">
+      <DependentUpon>UploadPack.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UploadPack.ascx.vb">
+      <DependentUpon>UploadPack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LocalizationEditor.ascx.designer.vb">
+      <DependentUpon>LocalizationEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizationEditor.ascx.vb">
+      <DependentUpon>LocalizationEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ObjectSummary.ascx.designer.vb">
+      <DependentUpon>ObjectSummary.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectSummary.ascx.vb">
+      <DependentUpon>ObjectSummary.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pack.aspx.designer.vb">
+      <DependentUpon>Pack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pack.aspx.vb">
+      <DependentUpon>Pack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RequestPack.aspx.designer.vb">
+      <DependentUpon>RequestPack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RequestPack.aspx.vb">
+      <DependentUpon>RequestPack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResourceEditor.ascx.designer.vb">
+      <DependentUpon>ResourceEditor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceEditor.ascx.vb">
+      <DependentUpon>ResourceEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Users.ascx.designer.vb">
+      <DependentUpon>Users.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.ascx.vb">
+      <DependentUpon>Users.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Content Include="module.css" />
+    <Content Include="App_LocalResources\LocalizationEditor.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="DNNEurope.LocalizationEditor.dnn" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.00.00.sqldataprovider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\Uninstall.sqldataprovider" />
+    <None Include="_Install\Project.targets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\ResourceEditor.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="LocalizationEditor.ascx" />
+    <Content Include="Users.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\Users.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ObjectSummary.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\ObjectSummary.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Controls\Editor.ascx" />
+    <Content Include="Pack.aspx" />
+    <Content Include="ResourceEditor.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\RequestPack.aspx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AutoSuggest.js" />
+    <Content Include="DownloadPack.ascx" />
+    <Content Include="ManageObjects.ascx" />
+    <Content Include="UploadPack.ascx" />
+    <Content Include="RequestPack.aspx" />
+    <Content Include="App_LocalResources\UploadPack.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_LocalResources\Template.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Users.ascx.js" />
+    <Content Include="App_LocalResources\ManageObjects.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\DownloadPack.ascx.resx">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="_Install\version.txt" />
+    <Content Include="_References\GoogleTranslateAPI.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documentation\license.htm.resources" />
+    <EmbeddedResource Include="Documentation\ReleaseNotes.htm.resources" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\_Install\Project.Targets" Condition="Exists('$(MSBuildProjectDirectory)\_Install\Project.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
