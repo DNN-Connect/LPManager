@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
  <packages>
-  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.00.02">
+  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.00.03">
    <friendlyName>Localization Editor</friendlyName>
    <description>Editor for extension/core localization.</description>
    <owner>
