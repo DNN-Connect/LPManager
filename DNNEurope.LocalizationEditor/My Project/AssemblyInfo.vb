@@ -32,6 +32,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyInformationalVersion("03.00.01.00")> 
 
 'History
+'03.00.01 2009-08-07 Janga: Version number in history.
 '01.00.10 2009-07-30 Janga: User Interface.
 '01.00.10 2009-07-29 Janga: User Interface.
 '01.00.09 2009-07-16 GK:    MSBuild: Retrieve AssemblyVersion for use as ModuleVersion by way of new XCESS.MSBuild.Tasks.dll.
