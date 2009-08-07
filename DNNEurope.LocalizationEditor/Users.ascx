@@ -3,7 +3,7 @@
 <table cellpadding="2" cellspacing="0">
   <tr class="Normal" valign="top">
     <td>
-      <dnn:Label ID="lblUsername" runat="server" ControlName="lblUsername" />
+      <dnn:Label ID="lblUsername" runat="server" ControlName="lblUsername" ResourceKey="lblUsername" Suffix=":" />
     </td>
     <td>
       <asp:TextBox runat="server" ID="txtUsername" Width="200" MaxLength="256" />
@@ -13,7 +13,7 @@
   </tr>
   <tr class="Normal" valign="top">
     <td>
-      <dnn:Label ID="lblObjects" runat="server" ControlName="lblObjects" />
+      <dnn:Label ID="lblObjects" runat="server" ControlName="lblObjects" ResourceKey="lblObjects" Suffix=":" />
     </td>
     <td>
       <asp:DropDownList runat="server" ID="ddObjects" DataTextField="FriendlyName" DataValueField="ObjectId" />
@@ -21,7 +21,7 @@
   </tr>
   <tr class="Normal" valign="top">
     <td>
-      <dnn:Label ID="lblLocale" runat="server" ControlName="lblLocale" />
+      <dnn:Label ID="lblLocale" runat="server" ControlName="lblLocale" ResourceKey="lblLocale" Suffix=":" />
     </td>
     <td>
       <asp:TextBox runat="server" ID="txtLocale" Width="50" />

@@ -75,9 +75,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 PermissionsController.AddPermission(uperm)
             End If
 
-            '// Clear input fields
-            txtUsername.Text = ""
-            txtLocale.Text = ""
+            'Rebind with same user and locale.
             BindData()
         End Sub
 

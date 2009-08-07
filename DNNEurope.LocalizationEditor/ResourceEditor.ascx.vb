@@ -174,9 +174,9 @@ Namespace DNNEurope.Modules.LocalizationEditor
             Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
         End Sub
 
-        Protected Sub AjaxTimerTick(ByVal sender As Object, ByVal e As EventArgs)
-            lblTimeCheck.Text = Now.ToString
-        End Sub
+        'Protected Sub AjaxTimerTick(ByVal sender As Object, ByVal e As EventArgs)
+        '    lblTimeCheck.Text = Now.ToString
+        'End Sub
 
 #End Region
 

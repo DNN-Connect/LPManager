@@ -121,10 +121,10 @@
     <value>Return</value>
   </data>
   <data name="lbImportInstalledObject.Text" xml:space="preserve">
-    <value>Import</value>
+    <value>Import Installed Object</value>
   </data>
   <data name="lbImportPackage.Text" xml:space="preserve">
-    <value>Import</value>
+    <value>Import Package</value>
   </data>
   <data name="lblCurrentObjects.Text" xml:space="preserve">
     <value>Translated Objects by the localization editor</value>

@@ -144,9 +144,11 @@ function clearAllTextValues(panelID) {
 }
 </script>
 
+<%--
 <asp:UpdatePanel ID="KeepAlivePanel" runat="server">
   <ContentTemplate>
     <asp:Timer ID="KeepAliveTimer" runat="server" OnTick="AjaxTimerTick" Interval="60000" />
     <asp:Label runat="server" ID="lblTimeCheck" />
   </ContentTemplate>
 </asp:UpdatePanel>
+--%>
