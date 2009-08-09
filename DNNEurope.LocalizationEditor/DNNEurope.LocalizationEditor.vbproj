@@ -165,6 +165,7 @@
     <Compile Include="Components\Business\TextInfo.vb" />
     <Compile Include="Components\Data\DataProvider.vb" />
     <Compile Include="Components\Globals.vb" />
+    <Compile Include="Components\Helpers\ManifestReader.vb" />
     <Compile Include="Components\Helpers\TranslateHelper.vb" />
     <Compile Include="Components\Helpers\ZipHelper.vb" />
     <Compile Include="Components\LocaleFile\LanguagePackType.vb" />
