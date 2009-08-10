@@ -81,14 +81,15 @@ function translateTextValue(baseId, panelID, textId, fromValue, fromLanguage, to
     fromValue = fromValue.replace(/{/g, '(((').replace(/}/g, ')))');
     
     //Handle HTML special characters. (Unescape/Encode)
-    fromValue = fromValue.replace(/&/g, '&amp;').replace(/\'/g, '&#39;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    fromValue = fromValue.replace(/&/g, '&amp;').replace(/\'/g, '&#39;').replace(/"/g, '&quot;'); //.replace(/</g, '&lt;').replace(/>/g, '&gt;');
     
     //Because of length limitations on the text to translate via the Google Translate AJAX API,
     //the text to translate is split into chunks of a bounded number of characters.
     //Each chunk is translated via Google Translate separately
     //and all the partial results are concatenated back into a single translated text.
     var maxLength = 1200;
-    var minLength = 200;
+    //var minLength = 200;
+    //var chopChars = '?!.' + ':;,' + ' '; //Separators for sentences, sentence parts, and words.
     var toValue = '';
     var fromChunk = fromValue;
     var chunkStart = 0;
@@ -102,16 +103,24 @@ function translateTextValue(baseId, panelID, textId, fromValue, fromLanguage, to
         
         //If we have not reached the end, look for a place to chop off the next part.
         if (chunkEnd < fromValue.length) {
-            //Chop it off at a separator character (for now, only a space).
-            chopUp = fromChunk.lastIndexOf(' ');
+            //Chop it off at a separator character: first try sentence separators.
+            chopUp = Math.max(fromChunk.lastIndexOf('?'), fromChunk.lastIndexOf('!'), fromChunk.lastIndexOf('.'));
+            //Chop it off at a separator character: then try sentence part separators.
+            if (chopUp == -1) {
+                chopUp = Math.max(fromChunk.lastIndexOf(':'), fromChunk.lastIndexOf(';'), fromChunk.lastIndexOf(','));
+            }
+            //Chop it off at a separator character: finally try word separators.
+            if (chopUp == -1) {
+                chopUp = fromChunk.lastIndexOf(' ');
+            }
+            //Chop!
             if (chopUp != -1) {
                 chunkEnd = chunkStart + chopUp;
                 fromChunk = fromValue.substring(chunkStart, chunkEnd);
             }
-            
             //If we are in the middle of a tag, chop off the whole tag.
-            if (fromChunk.lastIndexOf('&lt;') > fromChunk.lastIndexOf('&gt;')) {
-                chopUp = fromChunk.lastIndexOf('&lt;');
+            if (fromChunk.lastIndexOf('<') > Math.max(0, fromChunk.lastIndexOf('>'))) {
+                chopUp = fromChunk.lastIndexOf('<') - 1;
                 chunkEnd = chunkStart + chopUp;
                 fromChunk = fromValue.substring(chunkStart, chunkEnd);
             }
@@ -124,17 +133,20 @@ function translateTextValue(baseId, panelID, textId, fromValue, fromLanguage, to
             if (!result.error) {
                 //Stitch it together.
                 toValue = toValue + result.translation;
-                
+
                 //alert('After: ' + toValue);
-                
+
                 //Finalize translation when we have reached the end.
                 if (chunkEnd = fromValue.length) {
                     //Handle HTML special characters. (Escape/Decode)
-                    toValue = toValue.replace(/&amp;/g, '&').replace(/&#39;/g, '\'').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>') //.replace(/&nbsp;/g, ' ');
-                    
+                    toValue = toValue.replace(/&amp;/g, '&').replace(/&#39;/g, '\'').replace(/&quot;/g, '"'); //.replace(/&lt;/g, '<').replace(/&gt;/g, '>'); //.replace(/&nbsp;/g, ' ');
+
+                    //Remove unintended spaces within end tags returned by Google Translate.
+                    toValue = toValue.replace(/<\/ /g,'</');
+
                     //Prevent '{' and '}' becoming '(' and ')' by translation: replace '(((' and ')))' back to '{' and '}'.
                     toValue = toValue.replace(/\(\(\(/g, '{').replace(/\)\)\)/g, '}');
-                    
+
                     //Put the final translation into the textbox.
                     setTextValue(baseId, panelID, textId, toValue);
                 }

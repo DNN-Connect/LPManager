@@ -156,22 +156,6 @@ Namespace DNNEurope.Modules.LocalizationEditor
                                            "&Version=" & ddVersion.SelectedValue))
         End Sub
 
-        Private Sub cmdDownload_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdDownload.Click
-
-            Dim locale As String = txtLocale.Text
-            If locale.Length > 2 Then
-                locale = LCase(Left(locale, 2)) & "-" & UCase(Mid(locale, 4))
-            Else
-                locale = LCase(Left(locale, 2))
-            End If
-            Dim url As String = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
-            url &= "?ObjectId=" & ObjectId
-            url &= "&Locale=" & locale
-            url &= "&Version=" & ddVersion.SelectedValue
-            Me.Response.Redirect(url, False)
-
-        End Sub
-
 #End Region
     End Class
 End Namespace

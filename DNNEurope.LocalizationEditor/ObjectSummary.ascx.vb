@@ -148,13 +148,11 @@ Namespace DNNEurope.Modules.LocalizationEditor
                 url = _
                     EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, _
                              "Version=" & ddVersion.SelectedValue, "Selection=" & ddSelection.SelectedValue)
-                ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
             Else
                 url = _
                     EditUrl("ObjectId", ObjectId.ToString, "Edit", "Locale=" & Locale.ToString, _
                              "Version=" & ddVersion.SelectedValue, "SourceLocale=" & ddSourceLocale.SelectedValue, _
                              "Selection=" & ddSelection.SelectedValue)
-                ', "AutoTranslate=" & IIf(chkAutoTranslate.Checked, "1", "0").ToString()
             End If
             Me.Response.Redirect(url, False)
         End Sub

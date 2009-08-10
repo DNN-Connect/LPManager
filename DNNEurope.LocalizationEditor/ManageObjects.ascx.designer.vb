@@ -32,7 +32,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents lblPackageFile As Global.DotNetNuke.UI.UserControls.LabelControl
+        Protected WithEvents lblPackageFile As Global.System.Web.UI.UserControl
 
         '''<summary>
         '''ctlUpload control.
@@ -59,7 +59,7 @@ Namespace DNNEurope.Modules.LocalizationEditor
         '''Auto-generated field.
         '''To modify move field declaration from designer file to code-behind file.
         '''</remarks>
-        Protected WithEvents lblInstalledObject As Global.DotNetNuke.UI.UserControls.LabelControl
+        Protected WithEvents lblInstalledObject As Global.System.Web.UI.UserControl
 
         '''<summary>
         '''ddlInstalledObjects control.

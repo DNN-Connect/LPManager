@@ -92,14 +92,6 @@
         <asp:DropDownList runat="server" ID="ddSelection" DataValueField="FilePath" DataTextField="FilePath" />
       </td>
     </tr>
-    <%--<tr>
-  <td class="SubHead" width="165">
-   <dnn:label id="plAutoTranslate" runat="server" controlname="chkAutoTranslate" suffix=":" />
-  </td>
-  <td>
-   <asp:CheckBox runat="server" ID="chkAutoTranslate" Checked="false" />
-  </td>
- </tr>--%>
   </table>
 </div>
 <p style="margin-top: 20px;">

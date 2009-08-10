@@ -32,6 +32,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyInformationalVersion("03.00.03.00")> 
 
 'History
+'03.00.03 2009-08-10 Janga: User Interface.
+'03.00.03 2009-08-10 Janga: Translation of long texts: try different separator charachters.
 '03.00.03 2009-08-07 Janga: Translation of long texts by chopping them up into parts and then stitching the translations together again.
 '03.00.02 2009-08-07 Janga: User Interface. Disabled AjaxTimerTick.
 '03.00.01 2009-08-07 Janga: Version number in history.

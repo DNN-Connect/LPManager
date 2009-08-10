@@ -6,7 +6,7 @@
 <table cellpadding="2" cellspacing="1">
   <tr>
     <td>
-      <dnn:Label ID="lblPackageFile" runat="server" ResourceKey="lblPackageFile" Suffix=":" />
+      <dnn:Label ID="lblPackageFile" runat="server" ResourceKey="lblPackageFile.Text" Suffix=":" />
     </td>
     <td>
       <asp:FileUpload runat="server" ID="ctlUpload" />
@@ -18,8 +18,7 @@
   </tr>
   <tr>
     <td>
-      <dnn:Label ID="lblInstalledObject" runat="server" ResourceKey="lblInstalledObject"
-        Suffix=":" />
+      <dnn:Label ID="lblInstalledObject" runat="server" ResourceKey="lblInstalledObject.Text" Suffix=":" />
     </td>
     <td>
       <asp:DropDownList ID="ddlInstalledObjects" runat="server" />
@@ -41,7 +40,7 @@
 <asp:DataList runat="server" ID="dlTranslateObjects" DataKeyField="ObjectId">
   <HeaderTemplate>
     <table cellpadding="2" cellspacing="1">
-      <tr>
+      <tr align="left">
         <th>
         </th>
         <th>
@@ -55,7 +54,7 @@
       </tr>
   </HeaderTemplate>
   <ItemTemplate>
-    <tr>
+    <tr align="left">
       <td>
         <asp:ImageButton ID="cmdDeleteTranslateObject" runat="server" CausesValidation="false"
           CommandName="Delete" ImageUrl="~/images/delete.gif" OnClientClick='<%# String.Concat("return confirm(""", DotNetNuke.Services.Localization.Localization.GetString("DeleteItem.Text", LocalResourceFile), """);") %>'

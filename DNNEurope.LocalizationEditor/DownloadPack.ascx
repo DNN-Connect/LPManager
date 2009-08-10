@@ -42,30 +42,8 @@
       </Columns>
     </asp:DataGrid>
   </p>
-  <p>
-    <table>
-      <tr>
-        <td>
-          <dnn:Label ID="plLocale" runat="server" ControlName="txtLocale" Suffix=":" CssClass="SubHead" />
-        </td>
-        <td>
-          <asp:TextBox runat="server" ID="txtLocale" Width="50" />&nbsp;
-        </td>
-        <td>
-          <asp:Button runat="server" ID="cmdDownload" resourcekey="cmdDownload" />
-        </td>
-      </tr>
-      <tr>
-        <td />
-        <td colspan="2">
-          <asp:RegularExpressionValidator runat="server" ID="regLocale" ControlToValidate="txtLocale"
-            Display="Dynamic" CssClass="NormalRed" resourcekey="InvalidLocale.Error" ValidationExpression="\w\w-\w\w" />
-        </td>
-      </tr>
-    </table>
-  </p>
 </asp:Panel>
-<div style="width: 500px">
+<div style="width: 500px; margin-top: 20px;">
   <asp:Label runat="server" ID="lblHelp" resourcekey="lblHelp" />
 </div>
 <p>

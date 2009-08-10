@@ -40,7 +40,7 @@
 </asp:Panel>
 <p style="margin-top: 20px;">
   <asp:LinkButton ID="lbManageObjects" runat="server" resourcekey="lbManageObjects"
-    Text="Manage modules" CssClass="CommandButton" />&nbsp;&nbsp;
+    Text="Manage Objects" CssClass="CommandButton" />&nbsp;&nbsp;
   <asp:LinkButton ID="lbManagePermissions" runat="server" resourcekey="lbManagePermissions"
     Text="Manage Permissions" CssClass="CommandButton" />
 </p>
