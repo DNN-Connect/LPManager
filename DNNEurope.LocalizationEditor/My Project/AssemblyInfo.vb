@@ -27,14 +27,14 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("03.00.03.00")> 
-<Assembly: AssemblyFileVersionAttribute("03.00.03.00")> 
-<Assembly: AssemblyInformationalVersion("03.00.03.00")> 
+<Assembly: AssemblyVersion("03.00.00.00")> 
+<Assembly: AssemblyFileVersionAttribute("03.00.00.00")> 
+<Assembly: AssemblyInformationalVersion("03.00.00.00")> 
 
 'History
-'03.00.03 2009-08-10 Janga: User Interface.
-'03.00.03 2009-08-10 Janga: Translation of long texts: try different separator charachters.
-'03.00.03 2009-08-07 Janga: Translation of long texts by chopping them up into parts and then stitching the translations together again.
+'03.00.00 2009-08-10 Janga: User Interface.
+'03.00.00 2009-08-10 Janga: Translation of long texts: try different separator charachters.
+'03.00.00 2009-08-07 Janga: Translation of long texts by chopping them up into parts and then stitching the translations together again.
 '03.00.02 2009-08-07 Janga: User Interface. Disabled AjaxTimerTick.
 '03.00.01 2009-08-07 Janga: Version number in history.
 '01.00.10 2009-07-30 Janga: User Interface.

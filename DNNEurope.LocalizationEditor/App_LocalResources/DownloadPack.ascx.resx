@@ -162,4 +162,10 @@
   <data name="lblVersion.Help" xml:space="preserve">
     <value>Select the version to view and download the language pack from.</value>
   </data>
+  <data name="plLocale.Help" xml:space="preserve">
+    <value>Specify a locale in the xx-YY format to download. If generic packs are available, the specific pack will be populated by that data.</value>
+  </data>
+  <data name="plLocale.Text" xml:space="preserve">
+    <value>Locale</value>
+  </data>
 </root>
