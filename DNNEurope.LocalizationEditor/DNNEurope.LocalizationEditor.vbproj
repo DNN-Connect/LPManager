@@ -310,6 +310,7 @@
     </Content>
     <Content Include="_Install\version.txt" />
     <Content Include="_References\GoogleTranslateAPI.dll" />
+    <Content Include="_temp_instructions.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\license.htm.resources" />
