@@ -308,6 +308,7 @@
     <Content Include="App_LocalResources\DownloadPack.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="DemoPageForMultiDeveloperEdits.htm" />
     <Content Include="_Install\version.txt" />
     <Content Include="_References\GoogleTranslateAPI.dll" />
     <Content Include="_temp_instructions.txt" />
