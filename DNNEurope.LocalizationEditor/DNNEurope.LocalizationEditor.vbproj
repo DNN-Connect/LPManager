@@ -309,11 +309,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="_Install\version.txt" />
-    <Content Include="_References\GoogleTranslateAPI.dll" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Documentation\license.htm.resources" />
     <EmbeddedResource Include="Documentation\ReleaseNotes.htm.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="_References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <Import Project="$(MSBuildProjectDirectory)\_Install\Project.Targets" Condition="Exists('$(MSBuildProjectDirectory)\_Install\Project.targets')" />
