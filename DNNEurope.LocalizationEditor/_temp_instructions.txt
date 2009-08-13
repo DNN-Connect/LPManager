@@ -1,3 +1,0 @@
-﻿RDKCHECK: Test if this works
-erikvb: test
-hier een edit van mij
