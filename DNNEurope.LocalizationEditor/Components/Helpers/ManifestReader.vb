@@ -41,7 +41,7 @@ Public Class ManifestReader
   '// Find the DNN manifest file
   Dim dnnFiles As String() = Directory.GetFiles(tempDirectory, "*.dnn")
   If dnnFiles.Length = 0 Then
-   If Directory.GetFiles(tempDirectory, "Default.aspx").Count = 0 Then
+   If Directory.GetFiles(tempDirectory, "Default.aspx").Length = 0 Then
     Throw New FileNotFoundException("No DNN Manifest file found, nor a core distribution")
    End If
   End If
