@@ -19,41 +19,37 @@
 Imports System.Xml.Serialization
 Imports DotNetNuke.Services.Localization
 
-Namespace DNNEurope.Modules.LocalizationEditor.LocaleFile
-    <XmlRoot("LanguagePack")> _
-    Public Class LocaleFilePack
-        Private _LocalePackCulture As New Locale
-        Private _Version As String
-        Private _Files As New LocaleFileCollection
+Namespace LocaleFile
+ <XmlRoot("LanguagePack")> Public Class LocaleFilePack
+  Private _LocalePackCulture As New Locale
+  Private _Version As String
+  Private _Files As New LocaleFileCollection
 
-        <XmlAttributeAttribute()> _
-        Public Property Version() As String
-            Get
-                Return _Version
-            End Get
-            Set(ByVal Value As String)
-                _Version = Value
-            End Set
-        End Property
+  <XmlAttributeAttribute()> Public Property Version() As String
+   Get
+    Return _Version
+   End Get
+   Set(ByVal Value As String)
+    _Version = Value
+   End Set
+  End Property
 
-        <XmlElement("Culture")> _
-        Public Property LocalePackCulture() As Locale
-            Get
-                Return _LocalePackCulture
-            End Get
-            Set(ByVal Value As Locale)
-                _LocalePackCulture = Value
-            End Set
-        End Property
+  <XmlElement("Culture")> Public Property LocalePackCulture() As Locale
+   Get
+    Return _LocalePackCulture
+   End Get
+   Set(ByVal Value As Locale)
+    _LocalePackCulture = Value
+   End Set
+  End Property
 
-        <XmlArrayItem("File", GetType(LocaleFileInfo))> _
-        Public Property Files() As LocaleFileCollection
-            Get
-                Return _Files
-            End Get
-            Set(ByVal Value As LocaleFileCollection)
-                _Files = Value
-            End Set
-        End Property
-    End Class
+  <XmlArrayItem("File", GetType(LocaleFileInfo))> Public Property Files() As LocaleFileCollection
+   Get
+    Return _Files
+   End Get
+   Set(ByVal Value As LocaleFileCollection)
+    _Files = Value
+   End Set
+  End Property
+ End Class
 End Namespace

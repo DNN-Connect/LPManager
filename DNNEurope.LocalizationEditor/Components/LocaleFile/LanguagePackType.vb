@@ -18,11 +18,11 @@
 ' 
 
 
-Namespace DNNEurope.Modules.LocalizationEditor.LocaleFile
-    Public Enum LanguagePackType
-        Core
-        [Module]
-        Provider
-        Full
-    End Enum
+Namespace LocaleFile
+ Public Enum LanguagePackType
+  Core
+  [Module]
+  Provider
+  Full
+ End Enum
 End Namespace

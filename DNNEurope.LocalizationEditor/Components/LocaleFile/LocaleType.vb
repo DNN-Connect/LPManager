@@ -17,13 +17,13 @@
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
 
-Namespace DNNEurope.Modules.LocalizationEditor.LocaleFile
-    Public Enum LocaleType
-        GlobalResource
-        AdminResource
-        ControlResource
-        LocalResource
-        ProviderResource
-        InstallResource
-    End Enum
+Namespace LocaleFile
+ Public Enum LocaleType
+  GlobalResource
+  AdminResource
+  ControlResource
+  LocalResource
+  ProviderResource
+  InstallResource
+ End Enum
 End Namespace

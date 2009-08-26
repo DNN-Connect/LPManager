@@ -20,77 +20,71 @@
 
 Imports System.Xml.Serialization
 
-Namespace DNNEurope.Modules.LocalizationEditor.LocaleFile
-    Public Class LocaleFileInfo
-        Private _LocaleFileName As String
-        Private _LocaleFileType As LocaleType
-        Private _LocalePath As String
-        Private _LocaleModule As String
-        Private _Buffer As Byte()
+Namespace LocaleFile
+ Public Class LocaleFileInfo
+  Private _LocaleFileName As String
+  Private _LocaleFileType As LocaleType
+  Private _LocalePath As String
+  Private _LocaleModule As String
+  Private _Buffer As Byte()
 
-        Public Sub New()
-            MyBase.new()
-        End Sub
+  Public Sub New()
+   MyBase.new()
+  End Sub
 
-        Public Sub New(ByVal FileName As String, ByVal FileType As LocaleType, ByVal ModuleName As String, _
-                        ByVal Path As String)
-            MyBase.new()
+  Public Sub New(ByVal FileName As String, ByVal FileType As LocaleType, ByVal ModuleName As String, ByVal Path As String)
+   MyBase.new()
 
-            _LocaleFileName = FileName
-            _LocaleFileType = FileType
-            _LocaleModule = ModuleName
-            _LocalePath = Path
+   _LocaleFileName = FileName
+   _LocaleFileType = FileType
+   _LocaleModule = ModuleName
+   _LocalePath = Path
 
-        End Sub
+  End Sub
 
-        <XmlIgnore()> _
-        Public Property Buffer() As Byte()
-            Get
-                Return _Buffer
-            End Get
-            Set(ByVal Value As Byte())
-                _Buffer = Value
-            End Set
-        End Property
+  <XmlIgnore()> Public Property Buffer() As Byte()
+   Get
+    Return _Buffer
+   End Get
+   Set(ByVal Value As Byte())
+    _Buffer = Value
+   End Set
+  End Property
 
-        <XmlAttributeAttribute("FileName")> _
-        Public Property LocaleFileName() As String
-            Get
-                Return _LocaleFileName
-            End Get
-            Set(ByVal Value As String)
-                _LocaleFileName = Value
-            End Set
-        End Property
+  <XmlAttributeAttribute("FileName")> Public Property LocaleFileName() As String
+   Get
+    Return _LocaleFileName
+   End Get
+   Set(ByVal Value As String)
+    _LocaleFileName = Value
+   End Set
+  End Property
 
-        <XmlAttributeAttribute("FileType")> _
-        Public Property LocaleFileType() As LocaleType
-            Get
-                Return _LocaleFileType
-            End Get
-            Set(ByVal Value As LocaleType)
-                _LocaleFileType = Value
-            End Set
-        End Property
+  <XmlAttributeAttribute("FileType")> Public Property LocaleFileType() As LocaleType
+   Get
+    Return _LocaleFileType
+   End Get
+   Set(ByVal Value As LocaleType)
+    _LocaleFileType = Value
+   End Set
+  End Property
 
-        <XmlAttributeAttribute("ModuleName")> _
-        Public Property LocaleModule() As String
-            Get
-                Return _LocaleModule
-            End Get
-            Set(ByVal Value As String)
-                _LocaleModule = Value
-            End Set
-        End Property
+  <XmlAttributeAttribute("ModuleName")> Public Property LocaleModule() As String
+   Get
+    Return _LocaleModule
+   End Get
+   Set(ByVal Value As String)
+    _LocaleModule = Value
+   End Set
+  End Property
 
-        <XmlAttributeAttribute("FilePath")> _
-        Public Property LocalePath() As String
-            Get
-                Return _LocalePath
-            End Get
-            Set(ByVal Value As String)
-                _LocalePath = Value
-            End Set
-        End Property
-    End Class
+  <XmlAttributeAttribute("FilePath")> Public Property LocalePath() As String
+   Get
+    Return _LocalePath
+   End Get
+   Set(ByVal Value As String)
+    _LocalePath = Value
+   End Set
+  End Property
+ End Class
 End Namespace

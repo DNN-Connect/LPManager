@@ -22,117 +22,108 @@ Imports DotNetNuke.Services.Localization
 Imports DotNetNuke.Security.Permissions
 Imports DotNetNuke.Common
 
-Namespace DNNEurope.Modules.LocalizationEditor
-    <ControlMethodClass("DNNEurope.Modules.LocalizationEditor.Users")> _
-    Partial Public Class Users
-        Inherits ModuleBase
+
+<ControlMethodClass("DNNEurope.Modules.LocalizationEditor.Users")> Partial Public Class Users
+ Inherits ModuleBase
 
 #Region " Event Handlers "
 
-        Protected Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
-            ClientAPI.HandleClientAPICallbackEvent(Me.Page)
-            ClientAPI.RegisterControlMethods(Me)
-        End Sub
+ Protected Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
+  ClientAPI.HandleClientAPICallbackEvent(Me.Page)
+  ClientAPI.RegisterControlMethods(Me)
+ End Sub
 
-        Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-            If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, _
-                                                        "ManagePermissions") Then
-                Response.Redirect(AccessDeniedURL())
-            End If
+ Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManagePermissions") Then
+   Response.Redirect(AccessDeniedURL())
+  End If
 
-            If Not Me.IsPostBack Then
-                Globals.DisablePostbackOnEnter(txtUsername)
+  If Not Me.IsPostBack Then
+   Globals.DisablePostbackOnEnter(txtUsername)
 
-                '// Register scripts
-                Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorGetUsernames", _
-                                                               Me.ControlPath + "/Users.ascx.js")
-                Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorAutoSuggest", _
-                                                               Me.ControlPath + "/AutoSuggest.js")
+   '// Register scripts
+   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorGetUsernames", Me.ControlPath + "/Users.ascx.js")
+   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorAutoSuggest", Me.ControlPath + "/AutoSuggest.js")
 
-                '// Set clientid of username textbox
-                ClientAPI.RegisterClientVariable(Me.Page, "UsernameInput", txtUsername.ClientID, True)
+   '// Set clientid of username textbox
+   ClientAPI.RegisterClientVariable(Me.Page, "UsernameInput", txtUsername.ClientID, True)
 
-                ddObjects.DataSource = DataProvider.Instance.GetAllObjects
-                ddObjects.DataBind()
-                BindData()
-            End If
-        End Sub
+   ddObjects.DataSource = DataProvider.Instance.GetAllObjects
+   ddObjects.DataBind()
+   BindData()
+  End If
+ End Sub
 
-        Private Sub cmdAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdAdd.Click
-            Dim user As UserInfo = UserController.GetUserByName(PortalId, txtUsername.Text.Trim)
-            If user Is Nothing Then
-                lblError.Text = _
-                    String.Format(Localization.GetString("UserNotFound", Me.LocalResourceFile), txtUsername.Text.Trim)
-                Exit Sub
-            End If
-            Dim locale As String = txtLocale.Text.Trim
+ Private Sub cmdAdd_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdAdd.Click
+  Dim user As UserInfo = UserController.GetUserByName(PortalId, txtUsername.Text.Trim)
+  If user Is Nothing Then
+   lblError.Text = String.Format(Localization.GetString("UserNotFound", Me.LocalResourceFile), txtUsername.Text.Trim)
+   Exit Sub
+  End If
+  Dim locale As String = txtLocale.Text.Trim
 
-            Dim _
-                uperm As Business.PermissionInfo = _
-                    PermissionsController.GetPermission(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
-            If uperm Is Nothing Then
-                uperm = New Business.PermissionInfo(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
-                PermissionsController.AddPermission(uperm)
-            End If
+  Dim uperm As Business.PermissionInfo = PermissionsController.GetPermission(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
+  If uperm Is Nothing Then
+   uperm = New Business.PermissionInfo(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
+   PermissionsController.AddPermission(uperm)
+  End If
 
-            'Rebind with same user and locale.
-            BindData()
-        End Sub
+  'Rebind with same user and locale.
+  BindData()
+ End Sub
 
-        Private Sub dlUserPermissions_DeleteCommand(ByVal source As Object, ByVal e As DataListCommandEventArgs) _
-            Handles dlUserPermissions.DeleteCommand
-            Dim permissionId As Integer = CInt(dlUserPermissions.DataKeys(e.Item.ItemIndex))
-            PermissionsController.DeletePermission(permissionId)
-            BindData()
-        End Sub
+ Private Sub dlUserPermissions_DeleteCommand(ByVal source As Object, ByVal e As DataListCommandEventArgs) Handles dlUserPermissions.DeleteCommand
+  Dim permissionId As Integer = CInt(dlUserPermissions.DataKeys(e.Item.ItemIndex))
+  PermissionsController.DeletePermission(permissionId)
+  BindData()
+ End Sub
 
-        Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdReturn.Click
-            Me.Response.Redirect(DotNetNuke.Common.NavigateURL, False)
-        End Sub
+ Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdReturn.Click
+  Me.Response.Redirect(DotNetNuke.Common.NavigateURL, False)
+ End Sub
 
 #End Region
 
 #Region " Private Methods "
 
-        Private Sub BindData()
-            dlUserPermissions.DataSource = PermissionsController.GetPermissions(ModuleId)
-            dlUserPermissions.DataBind()
-        End Sub
+ Private Sub BindData()
+  dlUserPermissions.DataSource = PermissionsController.GetPermissions(ModuleId)
+  dlUserPermissions.DataBind()
+ End Sub
 
-        <ControlMethod()> _
-        Public Function GetUsernamesByFilter(ByVal filter As String) As String
-            If filter Is Nothing Then Return String.Empty
+ <ControlMethod()> Public Function GetUsernamesByFilter(ByVal filter As String) As String
+  If filter Is Nothing Then Return String.Empty
 
-            '// Get a list of users filtered by the given filter string
-            Dim filteredUsers As DataSet = UsersController.GetUsersFiltered(filter)
+  '// Get a list of users filtered by the given filter string
+  Dim filteredUsers As DataSet = UsersController.GetUsersFiltered(filter)
 
-            '// Store each username in a combined string
-            Dim sb As New StringBuilder()
-            For Each row As DataRow In filteredUsers.Tables(0).Rows
-                Dim username As String = CStr(row("Username"))
-                Dim email As String = CStr(row("Email"))
+  '// Store each username in a combined string
+  Dim sb As New StringBuilder()
+  For Each row As DataRow In filteredUsers.Tables(0).Rows
+   Dim username As String = CStr(row("Username"))
+   Dim email As String = CStr(row("Email"))
 
-                '// Html encode data
-                username = HttpUtility.HtmlEncode(username)
-                email = HttpUtility.HtmlEncode(email)
+   '// Html encode data
+   username = HttpUtility.HtmlEncode(username)
+   email = HttpUtility.HtmlEncode(email)
 
-                sb.Append(username)
-                sb.Append(",")
+   sb.Append(username)
+   sb.Append(",")
 
-                '// Add highlight indicators
-                username = Globals.StringReplace(username, filter, "[[" & filter & "]]", True)
-                email = Globals.StringReplace(email, filter, "[[" & filter & "]]", True)
+   '// Add highlight indicators
+   username = Globals.StringReplace(username, filter, "[[" & filter & "]]", True)
+   email = Globals.StringReplace(email, filter, "[[" & filter & "]]", True)
 
-                sb.Append(username)
-                sb.Append(",")
-                sb.Append(email)
-                sb.Append("/")
-            Next
+   sb.Append(username)
+   sb.Append(",")
+   sb.Append(email)
+   sb.Append("/")
+  Next
 
-            '// Return the matched usernames
-            Return sb.ToString().TrimEnd("/"c)
-        End Function
+  '// Return the matched usernames
+  Return sb.ToString().TrimEnd("/"c)
+ End Function
 
 #End Region
-    End Class
-End Namespace
+
+End Class

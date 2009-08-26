@@ -47,6 +47,9 @@
           <%#DotNetNuke.Services.Localization.Localization.GetString("FriendlyName.Header", LocalResourceFile)%>
         </th>
         <th>
+          <%#DotNetNuke.Services.Localization.Localization.GetString("LastVersion.Header", LocalResourceFile)%>
+        </th>
+        <th>
         </th>
         <th>
           <%#DotNetNuke.Services.Localization.Localization.GetString("ObjectName.Header", LocalResourceFile)%>
@@ -62,6 +65,9 @@
       </td>
       <td>
         <%#DataBinder.Eval(Container.DataItem, "FriendlyName")%>
+      </td>
+      <td>
+        <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
       </td>
       <td>
         &nbsp;

@@ -141,4 +141,7 @@
   <data name="lblObjectAction.Text" xml:space="preserve">
     <value>Click to download pack</value>
   </data>
+  <data name="lblLastVersion.Text" xml:space="preserve">
+    <value>Last Version</value>
+  </data>
 </root>

@@ -14,6 +14,7 @@ Public Class ManifestReader
   Public FriendlyName As String
   Public FolderName As String
   Public Version As String
+  Public PackageType As String = "Module"
   Public ResourceFiles As New SortedList
  End Class
 
@@ -24,7 +25,7 @@ Public Class ManifestReader
  ''' <param name="moduleContent">Package content as stream</param>
  ''' <param name="HomeDirectoryMapPath">HomeDirectoryMapPath of this portal (needed for the temp path)</param>
  ''' <remarks></remarks>
- Public Shared Sub ImportModulePackage(ByVal modulePackagePath As String, ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String)
+ Public Shared Sub ImportModulePackage(ByVal modulePackagePath As String, ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer)
   '// Create a temporary directory to unpack the package
   Dim tempDirectory As String = HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
 
@@ -54,9 +55,11 @@ Public Class ManifestReader
 
    Dim core As New ManifestModuleInfo
    With core
-    .FriendlyName = "DNN Core"
-    .ModuleName = "Core"
+    .FriendlyName = Globals.glbCoreFriendlyName
+    .ModuleName = Globals.glbCoreName
     .Version = GetAssemblyVersion(tempDirectory & "\bin\DotNetNuke.dll")
+    .FolderName = ""
+    .PackageType = "Core"
    End With
    ReadResourceFiles(core, "", tempDirectory)
    manifestModules.Add(core)
@@ -98,6 +101,8 @@ Public Class ManifestReader
       End If
      Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
      End If
+
+     manifestModule.PackageType = packageNode.SelectSingleNode("@type").InnerText
 
      '// Determine the desktop module
      Dim moduleNodes As XmlNodeList
@@ -176,6 +181,8 @@ Public Class ManifestReader
      Else : Throw New Exception("Could not retrieve module name in DNN Manifest file")
      End If
 
+     manifestModule.PackageType = manifest.SelectSingleNode("dotnetnuke/@type").InnerText
+
      '// Determine the friendly name
      If Not folderNode("friendlyname") Is Nothing Then
       manifestModule.FriendlyName = folderNode("friendlyname").InnerText
@@ -241,7 +248,7 @@ Public Class ManifestReader
    Dim objObjectInfo As ObjectInfo = ObjectController.GetObjectByObjectName(manifestModule.ModuleName)
    If objObjectInfo Is Nothing Then
     '// Create a new translate module
-    objObjectInfo = New ObjectInfo(0, manifestModule.ModuleName, manifestModule.FriendlyName)
+    objObjectInfo = New ObjectInfo(0, manifestModule.ModuleName, manifestModule.FriendlyName, manifestModule.FolderName, ModuleId, manifestModule.PackageType)
     objObjectInfo.ObjectId = ObjectController.AddObject(objObjectInfo)
    End If
 
@@ -270,6 +277,11 @@ Public Class ManifestReader
   End If
 
   For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*.as?x.resx")
+   If manifestModule.ResourceFiles(keyBasePath & f.Name) Is Nothing Then
+    manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
+   End If
+  Next
+  For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*Resources.resx")
    If manifestModule.ResourceFiles(keyBasePath & f.Name) Is Nothing Then
     manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
    End If

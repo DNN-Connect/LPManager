@@ -12,125 +12,124 @@ Option Strict On
 Option Explicit On
 
 
-Namespace DNNEurope.Modules.LocalizationEditor
 
-    Partial Public Class Users
 
-        '''<summary>
-        '''lblUsername control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblUsername As Global.System.Web.UI.UserControl
+Partial Public Class Users
 
-        '''<summary>
-        '''txtUsername control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtUsername As Global.System.Web.UI.WebControls.TextBox
+ '''<summary>
+ '''lblUsername control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents lblUsername As Global.System.Web.UI.UserControl
 
-        '''<summary>
-        '''reqVal1 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents reqVal1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+ '''<summary>
+ '''txtUsername control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtUsername As Global.System.Web.UI.WebControls.TextBox
 
-        '''<summary>
-        '''lblObjects control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblObjects As Global.System.Web.UI.UserControl
+ '''<summary>
+ '''reqVal1 control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents reqVal1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
-        '''<summary>
-        '''ddObjects control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents ddObjects As Global.System.Web.UI.WebControls.DropDownList
+ '''<summary>
+ '''lblObjects control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents lblObjects As Global.System.Web.UI.UserControl
 
-        '''<summary>
-        '''lblLocale control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblLocale As Global.System.Web.UI.UserControl
+ '''<summary>
+ '''ddObjects control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents ddObjects As Global.System.Web.UI.WebControls.DropDownList
 
-        '''<summary>
-        '''txtLocale control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
+ '''<summary>
+ '''lblLocale control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents lblLocale As Global.System.Web.UI.UserControl
 
-        '''<summary>
-        '''reqVal2 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents reqVal2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
+ '''<summary>
+ '''txtLocale control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
 
-        '''<summary>
-        '''regVal1 control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents regVal1 As Global.System.Web.UI.WebControls.RegularExpressionValidator
+ '''<summary>
+ '''reqVal2 control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents reqVal2 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
-        '''<summary>
-        '''cmdAdd control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents cmdAdd As Global.System.Web.UI.WebControls.LinkButton
+ '''<summary>
+ '''regVal1 control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents regVal1 As Global.System.Web.UI.WebControls.RegularExpressionValidator
 
-        '''<summary>
-        '''cmdReturn control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents cmdReturn As Global.System.Web.UI.WebControls.LinkButton
+ '''<summary>
+ '''cmdAdd control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdAdd As Global.System.Web.UI.WebControls.LinkButton
 
-        '''<summary>
-        '''lblError control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
+ '''<summary>
+ '''cmdReturn control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdReturn As Global.System.Web.UI.WebControls.LinkButton
 
-        '''<summary>
-        '''dlUserPermissions control.
-        '''</summary>
-        '''<remarks>
-        '''Auto-generated field.
-        '''To modify move field declaration from designer file to code-behind file.
-        '''</remarks>
-        Protected WithEvents dlUserPermissions As Global.System.Web.UI.WebControls.DataList
-    End Class
-End Namespace
+ '''<summary>
+ '''lblError control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents lblError As Global.System.Web.UI.WebControls.Label
+
+ '''<summary>
+ '''dlUserPermissions control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents dlUserPermissions As Global.System.Web.UI.WebControls.DataList
+End Class

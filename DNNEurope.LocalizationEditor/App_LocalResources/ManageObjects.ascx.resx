@@ -159,4 +159,7 @@
   <data name="ObjectName.Header" xml:space="preserve">
     <value>Object name</value>
   </data>
+  <data name="LastVersion.Header" xml:space="preserve">
+    <value>Last Version</value>
+  </data>
 </root>

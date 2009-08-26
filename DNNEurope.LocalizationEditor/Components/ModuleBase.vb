@@ -19,42 +19,41 @@
 Imports System.Web.Caching
 Imports DotNetNuke.Entities.Modules
 
-Namespace DNNEurope.Modules.LocalizationEditor
-    Public Class ModuleBase
-        Inherits PortalModuleBase
+
+Public Class ModuleBase
+ Inherits PortalModuleBase
 
 #Region " Variables "
 
-        Private _settings As ModuleSettings
+ Private _settings As ModuleSettings
 
 #End Region
 
 #Region " Properties "
 
-        Public Shadows Property Settings() As ModuleSettings
-            Get
+ Public Shadows Property Settings() As ModuleSettings
+  Get
 
-                If _settings Is Nothing Then
-                    Dim CacheKey As String = "Settings4Module" & Me.ModuleId & "inPortal" & Me.PortalId.ToString
-                    Try
-                        _settings = CType(Me.Cache.Item(CacheKey), ModuleSettings)
-                    Catch ex As Exception
-                    End Try
-                    If _settings Is Nothing Then
-                        _settings = New ModuleSettings(ModuleId)
-                        Me.Cache.Add(CacheKey, _settings, Nothing, Date.MaxValue, New TimeSpan(1, 0, 0), _
-                                      CacheItemPriority.Low, Nothing)
-                    End If
-                End If
+   If _settings Is Nothing Then
+    Dim CacheKey As String = "Settings4Module" & Me.ModuleId.ToString
+    Try
+     _settings = CType(Me.Cache.Item(CacheKey), ModuleSettings)
+    Catch ex As Exception
+    End Try
+    If _settings Is Nothing Then
+     _settings = New ModuleSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
+     Me.Cache.Add(CacheKey, _settings, Nothing, Date.MaxValue, New TimeSpan(1, 0, 0), CacheItemPriority.Low, Nothing)
+    End If
+   End If
 
-                Return _settings
+   Return _settings
 
-            End Get
-            Set(ByVal Value As ModuleSettings)
-                _settings = Value
-            End Set
-        End Property
+  End Get
+  Set(ByVal Value As ModuleSettings)
+   _settings = Value
+  End Set
+ End Property
 
 #End Region
-    End Class
-End Namespace
+
+End Class

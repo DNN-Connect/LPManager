@@ -10,6 +10,9 @@
             <asp:Label runat="server" ID="lblObjects" resourcekey="lblObjects" />
           </th>
           <th>
+            <asp:Label runat="server" ID="lblLastVersion" resourcekey="lblLastVersion" />
+          </th>
+          <th>
             <asp:Label runat="server" ID="lblLocales" resourcekey="lblLocales" />
           </th>
         </tr>
@@ -17,6 +20,7 @@
           <td>
             <asp:Label runat="server" ID="lblObjectAction" resourcekey="lblObjectAction" />
           </td>
+          <td />
           <td>
             <asp:Label runat="server" ID="lblLocaleAction" resourcekey="lblLocaleAction" />
           </td>
@@ -27,6 +31,9 @@
         <td>
           <a href="<%#GetObjectURL(DataBinder.Eval(Container.DataItem, "ObjectId"))%>" class="CommandButton">
             <%#DataBinder.Eval(Container.DataItem, "ModuleFriendlyName")%></a>
+        </td>
+        <td>
+          <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
         </td>
         <td>
           <%#GetObjectLocales(DataBinder.Eval(Container.DataItem, "ObjectId"))%>

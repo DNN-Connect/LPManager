@@ -18,18 +18,18 @@
 ' 
 
 
-Namespace DNNEurope.Modules.LocalizationEditor.LocaleFile
-    Public Class LocaleFileUtil
-        Public Shared Function GetFullFileName(ByVal LocaleFile As LocaleFileInfo) As String
-            Dim Result As String = LocaleFile.LocaleFileType.ToString & "\"
-            If Not LocaleFile.LocaleModule Is Nothing Then
-                Result &= LocaleFile.LocaleModule & "\"
-            End If
-            If Not LocaleFile.LocalePath Is Nothing Then
-                Result &= LocaleFile.LocalePath & "\"
-            End If
-            Result &= LocaleFile.LocaleFileName
-            Return Result
-        End Function
-    End Class
+Namespace LocaleFile
+ Public Class LocaleFileUtil
+  Public Shared Function GetFullFileName(ByVal LocaleFile As LocaleFileInfo) As String
+   Dim Result As String = LocaleFile.LocaleFileType.ToString & "\"
+   If Not LocaleFile.LocaleModule Is Nothing Then
+    Result &= LocaleFile.LocaleModule & "\"
+   End If
+   If Not LocaleFile.LocalePath Is Nothing Then
+    Result &= LocaleFile.LocalePath & "\"
+   End If
+   Result &= LocaleFile.LocaleFileName
+   Return Result
+  End Function
+ End Class
 End Namespace

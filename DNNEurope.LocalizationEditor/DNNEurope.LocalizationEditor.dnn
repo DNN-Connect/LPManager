@@ -1,4 +1,4 @@
-﻿<dotnetnuke type="Package" version="5.0">
+<dotnetnuke type="Package" version="5.0">
  <packages>
   <package name="DNNEurope.LocalizationEditor" type="Module" version="03.00.03">
    <friendlyName>Localization Editor</friendlyName>
@@ -83,6 +83,15 @@
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>User Permissions</controlTitle>
           <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Settings</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Settings.ascx</controlSrc>
+          <supportsPartialRendering>False</supportsPartialRendering>
+          <controlTitle>Localization Editor Settings</controlTitle>
+          <controlType>Edit</controlType>
           <iconFile />
           <helpUrl></helpUrl>
          </moduleControl>

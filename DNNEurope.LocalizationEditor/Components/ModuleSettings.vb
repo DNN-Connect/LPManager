@@ -18,97 +18,128 @@
 ' 
 Imports DotNetNuke.Entities.Modules
 
-Namespace DNNEurope.Modules.LocalizationEditor
-    Public Class ModuleSettings
+
+Public Class ModuleSettings
 
 #Region " Private Members "
 
-        Private _Locales As String = ""
-        Private _objects As String = String.Empty
-        Private _removeBlanksFromFile As Boolean = False
-        Private _addNewEntriesAsBlank As Boolean = False
+ Private _ownerName As String = ""
+ Private _ownerEmail As String = ""
+ Private _ownerUrl As String = ""
+ Private _ownerOrganization As String = ""
+ Private _license As String = ""
+ Private _cachePacks As Boolean = True
 
 #End Region
 
 #Region " Constructors "
 
-        Public Sub New(ByVal ModuleId As Integer)
+ Public Sub New(ByVal PortalHomeDirMapPath As String, ByVal ModuleId As Integer)
 
-            Dim mc As New ModuleController
-            Dim Settings As Hashtable = mc.GetModuleSettings(ModuleId)
+  Dim mc As New ModuleController
+  Dim Settings As Hashtable = mc.GetModuleSettings(ModuleId)
 
-            If Not Settings.Item("Locales") Is Nothing Then
-                Locales = CType(Settings.Item("Locales"), String)
-            End If
+  If Not Settings.Item("OwnerName") Is Nothing Then
+   OwnerName = CType(Settings.Item("OwnerName"), String)
+  End If
 
-            If Not Settings.Item("Objects") Is Nothing Then
-                Objects = CType(Settings.Item("Objects"), String)
-            End If
+  If Not Settings.Item("OwnerEmail") Is Nothing Then
+   OwnerEmail = CType(Settings.Item("OwnerEmail"), String)
+  End If
 
-            If Not Settings.Item("RemoveBlanksFromFile") Is Nothing Then
-                RemoveBlanksFromFile = CType(Settings.Item("RemoveBlanksFromFile"), Boolean)
-            End If
+  If Not Settings.Item("OwnerUrl") Is Nothing Then
+   OwnerUrl = CType(Settings.Item("OwnerUrl"), String)
+  End If
 
-            If Not Settings.Item("AddNewEntriesAsBlank") Is Nothing Then
-                AddNewEntriesAsBlank = CType(Settings.Item("AddNewEntriesAsBlank"), Boolean)
-            End If
+  If Not Settings.Item("OwnerOrganization") Is Nothing Then
+   OwnerOrganization = CType(Settings.Item("OwnerOrganization"), String)
+  End If
 
-        End Sub
+  License = Globals.GetLicense(PortalHomeDirMapPath, ModuleId)
+
+  If Not Settings.Item("CachePacks") Is Nothing Then
+   CachePacks = CType(Settings.Item("CachePacks"), Boolean)
+  End If
+
+ End Sub
 
 #End Region
 
 #Region " Public Members "
 
-        Public Sub SaveSettings(ByVal ModuleId As Integer)
+ Public Sub SaveSettings(ByVal PortalHomeDirMapPath As String, ByVal ModuleId As Integer)
 
-            Dim objModules As New ModuleController
-            objModules.UpdateModuleSetting(ModuleId, "Locales", Me.Locales.ToString)
-            objModules.UpdateModuleSetting(ModuleId, "Objects", Me.Objects.ToString)
-            objModules.UpdateModuleSetting(ModuleId, "RemoveBlanksFromFile", Me.RemoveBlanksFromFile.ToString)
-            objModules.UpdateModuleSetting(ModuleId, "AddNewEntriesAsBlank", Me.AddNewEntriesAsBlank.ToString)
+  Dim objModules As New ModuleController
+  objModules.UpdateModuleSetting(ModuleId, "OwnerName", Me.OwnerName.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "OwnerEmail", Me.OwnerEmail.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "OwnerUrl", Me.OwnerUrl.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "OwnerOrganization", Me.OwnerOrganization.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "CachePacks", Me.CachePacks.ToString)
+  Dim CacheKey As String = "Settings4Module" & ModuleId.ToString
+  DotNetNuke.Services.Cache.CachingProvider.Instance().Remove(CacheKey)
+  Globals.WriteLicense(PortalHomeDirMapPath, ModuleId, License)
 
-        End Sub
+ End Sub
 
 #End Region
 
 #Region " Properties "
 
-        Public Property Locales() As String
-            Get
-                Return _Locales
-            End Get
-            Set(ByVal Value As String)
-                _Locales = Value
-            End Set
-        End Property
+ Public Property OwnerName() As String
+  Get
+   Return _ownerName
+  End Get
+  Set(ByVal Value As String)
+   _ownerName = Value
+  End Set
+ End Property
 
-        Public Property Objects() As String
-            Get
-                Return _objects
-            End Get
-            Set(ByVal value As String)
-                _objects = value
-            End Set
-        End Property
+ Public Property OwnerEmail() As String
+  Get
+   Return _ownerEmail
+  End Get
+  Set(ByVal value As String)
+   _ownerEmail = value
+  End Set
+ End Property
 
-        Public Property RemoveBlanksFromFile() As Boolean
-            Get
-                Return _removeBlanksFromFile
-            End Get
-            Set(ByVal value As Boolean)
-                _removeBlanksFromFile = value
-            End Set
-        End Property
+ Public Property OwnerUrl() As String
+  Get
+   Return _ownerUrl
+  End Get
+  Set(ByVal value As String)
+   _ownerUrl = value
+  End Set
+ End Property
 
-        Public Property AddNewEntriesAsBlank() As Boolean
-            Get
-                Return _addNewEntriesAsBlank
-            End Get
-            Set(ByVal value As Boolean)
-                _addNewEntriesAsBlank = value
-            End Set
-        End Property
+ Public Property OwnerOrganization() As String
+  Get
+   Return _ownerOrganization
+  End Get
+  Set(ByVal value As String)
+   _ownerOrganization = value
+  End Set
+ End Property
+
+ Public Property License() As String
+  Get
+   Return _license
+  End Get
+  Set(ByVal value As String)
+   _license = value
+  End Set
+ End Property
+
+ Public Property CachePacks() As Boolean
+  Get
+   Return _cachePacks
+  End Get
+  Set(ByVal value As Boolean)
+   _cachePacks = value
+  End Set
+ End Property
+
 
 #End Region
-    End Class
-End Namespace
+
+End Class

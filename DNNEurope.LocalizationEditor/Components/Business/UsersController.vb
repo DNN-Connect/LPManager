@@ -18,17 +18,18 @@
 ' 
 Imports DNNEurope.Modules.LocalizationEditor.Data
 
-Namespace DNNEurope.Modules.LocalizationEditor.Business
+Namespace Business
 
 #Region " UsersController "
 
-    Public Class UsersController
-        Public Shared Function GetUsersFiltered(ByVal filter As String) As DataSet
+ Public Class UsersController
+  Public Shared Function GetUsersFiltered(ByVal filter As String) As DataSet
 
-            Return DataProvider.Instance().GetUsersFiltered(filter)
+   Return DataProvider.Instance().GetUsersFiltered(filter)
 
-        End Function
-    End Class
+  End Function
+ End Class
 
 #End Region
+
 End Namespace
