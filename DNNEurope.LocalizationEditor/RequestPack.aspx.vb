@@ -98,6 +98,7 @@ Partial Public Class RequestPack
    FriendlyName = tm.FriendlyName
   Else
    Dim tm As ObjectInfo = ObjectController.GetObjectByObjectName(Objectname)
+   ObjectId = tm.ObjectId
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   End If
@@ -109,7 +110,16 @@ Partial Public Class RequestPack
    If String.IsNullOrEmpty(Version) Then
     Version = ddVersion.Items(ddVersion.Items.Count - 1).Text
    End If
-   ddVersion.Items.FindByText(Version).Selected = True
+   If ddVersion.Items.FindByText(Version) Is Nothing Then
+    Dim v As String = ddVersion.Items(ddVersion.Items.Count - 1).Text
+    For Each itm As ListItem In ddVersion.Items
+     If itm.Text > Version Then Exit For
+     v = itm.Text
+    Next
+    ddVersion.Items.FindByText(v).Selected = True
+   Else
+    ddVersion.Items.FindByText(Version).Selected = True
+   End If
   Catch
   End Try
   TotalItems = TextsController.NrOfItems(ObjectId, Version)
@@ -163,4 +173,5 @@ Partial Public Class RequestPack
  End Sub
 
 #End Region
+
 End Class
