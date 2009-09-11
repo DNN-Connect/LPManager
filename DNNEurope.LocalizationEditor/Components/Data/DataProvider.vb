@@ -69,7 +69,7 @@ Namespace Data
   Public MustOverride Function GetObject(ByVal ObjectId As Integer) As IDataReader
   Public MustOverride Function GetObjectByObjectName(ByVal ObjectName As String) As IDataReader
   Public MustOverride Function GetObjectList(ByVal ModuleId As Integer) As IDataReader
-  Public MustOverride Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String) As Integer
+  Public MustOverride Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String, ByVal IsCoreObject As Boolean) As Integer
   Public MustOverride Sub DeleteObject(ByVal ObjectId As Integer)
 
 #End Region

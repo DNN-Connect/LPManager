@@ -54,7 +54,7 @@ Partial Public Class ManageObjects
    Return
   End If
 
-  ManifestReader.ImportModulePackage(ctlUpload.FileName, ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId)
+  ManifestReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, False)
 
   '// Reload data
   BindData()
@@ -77,7 +77,7 @@ Partial Public Class ManageObjects
   Dim dm As DesktopModuleInfo = DesktopModuleController.GetDesktopModule(desktopModuleId, PortalId)
 
   '// Add the module into the localization editor
-  Dim tm As New ObjectInfo(0, dm.ModuleName, dm.FriendlyName, dm.FolderName, ModuleId, "Module")
+  Dim tm As New ObjectInfo(0, dm.ModuleName, dm.FriendlyName, dm.FolderName, ModuleId, "Module", False)
   tm.ObjectId = ObjectController.AddObject(tm)
 
   '// Process the resources for the module

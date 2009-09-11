@@ -162,4 +162,7 @@
   <data name="LastVersion.Header" xml:space="preserve">
     <value>Last Version</value>
   </data>
+  <data name="IsCoreObject.Header" xml:space="preserve">
+    <value>Core Object</value>
+  </data>
 </root>

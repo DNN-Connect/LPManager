@@ -267,6 +267,7 @@
     </Content>
     <None Include="DNNEurope.LocalizationEditor.dnn" />
     <None Include="Providers\DataProviders\SqlDataProvider\03.00.00.sqldataprovider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.00.01.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\Uninstall.sqldataprovider" />
     <None Include="_Install\Project.targets" />
   </ItemGroup>

@@ -144,8 +144,8 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & "LocalizationEditor_GetObjectList", ModuleId), IDataReader)
   End Function
 
-  Public Overrides Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String) As Integer
-   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & "LocalizationEditor_AddObject", ObjectName, FriendlyName, InstallPath, ModuleId, PackageType), Integer)
+  Public Overrides Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String, ByVal IsCoreObject As Boolean) As Integer
+   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & "LocalizationEditor_AddObject", ObjectName, FriendlyName, InstallPath, ModuleId, PackageType, IsCoreObject), Integer)
   End Function
 
   Public Overrides Sub DeleteObject(ByVal ObjectId As Integer)

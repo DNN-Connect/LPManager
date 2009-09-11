@@ -36,7 +36,7 @@ Namespace Business
   End Function
 
   Public Shared Function AddObject(ByVal objObject As ObjectInfo) As Integer
-   Return CType(DataProvider.Instance().AddObject(objObject.ObjectName, objObject.FriendlyName, objObject.InstallPath, objObject.ModuleId, objObject.PackageType), Integer)
+   Return CType(DataProvider.Instance().AddObject(objObject.ObjectName, objObject.FriendlyName, objObject.InstallPath, objObject.ModuleId, objObject.PackageType, objObject.IsCoreObject), Integer)
   End Function
 
   Public Shared Sub DeleteObject(ByVal ObjectId As Integer)
