@@ -56,9 +56,9 @@ Namespace Data
 
   Public MustOverride Function GetPermissions(ByVal ModuleId As Integer) As IDataReader
 
-  Public MustOverride Sub AddPermission(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer)
+  Public MustOverride Function AddPermission(ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32) As Integer
 
-  Public MustOverride Sub UpdatePermission(ByVal PermissionId As Integer, ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer)
+  Public MustOverride Sub UpdatePermission(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32)
 
   Public MustOverride Sub DeletePermission(ByVal PermissionId As Integer)
 
@@ -71,6 +71,23 @@ Namespace Data
   Public MustOverride Function GetObjectList(ByVal ModuleId As Integer) As IDataReader
   Public MustOverride Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String, ByVal IsCoreObject As Boolean) As Integer
   Public MustOverride Sub DeleteObject(ByVal ObjectId As Integer)
+
+#End Region
+
+#Region " Statistic Methods "
+
+  Public MustOverride Function GetStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32) As IDataReader
+
+  Public MustOverride Sub AddStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
+
+  Public MustOverride Sub UpdateStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
+
+  Public MustOverride Sub DeleteStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32)
+
+  Public MustOverride Function GetStatisticsByTranslation(ByVal TranslationId As Int32) As IDataReader
+  Public MustOverride Function GetStatisticsByUser(ByVal UserID As Int32) As IDataReader
+
+  Public MustOverride Function GetPackStatistics(ByVal ObjectId As Int32, ByVal Version As String, ByVal Locale As String) As IDataReader
 
 #End Region
 
@@ -112,9 +129,9 @@ Namespace Data
   Public MustOverride Function GetTranslation(ByVal TranslationId As Integer) As IDataReader
   Public MustOverride Function GetTranslation(ByVal TextId As Integer, ByVal Locale As String) As IDataReader
 
-  Public MustOverride Sub AddTranslation(ByVal TextId As Integer, ByVal Locale As String, ByVal LastModified As Date, ByVal LastModifiedUserId As Integer, ByVal TextValue As String)
+  Public MustOverride Function AddTranslation(ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String) As Integer
 
-  Public MustOverride Sub UpdateTranslation(ByVal TranslationId As Integer, ByVal TextId As Integer, ByVal Locale As String, ByVal LastModified As Date, ByVal LastModifiedUserId As Integer, ByVal TextValue As String)
+  Public MustOverride Sub UpdateTranslation(ByVal TranslationId As Int32, ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String)
 
   Public MustOverride Sub DeleteTranslation(ByVal TranslationId As Integer)
   Public MustOverride Function GetTranslationsByText(ByVal TextId As Integer) As IDataReader
@@ -145,6 +162,8 @@ Namespace Data
   Public MustOverride Function GetModuleForObject(ByVal ObjectId As Integer) As IDataReader
 
   Public MustOverride Function GetLastEditTime(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
+
+  Public MustOverride Function GetCube(ByVal ModuleId As Integer) As IDataReader
 
 #End Region
 

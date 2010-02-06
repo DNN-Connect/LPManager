@@ -29,6 +29,9 @@ Public Class ModuleSettings
  Private _ownerOrganization As String = ""
  Private _license As String = ""
  Private _cachePacks As Boolean = True
+ Private _allowDirectDownload As Boolean = True
+ Private _allowDataExtract As Boolean = True
+ Private _keepStatistics As Boolean = False
 
 #End Region
 
@@ -61,6 +64,18 @@ Public Class ModuleSettings
    CachePacks = CType(Settings.Item("CachePacks"), Boolean)
   End If
 
+  If Not Settings.Item("AllowDirectDownload") Is Nothing Then
+   AllowDirectDownload = CType(Settings.Item("AllowDirectDownload"), Boolean)
+  End If
+
+  If Not Settings.Item("AllowDataExtract") Is Nothing Then
+   AllowDataExtract = CType(Settings.Item("AllowDataExtract"), Boolean)
+  End If
+
+  If Not Settings.Item("KeepStatistics") Is Nothing Then
+   KeepStatistics = CType(Settings.Item("KeepStatistics"), Boolean)
+  End If
+
  End Sub
 
 #End Region
@@ -75,8 +90,11 @@ Public Class ModuleSettings
   objModules.UpdateModuleSetting(ModuleId, "OwnerUrl", Me.OwnerUrl.ToString)
   objModules.UpdateModuleSetting(ModuleId, "OwnerOrganization", Me.OwnerOrganization.ToString)
   objModules.UpdateModuleSetting(ModuleId, "CachePacks", Me.CachePacks.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "AllowDirectDownload", Me.AllowDirectDownload.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "AllowDataExtract", Me.AllowDataExtract.ToString)
+  objModules.UpdateModuleSetting(ModuleId, "KeepStatistics", Me.KeepStatistics.ToString)
   Dim CacheKey As String = "Settings4Module" & ModuleId.ToString
-  DotNetNuke.Services.Cache.CachingProvider.Instance().Remove(CacheKey)
+  DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey, Me)
   Globals.WriteLicense(PortalHomeDirMapPath, ModuleId, License)
 
  End Sub
@@ -139,6 +157,32 @@ Public Class ModuleSettings
   End Set
  End Property
 
+ Public Property AllowDirectDownload() As Boolean
+  Get
+   Return _allowDirectDownload
+  End Get
+  Set(ByVal value As Boolean)
+   _allowDirectDownload = value
+  End Set
+ End Property
+
+ Public Property AllowDataExtract() As Boolean
+  Get
+   Return _allowDataExtract
+  End Get
+  Set(ByVal value As Boolean)
+   _allowDataExtract = value
+  End Set
+ End Property
+
+ Public Property KeepStatistics() As Boolean
+  Get
+   Return _keepStatistics
+  End Get
+  Set(ByVal value As Boolean)
+   _keepStatistics = value
+  End Set
+ End Property
 
 #End Region
 

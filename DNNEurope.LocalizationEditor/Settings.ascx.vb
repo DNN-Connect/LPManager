@@ -21,6 +21,9 @@ Partial Public Class Settings
      txtOwnerOrganization.Text = .OwnerOrganization
      txtOwnerUrl.Text = .OwnerUrl
      chkCachePacks.Checked = .CachePacks
+     chkAllowDirectDownload.Checked = .AllowDirectDownload
+     chkAllowDataExtract.Checked = .AllowDataExtract
+     chkKeepStatistics.Checked = .KeepStatistics
     End With
    End If
   Catch exc As Exception
@@ -39,6 +42,9 @@ Partial Public Class Settings
     .OwnerName = txtOwnerName.Text
     .OwnerOrganization = txtOwnerOrganization.Text
     .OwnerUrl = txtOwnerUrl.Text
+    .AllowDirectDownload = chkAllowDirectDownload.Checked
+    .AllowDataExtract = chkAllowDataExtract.Checked
+    .KeepStatistics = chkKeepStatistics.Checked
     .SaveSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End With
 

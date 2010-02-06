@@ -195,14 +195,27 @@ Partial Public Class ResourceEditor
       Dim txtBox As Editor = CType(cell.Controls(0), Editor)
       If txtBox.Value <> "" Then
        Dim trans As TranslationInfo = TranslationsController.GetTranslation(txtBox.TranslationId)
+       Dim stat As Integer = txtBox.Value.Length
+       Dim transId As Integer = -1
        If trans Is Nothing Then
         trans = New TranslationInfo(txtBox.TextId, Locale, Now, UserId, txtBox.Value)
-        TranslationsController.AddTranslation(trans)
-       ElseIf trans.TextValue <> txtBox.Value Then
+        transId = TranslationsController.AddTranslation(trans)
+       ElseIf trans.TextValue <> txtBox.Value Then ' editor has changed the text
+        If Settings.KeepStatistics Then
+         If txtBox.Value.Length > 200 Then
+          stat = Math.Abs(txtBox.Value.Length - trans.TextValue.Length)
+         Else
+          stat = Globals.LevenshteinDistance(trans.TextValue, txtBox.Value)
+         End If
+        End If
         trans.TextValue = txtBox.Value
         trans.LastModified = Now
         trans.LastModifiedUserId = UserId
         TranslationsController.UpdateTranslation(trans)
+        transId = trans.TranslationId
+       End If
+       If transId > 0 And stat > 0 And Settings.KeepStatistics Then
+        StatisticsController.RecordStatistic(UserId, transId, stat)
        End If
       Else
        TranslationsController.DeleteTranslation(txtBox.TranslationId)

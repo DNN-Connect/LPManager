@@ -1,53 +1,52 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="LocalizationEditor.ascx.vb"
-  Inherits="DNNEurope.Modules.LocalizationEditor.LocalizationEditor" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="LocalizationEditor.ascx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.LocalizationEditor" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <asp:Panel runat="server" ID="pnlEdit">
-  <asp:DataList runat="server" ID="dlObjects">
-    <HeaderTemplate>
-      <table cellpadding="4" cellspacing="1">
-        <tr align="left">
-          <th>
-            <asp:Label runat="server" ID="lblObjects" resourcekey="lblObjects" />
-          </th>
-          <th>
-            <asp:Label runat="server" ID="lblLastVersion" resourcekey="lblLastVersion" />
-          </th>
-          <th>
-            <asp:Label runat="server" ID="lblLocales" resourcekey="lblLocales" />
-          </th>
-        </tr>
-        <tr align="left">
-          <td>
-            <asp:Label runat="server" ID="lblObjectAction" resourcekey="lblObjectAction" />
-          </td>
-          <td />
-          <td>
-            <asp:Label runat="server" ID="lblLocaleAction" resourcekey="lblLocaleAction" />
-          </td>
-        </tr>
-    </HeaderTemplate>
-    <ItemTemplate>
-      <tr align="left">
-        <td>
-          <a href="<%#GetObjectURL(DataBinder.Eval(Container.DataItem, "ObjectId"))%>" class="CommandButton">
-            <%#DataBinder.Eval(Container.DataItem, "ModuleFriendlyName")%></a>
-        </td>
-        <td>
-          <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
-        </td>
-        <td>
-          <%#GetObjectLocales(DataBinder.Eval(Container.DataItem, "ObjectId"))%>
-        </td>
-      </tr>
-    </ItemTemplate>
-    <FooterTemplate>
-      </table>
-    </FooterTemplate>
-  </asp:DataList>
+ <asp:DataList runat="server" ID="dlObjects">
+  <HeaderTemplate>
+   <table cellpadding="4" cellspacing="1">
+    <tr align="left">
+     <th>
+      <asp:Label runat="server" ID="lblObjects" resourcekey="lblObjects" />
+     </th>
+     <th>
+      <asp:Label runat="server" ID="lblLastVersion" resourcekey="lblLastVersion" />
+     </th>
+     <th>
+      <asp:Label runat="server" ID="lblLocales" resourcekey="lblLocales" />
+     </th>
+    </tr>
+    <tr align="left">
+     <td>
+      <asp:Label runat="server" ID="lblObjectAction" resourcekey="lblObjectAction" />
+     </td>
+     <td />
+     <td>
+      <asp:Label runat="server" ID="lblLocaleAction" resourcekey="lblLocaleAction" />
+     </td>
+    </tr>
+  </HeaderTemplate>
+  <ItemTemplate>
+   <tr align="left">
+    <td>
+     <a href="<%#GetObjectURL(DataBinder.Eval(Container.DataItem, "ObjectId"))%>" class="CommandButton">
+      <%#DataBinder.Eval(Container.DataItem, "ModuleFriendlyName")%></a>
+    </td>
+    <td>
+     <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
+    </td>
+    <td>
+     <%#GetObjectLocales(DataBinder.Eval(Container.DataItem, "ObjectId"))%>
+    </td>
+   </tr>
+  </ItemTemplate>
+  <FooterTemplate>
+   </table>
+  </FooterTemplate>
+ </asp:DataList>
 </asp:Panel>
 <p style="margin-top: 20px;">
-  <asp:LinkButton ID="lbManageObjects" runat="server" resourcekey="lbManageObjects"
-    Text="Manage Objects" CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:LinkButton ID="lbManagePermissions" runat="server" resourcekey="lbManagePermissions"
-    Text="Manage Permissions" CssClass="CommandButton" />
+ <asp:LinkButton ID="lbManageObjects" runat="server" resourcekey="lbManageObjects" Text="Manage Objects" CssClass="CommandButton" />&nbsp;
+ <asp:LinkButton ID="lbManagePermissions" runat="server" resourcekey="lbManagePermissions" Text="Manage Permissions" CssClass="CommandButton" />&nbsp;
+ <asp:LinkButton ID="lbClearCaches" runat="server" resourcekey="lbClearCaches" Text="Clear Caches" CssClass="CommandButton" />&nbsp;
+ <asp:HyperLink ID="hlCube" runat="server" resourcekey="hlCube" Text="Cube" CssClass="CommandButton" />
 </p>

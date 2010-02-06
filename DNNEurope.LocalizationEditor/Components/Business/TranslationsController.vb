@@ -32,15 +32,16 @@ Namespace Business
    Return CType(CBO.FillObject(DataProvider.Instance().GetTranslation(TextId, Locale), GetType(TranslationInfo)), TranslationInfo)
   End Function
 
-  Public Shared Sub AddTranslation(ByVal objTranslation As TranslationInfo)
-   Try
-    DataProvider.Instance().AddTranslation(objTranslation.TextId, objTranslation.Locale, objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.TextValue)
-   Catch ex As Exception
-   End Try
-  End Sub
+  Public Shared Function AddTranslation(ByVal objTranslation As TranslationInfo) As Integer
+
+   Return CType(DataProvider.Instance().AddTranslation(objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue), Integer)
+
+  End Function
 
   Public Shared Sub UpdateTranslation(ByVal objTranslation As TranslationInfo)
-   DataProvider.Instance().UpdateTranslation(objTranslation.TranslationId, objTranslation.TextId, objTranslation.Locale, objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.TextValue)
+
+   DataProvider.Instance().UpdateTranslation(objTranslation.TranslationId, objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue)
+
   End Sub
 
   Public Shared Sub DeleteTranslation(ByVal TranslationId As Integer)

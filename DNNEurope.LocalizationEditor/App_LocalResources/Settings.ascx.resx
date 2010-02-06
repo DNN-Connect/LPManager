@@ -129,11 +129,29 @@
   <data name="lblOwner.Text" xml:space="preserve">
     <value>Owner</value>
   </data>
+  <data name="plAllowDataExtract.Help" xml:space="preserve">
+    <value>Allow others to extract what packs you have to incorporate on their site.</value>
+  </data>
+  <data name="plAllowDataExtract.Text" xml:space="preserve">
+    <value>Allow Data Extract</value>
+  </data>
+  <data name="plAllowDirectDownload.Help" xml:space="preserve">
+    <value>If set, people may link from any other site directly to a pack of yours. This is not enforced on your site, rather it is distributed with the information others can extract from your site.</value>
+  </data>
+  <data name="plAllowDirectDownload.Text" xml:space="preserve">
+    <value>Allow Direct Download</value>
+  </data>
   <data name="plCachePacks.Help" xml:space="preserve">
     <value>If selected downloaded packs will be cached on disk as plain zip files for faster access in future downloads</value>
   </data>
   <data name="plCachePacks.Text" xml:space="preserve">
     <value>Cache packs</value>
+  </data>
+  <data name="plKeepStatistics.Help" xml:space="preserve">
+    <value>If checked the module will keep track of every contributor's effort.</value>
+  </data>
+  <data name="plKeepStatistics.Text" xml:space="preserve">
+    <value>Keep Statistics</value>
   </data>
   <data name="plLicense.Help" xml:space="preserve">
     <value>License to include in pack manifests</value>

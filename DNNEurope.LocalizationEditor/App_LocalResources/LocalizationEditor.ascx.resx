@@ -144,4 +144,10 @@
   <data name="lblLastVersion.Text" xml:space="preserve">
     <value>Last Version</value>
   </data>
+  <data name="lbClearCaches.Text" xml:space="preserve">
+    <value>Clear Cache</value>
+  </data>
+  <data name="hlCube.Text" xml:space="preserve">
+    <value>Get Data Cube</value>
+  </data>
 </root>

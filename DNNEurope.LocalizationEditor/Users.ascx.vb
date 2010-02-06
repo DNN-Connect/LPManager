@@ -64,7 +64,7 @@ Imports DotNetNuke.Common
 
   Dim uperm As Business.PermissionInfo = PermissionsController.GetPermission(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
   If uperm Is Nothing Then
-   uperm = New Business.PermissionInfo(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
+   uperm = New Business.PermissionInfo(-1, locale, ModuleId, CInt(ddObjects.SelectedValue), user.UserID)
    PermissionsController.AddPermission(uperm)
   End If
 

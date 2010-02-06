@@ -41,9 +41,18 @@ Partial Public Class LocalizationEditor
    '// Show functions for authorized users
    lbManagePermissions.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManagePermissions")
    lbManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManageObjects")
+   lbClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManageObjects") And Me.Settings.CachePacks
 
    If Not Me.IsPostBack Then
+
+    If Settings.AllowDataExtract Then
+     hlCube.NavigateUrl = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString
+    Else
+     hlCube.Visible = False
+    End If
+
     Me.DataBind()
+
    End If
 
   Catch exc As Exception
@@ -59,6 +68,16 @@ Partial Public Class LocalizationEditor
   Response.Redirect(EditUrl("ManageObjects"))
  End Sub
 
+ Private Sub lbClearCaches_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lbClearCaches.Click
+  Dim packPath As String = PortalSettings.HomeDirectoryMapPath & "\LocalizationEditor\Cache\" & ModuleId.ToString & "\"
+  Dim zipFiles() As String = IO.Directory.GetFiles(packPath, "*.zip")
+  For Each f As String In zipFiles
+   Try
+    IO.File.Delete(f)
+   Catch
+   End Try
+  Next
+ End Sub
 #End Region
 
 #Region " Public Methods "
@@ -100,4 +119,5 @@ Partial Public Class LocalizationEditor
  End Sub
 
 #End Region
+
 End Class

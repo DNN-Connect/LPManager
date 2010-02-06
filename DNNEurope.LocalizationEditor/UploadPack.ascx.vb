@@ -23,6 +23,7 @@ Imports System.IO
 Imports ICSharpCode.SharpZipLib.Zip
 Imports System.Xml
 Imports System.Xml.XPath
+Imports System.Collections.Generic
 
 
 Partial Public Class Import
@@ -391,12 +392,15 @@ Partial Public Class Import
  End Sub
 
  Private Sub ImportFile(ByVal resFile As XmlDocument, ByVal resFileKey As String)
+  Dim updateList As New List(Of TranslationInfo)
+  Dim addList As New List(Of TranslationInfo)
+  Dim addStatisticsList As New Dictionary(Of Integer, Integer)
   Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
    Do While ir.Read
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim textId As Integer = CInt(ir.Item("TextId"))
     Dim hasValue As Boolean = False
-    If ir.Item("TextValue") IsNot DBNull.Value Then
+    If ir.Item("TranslationId") IsNot DBNull.Value Then
      hasValue = True
     End If
     Try
@@ -407,12 +411,23 @@ Partial Public Class Import
        If hasValue Then
         Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
         If tr.TextValue <> transValue Then
+         Dim stat As Integer = 0
+         If Settings.KeepStatistics Then
+          If transValue.Length > 200 Then
+           stat = Math.Abs(transValue.Length - tr.TextValue.Length)
+          Else
+           stat = Globals.LevenshteinDistance(tr.TextValue, transValue)
+          End If
+         End If
          With tr
           .LastModified = Now
           .LastModifiedUserId = UserId
           .TextValue = transValue
          End With
-         TranslationsController.UpdateTranslation(tr)
+         updateList.Add(tr)
+         If Settings.KeepStatistics Then
+          StatisticsController.RecordStatistic(UserId, tr.TranslationId, stat)
+         End If
         End If
        Else
         Dim tr As New TranslationInfo
@@ -423,7 +438,8 @@ Partial Public Class Import
          .LastModifiedUserId = UserId
          .TextValue = transValue
         End With
-        TranslationsController.AddTranslation(tr)
+        addList.Add(tr)
+        addStatisticsList.Add(textId, transValue.Length)
        End If
       Catch
        ' ignore errors
@@ -434,6 +450,20 @@ Partial Public Class Import
     End Try
    Loop
   End Using
+
+  For Each tr As TranslationInfo In updateList
+   TranslationsController.UpdateTranslation(tr)
+  Next
+  For Each tr As TranslationInfo In addList
+   TranslationsController.AddTranslation(tr)
+  Next
+
+  If Settings.KeepStatistics Then
+   For Each tr As TranslationInfo In addList
+    StatisticsController.RecordStatistic(UserId, tr.TranslationId, addStatisticsList(tr.TextId))
+   Next
+  End If
+
  End Sub
 #End Region
 

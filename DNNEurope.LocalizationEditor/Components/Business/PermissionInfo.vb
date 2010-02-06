@@ -28,7 +28,8 @@ Imports DotNetNuke.Entities.Portals
 
 Namespace Business
 
- <Serializable(), XmlRoot("Permission")> Public Class PermissionInfo
+ <Serializable(), XmlRoot("Permission")> _
+ Public Class PermissionInfo
   Implements IHydratable
   Implements IPropertyAccess
   Implements IXmlSerializable
@@ -49,10 +50,11 @@ Namespace Business
   Public Sub New()
   End Sub
 
-  Public Sub New(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer)
+  Public Sub New(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32)
    Me.Locale = Locale
    Me.ModuleId = ModuleId
    Me.ObjectId = ObjectId
+   Me.PermissionId = PermissionId
    Me.UserId = UserId
   End Sub
 

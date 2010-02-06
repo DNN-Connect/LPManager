@@ -31,16 +31,12 @@ Namespace Business
    Return CBO.FillCollection(DataProvider.Instance().GetPermissions(ModuleId), GetType(PermissionInfo))
   End Function
 
-  'Public Shared Function GetPermissionsByUserObject(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal PortalId As Integer, ByVal ModuleId As Integer) As ArrayList
-  ' Return CBO.FillCollection(Data.DataProvider.Instance().GetPermissionsByUserObject(ObjectId, UserId, PortalId, ModuleId), GetType(PermissionInfo))
-  'End Function
-
-  Public Shared Sub AddPermission(ByVal objPermission As PermissionInfo)
-   DataProvider.Instance().AddPermission(objPermission.ObjectId, objPermission.UserId, objPermission.Locale, objPermission.ModuleId)
-  End Sub
+  Public Shared Function AddPermission(ByVal objPermission As PermissionInfo) As Integer
+   Return CType(DataProvider.Instance().AddPermission(objPermission.Locale, objPermission.ModuleId, objPermission.ObjectId, objPermission.UserId), Integer)
+  End Function
 
   Public Shared Sub UpdatePermission(ByVal objPermission As PermissionInfo)
-   DataProvider.Instance().UpdatePermission(objPermission.PermissionId, objPermission.ObjectId, objPermission.UserId, objPermission.Locale, objPermission.ModuleId)
+   DataProvider.Instance().UpdatePermission(objPermission.PermissionId, objPermission.Locale, objPermission.ModuleId, objPermission.ObjectId, objPermission.UserId)
   End Sub
 
   Public Shared Sub DeletePermission(ByVal PermissionId As Integer)

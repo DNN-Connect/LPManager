@@ -64,4 +64,28 @@
    <asp:CheckBox runat="server" ID="chkCachePacks" />
   </td>
  </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plAllowDirectDownload" runat="server" controlname="chkAllowDirectDownload" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkAllowDirectDownload" />
+  </td>
+ </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plAllowDataExtract" runat="server" controlname="chkAllowDataExtract" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkAllowDataExtract" />
+  </td>
+ </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plKeepStatistics" runat="server" controlname="chkKeepStatistics" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkKeepStatistics" />
+  </td>
+ </tr>
 </table>

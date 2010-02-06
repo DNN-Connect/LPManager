@@ -141,7 +141,8 @@ Namespace Business
     Return _TextKey
    End Get
    Set(ByVal Value As String)
-    _TextKey = Value.Replace("/", "\")
+    '_TextKey = Value.Replace("/", "\")
+    _TextKey = Value
    End Set
   End Property
 
@@ -322,6 +323,7 @@ Namespace Business
   End Sub
 
 #End Region
+
  End Class
 
 #End Region

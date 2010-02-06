@@ -281,7 +281,9 @@ Namespace Business
      If type = PackType.V5 Or type = PackType.Hybrid Then
       ' Add DNN 5+ content
       Dim loc As New CultureInfo(Locale)
-      myZipEntry = New ZipEntry(objObject.ObjectName & " " & loc.NativeName & ".dnn")
+      Dim manifestName As String = objObject.ObjectName & " " & loc.NativeName & ".dnn"
+      manifestName = manifestName.Replace("/", "_").Replace("\", "_")
+      myZipEntry = New ZipEntry(manifestName)
       strmZipStream.PutNextEntry(myZipEntry)
       strmZipStream.SetLevel(CompressionLevel)
       Dim manifestV5 As XmlDocument = GetLanguagePackManifestV5(objObject, Version, Locale)
@@ -479,7 +481,11 @@ Namespace Business
    Dim package As XmlNode = Globals.AddElement(root, "packages")
    package = Globals.AddElement(package, "package")
    Globals.AddAttribute(package, "name", objObject.ObjectName & " " & loc.NativeName) ' Our package name. The convention is Objectname + verbose language
-   Globals.AddAttribute(package, "type", "ExtensionLanguagePack")
+   If objObject.ObjectName = Globals.glbCoreName Then
+    Globals.AddAttribute(package, "type", "CoreLanguagePack")
+   Else
+    Globals.AddAttribute(package, "type", "ExtensionLanguagePack")
+   End If
    Globals.AddAttribute(package, "version", Version)
    Globals.AddElement(package, "friendlyName", objObject.ObjectName & " " & loc.NativeName) ' little to add here to name
    Globals.AddElement(package, "description", "") ' and even less - leave empty
@@ -492,9 +498,14 @@ Namespace Business
    Globals.AddElement(package, "releaseNotes", "")
    Dim component As XmlNode = Globals.AddElement(package, "components")
    component = Globals.AddElement(component, "component")
-   Globals.AddAttribute(component, "type", "ExtensionLanguage")
+   If objObject.ObjectName = Globals.glbCoreName Then
+    Globals.AddAttribute(component, "type", "CoreLanguage")
+   Else
+    Globals.AddAttribute(component, "type", "ExtensionLanguage")
+   End If
    Dim files As XmlNode = Globals.AddElement(component, "languageFiles")
    Globals.AddElement(files, "code", Locale)
+   Globals.AddElement(files, "displayName", loc.NativeName)
    If objObject.ObjectName <> Globals.glbCoreName Then
     Dim dnnPackage As New DotNetNuke.Services.Installer.Packages.PackageInfo
     With dnnPackage

@@ -131,6 +131,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -153,9 +154,12 @@
     <Import Include="System.Web.UI.WebControls" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Business\Cube.vb" />
     <Compile Include="Components\Business\ModuleInfo.vb" />
     <Compile Include="Components\Business\ObjectInfo.vb" />
     <Compile Include="Components\Business\ObjectController.vb" />
+    <Compile Include="Components\Business\StatisticInfo.vb" />
+    <Compile Include="Components\Business\StatisticsController.vb" />
     <Compile Include="Components\Business\UsersController.vb" />
     <Compile Include="Components\Business\TranslationInfo.vb" />
     <Compile Include="Components\Business\TranslationsController.vb" />
@@ -196,6 +200,9 @@
     <Compile Include="DownloadPack.ascx.vb">
       <DependentUpon>DownloadPack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GetCube.ashx.vb">
+      <DependentUpon>GetCube.ashx</DependentUpon>
     </Compile>
     <Compile Include="ManageObjects.ascx.designer.vb">
       <DependentUpon>ManageObjects.ascx</DependentUpon>
@@ -266,8 +273,11 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="DNNEurope.LocalizationEditor.dnn" />
+    <Content Include="GetCube.ashx" />
     <None Include="Providers\DataProviders\SqlDataProvider\03.00.00.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\03.00.01.sqldataprovider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.01.00.sqldataprovider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.02.00.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\Uninstall.sqldataprovider" />
     <None Include="_Install\Project.targets" />
   </ItemGroup>
