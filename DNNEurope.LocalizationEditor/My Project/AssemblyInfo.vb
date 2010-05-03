@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("Editor for module/core localization")> 
 <Assembly: AssemblyCompany("DNN-Europe")> 
 <Assembly: AssemblyProduct("DNN-Europe LocalizationEditor")> 
-<Assembly: AssemblyCopyright("(c)2009 DNN-Europe")> 
+<Assembly: AssemblyCopyright("(c)2010 DNN-Europe")> 
 <Assembly: AssemblyTrademark("http://www.dnn-europe.net")> 
 <Assembly: CLSCompliant(True)> 
 
@@ -73,3 +73,5 @@ Imports System.Runtime.InteropServices
 '01.00.02 2009-06-16 Janga: Changed ManifestTemplate.dnn to include ManageModules.ascx.resx.
 '01.00.02 2009-06-15 Janga: Moved Template.resx into App_LocalResources, otherwise the module would not install ("could not find file ... ").
 '01.00.02 2009-06-15 Janga: Referencing DotNetNuke 5.0.1.
+
+<Assembly: ComVisibleAttribute(False)> 
