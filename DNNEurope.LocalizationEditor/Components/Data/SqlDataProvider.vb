@@ -109,20 +109,20 @@ Namespace Data
 
 #Region " Permissions Methods "
 
-  Public Overrides Function GetPermission(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetPermission", ObjectId, UserId, Locale, ModuleId), IDataReader)
+  Public Overrides Function GetPermission(ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetPermission", UserId, Locale, ModuleId), IDataReader)
   End Function
 
   Public Overrides Function GetPermissions(ByVal ModuleId As Integer) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetPermissions", ModuleId), IDataReader)
   End Function
 
-  Public Overrides Function AddPermission(ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32) As Integer
-   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "AddPermission", Locale, ModuleId, ObjectId, UserId), Integer)
+  Public Overrides Function AddPermission(ByVal Locale As String, ByVal ModuleId As Int32, ByVal UserId As Int32) As Integer
+   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "AddPermission", Locale, ModuleId, UserId), Integer)
   End Function
 
-  Public Overrides Sub UpdatePermission(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "UpdatePermission", PermissionId, Locale, ModuleId, ObjectId, UserId)
+  Public Overrides Sub UpdatePermission(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal UserId As Int32)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "UpdatePermission", PermissionId, Locale, ModuleId, UserId)
   End Sub
 
   Public Overrides Sub DeletePermission(ByVal PermissionId As Integer)
@@ -212,11 +212,11 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetLatestText", ObjectId, FilePath, Locale, TextKey), IDataReader)
   End Function
 
-  Public Overrides Function GetTextsByObject(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
+  Public Overrides Function GetTextsByObject(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTextsByObject", ObjectId, Locale, Version), IDataReader)
   End Function
 
-  Public Overrides Function GetTextsByObjectAndFile(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
+  Public Overrides Function GetTextsByObjectAndFile(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTextsByObjectAndFile", ObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
   End Function
 

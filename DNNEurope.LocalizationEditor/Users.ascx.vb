@@ -48,8 +48,6 @@ Imports DotNetNuke.Common
    '// Set clientid of username textbox
    ClientAPI.RegisterClientVariable(Me.Page, "UsernameInput", txtUsername.ClientID, True)
 
-   ddObjects.DataSource = DataProvider.Instance.GetAllObjects
-   ddObjects.DataBind()
    BindData()
   End If
  End Sub
@@ -62,9 +60,9 @@ Imports DotNetNuke.Common
   End If
   Dim locale As String = txtLocale.Text.Trim
 
-  Dim uperm As Business.PermissionInfo = PermissionsController.GetPermission(CInt(ddObjects.SelectedValue), user.UserID, locale, ModuleId)
+  Dim uperm As Business.PermissionInfo = PermissionsController.GetPermission(user.UserID, locale, ModuleId)
   If uperm Is Nothing Then
-   uperm = New Business.PermissionInfo(-1, locale, ModuleId, CInt(ddObjects.SelectedValue), user.UserID)
+   uperm = New Business.PermissionInfo(-1, locale, ModuleId, user.UserID)
    PermissionsController.AddPermission(uperm)
   End If
 

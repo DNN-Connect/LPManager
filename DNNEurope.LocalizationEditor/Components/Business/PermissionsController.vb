@@ -23,8 +23,8 @@ Imports DotNetNuke.Common.Utilities
 Namespace Business
 
  Public Class PermissionsController
-  Public Shared Function GetPermission(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As PermissionInfo
-   Return CType(CBO.FillObject(DataProvider.Instance().GetPermission(ObjectId, UserId, Locale, ModuleId), GetType(PermissionInfo)), PermissionInfo)
+  Public Shared Function GetPermission(ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As PermissionInfo
+   Return CType(CBO.FillObject(DataProvider.Instance().GetPermission(UserId, Locale, ModuleId), GetType(PermissionInfo)), PermissionInfo)
   End Function
 
   Public Shared Function GetPermissions(ByVal ModuleId As Integer) As ArrayList
@@ -32,20 +32,20 @@ Namespace Business
   End Function
 
   Public Shared Function AddPermission(ByVal objPermission As PermissionInfo) As Integer
-   Return CType(DataProvider.Instance().AddPermission(objPermission.Locale, objPermission.ModuleId, objPermission.ObjectId, objPermission.UserId), Integer)
+   Return CType(DataProvider.Instance().AddPermission(objPermission.Locale, objPermission.ModuleId, objPermission.UserId), Integer)
   End Function
 
   Public Shared Sub UpdatePermission(ByVal objPermission As PermissionInfo)
-   DataProvider.Instance().UpdatePermission(objPermission.PermissionId, objPermission.Locale, objPermission.ModuleId, objPermission.ObjectId, objPermission.UserId)
+   DataProvider.Instance().UpdatePermission(objPermission.PermissionId, objPermission.Locale, objPermission.ModuleId, objPermission.UserId)
   End Sub
 
   Public Shared Sub DeletePermission(ByVal PermissionId As Integer)
    DataProvider.Instance().DeletePermission(PermissionId)
   End Sub
 
-  Public Shared Function HasAccess(ByVal user As UserInfo, ByVal AdminRole As String, ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal Locale As String) As Boolean
+  Public Shared Function HasAccess(ByVal user As UserInfo, ByVal AdminRole As String, ByVal ModuleId As Integer, ByVal Locale As String) As Boolean
    If user.IsSuperUser Or user.IsInRole(AdminRole) Then Return True
-   Using ir As IDataReader = DataProvider.Instance().GetPermission(ObjectId, user.UserID, Locale, ModuleId)
+   Using ir As IDataReader = DataProvider.Instance().GetPermission(user.UserID, Locale, ModuleId)
     If ir.Read Then
      Return True
     End If

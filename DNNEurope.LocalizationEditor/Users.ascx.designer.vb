@@ -43,24 +43,6 @@ Partial Public Class Users
  Protected WithEvents reqVal1 As Global.System.Web.UI.WebControls.RequiredFieldValidator
 
  '''<summary>
- '''lblObjects control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents lblObjects As Global.System.Web.UI.UserControl
-
- '''<summary>
- '''ddObjects control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents ddObjects As Global.System.Web.UI.WebControls.DropDownList
-
- '''<summary>
  '''lblLocale control.
  '''</summary>
  '''<remarks>

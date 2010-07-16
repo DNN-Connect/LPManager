@@ -49,12 +49,12 @@ Namespace Business
    Return CType(CBO.FillObject(DataProvider.Instance().GetText(ObjectId, FilePath, Locale, Version, TextKey), GetType(TextInfo)), TextInfo)
   End Function
 
-  Public Shared Function GetTextsByObject(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDictionary(Of Integer, TextInfo)
-   Return CBO.FillDictionary(Of TextInfo)(DataProvider.Instance.GetTextsByObject(ObjectId, Locale, Version))
+  Public Shared Function GetTextsByObject(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDictionary(Of Integer, TextInfo)
+   Return CBO.FillDictionary(Of TextInfo)(DataProvider.Instance.GetTextsByObject(ModuleId, ObjectId, Locale, Version))
   End Function
 
-  Public Shared Function GetTextsByObjectAndFile(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDictionary(Of Integer, TextInfo)
-   Return CBO.FillDictionary(Of TextInfo)(DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, FilePath, Locale, Version, IncludeNonTranslated))
+  Public Shared Function GetTextsByObjectAndFile(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDictionary(Of Integer, TextInfo)
+   Return CBO.FillDictionary(Of TextInfo)(DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, ObjectId, FilePath, Locale, Version, IncludeNonTranslated))
   End Function
 
   Public Shared Function CurrentVersion(ByVal ObjectId As Integer, ByVal Locale As String) As String

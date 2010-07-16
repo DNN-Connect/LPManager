@@ -133,7 +133,7 @@ Namespace Business
    Next
 
    ' Deprecate old stuff
-   For Each ti As TextInfo In TextsController.GetTextsByObject(objObjectInfo.ObjectId, "", version).Values
+   For Each ti As TextInfo In TextsController.GetTextsByObject(objObjectInfo.ModuleId, objObjectInfo.ObjectId, "", version).Values
     If ti.Version <> version Then ' it's an old one
      If Not currentVersionKeys.Contains(ti.FilePath & ";" & ti.TextKey) Then
       ti.DeprecatedIn = version
@@ -294,7 +294,7 @@ Namespace Business
        Dim resFileName As String = Mid(filePath, filePath.LastIndexOf("\") + 2)
        resFileName = resFileName.Replace(".resx", pattern)
        Dim targetPath As String = GetResourceZipPathV5(filePath, GetObjectBasePath(objObject))
-       Dim texts As IDictionary(Of Integer, TextInfo) = TextsController.GetTextsByObjectAndFile(objObject.ObjectId, filePath, Locale, Version, False)
+       Dim texts As IDictionary(Of Integer, TextInfo) = TextsController.GetTextsByObjectAndFile(objObject.ModuleId, objObject.ObjectId, filePath, Locale, Version, False)
        If texts.Count > 0 Then ' do not write an empty file
         Dim resDoc As New XmlDocument
         resDoc.Load(DotNetNuke.Common.ApplicationMapPath & "\DesktopModules\DNNEurope\LocalizationEditor\App_LocalResources\Template.resx")
@@ -329,7 +329,7 @@ Namespace Business
        Dim resFileName As String = Mid(filePath, filePath.LastIndexOf("\") + 2)
        resFileName = resFileName.Replace(".resx", pattern)
        Dim targetPath As String = GetResourceZipPathV3(filePath)
-       Dim texts As IDictionary(Of Integer, TextInfo) = TextsController.GetTextsByObjectAndFile(objObject.ObjectId, filePath, Locale, Version, False)
+       Dim texts As IDictionary(Of Integer, TextInfo) = TextsController.GetTextsByObjectAndFile(objObject.ModuleId, objObject.ObjectId, filePath, Locale, Version, False)
        If texts.Count > 0 Then ' do not write an empty file
         Dim resDoc As New XmlDocument
         resDoc.Load(DotNetNuke.Common.ApplicationMapPath & "\DesktopModules\DNNEurope\LocalizationEditor\App_LocalResources\Template.resx")
@@ -389,7 +389,7 @@ Namespace Business
    Dim files As XmlNode = manifest.CreateElement("Files")
    root.AppendChild(files)
    For Each filePath As String In TextsController.GetFileList(ObjectId, Version)
-    If TextsController.GetTextsByObjectAndFile(ObjectId, filePath, Locale, Version, False).Count > 0 Then
+    If TextsController.GetTextsByObjectAndFile(-1, ObjectId, filePath, Locale, Version, False).Count > 0 Then
      AddPackResourcePathToManifestV3(files, filePath, Locale)
     End If
    Next
@@ -466,7 +466,7 @@ Namespace Business
 #End Region
 
 #Region " Pack Creation V5 "
-  Private Shared Function GetLanguagePackManifestV5(ByVal objObject As ObjectInfo, ByVal Version As String, ByVal Locale As String) As XmlDocument
+  Private Shared Function GetLanguagePackManifestV5(ByVal objObjects As List(Of ObjectInfo), ByVal Version As String, ByVal Locale As String) As XmlDocument
    Dim pattern As String = ".resx"
    If Locale <> "" Then
     pattern = "." & Locale & pattern
@@ -479,15 +479,37 @@ Namespace Business
    Globals.AddAttribute(root, "type", "Package")
    Globals.AddAttribute(root, "version", "5.0")
    Dim package As XmlNode = Globals.AddElement(root, "packages")
-   package = Globals.AddElement(package, "package")
-   Globals.AddAttribute(package, "name", objObject.ObjectName & " " & loc.NativeName) ' Our package name. The convention is Objectname + verbose language
+   For Each objObject As ObjectInfo In objObjects
+    AddObjectToV5Manifest(package, objObject, Version, loc)
+   Next
+   Return manifest
+  End Function
+
+  Private Shared Function GetLanguagePackManifestV5(ByVal objObject As ObjectInfo, ByVal Version As String, ByVal Locale As String) As XmlDocument
+   Dim objs As New List(Of ObjectInfo)
+   If objObject.ObjectName = Globals.glbCoreName Then
+    For Each obj As ObjectInfo In ObjectController.GetObjectList(objObject.ModuleId)
+     If obj.IsCoreObject Then
+      objs.Add(obj)
+     End If
+    Next
+   Else
+    objs.Add(objObject)
+   End If
+   Return GetLanguagePackManifestV5(objs, Version, Locale)
+  End Function
+
+  Private Shared Sub AddObjectToV5Manifest(ByRef packagesNode As XmlNode, ByVal objObject As ObjectInfo, ByVal Version As String, ByVal loc As CultureInfo)
+
+   Dim package As XmlNode = Globals.AddElement(packagesNode, "package")
+   Globals.AddAttribute(package, "name", objObject.ObjectName & " " & Loc.NativeName) ' Our package name. The convention is Objectname + verbose language
    If objObject.ObjectName = Globals.glbCoreName Then
     Globals.AddAttribute(package, "type", "CoreLanguagePack")
    Else
     Globals.AddAttribute(package, "type", "ExtensionLanguagePack")
    End If
    Globals.AddAttribute(package, "version", Version)
-   Globals.AddElement(package, "friendlyName", objObject.ObjectName & " " & loc.NativeName) ' little to add here to name
+   Globals.AddElement(package, "friendlyName", objObject.ObjectName & " " & Loc.NativeName) ' little to add here to name
    Globals.AddElement(package, "description", "") ' and even less - leave empty
    Dim owner As XmlNode = Globals.AddElement(package, "owner")
    Globals.AddElement(owner, "name", objObject.Module.OwnerName)
@@ -504,8 +526,8 @@ Namespace Business
     Globals.AddAttribute(component, "type", "ExtensionLanguage")
    End If
    Dim files As XmlNode = Globals.AddElement(component, "languageFiles")
-   Globals.AddElement(files, "code", Locale)
-   Globals.AddElement(files, "displayName", loc.NativeName)
+   Globals.AddElement(files, "code", loc.Name)
+   Globals.AddElement(files, "displayName", Loc.NativeName)
    If objObject.ObjectName <> Globals.glbCoreName Then
     Dim dnnPackage As New DotNetNuke.Services.Installer.Packages.PackageInfo
     With dnnPackage
@@ -519,12 +541,12 @@ Namespace Business
    Dim basePath As String = GetObjectBasePath(objObject)
    Globals.AddElement(files, "basePath", basePath) ' basepath needs to be added to object
    For Each filePath As String In TextsController.GetFileList(objObject.ObjectId, Version)
-    If TextsController.GetTextsByObjectAndFile(objObject.ObjectId, filePath, Locale, Version, False).Count > 0 Then
-     AddPackResourcePathToManifestV5(files, filePath, Locale, basePath)
+    If TextsController.GetTextsByObjectAndFile(objObject.ModuleId, objObject.ObjectId, filePath, loc.Name, Version, False).Count > 0 Then
+     AddPackResourcePathToManifestV5(files, filePath, loc.Name, basePath)
     End If
    Next
-   Return manifest
-  End Function
+
+  End Sub
 
   Private Shared Sub AddPackResourcePathToManifestV5(ByRef filesNode As XmlNode, ByVal filePath As String, ByVal locale As String, ByVal basePath As String)
    Try

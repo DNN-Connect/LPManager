@@ -38,7 +38,6 @@ Namespace Business
   Private _PermissionId As Integer
   Private _ModuleId As Integer
   Private _UserId As Integer
-  Private _ObjectId As Integer
   Private _Locale As String
 
   Private _displayName As String
@@ -50,10 +49,9 @@ Namespace Business
   Public Sub New()
   End Sub
 
-  Public Sub New(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32)
+  Public Sub New(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal UserId As Int32)
    Me.Locale = Locale
    Me.ModuleId = ModuleId
-   Me.ObjectId = ObjectId
    Me.PermissionId = PermissionId
    Me.UserId = UserId
   End Sub
@@ -86,15 +84,6 @@ Namespace Business
    End Get
    Set(ByVal Value As Integer)
     _UserId = Value
-   End Set
-  End Property
-
-  Public Property ObjectId() As Integer
-   Get
-    Return _ObjectId
-   End Get
-   Set(ByVal Value As Integer)
-    _ObjectId = Value
    End Set
   End Property
 
@@ -153,7 +142,6 @@ Namespace Business
    PermissionId = Convert.ToInt32(Null.SetNull(dr.Item("PermissionId"), PermissionId))
    Locale = Convert.ToString(Null.SetNull(dr.Item("Locale"), Locale))
    ModuleId = Convert.ToInt32(Null.SetNull(dr.Item("ModuleId"), ModuleId))
-   ObjectId = Convert.ToInt32(Null.SetNull(dr.Item("ObjectId"), ObjectId))
    UserId = Convert.ToInt32(Null.SetNull(dr.Item("UserId"), UserId))
    Try
     DisplayName = Convert.ToString(Null.SetNull(dr.Item("DisplayName"), DisplayName))
@@ -202,8 +190,6 @@ Namespace Business
      Return PropertyAccess.FormatString(Me.Locale, strFormat)
     Case "moduleid"
      Return (Me.ModuleId.ToString(OutputFormat, formatProvider))
-    Case "Objectid"
-     Return (Me.ObjectId.ToString(OutputFormat, formatProvider))
     Case "userid"
      Return (Me.UserId.ToString(OutputFormat, formatProvider))
     Case Else
@@ -285,7 +271,6 @@ Namespace Business
   Public Sub WriteXml(ByVal writer As XmlWriter) Implements IXmlSerializable.WriteXml
    writer.WriteStartElement("Permission")
    writer.WriteElementString("PermissionId", PermissionId.ToString())
-   writer.WriteElementString("ObjectId", ObjectId.ToString())
    writer.WriteElementString("UserId", UserId.ToString())
    writer.WriteElementString("Locale", Locale)
    writer.WriteElementString("ModuleId", ModuleId.ToString())

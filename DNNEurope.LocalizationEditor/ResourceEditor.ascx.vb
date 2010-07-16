@@ -149,7 +149,7 @@ Partial Public Class ResourceEditor
   AJAX.RegisterPostBackControl(cmdSave)
 
   If Not Me.IsPostBack Then
-   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, Locale) Then
+   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, Locale) Then
     Throw New Exception("Access denied")
    End If
   End If

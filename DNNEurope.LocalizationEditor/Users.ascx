@@ -13,14 +13,6 @@
   </tr>
   <tr class="Normal" valign="top">
     <td>
-      <dnn:Label ID="lblObjects" runat="server" ControlName="lblObjects" ResourceKey="lblObjects" Suffix=":" />
-    </td>
-    <td>
-      <asp:DropDownList runat="server" ID="ddObjects" DataTextField="FriendlyName" DataValueField="ObjectId" />
-    </td>
-  </tr>
-  <tr class="Normal" valign="top">
-    <td>
       <dnn:Label ID="lblLocale" runat="server" ControlName="lblLocale" ResourceKey="lblLocale" Suffix=":" />
     </td>
     <td>
@@ -52,9 +44,6 @@
         <th>
         </th>
         <th>
-          <%#DotNetNuke.Services.Localization.Localization.GetString("Object.Header", LocalResourceFile)%>
-        </th>
-        <th>
         </th>
         <th>
           <%#DotNetNuke.Services.Localization.Localization.GetString("Locale.Header", LocalResourceFile)%>
@@ -74,9 +63,6 @@
       </td>
       <td>
         &nbsp;
-      </td>
-      <td>
-        <%#DataBinder.Eval(Container.DataItem, "ObjectName")%>
       </td>
       <td>
         &nbsp;

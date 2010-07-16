@@ -108,7 +108,7 @@ Partial Public Class Import
    If Locale = "" Or ObjectId = -2 Then
     Throw New Exception("Access denied")
    End If
-   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, Locale) Then
+   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, Locale) Then
     Throw New Exception("Access denied")
    End If
 
@@ -302,7 +302,7 @@ Partial Public Class Import
  End Sub
 
  Private Sub AnalyzeFile(ByRef report As StringBuilder, ByVal resFile As XmlDocument, ByVal resFileKey As String)
-  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
+  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
    Do While ir.Read
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim hasValue As Boolean = False
@@ -395,7 +395,7 @@ Partial Public Class Import
   Dim updateList As New List(Of TranslationInfo)
   Dim addList As New List(Of TranslationInfo)
   Dim addStatisticsList As New Dictionary(Of Integer, Integer)
-  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
+  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
    Do While ir.Read
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim textId As Integer = CInt(ir.Item("TextId"))

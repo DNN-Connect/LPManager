@@ -105,7 +105,7 @@ Partial Public Class ObjectSummary
   If Not Me.IsPostBack Then
 
    ' Permission check here
-   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, ObjectId, Locale) Then
+   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, Locale) Then
     Throw New Exception("Access denied")
    End If
 

@@ -52,13 +52,13 @@ Namespace Data
 
 #Region " Permission Methods "
 
-  Public MustOverride Function GetPermission(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As IDataReader
+  Public MustOverride Function GetPermission(ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As IDataReader
 
   Public MustOverride Function GetPermissions(ByVal ModuleId As Integer) As IDataReader
 
-  Public MustOverride Function AddPermission(ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32) As Integer
+  Public MustOverride Function AddPermission(ByVal Locale As String, ByVal ModuleId As Int32, ByVal UserId As Int32) As Integer
 
-  Public MustOverride Sub UpdatePermission(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal ObjectId As Int32, ByVal UserId As Int32)
+  Public MustOverride Sub UpdatePermission(ByVal PermissionId As Int32, ByVal Locale As String, ByVal ModuleId As Int32, ByVal UserId As Int32)
 
   Public MustOverride Sub DeletePermission(ByVal PermissionId As Integer)
 
@@ -103,9 +103,9 @@ Namespace Data
 
   Public MustOverride Function GetText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal TextKey As String) As IDataReader
 
-  Public MustOverride Function GetTextsByObject(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
+  Public MustOverride Function GetTextsByObject(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
 
-  Public MustOverride Function GetTextsByObjectAndFile(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
+  Public MustOverride Function GetTextsByObjectAndFile(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
 
   Public MustOverride Function GetLatestText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal TextKey As String) As IDataReader
 
