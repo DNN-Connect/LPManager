@@ -191,6 +191,7 @@ Public Class ManifestReader
          If Not node("path") Is Nothing Then resDir = node("path").InnerText
          If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
           Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+          If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
           Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
           manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
          End If
@@ -213,6 +214,7 @@ Public Class ManifestReader
          If Not node("path") Is Nothing Then resDir = node("path").InnerText
          If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
           Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+          If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
           Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
           manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
          End If
@@ -235,6 +237,7 @@ Public Class ManifestReader
          If Not node("path") Is Nothing Then resDir = node("path").InnerText
          If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
           Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+          If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
           Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
           manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
          End If
@@ -257,6 +260,7 @@ Public Class ManifestReader
          If Not node("path") Is Nothing Then resDir = node("path").InnerText
          If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
           Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+          If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
           Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
           manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
          End If
@@ -330,7 +334,7 @@ Public Class ManifestReader
       'TODO Support resource files which are already localized
       If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
        '// Determine the resource directory and key for the module
-       Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+       Dim resPath As String = Path.Combine(tempDirectory, resFile)
        Dim resKey As String = Path.Combine(Path.Combine(Path.Combine("DesktopModules", manifestModule.FolderName), resDir), resFile)
 
        manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))

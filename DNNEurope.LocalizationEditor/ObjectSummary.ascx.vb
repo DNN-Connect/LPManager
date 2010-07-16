@@ -109,7 +109,7 @@ Partial Public Class ObjectSummary
     Throw New Exception("Access denied")
    End If
 
-   ddSourceLocale.DataSource = DataProvider.Instance.GetLocalesForUserObject(ObjectId, PortalSettings.AdministratorId, PortalId, ModuleId)
+   ddSourceLocale.DataSource = DataProvider.Instance.GetLocalesForUser(PortalSettings.AdministratorId, PortalId, ModuleId)
    ddSourceLocale.DataBind()
    ddSourceLocale.Items.Insert(0, New ListItem(Localization.GetString("NoSource", Me.LocalResourceFile), ""))
 

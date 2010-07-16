@@ -149,9 +149,9 @@ Namespace Data
   Public MustOverride Function GetAllObjects() As IDataReader
   Public MustOverride Function GetUsedObjects() As IDataReader
 
-  Public MustOverride Function GetObjectsForUser(ByVal UserID As Integer, ByVal PortalId As Integer, ByVal ModuleId As Integer) As IDataReader
+  Public MustOverride Function GetObjects(ByVal ModuleId As Integer) As IDataReader
 
-  Public MustOverride Function GetLocalesForUserObject(ByVal ObjectId As Integer, ByVal UserId As Integer, ByVal PortalId As Integer, ByVal ModuleId As Integer) As IDataReader
+  Public MustOverride Function GetLocalesForUser(ByVal UserId As Integer, ByVal PortalId As Integer, ByVal ModuleId As Integer) As IDataReader
 
   Public MustOverride Function GetAvailableLanguagePacks() As IDataReader
 

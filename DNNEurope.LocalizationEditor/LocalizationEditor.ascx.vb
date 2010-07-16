@@ -88,13 +88,14 @@ Partial Public Class LocalizationEditor
    uid = PortalSettings.AdministratorId
   End If
   Dim res As New StringBuilder
-  Using ir As IDataReader = DataProvider.Instance.GetLocalesForUserObject(ObjectId, uid, PortalId, ModuleId)
+  Using ir As IDataReader = DataProvider.Instance.GetLocalesForUser(uid, PortalId, ModuleId)
    Do While ir.Read
     res.Append("<a href=""")
     res.Append(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & CStr(ir.Item("Locale"))))
     res.Append(""" class=""CommandButton"">")
     res.Append(CStr(ir.Item("Locale")))
-    res.AppendFormat("</a> ({0}%) | ", ir.Item("Progress"))
+    res.Append("</a> | ")
+    'res.AppendFormat("</a> ({0}%) | ", ir.Item("Progress"))
    Loop
   End Using
   Return res.ToString.Trim.TrimEnd(CChar("|"))
@@ -110,7 +111,7 @@ Partial Public Class LocalizationEditor
 
  Public Overrides Sub DataBind()
 
-  dlObjects.DataSource = DataProvider.Instance.GetObjectsForUser(_userId, PortalId, ModuleId)
+  dlObjects.DataSource = DataProvider.Instance.GetObjects(ModuleId)
   dlObjects.DataBind()
   If dlObjects.Items.Count = 0 Then
    pnlEdit.Visible = False
