@@ -6,7 +6,7 @@
 <table cellpadding="2" cellspacing="1">
  <tr>
   <td>
-   <dnn:Label ID="lblPackageFile" runat="server" ResourceKey="lblPackageFile.Text" Suffix=":" />
+   <dnn:Label ID="lblPackageFile" runat="server" ResourceKey="lblPackageFile" Suffix=":" />
   </td>
   <td>
    <asp:FileUpload runat="server" ID="ctlUpload" />
@@ -14,19 +14,6 @@
   <td>
    <asp:LinkButton ID="lbImportPackage" runat="server" resourcekey="lbImportPackage"
     Text="Import Package" CssClass="CommandButton" />
-  </td>
- </tr>
- <tr>
-  <td>
-   <dnn:Label ID="lblInstalledObject" runat="server" ResourceKey="lblInstalledObject.Text"
-    Suffix=":" />
-  </td>
-  <td>
-   <asp:DropDownList ID="ddlInstalledObjects" runat="server" />
-  </td>
-  <td>
-   <asp:LinkButton ID="lbImportInstalledObject" runat="server" resourcekey="lbImportInstalledObject"
-    Text="Import Installed Object" CssClass="CommandButton" />
   </td>
  </tr>
 </table>

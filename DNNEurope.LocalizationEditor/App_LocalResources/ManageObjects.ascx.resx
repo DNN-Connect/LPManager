@@ -120,26 +120,14 @@
   <data name="cmdReturn.Text" xml:space="preserve">
     <value>Return</value>
   </data>
-  <data name="lbImportInstalledObject.Text" xml:space="preserve">
-    <value>Import Installed Object</value>
-  </data>
-  <data name="lbImportPackage.Text" xml:space="preserve">
-    <value>Import Package</value>
-  </data>
   <data name="lblCurrentObjects.Text" xml:space="preserve">
-    <value>Translated Objects by the localization editor</value>
+    <value>Objects managed by the localization editor</value>
   </data>
   <data name="lblImportObject.Text" xml:space="preserve">
     <value>Import Object</value>
   </data>
-  <data name="lblInstalledObject.Help" xml:space="preserve">
-    <value>Select the installed Object to import.</value>
-  </data>
-  <data name="lblInstalledObject.Text" xml:space="preserve">
-    <value>Installed Objects</value>
-  </data>
   <data name="lblPackageFile.Help" xml:space="preserve">
-    <value>Select the Object package file to import.</value>
+    <value>Select the Object package file to import. This can be either a core distribution _Install.zip or a module/package zip.</value>
   </data>
   <data name="lblPackageFile.Text" xml:space="preserve">
     <value>Object package file</value>
@@ -164,5 +152,8 @@
   </data>
   <data name="IsCoreObject.Header" xml:space="preserve">
     <value>Core Object</value>
+  </data>
+  <data name="lbImportPackage.Text" xml:space="preserve">
+    <value>Import Package</value>
   </data>
 </root>

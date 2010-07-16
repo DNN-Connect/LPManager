@@ -60,33 +60,6 @@ Partial Public Class ManageObjects
   BindData()
  End Sub
 
- ''' <summary>
- ''' Import an installed module into the localization editor
- ''' </summary>
- ''' <param name="sender"></param>
- ''' <param name="e"></param>
- ''' <remarks></remarks>
- Private Sub lbImportInstalledModule_Click(ByVal sender As Object, ByVal e As EventArgs) Handles lbImportInstalledObject.Click
-  '// Get the id of the installed module
-  Dim desktopModuleId As Integer
-  If Not Integer.TryParse(ddlInstalledObjects.SelectedValue, desktopModuleId) Then
-   Return
-  End If
-
-  '// Get the desktopmodule information 
-  Dim dm As DesktopModuleInfo = DesktopModuleController.GetDesktopModule(desktopModuleId, PortalId)
-
-  '// Add the module into the localization editor
-  Dim tm As New ObjectInfo(0, dm.ModuleName, dm.FriendlyName, dm.FolderName, ModuleId, "Module", False)
-  tm.ObjectId = ObjectController.AddObject(tm)
-
-  '// Process the resources for the module
-  LocalizationController.ReadResourceFiles(Server.MapPath("~/"), PortalId, tm, UserId)
-
-  '// Reload data
-  BindData()
- End Sub
-
  Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdReturn.Click
   Me.Response.Redirect(DotNetNuke.Common.NavigateURL, False)
  End Sub
@@ -106,22 +79,6 @@ Partial Public Class ManageObjects
   Dim translatedModules As ArrayList = ObjectController.GetObjectList(ModuleId)
   dlTranslateObjects.DataSource = translatedModules
   dlTranslateObjects.DataBind()
-
-  '// Load the installed modules
-  ddlInstalledObjects.Items.Clear()
-  For Each dm As DesktopModuleInfo In DesktopModuleController.GetDesktopModules(PortalId).Values
-   '// If the module is not already imported add it to the list
-   Dim isImported As Boolean = False
-   For Each tm As ObjectInfo In translatedModules
-    If tm.ObjectName = dm.ModuleName Then
-     isImported = True
-     Exit For
-    End If
-   Next
-   If Not isImported Then
-    ddlInstalledObjects.Items.Add(New ListItem(dm.FriendlyName, dm.DesktopModuleID.ToString))
-   End If
-  Next
  End Sub
 
 #End Region
