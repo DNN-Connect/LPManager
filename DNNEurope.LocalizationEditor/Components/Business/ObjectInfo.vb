@@ -42,21 +42,19 @@ Namespace Business
   Private _packageType As String = "Module"
   Private _module As ModuleInfo
   Private _lastVersion As String = "00.00.00"
-  Private _IsCoreObject As Boolean = False
 
 #Region " Constructors "
 
   Public Sub New()
   End Sub
 
-  Public Sub New(ByVal ObjectId As Integer, ByVal Objectname As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String, ByVal IsCoreObject As Boolean)
+  Public Sub New(ByVal ObjectId As Integer, ByVal Objectname As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String)
    Me.ObjectId = ObjectId
    Me.ObjectName = Objectname
    Me.FriendlyName = FriendlyName
    Me.InstallPath = InstallPath
    Me.ModuleId = ModuleId
    Me.PackageType = PackageType
-   Me.IsCoreObject = IsCoreObject
   End Sub
 
 #End Region
@@ -136,15 +134,6 @@ Namespace Business
     _lastVersion = value
    End Set
   End Property
-
-  Public Property IsCoreObject() As Boolean
-   Get
-    Return _IsCoreObject
-   End Get
-   Set(ByVal value As Boolean)
-    _IsCoreObject = value
-   End Set
-  End Property
 #End Region
 
 #Region " IHydratable Implementation "
@@ -167,7 +156,6 @@ Namespace Business
    InstallPath = Convert.ToString(Null.SetNull(dr.Item("InstallPath"), InstallPath))
    ModuleId = Convert.ToInt32(Null.SetNull(dr.Item("ModuleId"), ModuleId))
    PackageType = Convert.ToString(Null.SetNull(dr.Item("PackageType"), PackageType))
-   IsCoreObject = Convert.ToBoolean(Null.SetNull(dr.Item("IsCoreObject"), IsCoreObject))
    Try
     LastVersion = Convert.ToString(Null.SetNull(dr.Item("LastVersion"), LastVersion))
    Catch
@@ -219,8 +207,6 @@ Namespace Business
      Return (Me.ModuleId.ToString(OutputFormat, formatProvider))
     Case "packagetype"
      Return PropertyAccess.FormatString(Me.PackageType, strFormat)
-    Case "iscoreobject"
-     Return PropertyAccess.Boolean2LocalizedYesNo(Me.IsCoreObject, formatProvider)
     Case "lastversion"
      Return PropertyAccess.FormatString(Me.LastVersion, strFormat)
     Case Else
@@ -277,7 +263,6 @@ Namespace Business
      ModuleId = Null.NullInteger
     End If
     PackageType = readElement(reader, "PackageType")
-    IsCoreObject = CBool(readElement(reader, "IsCoreObject"))
    Catch ex As Exception
     ' log exception as DNN import routine does not do that
     DotNetNuke.Services.Exceptions.LogException(ex)
@@ -305,7 +290,6 @@ Namespace Business
    writer.WriteElementString("InstallPath", InstallPath)
    writer.WriteElementString("ModuleId", ModuleId.ToString())
    writer.WriteElementString("PackageType", PackageType)
-   writer.WriteElementString("IsCoreObject", IsCoreObject.ToString)
    writer.WriteEndElement()
   End Sub
 

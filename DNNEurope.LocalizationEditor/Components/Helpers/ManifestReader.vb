@@ -36,7 +36,6 @@ Public Class ManifestReader
   Public Version As String = "0"
   Public PackageType As String = "Module"
   Public ResourceFiles As New SortedList
-  Public IsCoreObject As Boolean = False
  End Class
 
  ''' <summary>
@@ -46,7 +45,7 @@ Public Class ManifestReader
  ''' <param name="moduleContent">Package content as stream</param>
  ''' <param name="HomeDirectoryMapPath">HomeDirectoryMapPath of this portal (needed for the temp path)</param>
  ''' <remarks></remarks>
- Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer, ByVal IsCoreObject As Boolean)
+ Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer)
   '// Create a temporary directory to unpack the package
   Dim tempDirectory As String = HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
 
@@ -79,7 +78,7 @@ Public Class ManifestReader
     For Each obj As FileInfo In d.GetFiles("*.zip")
      Using objStream As New IO.FileStream(obj.FullName, FileMode.Open, FileAccess.Read)
       'Try
-      ImportModulePackage(objStream, HomeDirectoryMapPath, ModuleId, True)
+      ImportModulePackage(objStream, HomeDirectoryMapPath, ModuleId)
       'Catch ex As Exception
       '      End Try
      End Using
@@ -93,7 +92,6 @@ Public Class ManifestReader
     .Version = GetAssemblyVersion(tempDirectory & "\bin\DotNetNuke.dll")
     .FolderName = ""
     .PackageType = "Core"
-    .IsCoreObject = True
    End With
    ReadResourceFiles(core, "", tempDirectory)
    manifestModules.Add(core)
@@ -126,7 +124,6 @@ Public Class ManifestReader
     For Each packageNode As XmlNode In mainNodes
 
      Dim manifestModule As New ManifestModuleInfo()
-     manifestModule.IsCoreObject = IsCoreObject
 
      '// Determine the version
      If Not packageNode.SelectSingleNode("@version") Is Nothing Then
@@ -287,7 +284,6 @@ Public Class ManifestReader
     '// Create a module for each folder
     For Each folderNode As XmlNode In mainNodes
      Dim manifestModule As New ManifestModuleInfo()
-     manifestModule.IsCoreObject = IsCoreObject
 
      '// Determine the module name
      If Not folderNode("modulename") Is Nothing Then
@@ -368,7 +364,7 @@ Public Class ManifestReader
      Dim objObjectInfo As ObjectInfo = ObjectController.GetObjectByObjectName(manifestModule.ObjectName)
      If objObjectInfo Is Nothing Then
       '// Create a new translate module
-      objObjectInfo = New ObjectInfo(0, manifestModule.ObjectName, manifestModule.FriendlyName, manifestModule.FolderName, ModuleId, manifestModule.PackageType, manifestModule.IsCoreObject)
+      objObjectInfo = New ObjectInfo(0, manifestModule.ObjectName, manifestModule.FriendlyName, manifestModule.FolderName, ModuleId, manifestModule.PackageType)
       objObjectInfo.ObjectId = ObjectController.AddObject(objObjectInfo)
      End If
 

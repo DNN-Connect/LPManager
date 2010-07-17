@@ -48,7 +48,6 @@ Namespace Business
       output.WriteAttributeString("name", CStr(ir.Item("ObjectName")))
       output.WriteAttributeString("friendlyName", CStr(ir.Item("FriendlyName")))
       output.WriteAttributeString("type", CStr(ir.Item("PackageType")))
-      output.WriteAttributeString("isCore", CStr(ir.Item("IsCoreObject")))
      End If
      If version <> lastVersion Then
       ' start new version

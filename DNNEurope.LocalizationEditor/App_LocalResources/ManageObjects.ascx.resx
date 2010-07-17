@@ -150,9 +150,6 @@
   <data name="LastVersion.Header" xml:space="preserve">
     <value>Last Version</value>
   </data>
-  <data name="IsCoreObject.Header" xml:space="preserve">
-    <value>Core Object</value>
-  </data>
   <data name="lbImportPackage.Text" xml:space="preserve">
     <value>Import Package</value>
   </data>

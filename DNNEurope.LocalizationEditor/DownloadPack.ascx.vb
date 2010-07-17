@@ -19,6 +19,8 @@ Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Services.Localization
+Imports System.Collections.Generic
+Imports System.Globalization
 
 Partial Public Class DownloadPack
  Inherits ModuleBase
@@ -162,4 +164,38 @@ Partial Public Class DownloadPack
  End Sub
 
 #End Region
+
+#Region " Public Methods "
+ Public Function DownloadPackList(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As String
+  Dim packPath As String = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
+  Dim res As String = ""
+  For Each drv As DataRowView In GetLocalesByCode(Locale)
+   res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+  Next
+  Return res
+ End Function
+#End Region
+
+#Region " Private Methods "
+ Private _locales As DataTable
+ Private ReadOnly Property Locales() As DataTable
+  Get
+   If _locales Is Nothing Then
+    _locales = New DataTable("Locales")
+    _locales.Columns.Add("Locale", GetType(String))
+    For Each culture As CultureInfo In CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+     Dim dr As DataRow = _locales.NewRow
+     dr.Item("Locale") = culture.Name
+     _locales.Rows.Add(dr)
+    Next
+   End If
+   Return _locales
+  End Get
+ End Property
+
+ Private Function GetLocalesByCode(ByVal code As String) As DataView
+  Return New DataView(Locales, "Locale LIKE '" & code & "*'", "Locale", DataViewRowState.CurrentRows)
+ End Function
+#End Region
+
 End Class

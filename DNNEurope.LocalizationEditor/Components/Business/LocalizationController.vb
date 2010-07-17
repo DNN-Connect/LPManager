@@ -487,15 +487,16 @@ Namespace Business
 
   Private Shared Function GetLanguagePackManifestV5(ByVal objObject As ObjectInfo, ByVal Version As String, ByVal Locale As String) As XmlDocument
    Dim objs As New List(Of ObjectInfo)
-   If objObject.ObjectName = Globals.glbCoreName Then
-    For Each obj As ObjectInfo In ObjectController.GetObjectList(objObject.ModuleId)
-     If obj.IsCoreObject Then
-      objs.Add(obj)
-     End If
-    Next
-   Else
-    objs.Add(objObject)
-   End If
+   'If objObject.ObjectName = Globals.glbCoreName Then
+   'we now only pack the core
+   'For Each obj As ObjectInfo In ObjectController.GetObjectList(objObject.ModuleId)
+   ' If obj.IsCoreObject Then
+   '  objs.Add(obj)
+   ' End If
+   'Next
+   'Else
+   objs.Add(objObject)
+   'End If
    Return GetLanguagePackManifestV5(objs, Version, Locale)
   End Function
 

@@ -34,9 +34,7 @@
     <asp:BoundColumn DataField="PercentComplete" HeaderText="PercentComplete" DataFormatString="{0:F0}" />
     <asp:TemplateColumn Visible="true">
      <ItemTemplate>
-      <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%=ObjectId%>&Locale=<%#DataBinder.Eval(Container.DataItem, "Locale")%>&Version=<%=Version%>"
-       style="display: <%#IIF(CStr(DataBinder.Eval(Container.DataItem, "Locale")).Length > 2,"block","none")%>">
-       <%=DotNetNuke.Services.Localization.Localization.GetString("cmdDownload", LocalResourceFile)%></a>
+      <%#DownloadPackList(ObjectId, DataBinder.Eval(Container.DataItem, "Locale"), Version)%>
      </ItemTemplate>
     </asp:TemplateColumn>
    </Columns>

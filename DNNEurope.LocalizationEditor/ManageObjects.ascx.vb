@@ -54,7 +54,7 @@ Partial Public Class ManageObjects
    Return
   End If
 
-  ManifestReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, False)
+  ManifestReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId)
 
   '// Reload data
   BindData()

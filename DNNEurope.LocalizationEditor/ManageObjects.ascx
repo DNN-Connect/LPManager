@@ -42,9 +42,6 @@
     <th>
      <%#DotNetNuke.Services.Localization.Localization.GetString("ObjectName.Header", LocalResourceFile)%>
     </th>
-    <th>
-     <%#DotNetNuke.Services.Localization.Localization.GetString("IsCoreObject.Header", LocalResourceFile)%>
-    </th>
    </tr>
  </HeaderTemplate>
  <ItemTemplate>
@@ -65,10 +62,6 @@
    </td>
    <td>
     <%#DataBinder.Eval(Container.DataItem, "ObjectName")%>
-   </td>
-   <td>
-    <asp:Image runat="server" ID="Image1" ImageUrl="~/images/checked.gif" Visible='<%# DataBinder.Eval(Container.DataItem,"IsCoreObject")="true" %>' />
-    <asp:Image runat="server" ID="Image2" ImageUrl="~/images/unchecked.gif" Visible='<%# DataBinder.Eval(Container.DataItem,"IsCoreObject")="false" %>' />
    </td>
   </tr>
  </ItemTemplate>
