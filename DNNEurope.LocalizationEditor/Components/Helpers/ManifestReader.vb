@@ -41,9 +41,9 @@ Public Class ManifestReader
  ''' <summary>
  ''' Import an object from package. The zip is extracted to a temporary directory and searched for resource files. The object is added to the database and its resource files are read.
  ''' </summary>
- ''' <param name="modulePackagePath">Name of the uploaded package file</param>
- ''' <param name="moduleContent">Package content as stream</param>
- ''' <param name="HomeDirectoryMapPath">HomeDirectoryMapPath of this portal (needed for the temp path)</param>
+    ''' <param name="moduleContent">Package content as stream</param>
+    ''' <param name="HomeDirectoryMapPath">HomeDirectoryMapPath of this portal (needed for the temp path)</param>
+    ''' <param name="ModuleId">To be used for an installed module</param>
  ''' <remarks></remarks>
  Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer)
   '// Create a temporary directory to unpack the package
