@@ -12,9 +12,15 @@
     <ul>
         <li>First DNN 5 version (DNN 5.1.1. is minimal required version)</li>
         <li>Added support for Google Translation (for on the fly translation of resources)</li>
-        <li>Added import feature, which allows for translation of objects that are not 
-            installed</li>
-        <li></li>
+        <li>Added import feature, which allows for translation of objects that are not installed</li>
+    </ul>
+    <p>
+        Version 3.3.0 - 6-11-2010</p>
+    <ul>
+        <li>Removed the link of users to locale to object. It was too finegrained. Users now edit a single locale for all objects in the module.</li>
+        <li>"Full" packs no longer supported. New developments in DNN have made this unsustainable.</li>
+        <li>Added statistics gathering. This is for future use in conjunction with DNN.com. Switch it on to start building stats internally on who translated stuff.</li>
+        <li>Various fixes to packaging.</li>
     </ul>
 
 </body>
