@@ -455,7 +455,7 @@ Partial Public Class Import
    TranslationsController.UpdateTranslation(tr)
   Next
   For Each tr As TranslationInfo In addList
-   TranslationsController.AddTranslation(tr)
+   tr.TranslationId = TranslationsController.AddTranslation(tr)
   Next
 
   If Settings.KeepStatistics Then
