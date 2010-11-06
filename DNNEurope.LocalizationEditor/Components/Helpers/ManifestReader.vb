@@ -66,7 +66,8 @@ Public Class ManifestReader
     Throw New FileNotFoundException("No DNN Manifest file found, nor a core distribution")
    End If
   End If
-  If dnnFiles.Length > 1 Then Throw New IOException("Multiple DNN Manifest files found")
+  ' Multiple manifests are allowed (.dnn and .dnn5)
+  ' If dnnFiles.Length > 1 Then Throw New IOException("Multiple DNN Manifest files found")
 
   ' Now process what has been uploaded
   Dim manifestModules As New List(Of ManifestModuleInfo)
