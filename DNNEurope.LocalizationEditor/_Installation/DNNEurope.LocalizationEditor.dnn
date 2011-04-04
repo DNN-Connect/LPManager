@@ -9,8 +9,11 @@
     <url>http://localizationeditor.codeplex.com//</url>
     <email>no-reply@dnn-europe.net</email>
    </owner>
-   <license  src="documentation/license.htm.resources"/>
-   <releaseNotes src="documentation/ReleaseNotes.htm.resources"/>
+   <license src="License.txt"/>
+   <releaseNotes src="ReleaseNotes.txt"/>
+   <dependencies>
+    <dependency type="CoreVersion">05.01.01</dependency>
+   </dependencies>
    <components>
     <component type="Module">
      <desktopModule>
@@ -99,48 +102,6 @@
        </moduleDefinition>
       </moduleDefinitions>
      </desktopModule>
-    </component>
-    <component type="Script">
-     <scripts>
-      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-      <script type="Install">
-       <path>Providers\DataProviders\SqlDataProvider</path>
-       <name>03.03.00.sqldataprovider</name>
-       <version>03.03.00</version>
-      </script>
-      <script type="UnInstall">
-       <path>Providers\DataProviders\SqlDataProvider</path>
-       <name>Uninstall.sqldataprovider</name>
-       <version>01.00.00</version>
-      </script>
-     </scripts>
-    </component>
-    <component type="Assembly">
-     <assemblies>
-      <basePath>bin</basePath>
-      <assembly>
-       <name>GoogleTranslateAPI.dll</name>
-      </assembly>
-      <assembly>
-       <name>DNNEurope.Modules.LocalizationEditor.dll</name>
-      </assembly>
-     </assemblies>
-    </component>
-    <component type="File">
-     <files>
-      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-      <file>
-       <name>DNNEurope.LocalizationEditor.dnn</name>
-      </file>
-     </files>
-    </component>
-    <component type="ResourceFile">
-     <resourceFiles>
-      <basePath>DesktopModules\DNNEurope\LocalizationEditor</basePath>
-      <resourceFile>
-       <name>Resources.zip</name>
-      </resourceFile>
-     </resourceFiles>
     </component>
    </components>
   </package>
