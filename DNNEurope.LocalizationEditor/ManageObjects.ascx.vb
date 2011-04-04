@@ -30,7 +30,7 @@ Partial Public Class ManageObjects
 #Region " Event Handlers "
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManageObjects") Then
+  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
    Response.Redirect(AccessDeniedURL())
   End If
   '// Force full postback when using upload control

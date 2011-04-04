@@ -39,9 +39,9 @@ Partial Public Class LocalizationEditor
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
   Try
    '// Show functions for authorized users
-   lbManagePermissions.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManagePermissions")
-   lbManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManageObjects")
-   lbClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManageObjects") And Me.Settings.CachePacks
+   lbManagePermissions.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
+   lbManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
+   lbClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") And Me.Settings.CachePacks
 
    If Not Me.IsPostBack Then
 
@@ -70,13 +70,15 @@ Partial Public Class LocalizationEditor
 
  Private Sub lbClearCaches_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lbClearCaches.Click
   Dim packPath As String = PortalSettings.HomeDirectoryMapPath & "\LocalizationEditor\Cache\" & ModuleId.ToString & "\"
-  Dim zipFiles() As String = IO.Directory.GetFiles(packPath, "*.zip")
-  For Each f As String In zipFiles
-   Try
-    IO.File.Delete(f)
-   Catch
-   End Try
-  Next
+  If IO.Directory.Exists(packPath) Then
+   Dim zipFiles() As String = IO.Directory.GetFiles(packPath, "*.zip")
+   For Each f As String In zipFiles
+    Try
+     IO.File.Delete(f)
+    Catch
+    End Try
+   Next
+  End If
  End Sub
 #End Region
 

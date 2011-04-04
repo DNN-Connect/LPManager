@@ -281,6 +281,7 @@
     <None Include="Providers\DataProviders\SqlDataProvider\03.02.00.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\03.02.01.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\03.03.00.sqldataprovider" />
+    <None Include="Providers\DataProviders\SqlDataProvider\03.03.01.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\Install.03.03.00.sqldataprovider" />
     <None Include="Providers\DataProviders\SqlDataProvider\Uninstall.sqldataprovider" />
     <None Include="_Install\Project.targets" />

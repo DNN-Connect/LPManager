@@ -34,7 +34,7 @@ Imports DotNetNuke.Common
  End Sub
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "ManagePermissions") Then
+  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
    Response.Redirect(AccessDeniedURL())
   End If
 
