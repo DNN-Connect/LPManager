@@ -92,7 +92,7 @@ Partial Public Class Import
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
-  '// Force full postback for wizard
+  ' Force full postback for wizard
   AJAX.RegisterPostBackControl(wzdImport)
 
   wzdImport.CancelButtonText = "<img src=""" + ApplicationPath + "/images/cancel.gif"" border=""0"" /> " + Localization.GetString("Cancel", Me.LocalResourceFile)

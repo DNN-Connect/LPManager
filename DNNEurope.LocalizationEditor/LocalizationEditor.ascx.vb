@@ -38,7 +38,7 @@ Partial Public Class LocalizationEditor
 
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
   Try
-   '// Show functions for authorized users
+   ' Show functions for authorized users
    lbManagePermissions.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    lbManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    lbClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") And Me.Settings.CachePacks

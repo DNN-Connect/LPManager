@@ -41,11 +41,11 @@ Imports DotNetNuke.Common
   If Not Me.IsPostBack Then
    Globals.DisablePostbackOnEnter(txtUsername)
 
-   '// Register scripts
+   ' Register scripts
    Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorGetUsernames", Me.ControlPath + "/Users.ascx.js")
    Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorAutoSuggest", Me.ControlPath + "/AutoSuggest.js")
 
-   '// Set clientid of username textbox
+   ' Set clientid of username textbox
    ClientAPI.RegisterClientVariable(Me.Page, "UsernameInput", txtUsername.ClientID, True)
 
    BindData()
@@ -92,23 +92,23 @@ Imports DotNetNuke.Common
  <ControlMethod()> Public Function GetUsernamesByFilter(ByVal filter As String) As String
   If filter Is Nothing Then Return String.Empty
 
-  '// Get a list of users filtered by the given filter string
+  ' Get a list of users filtered by the given filter string
   Dim filteredUsers As DataSet = UsersController.GetUsersFiltered(filter)
 
-  '// Store each username in a combined string
+  ' Store each username in a combined string
   Dim sb As New StringBuilder()
   For Each row As DataRow In filteredUsers.Tables(0).Rows
    Dim username As String = CStr(row("Username"))
    Dim email As String = CStr(row("Email"))
 
-   '// Html encode data
+   ' Html encode data
    username = HttpUtility.HtmlEncode(username)
    email = HttpUtility.HtmlEncode(email)
 
    sb.Append(username)
    sb.Append(",")
 
-   '// Add highlight indicators
+   ' Add highlight indicators
    username = Globals.StringReplace(username, filter, "[[" & filter & "]]", True)
    email = Globals.StringReplace(email, filter, "[[" & filter & "]]", True)
 
@@ -118,7 +118,7 @@ Imports DotNetNuke.Common
    sb.Append("/")
   Next
 
-  '// Return the matched usernames
+  ' Return the matched usernames
   Return sb.ToString().TrimEnd("/"c)
  End Function
 

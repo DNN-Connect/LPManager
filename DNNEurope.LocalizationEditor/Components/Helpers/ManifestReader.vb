@@ -46,20 +46,20 @@ Public Class ManifestReader
     ''' <param name="ModuleId">To be used for an installed module</param>
  ''' <remarks></remarks>
  Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer)
-  '// Create a temporary directory to unpack the package
+  ' Create a temporary directory to unpack the package
   Dim tempDirectory As String = HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
 
-  '// Check if the temporary directory already exists
+  ' Check if the temporary directory already exists
   If Not Directory.Exists(tempDirectory) Then
    Directory.CreateDirectory(tempDirectory)
   Else
    Throw New IOException("New directory " & tempDirectory & " already exists")
   End If
 
-  '// Unzip file contents
+  ' Unzip file contents
   ZipHelper.Unzip(moduleContent, tempDirectory)
 
-  '// Find the DNN manifest file
+  ' Find the DNN manifest file
   Dim dnnFiles As String() = Directory.GetFiles(tempDirectory, "*.dnn")
   If dnnFiles.Length = 0 Then
    If Directory.GetFiles(tempDirectory, "Default.aspx").Length = 0 Then
@@ -101,12 +101,12 @@ Public Class ManifestReader
 
    Dim dnnManifestFile As String = dnnFiles(0)
 
-   '// Parse DNN manifest file
+   ' Parse DNN manifest file
    Dim manifest As New XmlDocument
    manifest.Load(dnnManifestFile)
    Dim manifestVersion As Integer = 0
 
-   '// Determine version of manifest file
+   ' Determine version of manifest file
    Dim mainNodes As XmlNodeList
    mainNodes = manifest.SelectNodes("dotnetnuke/packages/package")
    If mainNodes.Count > 0 Then
@@ -119,14 +119,14 @@ Public Class ManifestReader
    End If
 
    If manifestVersion = 5 Then
-    '// Remark about DNN 5 manifest file: it is assumed that only one <desktopModule> node per <package> node exists.
+    ' Remark about DNN 5 manifest file: it is assumed that only one <desktopModule> node per <package> node exists.
 
-    '// Create a module for each package
+    ' Create a module for each package
     For Each packageNode As XmlNode In mainNodes
 
      Dim manifestModule As New ManifestModuleInfo()
 
-     '// Determine the version
+     ' Determine the version
      If Not packageNode.SelectSingleNode("@version") Is Nothing Then
       manifestModule.Version = FormatVersion(packageNode.SelectSingleNode("@version").InnerText.Trim)
       If String.IsNullOrEmpty(manifestModule.Version) Then
@@ -136,14 +136,14 @@ Public Class ManifestReader
      Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
      End If
 
-     '// Determine the object name
+     ' Determine the object name
      If Not packageNode.SelectSingleNode("@name") Is Nothing Then
       manifestModule.ObjectName = packageNode.SelectSingleNode("@name").InnerText.Trim
      Else
       Throw New Exception("Could not retrieve package name in DNN Manifest file")
      End If
 
-     '// Determine the friendly name
+     ' Determine the friendly name
      If Not packageNode("friendlyName") Is Nothing Then
       manifestModule.FriendlyName = packageNode("friendlyName").InnerText
      Else
@@ -156,7 +156,7 @@ Public Class ManifestReader
 
       Case "module"
 
-       '// Determine the desktop module
+       ' Determine the desktop module
        Dim moduleNodes As XmlNodeList
        moduleNodes = packageNode.SelectNodes("components/component[@type='Module']/desktopModule")
        If moduleNodes.Count = 0 Then
@@ -167,7 +167,7 @@ Public Class ManifestReader
        End If
 
        For Each dmNode As XmlNode In moduleNodes
-        '// Determine the folder name
+        ' Determine the folder name
         If Not dmNode("foldername") Is Nothing Then
          manifestModule.FolderName = dmNode("foldername").InnerText.Replace("/"c, "\"c)
         Else
@@ -175,12 +175,12 @@ Public Class ManifestReader
         End If
        Next
 
-       '// Find the resource files using the manifest xml
+       ' Find the resource files using the manifest xml
        For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='File']/files")
         Dim resourceFiles As String = ""
         Dim basePath As String = Path.Combine("DesktopModules", manifestModule.FolderName)
         If fileGroupNode("basePath") Is Nothing Then
-         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c)
+         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
         End If
         For Each node As XmlNode In fileGroupNode.SelectNodes("file")
          Dim resFile As String = ""
@@ -198,12 +198,12 @@ Public Class ManifestReader
 
       Case "provider"
 
-       '// Find the resource files using the manifest xml
+       ' Find the resource files using the manifest xml
        For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='File']/files")
         Dim resourceFiles As String = ""
         Dim basePath As String = ""
         If fileGroupNode("basePath") Is Nothing Then
-         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c)
+         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
         End If
         For Each node As XmlNode In fileGroupNode.SelectNodes("file")
          Dim resFile As String = ""
@@ -221,12 +221,12 @@ Public Class ManifestReader
 
       Case "skin"
 
-       '// Find the resource files using the manifest xml
+       ' Find the resource files using the manifest xml
        For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='Skin']/skinFiles")
         Dim resourceFiles As String = ""
         Dim basePath As String = ""
         If fileGroupNode("basePath") Is Nothing Then
-         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c)
+         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
         End If
         For Each node As XmlNode In fileGroupNode.SelectNodes("skinFile")
          Dim resFile As String = ""
@@ -244,12 +244,12 @@ Public Class ManifestReader
 
       Case "container"
 
-       '// Find the resource files using the manifest xml
+       ' Find the resource files using the manifest xml
        For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='Container']/containerFiles")
         Dim resourceFiles As String = ""
         Dim basePath As String = ""
         If fileGroupNode("basePath") Is Nothing Then
-         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c)
+         basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
         End If
         For Each node As XmlNode In fileGroupNode.SelectNodes("containerFile")
          Dim resFile As String = ""
@@ -267,26 +267,27 @@ Public Class ManifestReader
 
      End Select
 
-     '// Find the resource file
-     Dim resFileNode As XmlNode = packageNode.SelectSingleNode("components/component[@type='ResourceFile']")
-     If resFileNode IsNot Nothing Then
-      Dim basePath As String = resFileNode.SelectSingleNode("resourceFiles/basePath").InnerText
+     ' Handle resource files
+     Dim i As Integer = 0
+     For Each resFileNode As XmlNode In packageNode.SelectNodes("components/component[@type='ResourceFile']")
+      Dim basePath As String = resFileNode.SelectSingleNode("resourceFiles/basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
       Dim resFile As String = resFileNode.SelectSingleNode("resourceFiles/resourceFile/name").InnerText
-      ZipHelper.Unzip(tempDirectory & "\" & resFile, tempDirectory & "\ResourceFiles")
-      ReadResourceFiles(manifestModule, basePath, tempDirectory & "\ResourceFiles")
-     End If
+      ZipHelper.Unzip(tempDirectory & "\" & resFile, tempDirectory & "\ResourceFiles" & i.ToString)
+      ReadResourceFiles(manifestModule, basePath, tempDirectory & "\ResourceFiles" & i.ToString)
+      i += 1
+     Next
 
-     '// Add the manifest module to the collection
+     ' Add the manifest module to the collection
      manifestModules.Add(manifestModule)
     Next
 
    ElseIf manifestVersion = 3 Then
 
-    '// Create a module for each folder
+    ' Create a module for each folder
     For Each folderNode As XmlNode In mainNodes
      Dim manifestModule As New ManifestModuleInfo()
 
-     '// Determine the module name
+     ' Determine the module name
      If Not folderNode("modulename") Is Nothing Then
       manifestModule.ObjectName = folderNode("modulename").InnerText
      ElseIf Not folderNode("friendlyname") Is Nothing Then
@@ -298,19 +299,19 @@ Public Class ManifestReader
 
      manifestModule.PackageType = manifest.SelectSingleNode("dotnetnuke/@type").InnerText
 
-     '// Determine the friendly name
+     ' Determine the friendly name
      If Not folderNode("friendlyname") Is Nothing Then
       manifestModule.FriendlyName = folderNode("friendlyname").InnerText
      Else : manifestModule.FriendlyName = manifestModule.ObjectName
      End If
 
-     '// Determine the folder name
+     ' Determine the folder name
      If Not folderNode("foldername") Is Nothing Then
       manifestModule.FolderName = folderNode("foldername").InnerText.Replace("/"c, "\"c)
      Else : Throw New Exception("Could not retrieve folder information in DNN Manifest file")
      End If
 
-     '// Determine the version
+     ' Determine the version
      If Not folderNode("version") Is Nothing Then
       manifestModule.Version = folderNode("version").InnerText.Trim
       If String.IsNullOrEmpty(manifestModule.Version) Then
@@ -320,7 +321,7 @@ Public Class ManifestReader
      Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
      End If
 
-     '// Find the resource files using the manifest xml
+     ' Find the resource files using the manifest xml
      Dim resourceFiles As String = ""
      For Each node As XmlNode In folderNode.SelectNodes("files/file")
       Dim resFile As String = ""
@@ -330,7 +331,7 @@ Public Class ManifestReader
 
       'TODO Support resource files which are already localized
       If resFile.ToLower.EndsWith("ascx.resx") OrElse resFile.ToLower.EndsWith("aspx.resx") Then
-       '// Determine the resource directory and key for the module
+       ' Determine the resource directory and key for the module
        Dim resPath As String = Path.Combine(tempDirectory, resFile)
        Dim resKey As String = Path.Combine(Path.Combine(Path.Combine("DesktopModules", manifestModule.FolderName), resDir), resFile)
 
@@ -338,7 +339,7 @@ Public Class ManifestReader
       End If
      Next
 
-     '// Find the resource file
+     ' Find the resource file
      Dim resFileNode As XmlNode = folderNode.SelectSingleNode("resourcefile")
      If Not folderNode("resourcefile") Is Nothing Then
       Dim basePath As String = "DesktopModules\" & manifestModule.FolderName
@@ -347,7 +348,7 @@ Public Class ManifestReader
       ReadResourceFiles(manifestModule, basePath, tempDirectory & "\ResourceFiles")
      End If
 
-     '// Add the manifest module to the collection
+     ' Add the manifest module to the collection
      manifestModules.Add(manifestModule)
     Next
    Else : Throw New Exception("Could not determine version of manifest file")
@@ -356,27 +357,27 @@ Public Class ManifestReader
   End If ' whether core or package
 
   'TODO Use transactions
-  '// DNN Manifest file or core parsed succesfully, now process each module from the manifest
+  ' DNN Manifest file or core parsed succesfully, now process each module from the manifest
   For Each manifestModule As ManifestModuleInfo In manifestModules
    If manifestModule.ObjectName IsNot Nothing Then
     If manifestModule.ResourceFiles.Count > 0 Then
 
-     '// Check if the module is already imported
+     ' Check if the module is already imported
      Dim objObjectInfo As ObjectInfo = ObjectController.GetObjectByObjectName(manifestModule.ObjectName)
      If objObjectInfo Is Nothing Then
-      '// Create a new translate module
+      ' Create a new translate module
       objObjectInfo = New ObjectInfo(0, manifestModule.ObjectName, manifestModule.FriendlyName, manifestModule.FolderName, ModuleId, manifestModule.PackageType)
       objObjectInfo.ObjectId = ObjectController.AddObject(objObjectInfo)
      End If
 
-     '// Import or update resource files for this module
+     ' Import or update resource files for this module
      LocalizationController.ProcessResourceFiles(manifestModule.ResourceFiles, tempDirectory, objObjectInfo, manifestModule.Version)
 
     End If
    End If
   Next
 
-  '// Try to clean up
+  ' Try to clean up
   Try
    IO.Directory.Delete(tempDirectory, True)
   Catch

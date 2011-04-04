@@ -22,7 +22,7 @@ Imports Google.API.Translate
 Namespace Helpers
  Public Class TranslateHelper
   Private Const MaxLength As Integer = 2048 - 100
-  '// A maximum of 2048 characters in the URL is allowed, subtract some characters for the Google service URL
+  ' A maximum of 2048 characters in the URL is allowed, subtract some characters for the Google service URL
 
   ''' <summary>
   ''' Translates a given text from one to another language
@@ -32,10 +32,10 @@ Namespace Helpers
   ''' <param name="toLanguage">The destination language</param>
   ''' <returns>The translated text</returns>
   Public Shared Function Translate(ByVal originalValue As String, ByVal fromLanguage As Language, ByVal toLanguage As Language) As String
-   '// Do no translate null or empty text
+   ' Do no translate null or empty text
    If String.IsNullOrEmpty(originalValue) Then Return String.Empty
 
-   '// Split the original text if it exceeds the maximum length
+   ' Split the original text if it exceeds the maximum length
    'TODO Make splitting intelligent by splitting at whitespace, comma, dot or other special characters
    If HttpUtility.HtmlEncode(originalValue).Length > MaxLength Then
     Dim sb As New StringBuilder
@@ -46,11 +46,11 @@ Namespace Helpers
      While True
       textPart = originalValue.Substring(i, Math.Min(substringLength, originalValue.Length - i))
 
-      '// Check if the text part exceeds the maximum length when URL encoded 
+      ' Check if the text part exceeds the maximum length when URL encoded 
       If HttpUtility.HtmlEncode(textPart).Length <= MaxLength Then
        Exit While
       Else
-       '// Decrease the substring length until it's encoded value length is less then the maximum
+       ' Decrease the substring length until it's encoded value length is less then the maximum
        substringLength -= 100
       End If
 

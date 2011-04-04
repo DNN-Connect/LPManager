@@ -115,7 +115,7 @@ Partial Public Class DownloadPack
   TotalItems = TextsController.NrOfItems(ObjectId, Version)
   Localization.LocalizeDataGrid(dgLocales, Me.LocalResourceFile)
 
-  '// Hide all if there are not items and show message to user
+  ' Hide all if there are not items and show message to user
   If TotalItems = 0 Then
    pnlTranslations.Visible = False
    lblNoResourceFiles.Visible = True

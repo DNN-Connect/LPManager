@@ -24,6 +24,7 @@ Public Class Globals
 
  Public Const glbCoreName As String = "Core"
  Public Const glbCoreFriendlyName As String = "DNN Core"
+ Public Const glbSharedResources As String = "DesktopModules/DNNEurope/LocalizationEditor/App_LocalResources/SharedResources"
 
  ''' <summary>
  ''' Returns correct resource file filename based on the base filename and the requested language
@@ -376,14 +377,14 @@ Public Class Globals
  ''' <returns></returns>
  ''' <remarks></remarks>
  Public Shared Function StringReplace(ByVal expr As String, ByVal find As String, ByVal repl As String, ByVal bIgnoreCase As Boolean) As String
-  '// Get input string length
+  ' Get input string length
   Dim exprLen As Integer = expr.Length
   Dim findLen As Integer = find.Length
 
-  '// Check inputs
+  ' Check inputs
   If (0 = exprLen OrElse 0 = findLen OrElse findLen > exprLen) Then Return expr
 
-  '// Use the original method if the case is required
+  ' Use the original method if the case is required
   If Not bIgnoreCase Then Return expr.Replace(find, repl)
 
   Dim sbRet As StringBuilder = New StringBuilder(exprLen)
@@ -391,20 +392,20 @@ Public Class Globals
 
   While (pos + findLen <= exprLen)
    If (0 = String.Compare(expr, pos, find, 0, findLen, bIgnoreCase)) Then
-    '// Add the replaced string
+    ' Add the replaced string
     sbRet.Append(repl)
     pos += findLen
     Continue While
    End If
-   '// Advance one character
+   ' Advance one character
    sbRet.Append(expr, pos, 1)
    pos += 1
   End While
 
-  '// Append remaining characters
+  ' Append remaining characters
   sbRet.Append(expr, pos, exprLen - pos)
 
-  '// Return string
+  ' Return string
   Return sbRet.ToString()
  End Function
 

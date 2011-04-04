@@ -33,7 +33,7 @@ Partial Public Class ManageObjects
   If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
    Response.Redirect(AccessDeniedURL())
   End If
-  '// Force full postback when using upload control
+  ' Force full postback when using upload control
   AJAX.RegisterPostBackControl(lbImportPackage)
 
   If Not Me.IsPostBack Then
@@ -48,7 +48,7 @@ Partial Public Class ManageObjects
  ''' <param name="e"></param>
  ''' <remarks></remarks>
  Private Sub lbImportPackage_Click(ByVal sender As Object, ByVal e As EventArgs) Handles lbImportPackage.Click
-  '// Check if a file is given
+  ' Check if a file is given
   If Not ctlUpload.HasFile Then
    lblUploadError.Text = Localization.GetString("NoFile", LocalResourceFile)
    Return
@@ -56,7 +56,7 @@ Partial Public Class ManageObjects
 
   ManifestReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId)
 
-  '// Reload data
+  ' Reload data
   BindData()
  End Sub
 
@@ -75,7 +75,7 @@ Partial Public Class ManageObjects
 #Region " Private Methods "
 
  Private Sub BindData()
-  '// Load all imported modules
+  ' Load all imported modules
   Dim translatedModules As ArrayList = ObjectController.GetObjectList(ModuleId)
   dlTranslateObjects.DataSource = translatedModules
   dlTranslateObjects.DataBind()

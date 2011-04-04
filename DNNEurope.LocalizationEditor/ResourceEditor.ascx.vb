@@ -466,7 +466,7 @@ Partial Public Class ResourceEditor
     row.Cells.Add(cell)
     'Cell #2.
 
-    '// Empty header for transfer button.
+    ' Empty header for transfer button.
     cell = New HtmlTableCell
     'Cell #3.
     row.Cells.Add(cell)
@@ -480,7 +480,7 @@ Partial Public Class ResourceEditor
      row.Cells.Add(cell)
      'Cell #4.
 
-     '// Empty header for transfer button.
+     ' Empty header for transfer button.
      cell = New HtmlTableCell
      'Cell #5.
      row.Cells.Add(cell)
@@ -494,7 +494,7 @@ Partial Public Class ResourceEditor
     row.Cells.Add(cell)
     'Cell #6.
 
-    '// Empty header for translate button.
+    ' Empty header for translate button.
     cell = New HtmlTableCell
     'Cell #7.
     row.Cells.Add(cell)

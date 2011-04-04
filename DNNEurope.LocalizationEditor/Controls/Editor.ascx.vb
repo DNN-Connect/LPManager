@@ -208,9 +208,9 @@ Namespace Controls
   ''' <remarks></remarks>
   Private Sub Translate()
    Try
-    '// Add default google translation value if empty
+    ' Add default google translation value if empty
     If AutoTranslate AndAlso String.IsNullOrEmpty(Value) Then
-     '// Determine from and to languages
+     ' Determine from and to languages
      Dim fromLanguage As Language = LanguageUtility.GetLanguageFromLocale(FromLocale)
      Dim toLanguage As Language = LanguageUtility.GetLanguageFromLocale(ToLocale)
 
@@ -219,10 +219,10 @@ Namespace Controls
       'TODO Make default configurable?
      End If
 
-     '// Skip translation if a target language is unknown
+     ' Skip translation if a target language is unknown
      If toLanguage = Language.Unknown Then Return
 
-     '// Perform translation and set to textbox
+     ' Perform translation and set to textbox
      txtValue.Text = TranslateHelper.Translate(OriginalValue, fromLanguage, toLanguage)
     End If
    Catch ex As GoogleAPIException

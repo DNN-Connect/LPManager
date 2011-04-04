@@ -53,7 +53,7 @@ Namespace Business
    Else
     Dim _module As DesktopModuleInfo = DesktopModuleController.GetDesktopModuleByModuleName(objObjectInfo.ObjectName, PortalId)
     If _module Is Nothing Then
-     '// If the module is not found, then it's not installed in DotNetNuke. Skip the processing
+     ' If the module is not found, then it's not installed in DotNetNuke. Skip the processing
      Return
     End If
     version = _module.Version.Trim
@@ -281,7 +281,7 @@ Namespace Business
      If type = PackType.V5 Or type = PackType.Hybrid Then
       ' Add DNN 5+ content
       Dim loc As New CultureInfo(Locale)
-      Dim manifestName As String = objObject.ObjectName & " " & loc.NativeName & ".dnn"
+      Dim manifestName As String = objObject.ObjectName & "_" & loc.Name & ".dnn"
       manifestName = manifestName.Replace("/", "_").Replace("\", "_")
       myZipEntry = New ZipEntry(manifestName)
       strmZipStream.PutNextEntry(myZipEntry)
@@ -511,7 +511,7 @@ Namespace Business
    End If
    Globals.AddAttribute(package, "version", Version)
    Globals.AddElement(package, "friendlyName", objObject.ObjectName & " " & Loc.NativeName) ' little to add here to name
-   Globals.AddElement(package, "description", "") ' and even less - leave empty
+   Globals.AddElement(package, "description", String.Format(Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.ObjectName))
    Dim owner As XmlNode = Globals.AddElement(package, "owner")
    Globals.AddElement(owner, "name", objObject.Module.OwnerName)
    Globals.AddElement(owner, "organization", objObject.Module.OwnerOrganization)
