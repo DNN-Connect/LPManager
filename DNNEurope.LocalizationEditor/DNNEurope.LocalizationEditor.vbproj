@@ -288,7 +288,7 @@
     <None Include="_Installation\SQL2005\03.03.01.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.03.02.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.04.00.sqldataprovider" />
-    <None Include="_Installation\SQL2005\Install.03.03.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\Install.03.04.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Uninstall.sqldataprovider" />
     <None Include="_BuildSupport\Project.targets" />
   </ItemGroup>
