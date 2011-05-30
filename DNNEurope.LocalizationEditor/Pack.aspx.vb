@@ -17,6 +17,7 @@
 
 Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
+Imports System.Runtime.InteropServices
 
 
 Partial Public Class Pack
@@ -28,6 +29,7 @@ Partial Public Class Pack
  Private _locale As String = ""
  Private _moduleName As String = ""
  Private _version As String = ""
+ Private _type As String = ""
  Private _requestedObject As ObjectInfo = Nothing
 
 #End Region
@@ -70,6 +72,16 @@ Partial Public Class Pack
   End Set
  End Property
 
+ Public Property Type() As String
+  Get
+   Return _type
+  End Get
+  Set(ByVal value As String)
+   _type = value
+  End Set
+ End Property
+
+
 #End Region
 
 #Region " Event Handlers "
@@ -78,6 +90,7 @@ Partial Public Class Pack
   Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
   Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
   Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
+  Globals.ReadQuerystringValue(Me.Request.Params, "Type", Type)
 
   _requestedObject = ObjectController.GetObject(ObjectId)
   If _requestedObject Is Nothing Then Throw New ArgumentException(String.Format("ObjectId with value {0} is not valid.", ObjectId))
@@ -86,14 +99,10 @@ Partial Public Class Pack
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
   Dim fn As String = ""
-  If _requestedObject.ObjectName = Globals.glbCoreName Then
-   If Version > "04.99.99" Then
-    fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, LocalizationController.PackType.V5)
-   Else
-    fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, LocalizationController.PackType.V3)
-   End If
+  If Type.ToLower = "full" Then
+   fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, True)
   Else
-   fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, LocalizationController.PackType.Hybrid)
+   fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, False)
   End If
   Me.Response.Redirect(DotNetNuke.Common.ApplicationPath & "/" & _requestedObject.Module.HomeDirectory & "/LocalizationEditor/Cache/" & _requestedObject.ModuleId.ToString & "/" & fn, False)
  End Sub

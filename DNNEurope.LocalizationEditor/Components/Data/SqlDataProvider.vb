@@ -29,8 +29,7 @@ Namespace Data
   Private Const ProviderType As String = "data"
   Private Const ModuleQualifier As String = "LocalizationEditor_"
 
-  Private _providerConfiguration As ProviderConfiguration = ProviderConfiguration.GetProviderConfiguration(ProviderType)
-
+  Private _providerConfiguration As DotNetNuke.Framework.Providers.ProviderConfiguration = DotNetNuke.Framework.Providers.ProviderConfiguration.GetProviderConfiguration(ProviderType)
   Private _connectionString As String
   Private _providerPath As String
   Private _objectQualifier As String
@@ -43,15 +42,13 @@ Namespace Data
   Public Sub New()
 
    ' Read the configuration specific information for this provider
-   Dim objProvider As Provider = CType(_providerConfiguration.Providers(_providerConfiguration.DefaultProvider), Provider)
+   Dim objProvider As DotNetNuke.Framework.Providers.Provider = CType(_providerConfiguration.Providers(_providerConfiguration.DefaultProvider), DotNetNuke.Framework.Providers.Provider)
 
-   ' This code handles getting the connection string from either the connectionString / appsetting section and uses the connectionstring section by default if it exists. 
-   ' Get Connection string from web.config
-   _connectionString = Config.GetConnectionString()
-
-   ' If above funtion does not return anything then connectionString must be set in the dataprovider section.
-   If _connectionString = "" Then
-    ' Use connection string specified in provider
+   ' Read the attributes for this provider
+   If objProvider.Attributes("connectionStringName") <> "" AndAlso _
+   System.Configuration.ConfigurationManager.AppSettings(objProvider.Attributes("connectionStringName")) <> "" Then
+    _connectionString = System.Configuration.ConfigurationManager.AppSettings(objProvider.Attributes("connectionStringName"))
+   Else
     _connectionString = objProvider.Attributes("connectionString")
    End If
 
@@ -100,12 +97,23 @@ Namespace Data
 #End Region
 
 #Region " General Methods "
-
   Public Overrides Function GetNull(ByVal Field As Object) As Object
-   Return Null.GetNull(Field, DBNull.Value)
+   Return DotNetNuke.Common.Utilities.Null.GetNull(Field, DBNull.Value)
+  End Function
+#End Region
+
+#Region " ObjectCoreVersion Methods "
+
+  Public Overrides Sub SetObjectCoreVersion(ObjectId As Int32, Version As String, DnnVersion As String, InstalledByDefault As Boolean)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetObjectCoreVersion", ObjectId, Version, DnnVersion, InstalledByDefault)
+  End Sub
+
+  Public Overrides Function GetCoreObjects(ByVal DnnVersion As String, GetAllObjects As Boolean) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetCoreObjects", DnnVersion, GetAllObjects), IDataReader)
   End Function
 
 #End Region
+
 
 #Region " Permissions Methods "
 
@@ -137,8 +145,12 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObject", ObjectId), IDataReader)
   End Function
 
-  Public Overrides Function GetObjectByObjectName(ByVal ObjectName As String) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectName", ObjectName), IDataReader)
+  Public Overrides Function GetObjectByObjectName(ModuleId As Integer, ByVal ObjectName As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectName", ModuleId, ObjectName), IDataReader)
+  End Function
+
+  Public Overrides Function GetObjectsByObjectName(ByVal ObjectName As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsByObjectName", ObjectName), IDataReader)
   End Function
 
   Public Overrides Function GetObjectList(ByVal ModuleId As Integer) As IDataReader
@@ -218,6 +230,10 @@ Namespace Data
 
   Public Overrides Function GetTextsByObjectAndFile(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTextsByObjectAndFile", ModuleId, ObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
+  End Function
+
+  Public Overrides Function GetAdjacentTextsForCore(ByVal ModuleId As Integer, ByVal CoreObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetAdjacentTextsForCore", ModuleId, CoreObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
   End Function
 
   Public Overrides Function CurrentVersion(ByVal ObjectId As Integer, ByVal Locale As String) As IDataReader

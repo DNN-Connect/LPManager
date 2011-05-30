@@ -45,8 +45,9 @@
  </asp:DataList>
 </asp:Panel>
 <p style="margin-top: 20px;">
- <asp:LinkButton ID="lbManageObjects" runat="server" resourcekey="lbManageObjects" Text="Manage Objects" CssClass="CommandButton" />
- <asp:LinkButton ID="lbManagePermissions" runat="server" resourcekey="lbManagePermissions" Text="Manage Permissions" CssClass="CommandButton" />
- <asp:LinkButton ID="lbClearCaches" runat="server" resourcekey="lbClearCaches" Text="Clear Caches" CssClass="CommandButton" />
- <asp:HyperLink ID="hlCube" runat="server" resourcekey="hlCube" Text="Cube" CssClass="CommandButton" />
+ <asp:LinkButton ID="lbUploadPack" runat="server" resourcekey="lbUploadPack" Text="Upload Pack" CssClass="CommandButton" Visible="false" />
+ <asp:LinkButton ID="lbManageObjects" runat="server" resourcekey="lbManageObjects" Text="Manage Objects" CssClass="CommandButton" Visible="false" />
+ <asp:LinkButton ID="lbManagePermissions" runat="server" resourcekey="lbManagePermissions" Text="Manage Permissions" CssClass="CommandButton" Visible="false" />
+ <asp:LinkButton ID="lbClearCaches" runat="server" resourcekey="lbClearCaches" Text="Clear Caches" CssClass="CommandButton" Visible="false" />
+ <asp:HyperLink ID="hlCube" runat="server" resourcekey="hlCube" Text="Cube" CssClass="CommandButton" Visible="false" />
 </p>

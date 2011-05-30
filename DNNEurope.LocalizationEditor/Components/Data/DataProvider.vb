@@ -20,7 +20,7 @@
 Imports DotNetNuke.Framework
 
 Namespace Data
- Public MustInherit Class DataProvider
+ Partial Public MustInherit Class DataProvider
 
 #Region " Shared/Static Methods "
 
@@ -34,7 +34,7 @@ Namespace Data
 
   ' dynamically create provider
   Private Shared Sub CreateProvider()
-   objProvider = CType(Reflection.CreateObject("data", "DNNEurope.Modules.LocalizationEditor.Data", ""), DataProvider)
+   objProvider = CType(DotNetNuke.Framework.Reflection.CreateObject("data", "DNNEurope.Modules.LocalizationEditor.Data", ""), DataProvider)
   End Sub
 
   ' return the provider
@@ -45,10 +45,14 @@ Namespace Data
 #End Region
 
 #Region " General Methods "
-
   Public MustOverride Function GetNull(ByVal Field As Object) As Object
-
 #End Region
+
+#Region " ObjectCoreVersion Methods "
+  Public MustOverride Sub SetObjectCoreVersion(ObjectId As Int32, Version As String, DnnVersion As String, InstalledByDefault As Boolean)
+  Public MustOverride Function GetCoreObjects(ByVal DnnVersion As String, GetAllObjects As Boolean) As IDataReader
+#End Region
+
 
 #Region " Permission Methods "
 
@@ -67,7 +71,8 @@ Namespace Data
 #Region " Object Methods "
 
   Public MustOverride Function GetObject(ByVal ObjectId As Integer) As IDataReader
-  Public MustOverride Function GetObjectByObjectName(ByVal ObjectName As String) As IDataReader
+  Public MustOverride Function GetObjectByObjectName(ModuleId As Integer, ByVal ObjectName As String) As IDataReader
+  Public MustOverride Function GetObjectsByObjectName(ByVal ObjectName As String) As IDataReader
   Public MustOverride Function GetObjectList(ByVal ModuleId As Integer) As IDataReader
   Public MustOverride Function AddObject(ByVal ObjectName As String, ByVal FriendlyName As String, ByVal InstallPath As String, ByVal ModuleId As Integer, ByVal PackageType As String) As Integer
   Public MustOverride Sub DeleteObject(ByVal ObjectId As Integer)
@@ -106,6 +111,8 @@ Namespace Data
   Public MustOverride Function GetTextsByObject(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
 
   Public MustOverride Function GetTextsByObjectAndFile(ByVal ModuleId As Integer, ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
+
+  Public MustOverride Function GetAdjacentTextsForCore(ByVal ModuleId As Integer, ByVal CoreObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
 
   Public MustOverride Function GetLatestText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal TextKey As String) As IDataReader
 

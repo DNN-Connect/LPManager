@@ -515,4 +515,48 @@ Public Class Globals
 
  End Function
 
+ Public Shared Function GetAssemblyVersion(ByVal path As String) As String
+
+  Try
+   Dim v As String = System.Diagnostics.FileVersionInfo.GetVersionInfo(path).FileVersion()
+   Return FormatVersion(v)
+  Catch ex As Exception
+   Return "0"
+  End Try
+
+ End Function
+
+ Public Shared Function FormatVersion(ByVal version As String) As String
+
+  Dim m As Match = Regex.Match(version, "(\d+)\.(\d+)\.(\d+)\.?(\d*)")
+  If m.Success Then
+   version = CInt(m.Groups(1).Value).ToString("00")
+   version &= "." & CInt(m.Groups(2).Value).ToString("00")
+   version &= "." & CInt(m.Groups(3).Value).ToString("00")
+  End If
+  Return version
+
+ End Function
+
+ Public Shared Function ReadFile(ByVal fileName As String) As String
+  If Not IO.File.Exists(fileName) Then Return ""
+  Using sr As New IO.StreamReader(fileName)
+   Return sr.ReadToEnd
+  End Using
+ End Function
+
+ Public Shared Sub CleanupTempDirs(ByVal parentPath As String)
+  Dim pd As New IO.DirectoryInfo(parentPath)
+  For Each d As IO.DirectoryInfo In pd.GetDirectories("~tmp*")
+   Dim dt As String = Mid(d.Name, 5, 8)
+   If dt < Now.ToString("yyyyMMdd") Then
+    Try
+     d.Delete(True)
+    Catch ex As Exception
+    End Try
+   End If
+  Next
+ End Sub
+
+
 End Class

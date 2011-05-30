@@ -60,6 +60,10 @@ Partial Public Class LocalizationEditor
   End Try
  End Sub
 
+ Private Sub lbUploadPack_Click(sender As Object, e As System.EventArgs) Handles lbUploadPack.Click
+  Response.Redirect(EditUrl("UploadPack"))
+ End Sub
+
  Protected Sub lbManagePermissions_Click(ByVal sender As Object, ByVal e As EventArgs) Handles lbManagePermissions.Click
   Response.Redirect(EditUrl("Users"))
  End Sub
@@ -92,6 +96,7 @@ Partial Public Class LocalizationEditor
   Dim res As New StringBuilder
   Using ir As IDataReader = DataProvider.Instance.GetLocalesForUser(uid, PortalId, ModuleId)
    Do While ir.Read
+    lbUploadPack.Visible = True
     res.Append("<a href=""")
     res.Append(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & CStr(ir.Item("Locale"))))
     res.Append(""" class=""CommandButton"">")

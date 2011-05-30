@@ -127,7 +127,6 @@ Partial Public Class ObjectSummary
    ddSelection.Items.Insert(0, New ListItem(Localization.GetString("Untranslated", Me.LocalResourceFile), "Untranslated"))
 
    cmdDownload.NavigateUrl = EditUrl("ObjectId", ObjectId.ToString, "DownloadPack")
-   cmdUpload.NavigateUrl = EditUrl("ObjectId", ObjectId.ToString, "UploadPack", "Locale=" & Locale)
    cmdReturn.NavigateUrl = DotNetNuke.Common.NavigateURL
 
   End If

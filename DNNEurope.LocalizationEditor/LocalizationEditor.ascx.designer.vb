@@ -32,6 +32,15 @@ Partial Public Class LocalizationEditor
  Protected WithEvents dlObjects As Global.System.Web.UI.WebControls.DataList
 
  '''<summary>
+ '''lbUploadPack control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents lbUploadPack As Global.System.Web.UI.WebControls.LinkButton
+
+ '''<summary>
  '''lbManageObjects control.
  '''</summary>
  '''<remarks>

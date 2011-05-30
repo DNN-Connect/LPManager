@@ -157,8 +157,11 @@
   <ItemGroup>
     <Compile Include="Components\Business\Cube.vb" />
     <Compile Include="Components\Business\ModuleInfo.vb" />
+    <Compile Include="Components\Business\ObjectCoreVersionsController.vb" />
     <Compile Include="Components\Business\ObjectInfo.vb" />
     <Compile Include="Components\Business\ObjectController.vb" />
+    <Compile Include="Components\Business\Objects\Interfaces\ObjectCoreVersionInfo.vb" />
+    <Compile Include="Components\Business\Objects\Properties\ObjectCoreVersionInfo.vb" />
     <Compile Include="Components\Business\StatisticInfo.vb" />
     <Compile Include="Components\Business\StatisticsController.vb" />
     <Compile Include="Components\Business\UsersController.vb" />
@@ -284,6 +287,7 @@
     <None Include="_Installation\SQL2005\03.03.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.03.01.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.03.02.sqldataprovider" />
+    <None Include="_Installation\SQL2005\03.04.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Install.03.03.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Uninstall.sqldataprovider" />
     <None Include="_BuildSupport\Project.targets" />

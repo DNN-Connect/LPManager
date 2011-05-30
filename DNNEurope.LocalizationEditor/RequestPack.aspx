@@ -88,6 +88,8 @@ HR {
  
  <dnn:LOGO runat="server" ID="dnnLOGO" />
 
+<asp:Panel runat="server" ID="pnlMain">
+
 <asp:Panel runat="server" ID="pnlHeader">
  <h1><%=FriendlyName%>&nbsp;<%=Version%></h1>
 </asp:Panel>
@@ -149,7 +151,17 @@ HR {
 
 <p>
  <asp:Label runat="server" ID="lblNoResourceFiles" resourcekey="lblNoResourceFiles" Visible="false" />
-</p> 
+</p>
+
+</asp:Panel>
+
+<asp:Panel runat="server" ID="pnlDisambiguate">
+ <h1><%=FriendlyName%></h1>
+ <asp:PlaceHolder runat="server" ID="plhDisambiguate" />
+</asp:Panel>
+
+<asp:Label runat="server" ID="lblError" CssClass="NormalRed" />
+
  </form>
 </body>
 </html>

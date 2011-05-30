@@ -19,6 +19,7 @@
 
 Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DotNetNuke.Common.Utilities
+Imports System.Collections.Generic
 
 Namespace Business
 
@@ -27,8 +28,12 @@ Namespace Business
    Return CType(CBO.FillObject(DataProvider.Instance().GetObject(ObjectId), GetType(ObjectInfo)), ObjectInfo)
   End Function
 
-  Public Shared Function GetObjectByObjectName(ByVal ObjectName As String) As ObjectInfo
-   Return CType(CBO.FillObject(DataProvider.Instance().GetObjectByObjectName(ObjectName), GetType(ObjectInfo)), ObjectInfo)
+  Public Shared Function GetObjectByObjectName(ModuleId As Integer, ByVal ObjectName As String) As ObjectInfo
+   Return CType(CBO.FillObject(DataProvider.Instance().GetObjectByObjectName(ModuleId, ObjectName), GetType(ObjectInfo)), ObjectInfo)
+  End Function
+
+  Public Shared Function GetObjectsByObjectName(ByVal ObjectName As String) As List(Of ObjectInfo)
+   Return CBO.FillCollection(Of ObjectInfo)(DataProvider.Instance().GetObjectsByObjectName(ObjectName))
   End Function
 
   Public Shared Function GetObjectList(ByVal ModuleId As Integer) As ArrayList

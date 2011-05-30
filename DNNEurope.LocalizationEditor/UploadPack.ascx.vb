@@ -30,43 +30,11 @@ Partial Public Class Import
  Inherits ModuleBase
 
 #Region " Private Members "
-
- Private _ObjectId As Integer = -2
- Private _locale As String = ""
- Private _moduleFriendlyName As String = ""
  Private _tempDirectory As String = ""
-
+ Private _manifestFile As String = ""
 #End Region
 
 #Region " Properties "
-
- Public Property ModuleFriendlyName() As String
-  Get
-   Return _moduleFriendlyName
-  End Get
-  Set(ByVal value As String)
-   _moduleFriendlyName = value
-  End Set
- End Property
-
- Public Property Locale() As String
-  Get
-   Return _locale
-  End Get
-  Set(ByVal value As String)
-   _locale = value
-  End Set
- End Property
-
- Public Property ObjectId() As Integer
-  Get
-   Return _ObjectId
-  End Get
-  Set(ByVal value As Integer)
-   _ObjectId = value
-  End Set
- End Property
-
  Public Property TempDirectory() As String
   Get
    Return _tempDirectory
@@ -76,19 +44,23 @@ Partial Public Class Import
   End Set
  End Property
 
+ Public Property ManifestFile() As String
+  Get
+   Return _manifestFile
+  End Get
+  Set(ByVal value As String)
+   _manifestFile = value
+  End Set
+ End Property
+
+ Public ReadOnly Property IsDnn5Manifest As Boolean
+  Get
+   Return Not CBool(ManifestFile.ToLower.EndsWith("manifest.xml"))
+  End Get
+ End Property
 #End Region
 
 #Region " Event Handlers "
-
- Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
-
-  Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
-
-  Dim objObjectInfo As ObjectInfo = ObjectController.GetObject(ObjectId)
-  If objObjectInfo Is Nothing Then Return
-  ModuleFriendlyName = objObjectInfo.FriendlyName
- End Sub
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
@@ -104,19 +76,30 @@ Partial Public Class Import
 
   If Not Me.IsPostBack Then
 
-   ' Permission check here
-   If Locale = "" Or ObjectId = -2 Then
-    Throw New Exception("Access denied")
-   End If
-   If Not PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ModuleId, Locale) Then
-    Throw New Exception("Access denied")
-   End If
+   ddLocale.DataSource = DataProvider.Instance().GetLocalesForUser(UserId, PortalId, ModuleId)
+   ddLocale.DataBind()
 
-   ddVersion.DataSource = DataProvider.Instance.GetVersions(Me.ObjectId)
-   ddVersion.DataBind()
+   ddObject.DataSource = DataProvider.Instance().GetObjects(ModuleId)
+   ddObject.DataBind()
+   Try
+    ddObject.Items(0).Selected = True
+    ddVersion.DataSource = DataProvider.Instance.GetVersions(Integer.Parse(ddObject.SelectedValue))
+    ddVersion.DataBind()
+   Catch ex As Exception
+   End Try
+   
+   trVersion.Visible = False
+   trObject.Visible = False
 
   End If
 
+ End Sub
+
+ Private Sub ddObject_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles ddObject.SelectedIndexChanged
+
+  ddVersion.Items.Clear()
+  ddVersion.DataSource = DataProvider.Instance.GetVersions(Integer.Parse(ddObject.SelectedValue))
+  ddVersion.DataBind()
 
  End Sub
 
@@ -153,7 +136,7 @@ Partial Public Class Import
    End If
   Catch
   End Try
-  Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
+  Me.Response.Redirect(NavigateURL(), False)
  End Sub
 
  Private Sub wzdImport_FinishButtonClick(ByVal sender As Object, ByVal e As WizardNavigationEventArgs) Handles wzdImport.FinishButtonClick
@@ -164,7 +147,7 @@ Partial Public Class Import
    End If
   Catch
   End Try
-  Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
+  Me.Response.Redirect(NavigateURL(), False)
  End Sub
 
 #End Region
@@ -177,6 +160,7 @@ Partial Public Class Import
   Else
    Throw New Exception("New directory " & TempDirectory & " already exists")
   End If
+  Globals.CleanupTempDirs(PortalSettings.HomeDirectoryMapPath & "LocalizationEditor")
   Try
    Dim resFilename As String = ctlUpload.FileName
    report.AppendLine("Uploaded " & resFilename)
@@ -211,17 +195,17 @@ Partial Public Class Import
      objZipEntry = objZipInputStream.GetNextEntry
     End While
    End Using
-   Dim m As Match = Regex.Match(resFilename, "\d\d\.\d\d\.\d\d")
-   Try
-    ddVersion.ClearSelection()
-    If m.Success Then
-     Dim parsedVersion As String = m.Value
-     ddVersion.Items.FindByText(parsedVersion).Selected = True
-    Else
-     ddVersion.Items(ddVersion.Items.Count - 1).Selected = True
-    End If
-   Catch
-   End Try
+   Dim files As String() = IO.Directory.GetFiles(TempDirectory, "*.dnn")
+   If files.Length > 0 Then
+    ManifestFile = files(0)
+   ElseIf IO.File.Exists(TempDirectory & "\Manifest.Xml") Then
+    trObject.Visible = True
+    trVersion.Visible = True
+    ManifestFile = TempDirectory & "\Manifest.Xml"
+   Else
+    report.AppendLine("No valid manifest found!!")
+    Return False
+   End If
   Catch ex As Exception
    report.AppendLine("Error Occurred: " & ex.Message)
    report.AppendLine(ex.StackTrace)
@@ -232,13 +216,10 @@ Partial Public Class Import
 
 #Region " Analysis "
  Private Function AnalyzePack() As String
-  Dim files As String() = IO.Directory.GetFiles(TempDirectory, "*.dnn")
-  If files.Length > 0 Then
-   Return AnalyzePackV5(files(0))
-  ElseIf IO.File.Exists(TempDirectory & "\Manifest.Xml") Then
-   Return AnalyzePackV3()
+  If IsDnn5Manifest Then
+   Return AnalyzePackV5()
   Else
-   Return "No manifest found"
+   Return AnalyzePackV3()
   End If
  End Function
 
@@ -262,48 +243,75 @@ Partial Public Class Import
 
  Private Sub AnalyzeFileV3(ByRef report As StringBuilder, ByVal resFile As String)
   report.AppendLine("Analyzing " & resFile)
-  Dim res As New XmlDocument
-  res.Load(TempDirectory & "\" & resFile)
   Dim resFileKey As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
   report.AppendLine("Mapped to " & resFileKey)
-  AnalyzeFile(report, res, resFileKey)
+  AnalyzeFile(report, ObjectController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
  End Sub
 
- Private Function AnalyzePackV5(ByVal manifestFile As String) As String
+ Private Function AnalyzePackV5() As String
+  Dim packLocale As String = ""
   Dim report As New StringBuilder
   Dim manifest As New XmlDocument
-  manifest.Load(manifestFile)
+  manifest.Load(ManifestFile)
   report.AppendLine("Loaded Manifest")
-  Dim basePath As String = ""
-  If manifest.SelectSingleNode("dotnetnuke/packages/package/components/component/languageFiles/basePath") IsNot Nothing Then
-   basePath = manifest.SelectSingleNode("dotnetnuke/packages/package/components/component/languageFiles/basePath").InnerText
-  End If
-  If basePath <> "" And Not basePath.EndsWith("\") Then
-   basePath &= "\"
-  End If
-  For Each xNode As XmlNode In manifest.SelectNodes("dotnetnuke/packages/package/components/component/languageFiles/languageFile")
-   Dim filePath As String = xNode.SelectSingleNode("path").InnerText
-   If filePath <> "" And Not filePath.EndsWith("\") Then
-    filePath &= "\"
-   End If
-   Dim fileName As String = xNode.SelectSingleNode("name").InnerText
-   Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-   AnalyzeFileV5(report, filePath & fileName, fileKey)
+  For Each p As XmlNode In manifest.SelectNodes("dotnetnuke/packages/package")
+   Try
+    Dim packType As String = ""
+    packType = p.SelectSingleNode("components/component/@type").InnerText.ToLower
+    Dim basePath As String = ""
+    If p.SelectSingleNode("components/component/languageFiles/basePath") IsNot Nothing Then
+     basePath = p.SelectSingleNode("components/component/languageFiles/basePath").InnerText
+    End If
+    If basePath <> "" And Not basePath.EndsWith("\") Then
+     basePath &= "\"
+    End If
+    Dim depObject As ObjectInfo = Nothing
+    Dim dependentPackage As String = ""
+    If packType = "corelanguage" Then
+     dependentPackage = Globals.glbCoreName
+    End If
+    If p.SelectSingleNode("components/component/languageFiles/package") IsNot Nothing Then
+     dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
+    End If
+    Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
+    depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
+     dependentPackage = Mid(dependentPackage, 12)
+     depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    End If
+    If depObject Is Nothing Then
+     report.AppendLine(String.Format("Could not find dependent component {0}", dependentPackage))
+    Else
+     packLocale = p.SelectSingleNode("components/component/languageFiles/code").InnerText
+     report.AppendLine(String.Format("Uploading package for {0} {1}", depObject.ObjectName, depVersion))
+     For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
+      Dim filePath As String = xNode.SelectSingleNode("path").InnerText
+      If filePath <> "" And Not filePath.EndsWith("\") Then
+       filePath &= "\"
+      End If
+      Dim fileName As String = xNode.SelectSingleNode("name").InnerText
+      Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
+      AnalyzeFile(report, depObject, depVersion, filePath & fileName, fileKey)
+     Next
+    End If
+   Catch ex As Exception
+    report.AppendLine("Error Occurred: " & ex.Message)
+    report.AppendLine(ex.StackTrace)
+   End Try
   Next
   Return report.ToString
  End Function
 
- Private Sub AnalyzeFileV5(ByRef report As StringBuilder, ByVal tempResFile As String, ByVal resFileKey As String)
+ Private Sub AnalyzeFile(ByRef report As StringBuilder, obj As ObjectInfo, version As String, ByVal tempResFile As String, ByVal resFileKey As String)
   report.AppendLine("Analyzing " & tempResFile)
-  Dim res As New XmlDocument
-  res.Load(TempDirectory & "\" & tempResFile)
+  Dim resFile As New XmlDocument
+  resFile.Load(TempDirectory & "\" & tempResFile)
   report.AppendLine("Mapped to " & resFileKey)
-  AnalyzeFile(report, res, resFileKey)
- End Sub
-
- Private Sub AnalyzeFile(ByRef report As StringBuilder, ByVal resFile As XmlDocument, ByVal resFileKey As String)
-  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
+  Dim hits As Integer = 0
+  Dim Locale As String = ddLocale.SelectedValue
+  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
    Do While ir.Read
+    hits += 1
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim hasValue As Boolean = False
     If ir.Item("TextValue") IsNot DBNull.Value Then
@@ -325,15 +333,43 @@ Partial Public Class Import
     End Try
    Loop
   End Using
+  If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
+   Using ir As IDataReader = DataProvider.Instance.GetAdjacentTextsForCore(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
+    Do While ir.Read
+     hits += 1
+     Dim textKey As String = CStr(ir.Item("TextKey"))
+     Dim hasValue As Boolean = False
+     If ir.Item("TextValue") IsNot DBNull.Value Then
+      hasValue = True
+     End If
+     Try
+      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+      If xNode Is Nothing Then
+       report.AppendLine("Nothing for " & textKey)
+      Else
+       If hasValue Then
+        report.AppendLine("Overwrite " & textKey)
+       Else
+        report.AppendLine("Add " & textKey)
+       End If
+      End If
+     Catch ex As XPathException
+      report.AppendLine("!!!! Invalid token in attribute value: " & textKey)
+     End Try
+    Loop
+   End Using
+  End If
+  If hits = 0 Then
+   report.AppendLine("This file was not found in the original data or it was empty")
+  End If
  End Sub
 #End Region
 
 #Region " Import "
  Private Sub ImportPack()
-  Dim files As String() = IO.Directory.GetFiles(TempDirectory, "*.dnn")
-  If files.Length > 0 Then
-   ImportPackV5(files(0))
-  ElseIf IO.File.Exists(TempDirectory & "\Manifest.Xml") Then
+  If IsDnn5Manifest Then
+   ImportPackV5()
+  Else
    ImportPackV3()
   End If
  End Sub
@@ -354,49 +390,69 @@ Partial Public Class Import
  End Sub
 
  Private Sub ImportFileV3(ByVal resFile As String)
-  Dim res As New XmlDocument
-  res.Load(TempDirectory & "\" & resFile)
   Dim resFileKey As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
   'Fix slashes (from / to \ )
   resFileKey = resFileKey.Replace("/"c, "\"c)
-  ImportFile(res, resFileKey)
+  ImportFile(ObjectController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
  End Sub
 
- Private Sub ImportPackV5(ByVal manifestFile As String)
+ Private Sub ImportPackV5()
   Dim manifest As New XmlDocument
-  manifest.Load(manifestFile)
-  Dim basePath As String = ""
-  If manifest.SelectSingleNode("dotnetnuke/packages/package/components/component/languageFiles/basePath") IsNot Nothing Then
-   basePath = manifest.SelectSingleNode("dotnetnuke/packages/package/components/component/languageFiles/basePath").InnerText
-  End If
-  If basePath <> "" And Not basePath.EndsWith("\") Then
-   basePath &= "\"
-  End If
-  For Each xNode As XmlNode In manifest.SelectNodes("dotnetnuke/packages/package/components/component/languageFiles/languageFile")
-   Dim filePath As String = xNode.SelectSingleNode("path").InnerText
-   If filePath <> "" And Not filePath.EndsWith("\") Then
-    filePath &= "\"
-   End If
-   Dim fileName As String = xNode.SelectSingleNode("name").InnerText
-   Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-   ImportFileV5(filePath & fileName, fileKey)
+  manifest.Load(ManifestFile)
+  For Each p As XmlNode In manifest.SelectNodes("dotnetnuke/packages/package")
+   Try
+    Dim packType As String = ""
+    packType = p.SelectSingleNode("components/component/@type").InnerText.ToLower
+    Dim basePath As String = ""
+    If p.SelectSingleNode("components/component/languageFiles/basePath") IsNot Nothing Then
+     basePath = p.SelectSingleNode("components/component/languageFiles/basePath").InnerText
+    End If
+    If basePath <> "" And Not basePath.EndsWith("\") Then
+     basePath &= "\"
+    End If
+    Dim depObject As ObjectInfo = Nothing
+    Dim dependentPackage As String = ""
+    If packType = "corelanguage" Then
+     dependentPackage = Globals.glbCoreName
+    End If
+    If p.SelectSingleNode("components/component/languageFiles/package") IsNot Nothing Then
+     dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
+    End If
+    depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
+     dependentPackage = Mid(dependentPackage, 12)
+     depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    End If
+    Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
+    For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
+     Dim filePath As String = xNode.SelectSingleNode("path").InnerText
+     If filePath <> "" And Not filePath.EndsWith("\") Then
+      filePath &= "\"
+     End If
+     Dim fileName As String = xNode.SelectSingleNode("name").InnerText
+     Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
+     ImportFile(depObject, depVersion, filePath & fileName, fileKey)
+    Next
+   Catch ex As Exception
+   End Try
   Next
  End Sub
 
- Private Sub ImportFileV5(ByVal tempResFile As String, ByVal resFileKey As String)
-  Dim res As New XmlDocument
-  res.Load(TempDirectory & "\" & tempResFile)
+ Private Sub ImportFile(obj As ObjectInfo, version As String, ByVal tempResFile As String, ByVal resFileKey As String)
+
+  Dim resFile As New XmlDocument
+  resFile.Load(TempDirectory & "\" & tempResFile)
   'Fix slashes (from / to \ )
   resFileKey = resFileKey.Replace("/"c, "\"c)
-  ImportFile(res, resFileKey)
- End Sub
 
- Private Sub ImportFile(ByVal resFile As XmlDocument, ByVal resFileKey As String)
   Dim updateList As New List(Of TranslationInfo)
   Dim addList As New List(Of TranslationInfo)
   Dim addStatisticsList As New Dictionary(Of Integer, Integer)
-  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, ObjectId, resFileKey, Locale, ddVersion.SelectedValue, True)
+  Dim Locale As String = ddLocale.SelectedValue
+  Dim hits As Integer = 0
+  Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
    Do While ir.Read
+    hits += 1
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim textId As Integer = CInt(ir.Item("TextId"))
     Dim hasValue As Boolean = False
@@ -450,6 +506,63 @@ Partial Public Class Import
     End Try
    Loop
   End Using
+  If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
+   Using ir As IDataReader = DataProvider.Instance.GetAdjacentTextsForCore(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
+    Do While ir.Read
+     Dim textKey As String = CStr(ir.Item("TextKey"))
+     Dim textId As Integer = CInt(ir.Item("TextId"))
+     Dim hasValue As Boolean = False
+     If ir.Item("TranslationId") IsNot DBNull.Value Then
+      hasValue = True
+     End If
+     Try
+      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+      If xNode IsNot Nothing Then
+       Try
+        Dim transValue As String = xNode.SelectSingleNode("value").InnerText
+        If hasValue Then
+         Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
+         If tr.TextValue <> transValue Then
+          Dim stat As Integer = 0
+          If Settings.KeepStatistics Then
+           If transValue.Length > 200 Then
+            stat = Math.Abs(transValue.Length - tr.TextValue.Length)
+           Else
+            stat = Globals.LevenshteinDistance(tr.TextValue, transValue)
+           End If
+          End If
+          With tr
+           .LastModified = Now
+           .LastModifiedUserId = UserId
+           .TextValue = transValue
+          End With
+          updateList.Add(tr)
+          If Settings.KeepStatistics Then
+           StatisticsController.RecordStatistic(UserId, tr.TranslationId, stat)
+          End If
+         End If
+        Else
+         Dim tr As New TranslationInfo
+         With tr
+          .TextId = textId
+          .Locale = Locale
+          .LastModified = Now
+          .LastModifiedUserId = UserId
+          .TextValue = transValue
+         End With
+         addList.Add(tr)
+         addStatisticsList.Add(textId, transValue.Length)
+        End If
+       Catch
+        ' ignore errors
+       End Try
+      End If
+     Catch ex As XPathException
+      ' ignore XPath errors
+     End Try
+    Loop
+   End Using
+  End If
 
   For Each tr As TranslationInfo In updateList
    TranslationsController.UpdateTranslation(tr)
@@ -481,15 +594,19 @@ Partial Public Class Import
    If Not (myState(1) Is Nothing) Then
     _tempDirectory = CType(myState(1), String)
    End If
+   If Not (myState(2) Is Nothing) Then
+    _manifestFile = CType(myState(2), String)
+   End If
   End If
 
  End Sub
 
  Protected Overrides Function SaveViewState() As Object
 
-  Dim allStates(1) As Object
+  Dim allStates(2) As Object
   allStates(0) = MyBase.SaveViewState()
   allStates(1) = _tempDirectory
+  allStates(2) = _manifestFile
   Return allStates
 
  End Function

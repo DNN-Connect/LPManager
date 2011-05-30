@@ -20,6 +20,7 @@ Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
 Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Services.Localization
+Imports System.Collections.Generic
 
 
 Partial Public Class RequestPack
@@ -89,6 +90,7 @@ Partial Public Class RequestPack
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
   DNNClientAPI.AddBodyOnloadEventHandler(Me.Page, "")
 
+  pnlDisambiguate.Visible = False
   Globals.ReadQuerystringValue(Me.Request.Params, "Object", Objectname)
   Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
   If Objectname = "" Then
@@ -97,10 +99,30 @@ Partial Public Class RequestPack
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   Else
-   Dim tm As ObjectInfo = ObjectController.GetObjectByObjectName(Objectname)
-   ObjectId = tm.ObjectId
-   Objectname = tm.ObjectName
-   FriendlyName = tm.FriendlyName
+   Dim foundObjects As List(Of ObjectInfo) = ObjectController.GetObjectsByObjectName(Objectname)
+   If foundObjects.Count = 1 Then
+    Dim tm As ObjectInfo = foundObjects(0)
+    ObjectId = tm.ObjectId
+    Objectname = tm.ObjectName
+    FriendlyName = tm.FriendlyName
+   ElseIf foundObjects.Count = 0 Then
+    ' Didn't find any objects by that name
+    pnlMain.Visible = False
+    lblError.Text = Localization.GetString("ObjectNotFound.Error", LocalResourceFile)
+   Else
+    ' Found more than one objects by that name
+    pnlMain.Visible = False
+    pnlDisambiguate.Visible = True
+    For Each o As ObjectInfo In foundObjects
+     FriendlyName = o.FriendlyName
+     Dim l As String = ""
+     For Each p As PermissionInfo In PermissionsController.GetPermissions(o.ModuleId)
+      l &= p.Locale & ", "
+     Next
+     l = l.Trim.TrimEnd(","c)
+     plhDisambiguate.Controls.Add(New LiteralControl(String.Format("<p><a href=""{0}&ObjectId={1}&Version={2}"">{3}</a></p>", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/RequestPack.aspx"), o.ObjectId, Version, l)))
+    Next
+   End If
   End If
   If Not Me.IsPostBack Then
    ddVersion.DataSource = DataProvider.Instance.GetVersions(Me.ObjectId)

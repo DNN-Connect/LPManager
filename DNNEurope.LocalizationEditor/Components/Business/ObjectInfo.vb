@@ -42,6 +42,7 @@ Namespace Business
   Private _packageType As String = "Module"
   Private _module As ModuleInfo
   Private _lastVersion As String = "00.00.00"
+  Private _version As String = "00.00.00"
 
 #Region " Constructors "
 
@@ -134,6 +135,21 @@ Namespace Business
     _lastVersion = value
    End Set
   End Property
+
+  Public Property Version() As String
+   Get
+    Return _version
+   End Get
+   Set(ByVal value As String)
+    _version = value
+   End Set
+  End Property
+
+  Public ReadOnly Property IsCore As Boolean
+   Get
+    Return CBool(ObjectName = Globals.glbCoreName)
+   End Get
+  End Property
 #End Region
 
 #Region " IHydratable Implementation "
@@ -158,6 +174,10 @@ Namespace Business
    PackageType = Convert.ToString(Null.SetNull(dr.Item("PackageType"), PackageType))
    Try
     LastVersion = Convert.ToString(Null.SetNull(dr.Item("LastVersion"), LastVersion))
+   Catch
+   End Try
+   Try
+    Version = Convert.ToString(Null.SetNull(dr.Item("Version"), Version))
    Catch
    End Try
 

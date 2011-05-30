@@ -97,7 +97,7 @@ Partial Public Class DownloadPack
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   Else
-   Dim tm As ObjectInfo = ObjectController.GetObjectByObjectName(Objectname)
+   Dim tm As ObjectInfo = ObjectController.GetObjectByObjectName(ModuleId, Objectname)
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   End If
@@ -167,12 +167,23 @@ Partial Public Class DownloadPack
 
 #Region " Public Methods "
  Public Function DownloadPackList(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As String
+  Dim o As ObjectInfo = ObjectController.GetObject(ObjectId)
   Dim packPath As String = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
-  Dim res As String = ""
-  For Each drv As DataRowView In GetLocalesByCode(Locale)
-   res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
-  Next
-  Return res
+  If o.IsCore Then
+   Dim res1 As String = "Core: "
+   Dim res2 As String = "Full: "
+   For Each drv As DataRowView In GetLocalesByCode(Locale)
+    res1 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Core"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+    res2 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Full"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+   Next
+   Return String.Format("{0}<br />{1}", res1, res2)
+  Else
+   Dim res As String = ""
+   For Each drv As DataRowView In GetLocalesByCode(Locale)
+    res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+   Next
+   Return res
+  End If
  End Function
 #End Region
 

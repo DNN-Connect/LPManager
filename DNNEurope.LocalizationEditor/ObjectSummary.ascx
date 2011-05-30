@@ -98,8 +98,6 @@
   <asp:LinkButton runat="server" ID="cmdEdit" resourcekey="cmdEdit" Text="Edit" CssClass="CommandButton" />&nbsp;&nbsp;
   <asp:HyperLink runat="server" ID="cmdDownload" resourcekey="cmdDownload" Text="Download"
     CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:HyperLink runat="server" ID="cmdUpload" resourcekey="cmdUpload" Text="Ulpoad"
-    CssClass="CommandButton" />&nbsp;&nbsp;
   <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"
     CssClass="CommandButton" />
 </p>
