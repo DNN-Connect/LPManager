@@ -159,4 +159,7 @@
   <data name="lblNoResourceFiles.Text" xml:space="preserve">
     <value>There are no language packs available for this module.</value>
   </data>
+  <data name="ObjectNotFound.Error" xml:space="preserve">
+    <value>No translations were found for the requested object!</value>
+  </data>
 </root>

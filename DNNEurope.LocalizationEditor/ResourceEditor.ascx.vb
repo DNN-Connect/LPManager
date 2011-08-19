@@ -194,12 +194,11 @@ Partial Public Class ResourceEditor
       End If
       Dim txtBox As Editor = CType(cell.Controls(0), Editor)
       If txtBox.Value <> "" Then
-       Dim trans As TranslationInfo = TranslationsController.GetTranslation(txtBox.TranslationId)
+       Dim trans As TranslationInfo = TranslationsController.GetTranslation(txtBox.TextId, Locale)
        Dim stat As Integer = txtBox.Value.Length
-       Dim transId As Integer = -1
        If trans Is Nothing Then
         trans = New TranslationInfo(txtBox.TextId, Locale, Now, UserId, txtBox.Value)
-        transId = TranslationsController.AddTranslation(trans)
+        TranslationsController.SetTranslation(trans)
        ElseIf trans.TextValue <> txtBox.Value Then ' editor has changed the text
         If Settings.KeepStatistics Then
          If txtBox.Value.Length > 200 Then
@@ -211,14 +210,13 @@ Partial Public Class ResourceEditor
         trans.TextValue = txtBox.Value
         trans.LastModified = Now
         trans.LastModifiedUserId = UserId
-        TranslationsController.UpdateTranslation(trans)
-        transId = trans.TranslationId
+        TranslationsController.SetTranslation(trans)
        End If
-       If transId > 0 And stat > 0 And Settings.KeepStatistics Then
-        StatisticsController.RecordStatistic(UserId, transId, stat)
+       If stat > 0 And Settings.KeepStatistics Then
+        StatisticsController.RecordStatistic(txtBox.TextId, Locale, UserId, stat)
        End If
       Else
-       TranslationsController.DeleteTranslation(txtBox.TranslationId)
+       TranslationsController.DeleteTranslation(txtBox.TextId, Locale)
       End If
      End If
     Next
@@ -623,7 +621,6 @@ Partial Public Class ResourceEditor
    editor.Value = textValue
    editor.OriginalValue = originalValue
    editor.SourceValue = sourceValue
-   editor.TranslationId = Globals.GetAnInteger(drv.Item("TranslationId"))
    editor.FromLocale = SourceLocale
    editor.ToLocale = Locale
    editor.AutoTranslate = AutoTranslate

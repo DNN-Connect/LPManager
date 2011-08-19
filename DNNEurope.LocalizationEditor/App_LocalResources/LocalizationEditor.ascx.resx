@@ -150,4 +150,7 @@
   <data name="hlCube.Text" xml:space="preserve">
     <value>Get Data Cube</value>
   </data>
+  <data name="lbUploadPack.Text" xml:space="preserve">
+    <value>Upload Lang Pack</value>
+  </data>
 </root>

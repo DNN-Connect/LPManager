@@ -81,16 +81,10 @@ Namespace Data
 
 #Region " Statistic Methods "
 
-  Public MustOverride Function GetStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32) As IDataReader
-
-  Public MustOverride Sub AddStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
-
-  Public MustOverride Sub UpdateStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
-
-  Public MustOverride Sub DeleteStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32)
-
-  Public MustOverride Function GetStatisticsByTranslation(ByVal TranslationId As Int32) As IDataReader
-  Public MustOverride Function GetStatisticsByUser(ByVal UserID As Int32) As IDataReader
+  Public MustOverride Function GetStatistic(ByVal TextId As Int32, ByVal Locale As String, ByVal UserId As Int32) As IDataReader
+  Public MustOverride Sub SetStatistic(ByVal Locale As String, ByVal TextId As Int32, ByVal Total As Int32, ByVal UserId As Int32)
+  Public MustOverride Sub DeleteStatistic(ByVal TextId As Int32, ByVal Locale As String, ByVal UserId As Int32)
+  Public MustOverride Function GetStatisticsByUser(ByVal UserID As Int32, StartRowIndex As Integer, MaximumRows As Integer, OrderBy As String) As IDataReader
 
   Public MustOverride Function GetPackStatistics(ByVal ObjectId As Int32, ByVal Version As String, ByVal Locale As String) As IDataReader
 
@@ -133,15 +127,12 @@ Namespace Data
 
 #Region " Translation Methods "
 
-  Public MustOverride Function GetTranslation(ByVal TranslationId As Integer) As IDataReader
   Public MustOverride Function GetTranslation(ByVal TextId As Integer, ByVal Locale As String) As IDataReader
 
-  Public MustOverride Function AddTranslation(ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String) As Integer
+  Public MustOverride Function SetTranslation(ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String) As Integer
 
-  Public MustOverride Sub UpdateTranslation(ByVal TranslationId As Int32, ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String)
-
-  Public MustOverride Sub DeleteTranslation(ByVal TranslationId As Integer)
-  Public MustOverride Function GetTranslationsByText(ByVal TextId As Integer) As IDataReader
+  Public MustOverride Sub DeleteTranslation(ByVal TextId As Int32, ByVal Locale As String)
+  Public MustOverride Function GetTranslationsByText(ByVal TextId As Int32, StartRowIndex As Integer, MaximumRows As Integer, OrderBy As String) As IDataReader
 
 #End Region
 

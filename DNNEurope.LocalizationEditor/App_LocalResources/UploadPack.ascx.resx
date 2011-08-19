@@ -168,12 +168,6 @@
   <data name="Core.Text" xml:space="preserve">
     <value>DotNetNuke Core</value>
   </data>
-  <data name="plObject.Help" xml:space="preserve">
-    <value>The object for which you're uploading a language pack</value>
-  </data>
-  <data name="plObject.Text" xml:space="preserve">
-    <value>Object</value>
-  </data>
   <data name="plAnalysis.Help" xml:space="preserve">
     <value>Results from an analysis of the files</value>
   </data>
@@ -184,9 +178,15 @@
     <value>Locale for which you're uploading a language pack</value>
   </data>
   <data name="plLocale.Text" xml:space="preserve">
-    <value>Locale</value>
+    <value>Map To Locale</value>
   </data>
   <data name="ControlTitle_uploadpack.Text" xml:space="preserve">
     <value>Upload Pack</value>
+  </data>
+  <data name="plObject.Help" xml:space="preserve">
+    <value>Select the object for which you're uploading a pack</value>
+  </data>
+  <data name="plObject.Text" xml:space="preserve">
+    <value>Object</value>
   </data>
 </root>

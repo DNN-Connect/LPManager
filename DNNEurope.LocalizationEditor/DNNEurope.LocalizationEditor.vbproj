@@ -127,6 +127,8 @@
       <Name>System.Drawing</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web">
       <Name>System.Web</Name>
       <Private>False</Private>
@@ -157,15 +159,21 @@
   <ItemGroup>
     <Compile Include="Components\Business\Cube.vb" />
     <Compile Include="Components\Business\ModuleInfo.vb" />
+    <Compile Include="Components\Business\ObjectCoreVersionInfo_Interfaces.vb" />
+    <Compile Include="Components\Business\ObjectCoreVersionInfo_Properties.vb" />
     <Compile Include="Components\Business\ObjectCoreVersionsController.vb" />
     <Compile Include="Components\Business\ObjectInfo.vb" />
     <Compile Include="Components\Business\ObjectController.vb" />
-    <Compile Include="Components\Business\Objects\Interfaces\ObjectCoreVersionInfo.vb" />
-    <Compile Include="Components\Business\Objects\Properties\ObjectCoreVersionInfo.vb" />
-    <Compile Include="Components\Business\StatisticInfo.vb" />
+    <Compile Include="Components\Business\StatisticInfo_Interfaces.vb" />
+    <Compile Include="Components\Business\StatisticInfo_Properties.vb" />
     <Compile Include="Components\Business\StatisticsController.vb" />
+    <Compile Include="Components\Business\StatisticsController_CRUD.vb" />
+    <Compile Include="Components\Business\StatisticsController_FK.vb" />
+    <Compile Include="Components\Business\TranslationInfo_Interfaces.vb" />
+    <Compile Include="Components\Business\TranslationInfo_Properties.vb" />
+    <Compile Include="Components\Business\TranslationsController_CRUD.vb" />
+    <Compile Include="Components\Business\TranslationsController_FK.vb" />
     <Compile Include="Components\Business\UsersController.vb" />
-    <Compile Include="Components\Business\TranslationInfo.vb" />
     <Compile Include="Components\Business\TranslationsController.vb" />
     <Compile Include="Components\Business\LocalizationController.vb" />
     <Compile Include="Components\Business\PermissionInfo.vb" />
@@ -288,9 +296,9 @@
     <None Include="_Installation\SQL2005\03.03.01.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.03.02.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.04.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\03.04.01.sqldataprovider" />
     <None Include="_Installation\SQL2005\Install.03.04.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Uninstall.sqldataprovider" />
-    <None Include="_BuildSupport\Project.targets" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_LocalResources\ResourceEditor.ascx.resx">
@@ -338,7 +346,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Settings.ascx" />
-    <Content Include="_BuildSupport\version.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_LocalResources\Settings.ascx.resx">

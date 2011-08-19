@@ -43,22 +43,17 @@ Namespace Data
 
    ' Read the configuration specific information for this provider
    Dim objProvider As DotNetNuke.Framework.Providers.Provider = CType(_providerConfiguration.Providers(_providerConfiguration.DefaultProvider), DotNetNuke.Framework.Providers.Provider)
-
-   ' Read the attributes for this provider
-   If objProvider.Attributes("connectionStringName") <> "" AndAlso _
-   System.Configuration.ConfigurationManager.AppSettings(objProvider.Attributes("connectionStringName")) <> "" Then
-    _connectionString = System.Configuration.ConfigurationManager.AppSettings(objProvider.Attributes("connectionStringName"))
-   Else
+   'Get Connection string from web.config
+   _connectionString = Config.GetConnectionString()
+   If _connectionString = "" Then
+    ' Use connection string specified in provider
     _connectionString = objProvider.Attributes("connectionString")
    End If
-
    _providerPath = objProvider.Attributes("providerPath")
-
    _objectQualifier = objProvider.Attributes("objectQualifier")
    If _objectQualifier <> "" And _objectQualifier.EndsWith("_") = False Then
     _objectQualifier += "_"
    End If
-
    _databaseOwner = objProvider.Attributes("databaseOwner")
    If _databaseOwner <> "" And _databaseOwner.EndsWith(".") = False Then
     _databaseOwner += "."
@@ -169,28 +164,20 @@ Namespace Data
 
 #Region " Statistics Methods "
 
-  Public Overrides Function GetStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetStatistic", UserId, TranslationId), IDataReader)
+  Public Overrides Function GetStatistic(ByVal TextId As Int32, ByVal Locale As String, ByVal UserId As Int32) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetStatistic", TextId, Locale, UserId), IDataReader)
   End Function
 
-  Public Overrides Sub AddStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "AddStatistic", UserId, TranslationId, Total)
+  Public Overrides Sub SetStatistic(ByVal Locale As String, ByVal TextId As Int32, ByVal Total As Int32, ByVal UserId As Int32)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetStatistic", Locale, TextId, Total, UserId)
   End Sub
 
-  Public Overrides Sub UpdateStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32, ByVal Total As Int32)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "UpdateStatistic", UserId, TranslationId, Total)
+  Public Overrides Sub DeleteStatistic(ByVal TextId As Int32, ByVal Locale As String, ByVal UserId As Int32)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "DeleteStatistic", TextId, Locale, UserId)
   End Sub
 
-  Public Overrides Sub DeleteStatistic(ByVal UserId As Int32, ByVal TranslationId As Int32)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "DeleteStatistic", UserId, TranslationId)
-  End Sub
-
-  Public Overrides Function GetStatisticsByTranslation(ByVal TranslationId As Int32) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetStatisticsByTranslation", TranslationId), IDataReader)
-  End Function
-
-  Public Overrides Function GetStatisticsByUser(ByVal UserID As Int32) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetStatisticsByUser", UserID), IDataReader)
+	Public Overrides Function GetStatisticsByUser(ByVal UserID As Int32 , StartRowIndex As Integer, MaximumRows As Integer, OrderBy As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetStatisticsByUser", UserID, StartRowIndex, MaximumRows, OrderBy.ToUpper), IDataReader)
   End Function
 
   Public Overrides Function GetPackStatistics(ByVal ObjectId As Int32, ByVal Version As String, ByVal Locale As String) As IDataReader
@@ -272,28 +259,20 @@ Namespace Data
 
 #Region " Translations Methods "
 
-  Public Overrides Function GetTranslation(ByVal TranslationId As Integer) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslationById", TranslationId), IDataReader)
-  End Function
-
   Public Overrides Function GetTranslation(ByVal TextId As Integer, ByVal Locale As String) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslation", TextId, Locale), IDataReader)
   End Function
 
-  Public Overrides Function AddTranslation(ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String) As Integer
-   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "AddTranslation", GetNull(LastModified), GetNull(LastModifiedUserId), Locale, TextId, GetNull(TextValue)), Integer)
+  Public Overrides Function SetTranslation(ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String) As Integer
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetTranslation", GetNull(LastModified), GetNull(LastModifiedUserId), Locale, TextId, GetNull(TextValue))
   End Function
 
-  Public Overrides Sub UpdateTranslation(ByVal TranslationId As Int32, ByVal LastModified As Date, ByVal LastModifiedUserId As Int32, ByVal Locale As String, ByVal TextId As Int32, ByVal TextValue As String)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "UpdateTranslation", TranslationId, GetNull(LastModified), GetNull(LastModifiedUserId), Locale, TextId, GetNull(TextValue))
+  Public Overrides Sub DeleteTranslation(ByVal TextId As Int32, ByVal Locale As String)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "DeleteTranslation", TextId, Locale)
   End Sub
 
-  Public Overrides Sub DeleteTranslation(ByVal TranslationId As Integer)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "DeleteTranslation", TranslationId)
-  End Sub
-
-  Public Overrides Function GetTranslationsByText(ByVal TextId As Integer) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslationsByText", TextId), IDataReader)
+  Public Overrides Function GetTranslationsByText(ByVal TextId As Int32, StartRowIndex As Integer, MaximumRows As Integer, OrderBy As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslationsByText", TextId, StartRowIndex, MaximumRows, OrderBy.ToUpper), IDataReader)
   End Function
 
 #End Region

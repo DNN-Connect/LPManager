@@ -38,6 +38,9 @@ Public Class ZipHelper
       End If
       sPath &= "\"
      End If
+      If Not IO.Directory.Exists(IO.Path.GetDirectoryName(sPath & sFile)) Then
+       IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(sPath & sFile))
+      End If
      Using objFileStream As FileStream = File.Create(sPath & sFile)
       Dim intSize As Integer = 2048
       Dim arrData(2048) As Byte

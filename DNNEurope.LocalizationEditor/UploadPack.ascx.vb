@@ -456,7 +456,7 @@ Partial Public Class Import
     Dim textKey As String = CStr(ir.Item("TextKey"))
     Dim textId As Integer = CInt(ir.Item("TextId"))
     Dim hasValue As Boolean = False
-    If ir.Item("TranslationId") IsNot DBNull.Value Then
+    If ir.Item("TextValue") IsNot DBNull.Value Then
      hasValue = True
     End If
     Try
@@ -482,7 +482,7 @@ Partial Public Class Import
          End With
          updateList.Add(tr)
          If Settings.KeepStatistics Then
-          StatisticsController.RecordStatistic(UserId, tr.TranslationId, stat)
+          StatisticsController.RecordStatistic(tr.TextId, Locale, UserId, stat)
          End If
         End If
        Else
@@ -512,7 +512,7 @@ Partial Public Class Import
      Dim textKey As String = CStr(ir.Item("TextKey"))
      Dim textId As Integer = CInt(ir.Item("TextId"))
      Dim hasValue As Boolean = False
-     If ir.Item("TranslationId") IsNot DBNull.Value Then
+     If ir.Item("TextValue") IsNot DBNull.Value Then
       hasValue = True
      End If
      Try
@@ -538,7 +538,7 @@ Partial Public Class Import
           End With
           updateList.Add(tr)
           If Settings.KeepStatistics Then
-           StatisticsController.RecordStatistic(UserId, tr.TranslationId, stat)
+           StatisticsController.RecordStatistic(textId, Locale, UserId, stat)
           End If
          End If
         Else
@@ -565,15 +565,15 @@ Partial Public Class Import
   End If
 
   For Each tr As TranslationInfo In updateList
-   TranslationsController.UpdateTranslation(tr)
+   TranslationsController.SetTranslation(tr)
   Next
   For Each tr As TranslationInfo In addList
-   tr.TranslationId = TranslationsController.AddTranslation(tr)
+   TranslationsController.SetTranslation(tr)
   Next
 
   If Settings.KeepStatistics Then
    For Each tr As TranslationInfo In addList
-    StatisticsController.RecordStatistic(UserId, tr.TranslationId, addStatisticsList(tr.TextId))
+    StatisticsController.RecordStatistic(tr.TextId, tr.Locale, UserId, addStatisticsList(tr.TextId))
    Next
   End If
 

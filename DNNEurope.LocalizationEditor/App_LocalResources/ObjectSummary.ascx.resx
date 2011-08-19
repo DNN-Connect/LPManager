@@ -120,9 +120,6 @@
   <data name="All.Text" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="cmdUpload.Text" xml:space="preserve">
-    <value>Upload Pack</value>
-  </data>
   <data name="New.Text" xml:space="preserve">
     <value>New Texts</value>
   </data>

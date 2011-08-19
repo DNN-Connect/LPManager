@@ -21,38 +21,12 @@ Imports DotNetNuke.Common.Utilities
 
 Namespace Business
 
-#Region " TranslationsController "
-
  Public Class TranslationsController
-  Public Shared Function GetTranslation(ByVal TranslationId As Integer) As TranslationInfo
-   Return CType(CBO.FillObject(DataProvider.Instance().GetTranslation(TranslationId), GetType(TranslationInfo)), TranslationInfo)
-  End Function
+  Public Shared Sub SetTranslation(ByVal objTranslation As TranslationInfo)
 
-  Public Shared Function GetTranslation(ByVal TextId As Integer, ByVal Locale As String) As TranslationInfo
-   Return CType(CBO.FillObject(DataProvider.Instance().GetTranslation(TextId, Locale), GetType(TranslationInfo)), TranslationInfo)
-  End Function
-
-  Public Shared Function AddTranslation(ByVal objTranslation As TranslationInfo) As Integer
-
-   Return CType(DataProvider.Instance().AddTranslation(objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue), Integer)
-
-  End Function
-
-  Public Shared Sub UpdateTranslation(ByVal objTranslation As TranslationInfo)
-
-   DataProvider.Instance().UpdateTranslation(objTranslation.TranslationId, objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue)
+   DataProvider.Instance().SetTranslation(objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue)
 
   End Sub
-
-  Public Shared Sub DeleteTranslation(ByVal TranslationId As Integer)
-   DataProvider.Instance().DeleteTranslation(TranslationId)
-  End Sub
-
-  Public Shared Function GetTranslationsByText(ByVal TextId As Integer) As ArrayList
-   Return CBO.FillCollection(DataProvider.Instance().GetTranslationsByText(TextId), GetType(TranslationInfo))
-  End Function
  End Class
-
-#End Region
 
 End Namespace

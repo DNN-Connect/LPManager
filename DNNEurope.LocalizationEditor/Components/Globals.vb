@@ -309,7 +309,7 @@ Public Class Globals
  ''' <remarks></remarks>
  Public Shared Sub AddElement(ByRef node As XmlNode, ByVal elementName As String, ByVal elementValue As String, ByVal ParamArray attributes() As String)
   Dim newNode As XmlNode = node.OwnerDocument.CreateElement(elementName)
-  newNode.InnerText = elementValue
+  newNode.InnerXml = elementValue
   node.AppendChild(newNode)
   For Each xAttribute As String In attributes
    Dim x As String() = xAttribute.Split("="c)

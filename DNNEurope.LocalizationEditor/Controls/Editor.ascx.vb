@@ -34,7 +34,6 @@ Namespace Controls
 
 #Region " Private Members "
 
-  Private _translationId As Integer
   Private _textId As Integer
   Private _value As String
   Private _originalValue As String
@@ -48,15 +47,6 @@ Namespace Controls
 #End Region
 
 #Region " Properties "
-
-  Public Property TranslationId() As Integer
-   Get
-    Return _translationId
-   End Get
-   Set(ByVal value As Integer)
-    _translationId = value
-   End Set
-  End Property
 
   Public Property SourceValue() As String
    Get
@@ -252,19 +242,15 @@ Namespace Controls
     If Not (myState(3) Is Nothing) Then
      Value = CStr(myState(3))
     End If
-    If Not (myState(4) Is Nothing) Then
-     TranslationId = CInt(myState(4))
-    End If
    End If
   End Sub
 
   Protected Overrides Function SaveViewState() As Object
-   Dim allStates(4) As Object
+   Dim allStates(3) As Object
    allStates(0) = MyBase.SaveViewState()
    allStates(1) = ShowHtml
    allStates(2) = TextId
    allStates(3) = Value
-   allStates(4) = TranslationId
    Return allStates
   End Function
 
