@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -15,8 +17,9 @@
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
 Imports DNNEurope.Modules.LocalizationEditor.Data
-Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Services.Localization
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
 
 
 Partial Public Class ObjectSummary
@@ -27,8 +30,8 @@ Partial Public Class ObjectSummary
  Private _ObjectId As Integer
  Private _locale As String
  Private _moduleFriendlyName As String
- Private _original As LocalizationController.ObjectMetrics
- Private _target As LocalizationController.ObjectMetrics
+ Private _original As ObjectMetrics
+ Private _target As ObjectMetrics
 
 #End Region
 
@@ -61,20 +64,20 @@ Partial Public Class ObjectSummary
   End Set
  End Property
 
- Public Property Target() As LocalizationController.ObjectMetrics
+ Public Property Target() As ObjectMetrics
   Get
    Return _target
   End Get
-  Set(ByVal value As LocalizationController.ObjectMetrics)
+  Set(ByVal value As ObjectMetrics)
    _target = value
   End Set
  End Property
 
- Public Property Original() As LocalizationController.ObjectMetrics
+ Public Property Original() As ObjectMetrics
   Get
    Return _original
   End Get
-  Set(ByVal value As LocalizationController.ObjectMetrics)
+  Set(ByVal value As ObjectMetrics)
    _original = value
   End Set
  End Property
@@ -84,10 +87,10 @@ Partial Public Class ObjectSummary
 #Region " Event Handlers "
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
 
-  Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
+  Globals.ReadValue(Me.Request.Params, "ObjectId", ObjectId)
+  Globals.ReadValue(Me.Request.Params, "Locale", Locale)
 
-  Dim objObjectInfo As ObjectInfo = ObjectController.GetObject(ObjectId)
+  Dim objObjectInfo As ObjectInfo = ObjectsController.GetObject(ObjectId)
   If objObjectInfo Is Nothing Then Return
   ModuleFriendlyName = objObjectInfo.FriendlyName
 
@@ -95,8 +98,8 @@ Partial Public Class ObjectSummary
   'If Not Me.IsPostBack Then
   ' LocalizationController.ReadResourceFiles(Server.MapPath("~/"), PortalId, objObjectInfo, UserId)
   'End If
-  Original = LocalizationController.GetObjectMetrics(ObjectId, "")
-  Target = LocalizationController.GetObjectMetrics(ObjectId, Locale)
+  Original = ObjectsController.GetObjectMetrics(ObjectId, "")
+  Target = ObjectsController.GetObjectMetrics(ObjectId, Locale)
 
  End Sub
 

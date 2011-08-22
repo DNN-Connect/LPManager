@@ -88,4 +88,20 @@
    <asp:CheckBox runat="server" ID="chkKeepStatistics" />
   </td>
  </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plModuleKey" runat="server" controlname="txtModuleKey" suffix=":" />
+  </td>
+  <td>
+   <asp:TextBox runat="server" ID="txtModuleKey" Width="250" />
+  </td>
+ </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plAutoImportObjects" runat="server" controlname="chkAutoImportObjects" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkAutoImportObjects" />
+  </td>
+ </tr>
 </table>

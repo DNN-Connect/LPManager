@@ -1,5 +1,5 @@
 ' 
-' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
@@ -16,64 +16,47 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-Imports DotNetNuke.Entities.Modules
 
+Imports DotNetNuke.Entities.Modules
+Imports DNNEurope.Modules.LocalizationEditor.Globals
 
 Public Class ModuleSettings
 
-#Region " Private Members "
-
- Private _ownerName As String = ""
- Private _ownerEmail As String = ""
- Private _ownerUrl As String = ""
- Private _ownerOrganization As String = ""
- Private _license As String = ""
- Private _cachePacks As Boolean = True
- Private _allowDirectDownload As Boolean = True
- Private _allowDataExtract As Boolean = True
- Private _keepStatistics As Boolean = False
-
+#Region " Properties "
+ Public Property OwnerName() As String = ""
+ Public Property OwnerEmail() As String = ""
+ Public Property OwnerUrl() As String = ""
+ Public Property OwnerOrganization() As String = ""
+ Public Property License() As String = ""
+ Public Property CachePacks() As Boolean = True
+ Public Property AllowDirectDownload() As Boolean = True
+ Public Property AllowDataExtract() As Boolean = True
+ Public Property KeepStatistics() As Boolean = False
+ Public Property AutoImportObjects() As Boolean = False
+ Public Property ModuleKey As String = ""
 #End Region
 
 #Region " Constructors "
 
- Public Sub New(ByVal PortalHomeDirMapPath As String, ByVal ModuleId As Integer)
+ Public Sub New(ByVal portalHomeDirMapPath As String, ByVal moduleId As Integer)
 
   Dim mc As New ModuleController
-  Dim Settings As Hashtable = mc.GetModuleSettings(ModuleId)
+  Dim settings As Hashtable = mc.GetModuleSettings(moduleId)
+  ModuleKey = moduleId.ToString
 
-  If Not Settings.Item("OwnerName") Is Nothing Then
-   OwnerName = CType(Settings.Item("OwnerName"), String)
-  End If
+  ReadValue(settings, "OwnerName", OwnerName)
+  ReadValue(settings, "OwnerEmail", OwnerEmail)
+  ReadValue(settings, "OwnerUrl", OwnerUrl)
+  ReadValue(settings, "OwnerOrganization", OwnerOrganization)
+  ReadValue(settings, "CachePacks", CachePacks)
+  ReadValue(settings, "AllowDirectDownload", AllowDirectDownload)
+  ReadValue(settings, "AllowDataExtract", AllowDataExtract)
+  ReadValue(settings, "KeepStatistics", KeepStatistics)
+  ReadValue(settings, "AutoImportObjects", AutoImportObjects)
+  ReadValue(settings, "ModuleKey", ModuleKey)
 
-  If Not Settings.Item("OwnerEmail") Is Nothing Then
-   OwnerEmail = CType(Settings.Item("OwnerEmail"), String)
-  End If
-
-  If Not Settings.Item("OwnerUrl") Is Nothing Then
-   OwnerUrl = CType(Settings.Item("OwnerUrl"), String)
-  End If
-
-  If Not Settings.Item("OwnerOrganization") Is Nothing Then
-   OwnerOrganization = CType(Settings.Item("OwnerOrganization"), String)
-  End If
-
-  License = Globals.GetLicense(PortalHomeDirMapPath, ModuleId)
-
-  If Not Settings.Item("CachePacks") Is Nothing Then
-   CachePacks = CType(Settings.Item("CachePacks"), Boolean)
-  End If
-
-  If Not Settings.Item("AllowDirectDownload") Is Nothing Then
-   AllowDirectDownload = CType(Settings.Item("AllowDirectDownload"), Boolean)
-  End If
-
-  If Not Settings.Item("AllowDataExtract") Is Nothing Then
-   AllowDataExtract = CType(Settings.Item("AllowDataExtract"), Boolean)
-  End If
-
-  If Not Settings.Item("KeepStatistics") Is Nothing Then
-   KeepStatistics = CType(Settings.Item("KeepStatistics"), Boolean)
+  If portalHomeDirMapPath <> "" Then
+   License = Globals.GetLicense(portalHomeDirMapPath, moduleId)
   End If
 
  End Sub
@@ -81,8 +64,7 @@ Public Class ModuleSettings
 #End Region
 
 #Region " Public Members "
-
- Public Sub SaveSettings(ByVal PortalHomeDirMapPath As String, ByVal ModuleId As Integer)
+ Public Sub SaveSettings(ByVal portalHomeDirMapPath As String, ByVal moduleId As Integer)
 
   Dim objModules As New ModuleController
   objModules.UpdateModuleSetting(ModuleId, "OwnerName", Me.OwnerName.ToString)
@@ -92,98 +74,31 @@ Public Class ModuleSettings
   objModules.UpdateModuleSetting(ModuleId, "CachePacks", Me.CachePacks.ToString)
   objModules.UpdateModuleSetting(ModuleId, "AllowDirectDownload", Me.AllowDirectDownload.ToString)
   objModules.UpdateModuleSetting(ModuleId, "AllowDataExtract", Me.AllowDataExtract.ToString)
-  objModules.UpdateModuleSetting(ModuleId, "KeepStatistics", Me.KeepStatistics.ToString)
-  Dim CacheKey As String = "Settings4Module" & ModuleId.ToString
-  DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey, Me)
-  Globals.WriteLicense(PortalHomeDirMapPath, ModuleId, License)
+  objModules.UpdateModuleSetting(moduleId, "KeepStatistics", Me.KeepStatistics.ToString)
+  objModules.UpdateModuleSetting(moduleId, "ModuleKey", Me.ModuleKey)
+  DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey(moduleId), Me)
+  Globals.WriteLicense(portalHomeDirMapPath, ModuleId, License)
 
  End Sub
 
-#End Region
+ Public Shared Function GetSettings(ByVal portalHomeDirMapPath As String, ByVal moduleId As Integer) As ModuleSettings
 
-#Region " Properties "
+  Dim res As ModuleSettings = Nothing
+  Try
+   res = CType(DotNetNuke.Common.Utilities.DataCache.GetCache(CacheKey(moduleId)), ModuleSettings)
+  Catch ex As Exception
+  End Try
+  If res Is Nothing Then
+   res = New ModuleSettings(portalHomeDirMapPath, moduleId)
+   DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey(moduleId), res)
+  End If
+  Return res
 
- Public Property OwnerName() As String
-  Get
-   Return _ownerName
-  End Get
-  Set(ByVal Value As String)
-   _ownerName = Value
-  End Set
- End Property
+ End Function
 
- Public Property OwnerEmail() As String
-  Get
-   Return _ownerEmail
-  End Get
-  Set(ByVal value As String)
-   _ownerEmail = value
-  End Set
- End Property
-
- Public Property OwnerUrl() As String
-  Get
-   Return _ownerUrl
-  End Get
-  Set(ByVal value As String)
-   _ownerUrl = value
-  End Set
- End Property
-
- Public Property OwnerOrganization() As String
-  Get
-   Return _ownerOrganization
-  End Get
-  Set(ByVal value As String)
-   _ownerOrganization = value
-  End Set
- End Property
-
- Public Property License() As String
-  Get
-   Return _license
-  End Get
-  Set(ByVal value As String)
-   _license = value
-  End Set
- End Property
-
- Public Property CachePacks() As Boolean
-  Get
-   Return _cachePacks
-  End Get
-  Set(ByVal value As Boolean)
-   _cachePacks = value
-  End Set
- End Property
-
- Public Property AllowDirectDownload() As Boolean
-  Get
-   Return _allowDirectDownload
-  End Get
-  Set(ByVal value As Boolean)
-   _allowDirectDownload = value
-  End Set
- End Property
-
- Public Property AllowDataExtract() As Boolean
-  Get
-   Return _allowDataExtract
-  End Get
-  Set(ByVal value As Boolean)
-   _allowDataExtract = value
-  End Set
- End Property
-
- Public Property KeepStatistics() As Boolean
-  Get
-   Return _keepStatistics
-  End Get
-  Set(ByVal value As Boolean)
-   _keepStatistics = value
-  End Set
- End Property
-
+ Public Shared Function CacheKey(moduleId As Integer) As String
+  Return String.Format("SettingsModule{0}", moduleId)
+ End Function
 #End Region
 
 End Class

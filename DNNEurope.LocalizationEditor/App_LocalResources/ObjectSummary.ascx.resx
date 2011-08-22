@@ -174,21 +174,6 @@
   <data name="lblNrOfMissingTranslations.Text" xml:space="preserve">
     <value>Nr Of Missing Translations</value>
   </data>
-  <data name="plEdit.Help" xml:space="preserve">
-    <value>Select what to edit above and click here to go to the resource editor</value>
-  </data>
-  <data name="plEdit.Text" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Core.Text" xml:space="preserve">
-    <value>DotNetNuke Core</value>
-  </data>
-  <data name="plAutoTranslate.Help" xml:space="preserve">
-    <value>Check to perform automatic translation using the Google translation services</value>
-  </data>
-  <data name="plAutoTranslate.Text" xml:space="preserve">
-    <value>Automatic translation</value>
-  </data>
   <data name="ControlTitle_objectsummary.Text" xml:space="preserve">
     <value>Module summary</value>
   </data>

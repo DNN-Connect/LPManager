@@ -1,5 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="UploadPack.ascx.vb"
- Inherits="DNNEurope.Modules.LocalizationEditor.Import" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="UploadPack.ascx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.Import" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <asp:Wizard ID="wzdImport" runat="server" DisplayCancelButton="True" CellPadding="5"
  CellSpacing="5" CssClass="Wizard" StartNextButtonType="Link" StepNextButtonType="Link"
@@ -45,7 +44,7 @@
         <dnn:Label ID="plObject" runat="server" ControlName="ddObject" Suffix=":" />
       </td>
       <td>
-        <asp:DropDownList ID="ddObject" runat="server" DataValueField="ObjectId" DataTextField="ModuleFriendlyName" AutoPostBack="true" />
+        <asp:DropDownList ID="ddObject" runat="server" DataValueField="ObjectId" DataTextField="FriendlyName" AutoPostBack="true" />
       </td>
     </tr>
     <tr runat="server" id="trVersion">

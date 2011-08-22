@@ -27,8 +27,7 @@
 </table>
 <p>
   <asp:LinkButton runat="server" ID="cmdAdd" resourcekey="cmdAdd" Text="Add" CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:LinkButton runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"
-    CssClass="CommandButton" CausesValidation="false" />
+  <asp:LinkButton runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return" CssClass="CommandButton" CausesValidation="false" />
 </p>
 <p>
   <asp:Label runat="server" ID="lblError" CssClass="NormalRed" /></p>

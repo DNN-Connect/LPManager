@@ -1,5 +1,5 @@
 ' 
-' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
@@ -26,6 +26,23 @@ Public Class Globals
  Public Const glbCoreFriendlyName As String = "DNN Core"
  Public Const glbSharedResources As String = "DesktopModules/DNNEurope/LocalizationEditor/App_LocalResources/SharedResources"
 
+ Public Shared Function PackUrl() As String
+  Return CorrectUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
+ End Function
+ Public Shared Function CorrectUrl(ByVal url As String) As String
+  url = DotNetNuke.Common.ResolveUrl(url)
+  If url.StartsWith("/") Then
+   url = HttpContext.Current.Request.Url.Host & url
+   url = DotNetNuke.Common.AddHTTP(url)
+  End If
+  Return url
+ End Function
+
+ Public Shared Function CorrectHttp(ByVal url As String) As String
+  If url.ToLower.StartsWith("http") Then Return url
+  Return "http://" & url
+ End Function
+
  ''' <summary>
  ''' Returns correct resource file filename based on the base filename and the requested language
  ''' </summary>
@@ -47,6 +64,36 @@ Public Class Globals
  Public Shared Sub GetResourceFiles(ByRef fileList As SortedList, ByVal _path As String)
   GetResourceFiles(fileList, _path, "")
  End Sub
+
+ Public Shared Function GetCorrectPath(ByVal manifestPath As String, ByVal localResourceDirectory As String) As String
+  Dim m As Match = Regex.Match(manifestPath, "(?i)GlobalResource\\(.*)\.\w\w-\w\w.resx(?-i)")
+  If m.Success Then
+   ' Global Resource
+   Return DotNetNuke.Services.Localization.Localization.ApplicationResourceDirectory.Replace("~/", "") & "\" & m.Groups(1).Value & ".resx"
+  Else
+   ' Local Resource
+   m = Regex.Match(manifestPath, "(?i)([^\\]+)\\(.*)\.\w\w-\w\w.resx(?-i)")
+   If m.Success Then
+    Dim sRes As String = ""
+    Select Case m.Groups(1).Value.ToLower
+     Case "localresource"
+      sRes = "DesktopModules\"
+     Case "controlresource"
+      sRes = "controls\"
+     Case "adminresource"
+      sRes = "admin\"
+     Case "installresource"
+      sRes = "Install\"
+     Case "providerresource"
+      sRes = "Providers\"
+     Case Else
+      Return manifestPath
+    End Select
+    Return sRes & Regex.Replace(m.Groups(2).Value, "([^\\]+)$", localResourceDirectory & "\$1.resx")
+   End If
+   Return manifestPath
+  End If
+ End Function
 
  ''' <summary>
  ''' Recursively gets all resource (*.resx) files from a folder (and all child folders). Returns a <see cref="System.Collections.SortedList" />
@@ -168,33 +215,6 @@ Public Class Globals
  End Function
 
  ''' <summary>
- ''' Reads string valued querystring parameters
- ''' </summary>
- ''' <param name="parameters"></param>
- ''' <param name="parameterName"></param>
- ''' <param name="value"></param>
- ''' <remarks></remarks>
- Public Shared Sub ReadQuerystringValue(ByVal parameters As NameValueCollection, ByVal parameterName As String, ByRef value As String)
-  If parameters(parameterName) IsNot Nothing Then
-   value = parameters(parameterName)
-  End If
- End Sub
-
- ''' <summary>
- ''' Reads integer valued querystring parameters
- ''' </summary>
- ''' <param name="parameters"></param>
- ''' <param name="parameterName"></param>
- ''' <param name="value"></param>
- ''' <remarks></remarks>
- Public Shared Sub ReadQuerystringValue(ByVal parameters As NameValueCollection, ByVal parameterName As String, ByRef value As Integer)
-  'TODO: this is a somewhat dangerous way to get a qs parameter. Using something like integer.tryparse would be safer
-  If parameters(parameterName) IsNot Nothing Then
-   value = CInt(parameters(parameterName))
-  End If
- End Sub
-
- ''' <summary>
  ''' Tests whether text is correct html
  ''' </summary>
  ''' <param name="text"></param>
@@ -281,6 +301,28 @@ Public Class Globals
     Return 0
    Else
     Return CType(Value, Integer)
+   End If
+  End If
+
+ End Function
+
+ ''' <summary>
+ ''' Converts an object into a double
+ ''' </summary>
+ ''' <param name="value"></param>
+ ''' <returns></returns>
+ ''' <remarks></remarks>
+ Public Shared Function GetADouble(ByVal value As Object) As Double
+
+  If value Is Nothing Then
+   Return 0
+  Else
+   If value Is DBNull.Value Then
+    Return 0
+   ElseIf Not IsNumeric(value) Then
+    Return 0
+   Else
+    Return CType(value, Double)
    End If
   End If
 
@@ -558,5 +600,176 @@ Public Class Globals
   Next
  End Sub
 
+ Public Shared Function GetFrameworkVersion() As String
+  Dim res As String = "01.00.00"
+  Using ir As IDataReader = Data.DataProvider.Instance.GetFrameworkVersion
+   Do While ir.Read
+    res = String.Format("{0:00}.{1:00}.{2:00}", ir.Item("Major"), ir.Item("Minor"), ir.Item("Build"))
+    Exit Do
+   Loop
+  End Using
+  Return res
+ End Function
+
+#Region " Value Deserialization "
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As Integer)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Integer)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As Long)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Long)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As String)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), String)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As Boolean)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Boolean)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As Date)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Date)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As Hashtable, ByVal ValueName As String, ByRef Variable As TimeSpan)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = TimeSpan.Parse(CType(ValueTable.Item(ValueName), String))
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As Integer)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Integer)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As Long)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Long)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As String)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), String)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As Boolean)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Boolean)
+   Catch ex As Exception
+    Select Case ValueTable.Item(ValueName).ToLower
+     Case "on", "yes"
+      Variable = True
+     Case Else
+      Variable = False
+    End Select
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As Date)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Date)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByRef ValueTable As NameValueCollection, ByVal ValueName As String, ByRef Variable As TimeSpan)
+  If Not ValueTable.Item(ValueName) Is Nothing Then
+   Try
+    Variable = TimeSpan.Parse(CType(ValueTable.Item(ValueName), String))
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByVal ValueTable As Dictionary(Of String, String), ByVal ValueName As String, ByRef Variable As Integer)
+  If ValueTable.ContainsKey(ValueName) Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Integer)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByVal ValueTable As Dictionary(Of String, String), ByVal ValueName As String, ByRef Variable As String)
+  If ValueTable.ContainsKey(ValueName) Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), String)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByVal ValueTable As Dictionary(Of String, String), ByVal ValueName As String, ByRef Variable As Boolean)
+  If ValueTable.ContainsKey(ValueName) Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Boolean)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByVal ValueTable As Dictionary(Of String, String), ByVal ValueName As String, ByRef Variable As Date)
+  If ValueTable.ContainsKey(ValueName) Then
+   Try
+    Variable = CType(ValueTable.Item(ValueName), Date)
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+
+ Public Shared Sub ReadValue(ByVal ValueTable As Dictionary(Of String, String), ByVal ValueName As String, ByRef Variable As TimeSpan)
+  If ValueTable.ContainsKey(ValueName) Then
+   Try
+    Variable = TimeSpan.Parse(CType(ValueTable.Item(ValueName), String))
+   Catch ex As Exception
+   End Try
+  End If
+ End Sub
+#End Region
 
 End Class

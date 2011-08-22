@@ -123,12 +123,6 @@
   <data name="lbManageObjects.Text" xml:space="preserve">
     <value>Manage objects</value>
   </data>
-  <data name="lblComplete.Text" xml:space="preserve">
-    <value>Complete</value>
-  </data>
-  <data name="lblLocales.Text" xml:space="preserve">
-    <value>Locales</value>
-  </data>
   <data name="lblObjects.Text" xml:space="preserve">
     <value>Objects</value>
   </data>
@@ -136,7 +130,7 @@
     <value>Manage permissions</value>
   </data>
   <data name="lblLocaleAction.Text" xml:space="preserve">
-    <value>Click to edit pack</value>
+    <value>% translation completed</value>
   </data>
   <data name="lblObjectAction.Text" xml:space="preserve">
     <value>Click to download pack</value>
@@ -152,5 +146,36 @@
   </data>
   <data name="lbUploadPack.Text" xml:space="preserve">
     <value>Upload Lang Pack</value>
+  </data>
+  <data name="lblNrtexts.Text" xml:space="preserve">
+    <value>Nr Of Texts</value>
+  </data>
+  <data name="ModuleHelp.Text" xml:space="preserve">
+    <value>&lt;h1&gt;DotNetNuke Localization Editor and Manager&lt;/h1&gt;
+&lt;p&gt;This module is intended to help you maintain and manage language packs for DotNetNuke core and extensions. You do this by maintaining a list of so-called objects to translate and a list of users that are translators.&lt;/p&gt;
+&lt;h2&gt;Objects&lt;/h2&gt;
+&lt;p&gt;The word &lt;b&gt;object&lt;/b&gt; here refers to the DNN core or a DNN extension such as a module or a provider. You upload the raw object to this module and it will unpack it and look for any resource files containing text items. For the core this means uploading the _Install.zip file of the DNN core. For a module or other extension it means uploading the install zip for that extension. You do this on the &lt;b&gt;Manage Objects&lt;/b&gt; page. You need edit rights to the module to be able to see this. You can use the link with the icon at the bottom of the home screen or the action menu item.&lt;/p&gt;
+&lt;p&gt;You need to &lt;b&gt;upload the objects in incremental version order&lt;/b&gt;. I.e. if you've uploaded MyWidget 01.03.00 you shouldn't upload MyWidget 01.02.00 later. Everytime you upload an object the module extracts and analyses all the texts that are in the package and compares them to the ones already in the database. It is able to determine if a text has been deprecated or has appeared in this version. That way the module can compile accurate language packs for any version of the object and can allow translators to edit &lt;i&gt;any version of the object even if it is an older version&lt;/i&gt;. This is a very powerful feature but you must keep in mind to upload objects in incremental fashion.&lt;/p&gt;
+&lt;h3&gt;The Core Object&lt;/h3&gt;
+&lt;p&gt;The DotNetNuke Core is somewhat special as it is packaged differently than extensions and, more importantly, it contains other extensions already in it. This is why there is such a thing as a &lt;b&gt;Core and Full language pack&lt;/b&gt;. While unpacking the core the module looks at all packaged extensions and will unpack those as well. It records whether these extensions would have been installed by default or not. The Text/Html module, for instance, is installed by default. But the Announcements module is not. The Core language pack will contain all translations of the DNN core and the extensions installed by default. The FULL language pack will include everything that was packaged in the core (&lt;i&gt;in the long run the packaging of optional extensions in DNN will be deprecated in favor of the new download mechanism direct from CodePlex)&lt;/i&gt;. Note that you must allow for an adequate maxRequestLength in the web.config for the upload of the core zip file which is currently around 25 Mb!&lt;p&gt;
+&lt;h2&gt;Permissions&lt;/h2&gt;
+&lt;p&gt;Permissions concern the assigned translators. Anyone with edit rights to the module can edit these. The translator is a user in DNN that gets assigned a locale that he/she may edit. This is then applied to all objects managed in the module. To begin using the system you &lt;b&gt;must assign at least one such permission&lt;/b&gt; or you will not see any links to language packs. A translator will be shown an &lt;b&gt;upload language pack&lt;/b&gt; button at the bottom of the home screen. With this he/she can upload an existing pack and select for which object it is and for which locale (from the list of authorized locales). This is a particularly useful feature if the translator prefers to work offline in editing and then uploads the finished product in one go.&lt;/p&gt;
+&lt;h3&gt;Locales&lt;/h3&gt;
+&lt;p&gt;Locales are basically languages. But there is a twist. A &lt;b&gt;locale consists of a language/region combination&lt;/b&gt;. So en-US is US English. So you'll quickly guess there is also a en-GB and en-AU for Great Britain and Australia respectively. This allows for the various regional variations in languages. So when we talk about a locale it is a language/region combination. When we want to talk about just the language part we call it a &lt;b&gt;generic language&lt;/b&gt;. So en is the generic English language. This can be useful and we'll see why.&lt;/p&gt;
+&lt;p&gt;.Net in general and DotNetNuke in particular only support locales. Every time you use DotNetNuke it has deduced a locale that you are running under. This means that all language packs are locale specific as well. There is no "fr" pack. Only a fr-FR pack. But in Canada and Switzerland they speak French, too. They need fr-CA and fr-CH. Given the fact that someone in Switzerland would be perfectly happy with the translation made for fr-FR it has led to one of two approaches in practice. Either a site was created with the fr-FR pack installed and people would take for granted that the French flag was for the French language or the language pack was edited and all fr-FR naming was changed to fr-CH. The latter is very cumbersome. Only the German translators have consistently released their pack in German, Austrian and Swiss versions.&lt;/p&gt;
+&lt;p&gt;This module aims to address this by encouraging the use of &lt;b&gt;generic languages&lt;/b&gt;. I.e. you can specify that user XYZ has the permission to translate to "fr" means that his/her work will underlie all fr-XX packs. If you now download the fr-FR pack or the fr-CA pack they will be identical but properly labeled. Furthermore you could assign someone else the fr-CA permission. The specific fr-CA texts will &lt;b&gt;override&lt;/b&gt; the generic fr texts. So a fr-CA pack becomes what the fr-FR pack was with the specific changes made by the fr-CA translator.&lt;/p&gt;
+&lt;h2&gt;The Data Cube&lt;/h2&gt;
+&lt;p&gt;Managing a set of language packs means you are managing a &lt;b&gt;cube&lt;/b&gt; of data as there are three axes that define a pack: object, version and locale. To facilitate information interchange a feature was added called the &lt;b&gt;data cube&lt;/b&gt;. This is an XML representation of the state of the cube of language packs you are managing. So for every cell you can see how complete the translation is. This is useful if you are drawing together this kind of information and want to point users to the place with the most complete pack for thier installed items. We intend this to be used by DotNetNuke Corp in the future as well. This would allow you to be listed on dotnetnuke.com along with other translators without having to upload your pack to the dotnetnuke site.&lt;/p&gt;
+&lt;h2&gt;Statistics&lt;/h2&gt;
+&lt;p&gt;Optionally the module keeps statistics on translators and will record who does how much. The main driver here was the DotNetNuke community recognition scheme which aims to reward effort by the community. We envision that in the future we can use this to let DotNetNuke Corp know how much you've been doing and get recognition points as a result.&lt;/p&gt;
+&lt;h2&gt;Partners&lt;/h2&gt;
+&lt;p&gt;Partners are affiliates that make language packs that you'd also like to advertise to your users. It is possible that a translator wishes to contribute translations for an object you also manage but wish to have their own name and license associated. To make this possible they need to host this module themselves and make the data stream (Cube) available to you. Now you add them as partner and the packs they have available are available to your own users. It helps if the partner allows direct download of packs to make this as smooth an experience as possible.&lt;/p&gt;
+&lt;p&gt;Optionally data of the partners is fed into your own data stream. And you can opt to download partners of partners recursively. Although never tested in the wild, AFAIK, this does allow a network of translators to channel each other's work.&lt;/p&gt;
+&lt;h2&gt;Finally&lt;/h2&gt;
+&lt;p&gt;A lot of work has gone into this module. We hope you like it and find it useful. We are aware that it can come across as quite technical and complex, but you must realize that the subject of localization is very technical and complex. We keep trying to make this simpler and I for one keep pushing for "one-click install" experience in DotNetNuke for languages. We ar not there yet and it will take quite a bit more work to achieve this. But we are working behind the scenes and advancing this day-by-day, week-by-week.&lt;/p&gt;
+&lt;p&gt;Peter Donker, &lt;a href="http://www.bring2mind.net"&gt;Bring2mind&lt;/a&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="lbManagePartners.Text" xml:space="preserve">
+    <value>Manage Partners</value>
   </data>
 </root>

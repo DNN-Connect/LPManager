@@ -96,8 +96,6 @@
 </div>
 <p style="margin-top: 20px;">
   <asp:LinkButton runat="server" ID="cmdEdit" resourcekey="cmdEdit" Text="Edit" CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:HyperLink runat="server" ID="cmdDownload" resourcekey="cmdDownload" Text="Download"
-    CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"
-    CssClass="CommandButton" />
+  <asp:HyperLink runat="server" ID="cmdDownload" resourcekey="cmdDownload" Text="Download" CssClass="CommandButton" />&nbsp;&nbsp;
+  <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return" CssClass="CommandButton" />
 </p>

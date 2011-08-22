@@ -1,5 +1,5 @@
 ' 
-' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
@@ -16,9 +16,8 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-Imports System.Web.Caching
-Imports DotNetNuke.Entities.Modules
 
+Imports DotNetNuke.Entities.Modules
 
 Public Class ModuleBase
  Inherits PortalModuleBase
@@ -35,17 +34,8 @@ Public Class ModuleBase
   Get
 
    If _settings Is Nothing Then
-    Dim CacheKey As String = "Settings4Module" & Me.ModuleId.ToString
-    Try
-     _settings = CType(Me.Cache.Item(CacheKey), ModuleSettings)
-    Catch ex As Exception
-    End Try
-    If _settings Is Nothing Then
-     _settings = New ModuleSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
-     Me.Cache.Add(CacheKey, _settings, Nothing, Date.MaxValue, New TimeSpan(1, 0, 0), CacheItemPriority.Low, Nothing)
-    End If
+    _settings = ModuleSettings.GetSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End If
-
    Return _settings
 
   End Get

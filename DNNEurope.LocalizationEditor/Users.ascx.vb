@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -14,14 +16,12 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-Imports DNNEurope.Modules.LocalizationEditor.Business
-Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Entities.Users
 Imports DotNetNuke.Services.Localization
 Imports DotNetNuke.Security.Permissions
 Imports DotNetNuke.Common
-
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
 
 <ControlMethodClass("DNNEurope.Modules.LocalizationEditor.Users")> Partial Public Class Users
  Inherits ModuleBase
@@ -42,8 +42,8 @@ Imports DotNetNuke.Common
    Globals.DisablePostbackOnEnter(txtUsername)
 
    ' Register scripts
-   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorGetUsernames", Me.ControlPath + "/Users.ascx.js")
-   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorAutoSuggest", Me.ControlPath + "/AutoSuggest.js")
+   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorGetUsernames", Me.ControlPath + "/js/Users.ascx.js")
+   Page.ClientScript.RegisterClientScriptInclude("LocalizationEditorAutoSuggest", Me.ControlPath + "/js/AutoSuggest.js")
 
    ' Set clientid of username textbox
    ClientAPI.RegisterClientVariable(Me.Page, "UsernameInput", txtUsername.ClientID, True)
@@ -60,9 +60,9 @@ Imports DotNetNuke.Common
   End If
   Dim locale As String = txtLocale.Text.Trim
 
-  Dim uperm As Business.PermissionInfo = PermissionsController.GetPermission(user.UserID, locale, ModuleId)
+  Dim uperm As Entities.Permissions.PermissionInfo = PermissionsController.GetPermission(user.UserID, locale, ModuleId)
   If uperm Is Nothing Then
-   uperm = New Business.PermissionInfo(-1, locale, ModuleId, user.UserID)
+   uperm = New Entities.Permissions.PermissionInfo(-1, ModuleId, locale, user.UserID)
    PermissionsController.AddPermission(uperm)
   End If
 
@@ -93,7 +93,7 @@ Imports DotNetNuke.Common
   If filter Is Nothing Then Return String.Empty
 
   ' Get a list of users filtered by the given filter string
-  Dim filteredUsers As DataSet = UsersController.GetUsersFiltered(filter)
+  Dim filteredUsers As DataSet = PermissionsController.GetUsersFiltered(filter)
 
   ' Store each username in a combined string
   Dim sb As New StringBuilder()

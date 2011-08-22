@@ -5,6 +5,7 @@
  <h1>
   <%=FriendlyName%>&nbsp;<%=Version%></h1>
 </asp:Panel>
+
 <asp:Panel ID="pnlTranslations" runat="server">
  <table>
   <tr>
@@ -12,8 +13,7 @@
     <dnn:Label runat="server" ID="lblVersion" ControlName="ddVersion" Suffix=":" CssClass="SubHead" />
    </td>
    <td>
-    <asp:DropDownList runat="server" ID="ddVersion" DataValueField="Version" DataTextField="Version"
-     AutoPostBack="true" />
+    <asp:DropDownList runat="server" ID="ddVersion" DataValueField="Version" DataTextField="Version" AutoPostBack="true" />
    </td>
   </tr>
   <tr>
@@ -25,52 +25,29 @@
    </td>
   </tr>
  </table>
- <p>
-  <asp:DataGrid ID="dgLocales" runat="server" GridLines="None" BorderWidth="0px" CellPadding="2"
-   CellSpacing="4" AutoGenerateColumns="False" HeaderStyle-CssClass="SubHead" ItemStyle-CssClass="Normal">
+ <p style="margin-top: 20px;">
+  <asp:DataGrid ID="dgLocales" runat="server" GridLines="Horizontal" BorderWidth="1px" CellPadding="4" CellSpacing="0" AutoGenerateColumns="False" CssClass="le_tbl" HeaderStyle-CssClass="SubHead" ItemStyle-CssClass="Normal">
    <Columns>
     <asp:BoundColumn DataField="Locale" HeaderText="Locale" />
-    <asp:BoundColumn DataField="MissingTranslations" HeaderText="MissingTranslations" />
     <asp:BoundColumn DataField="PercentComplete" HeaderText="PercentComplete" DataFormatString="{0:F0}" />
-    <asp:TemplateColumn Visible="true">
+    <asp:TemplateColumn HeaderText="PartnerName">
      <ItemTemplate>
-      <%#DownloadPackList(ObjectId, DataBinder.Eval(Container.DataItem, "Locale"), Version)%>
+      <a href="<%#DataBinder.Eval(Container.DataItem, "PartnerUrl")%>" target="_blank"><%#DataBinder.Eval(Container.DataItem, "PartnerName")%></a>
+     </ItemTemplate>
+    </asp:TemplateColumn>
+    <asp:BoundColumn DataField="LastModified" HeaderText="LastModified" DataFormatString="{0:d}" />
+    <asp:TemplateColumn Visible="true" HeaderText="AvailablePacks">
+     <ItemTemplate>
+      <%#DownloadPackList(DataBinder.Eval(Container.DataItem, "PackUrl"), ObjectId, DataBinder.Eval(Container.DataItem, "RemoteObjectId"), DataBinder.Eval(Container.DataItem, "Locale"), Version)%>
      </ItemTemplate>
     </asp:TemplateColumn>
    </Columns>
   </asp:DataGrid>
  </p>
- <p>
-  <table>
-   <tr>
-    <td>
-     <dnn:Label ID="plLocale" runat="server" ControlName="txtLocale" Suffix=":" CssClass="SubHead" />
-    </td>
-    <td>
-     <asp:TextBox runat="server" ID="txtLocale" Width="50" />&nbsp;
-    </td>
-    <td>
-     <asp:Button runat="server" ID="cmdDownload" resourcekey="cmdDownload" />
-    </td>
-   </tr>
-   <tr>
-    <td />
-    <td colspan="2">
-     <asp:RegularExpressionValidator runat="server" ID="regLocale" ControlToValidate="txtLocale"
-      Display="Dynamic" CssClass="NormalRed" resourcekey="InvalidLocale.Error" ValidationExpression="\w\w-\w\w" />
-    </td>
-   </tr>
-  </table>
- </p>
-</asp:Panel>
-<div style="width: 500px; margin-top: 20px;">
- <asp:Label runat="server" ID="lblHelp" resourcekey="lblHelp" />
-</div>
-<p>
- <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"
-  CssClass="CommandButton" /></p>
 </asp:Panel>
 <p style="margin-top: 20px;">
- <asp:Label runat="server" ID="lblNoResourceFiles" resourcekey="lblNoResourceFiles"
-  Visible="false" />
+ <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"  CssClass="CommandButton" />
+</p>
+<p style="margin-top: 20px;">
+ <asp:Label runat="server" ID="lblNoResourceFiles" resourcekey="lblNoResourceFiles" Visible="false" />
 </p>

@@ -1,12 +1,11 @@
 ﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="RequestPack.aspx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.RequestPack" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <%@ Register TagPrefix="dnn" TagName="LOGO" Src="~/Admin/Skins/Logo.ascx" %>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
  <title><%=DotNetNuke.Services.Localization.Localization.GetString("PageTitle", LocalResourceFile)%></title>
  <style>
-
+ 
 Body, A
 {
    font-family: Verdana, Arial, Helvetica, Sans Serif;
@@ -23,7 +22,7 @@ Body
     margin:25px 25px 0px 25px;
 }
 
-.Normal, tr.TableItem td
+.Normal, tr td
 {
    font-family: Verdana, Arial, Helvetica, Sans Serif;
    font-size: 8pt;
@@ -31,13 +30,14 @@ Body
    color: black;
 }
 
-tr.TableHeader td
+table.le_tbl tbody tr td
 {
-   font-family: Verdana, Arial, Helvetica, Sans Serif;
-   font-size: 8pt;
-   font-weight: bold;
-   color: #75808A;
-   border-bottom: solid 1px #75808A;
+ vertical-align: top;
+}
+
+table.le_tbl tbody tr.le_thdr td
+{
+ font-weight: bold;
 }
 
 H1
@@ -106,18 +106,19 @@ HR {
 </p>
 
 <p>
- <asp:DataGrid 
-  id="dgLocales" runat="server"
-  GridLines="None" 
-  CellPadding="2" CellSpacing="4"
-  BorderWidth="0px" AutoGenerateColumns="False" HeaderStyle-CssClass="TableHeader" ItemStyle-CssClass="TableItem">
+  <asp:DataGrid ID="dgLocales" runat="server" GridLines="Horizontal" BorderWidth="1px" CellPadding="4" CellSpacing="0" AutoGenerateColumns="False" CssClass="le_tbl" HeaderStyle-CssClass="le_thdr" ItemStyle-CssClass="Normal">
   <Columns>
    <asp:BoundColumn DataField="Locale" HeaderText="Locale" />
-   <asp:BoundColumn DataField="MissingTranslations" HeaderText="MissingTranslations" />
    <asp:BoundColumn DataField="PercentComplete" HeaderText="PercentComplete" DataFormatString="{0:F0}" />
-   <asp:TemplateColumn>
-    <ItemTemplate>
-     <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%=ObjectId%>&Locale=<%#DataBinder.Eval(Container.DataItem, "Locale")%>&Version=<%=Version%>" style="display:<%#IIF(CStr(DataBinder.Eval(Container.DataItem, "Locale")).Length > 2,"block","none")%>"><%=DotNetNuke.Services.Localization.Localization.GetString("cmdDownload", LocalResourceFile)%></a>
+    <asp:TemplateColumn HeaderText="PartnerName">
+     <ItemTemplate>
+      <a href="<%#DataBinder.Eval(Container.DataItem, "PartnerUrl")%>" target="_blank"><%#DataBinder.Eval(Container.DataItem, "PartnerName")%></a>
+     </ItemTemplate>
+    </asp:TemplateColumn>
+    <asp:BoundColumn DataField="LastModified" HeaderText="LastModified" DataFormatString="{0:d}" />
+    <asp:TemplateColumn Visible="true" HeaderText="AvailablePacks">
+     <ItemTemplate>
+      <%#DownloadPackList(DataBinder.Eval(Container.DataItem, "PackUrl"), ObjectId, DataBinder.Eval(Container.DataItem, "RemoteObjectId"), DataBinder.Eval(Container.DataItem, "Locale"), Version)%>
     </ItemTemplate>
    </asp:TemplateColumn>
   </Columns>
@@ -128,25 +129,6 @@ HR {
  <asp:Label runat="server" ID="lblHelp" resourcekey="lblHelp" />
 </div>
 
-<p><table>
- <tr>
-  <td>
-   <dnn:label id="plLocale" runat="server" controlname="txtLocale" suffix=":" CssClass="SubHead" />
-  </td>
-  <td>
-   <asp:TextBox runat="server" ID="txtLocale" Width="50" />&nbsp;
-  </td>
-  <td>
-   <asp:Button runat="server" ID="cmdDownload" resourcekey="cmdDownload" />
-  </td>
- </tr>
- <tr>
-  <td />
-  <td colspan="2">
-   <asp:RegularExpressionValidator runat="server" ID="regLocale" ControlToValidate="txtLocale" Display="Dynamic" CssClass="NormalRed" resourcekey="InvalidLocale.Error" ValidationExpression="\w\w-\w\w" />
-  </td>
- </tr>
-</table></p>
 </asp:Panel> 
 
 <p>

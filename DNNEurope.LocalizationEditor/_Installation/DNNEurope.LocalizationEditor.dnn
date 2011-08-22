@@ -1,6 +1,6 @@
-﻿<dotnetnuke version="5.0" type="Package" xmlns:fo="http://www.w3.org/1999/XSL/Format">
+<dotnetnuke type="Package" version="5.0">
  <packages>
-  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.04.01">
+  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.03.00">
    <friendlyName>Localization Editor</friendlyName>
    <description>Editor for extension/core localization.</description>
    <owner>
@@ -33,7 +33,7 @@
           <controlTitle>Download Pack</controlTitle>
           <controlType>View</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey />
@@ -42,16 +42,16 @@
           <controlTitle>Localization Editor</controlTitle>
           <controlType>View</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>ManageObjects</controlKey>
           <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ManageObjects.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>Manage modules</controlTitle>
-          <controlType>View</controlType>
+          <controlType>Edit</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>ObjectSummary</controlKey>
@@ -60,7 +60,7 @@
           <controlTitle>Object Localization Summary</controlTitle>
           <controlType>View</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>Edit</controlKey>
@@ -69,7 +69,7 @@
           <controlTitle>Edit Resources</controlTitle>
           <controlType>View</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>UploadPack</controlKey>
@@ -78,16 +78,34 @@
           <controlTitle>Upload Pack</controlTitle>
           <controlType>View</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>Users</controlKey>
           <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Users.ascx</controlSrc>
           <supportsPartialRendering>True</supportsPartialRendering>
           <controlTitle>User Permissions</controlTitle>
-          <controlType>View</controlType>
+          <controlType>Edit</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Partners</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Partners.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Partners</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>EditPartner</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/EditPartner.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Edit Partner</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
          </moduleControl>
          <moduleControl>
           <controlKey>Settings</controlKey>
@@ -96,7 +114,7 @@
           <controlTitle>Localization Editor Settings</controlTitle>
           <controlType>Edit</controlType>
           <iconFile />
-          <helpUrl />
+          <helpUrl></helpUrl>
          </moduleControl>
         </moduleControls>
        </moduleDefinition>

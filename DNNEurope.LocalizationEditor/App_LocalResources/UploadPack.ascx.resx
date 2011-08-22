@@ -165,9 +165,6 @@
   <data name="WrongFile.Text" xml:space="preserve">
     <value>There was an error in your uploaded resource file. Please upload a valid resource file.</value>
   </data>
-  <data name="Core.Text" xml:space="preserve">
-    <value>DotNetNuke Core</value>
-  </data>
   <data name="plAnalysis.Help" xml:space="preserve">
     <value>Results from an analysis of the files</value>
   </data>

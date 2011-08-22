@@ -32,40 +32,49 @@ Partial Public Class LocalizationEditor
  Protected WithEvents dlObjects As Global.System.Web.UI.WebControls.DataList
 
  '''<summary>
- '''lbUploadPack control.
+ '''cmdUploadPack control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents lbUploadPack As Global.System.Web.UI.WebControls.LinkButton
+ Protected WithEvents cmdUploadPack As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
- '''lbManageObjects control.
+ '''cmdManageObjects control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents lbManageObjects As Global.System.Web.UI.WebControls.LinkButton
+ Protected WithEvents cmdManageObjects As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
- '''lbManagePermissions control.
+ '''cmdManagePermissions control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents lbManagePermissions As Global.System.Web.UI.WebControls.LinkButton
+ Protected WithEvents cmdManagePermissions As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
- '''lbClearCaches control.
+ '''cmdManagePartners control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents lbClearCaches As Global.System.Web.UI.WebControls.LinkButton
+ Protected WithEvents cmdManagePartners As Global.DotNetNuke.UI.WebControls.CommandButton
+
+ '''<summary>
+ '''cmdClearCaches control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdClearCaches As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
  '''hlCube control.
@@ -75,4 +84,13 @@ Partial Public Class LocalizationEditor
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
  Protected WithEvents hlCube As Global.System.Web.UI.WebControls.HyperLink
+
+ '''<summary>
+ '''imgCube control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents imgCube As Global.System.Web.UI.WebControls.Image
 End Class

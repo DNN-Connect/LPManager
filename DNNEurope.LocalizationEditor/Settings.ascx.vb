@@ -1,12 +1,26 @@
-﻿Imports System
-Imports System.Web.UI.WebControls
-Imports DotNetNuke
-Imports DotNetNuke.Common
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
+
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports System
 Imports DotNetNuke.Services.Exceptions
-Imports DotNetNuke.Services.Localization.Localization
 
 Partial Public Class Settings
- Inherits Entities.Modules.ModuleSettingsBase
+ Inherits DotNetNuke.Entities.Modules.ModuleSettingsBase
 
 #Region " Base Method Implementations "
 
@@ -24,6 +38,8 @@ Partial Public Class Settings
      chkAllowDirectDownload.Checked = .AllowDirectDownload
      chkAllowDataExtract.Checked = .AllowDataExtract
      chkKeepStatistics.Checked = .KeepStatistics
+     chkAutoImportObjects.Checked = .AutoImportObjects
+     txtModuleKey.Text = .ModuleKey
     End With
    End If
   Catch exc As Exception
@@ -37,14 +53,16 @@ Partial Public Class Settings
    Dim Settings As New ModuleSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    With Settings
     .CachePacks = chkCachePacks.Checked
-    .License = txtLicense.Text
-    .OwnerEmail = txtOwnerEmail.Text
-    .OwnerName = txtOwnerName.Text
-    .OwnerOrganization = txtOwnerOrganization.Text
-    .OwnerUrl = txtOwnerUrl.Text
+    .License = txtLicense.Text.Trim
+    .OwnerEmail = txtOwnerEmail.Text.Trim
+    .OwnerName = txtOwnerName.Text.Trim
+    .OwnerOrganization = txtOwnerOrganization.Text.Trim
+    .OwnerUrl = txtOwnerUrl.Text.Trim
     .AllowDirectDownload = chkAllowDirectDownload.Checked
     .AllowDataExtract = chkAllowDataExtract.Checked
     .KeepStatistics = chkKeepStatistics.Checked
+    .AutoImportObjects = chkAutoImportObjects.Checked
+    .ModuleKey = txtModuleKey.Text.Trim
     .SaveSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End With
 

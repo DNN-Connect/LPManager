@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -14,10 +16,9 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-
-Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
-Imports System.Runtime.InteropServices
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Services.Packaging
 
 
 Partial Public Class Pack
@@ -87,12 +88,12 @@ Partial Public Class Pack
 #Region " Event Handlers "
 
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
-  Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Type", Type)
+  Globals.ReadValue(Me.Request.Params, "ObjectId", ObjectId)
+  Globals.ReadValue(Me.Request.Params, "Locale", Locale)
+  Globals.ReadValue(Me.Request.Params, "Version", Version)
+  Globals.ReadValue(Me.Request.Params, "Type", Type)
 
-  _requestedObject = ObjectController.GetObject(ObjectId)
+  _requestedObject = ObjectsController.GetObject(ObjectId)
   If _requestedObject Is Nothing Then Throw New ArgumentException(String.Format("ObjectId with value {0} is not valid.", ObjectId))
   ModuleName = _requestedObject.ObjectName.Replace("\", "_").Replace("/", "_")
  End Sub
@@ -100,9 +101,9 @@ Partial Public Class Pack
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
   Dim fn As String = ""
   If Type.ToLower = "full" Then
-   fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, True)
+   fn = PackageWriter.CreateResourcePack(_requestedObject, Version, Locale, True)
   Else
-   fn = LocalizationController.CreateResourcePack(_requestedObject, Version, Locale, False)
+   fn = PackageWriter.CreateResourcePack(_requestedObject, Version, Locale, False)
   End If
   Me.Response.Redirect(DotNetNuke.Common.ApplicationPath & "/" & _requestedObject.Module.HomeDirectory & "/LocalizationEditor/Cache/" & _requestedObject.ModuleId.ToString & "/" & fn, False)
  End Sub

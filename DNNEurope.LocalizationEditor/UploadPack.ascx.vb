@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -16,7 +18,6 @@
 ' 
 Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports DotNetNuke.Common
-Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
 Imports DotNetNuke.Services.Localization
 Imports System.IO
@@ -24,6 +25,10 @@ Imports ICSharpCode.SharpZipLib.Zip
 Imports System.Xml
 Imports System.Xml.XPath
 Imports System.Collections.Generic
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Translations
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Statistics
+Imports DNNEurope.Modules.LocalizationEditor.Services.Packaging
 
 
 Partial Public Class Import
@@ -87,7 +92,7 @@ Partial Public Class Import
     ddVersion.DataBind()
    Catch ex As Exception
    End Try
-   
+
    trVersion.Visible = False
    trObject.Visible = False
 
@@ -243,9 +248,9 @@ Partial Public Class Import
 
  Private Sub AnalyzeFileV3(ByRef report As StringBuilder, ByVal resFile As String)
   report.AppendLine("Analyzing " & resFile)
-  Dim resFileKey As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
+  Dim resFileKey As String = Globals.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
   report.AppendLine("Mapped to " & resFileKey)
-  AnalyzeFile(report, ObjectController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
+  AnalyzeFile(report, ObjectsController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
  End Sub
 
  Private Function AnalyzePackV5() As String
@@ -274,10 +279,10 @@ Partial Public Class Import
      dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
     End If
     Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
-    depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
     If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
      dependentPackage = Mid(dependentPackage, 12)
-     depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+     depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
     End If
     If depObject Is Nothing Then
      report.AppendLine(String.Format("Could not find dependent component {0}", dependentPackage))
@@ -390,10 +395,10 @@ Partial Public Class Import
  End Sub
 
  Private Sub ImportFileV3(ByVal resFile As String)
-  Dim resFileKey As String = LocalizationController.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
+  Dim resFileKey As String = Globals.GetCorrectPath(resFile, Localization.LocalResourceDirectory)
   'Fix slashes (from / to \ )
   resFileKey = resFileKey.Replace("/"c, "\"c)
-  ImportFile(ObjectController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
+  ImportFile(ObjectsController.GetObject(Integer.Parse(ddObject.SelectedValue)), ddVersion.SelectedValue, resFile, resFileKey)
  End Sub
 
  Private Sub ImportPackV5()
@@ -418,10 +423,10 @@ Partial Public Class Import
     If p.SelectSingleNode("components/component/languageFiles/package") IsNot Nothing Then
      dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
     End If
-    depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+    depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
     If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
      dependentPackage = Mid(dependentPackage, 12)
-     depObject = ObjectController.GetObjectByObjectName(ModuleId, dependentPackage)
+     depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
     End If
     Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
     For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")

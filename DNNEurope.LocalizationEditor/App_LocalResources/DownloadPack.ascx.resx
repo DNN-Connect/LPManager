@@ -117,35 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cmdDownload.Text" xml:space="preserve">
-    <value>Get Pack</value>
-  </data>
-  <data name="InvalidLocale.Error" xml:space="preserve">
-    <value>Locale must be 2 lowercase letters followed by '-' followed by 2 uppercase letters.</value>
-  </data>
-  <data name="lblNrOfMissingTranslations.Text" xml:space="preserve">
-    <value>Nr Of Missing Translations</value>
-  </data>
   <data name="lblTotalTranslations.Text" xml:space="preserve">
     <value>Total Nr Texts</value>
   </data>
   <data name="Locale.Header" xml:space="preserve">
     <value>Locale</value>
   </data>
-  <data name="MissingTranslations.Header" xml:space="preserve">
-    <value>Missing Translations</value>
-  </data>
   <data name="PercentComplete.Header" xml:space="preserve">
     <value>% Complete</value>
-  </data>
-  <data name="PageTitle.Text" xml:space="preserve">
-    <value>Get Language Pack</value>
-  </data>
-  <data name="lblHelp.Text" xml:space="preserve">
-    <value>&lt;p&gt;When clicking 'Get Pack', the application will look for the generic language code first and overrule any translations specific to the full locale. This means that if you click to download 'nl-BE' (Flemish) and only 'nl' exists, all 'nl' texts will be used. Any other locales like 'nl-NL' will be ignored. If any 'nl-BE' texts are present, they will overrule the 'nl' texts in the downloaded pack.&lt;/p&gt;</value>
-  </data>
-  <data name="Version.Header" xml:space="preserve">
-    <value>Version</value>
   </data>
   <data name="lblVersion.Text" xml:space="preserve">
     <value>Select Different Version</value>
@@ -162,10 +141,13 @@
   <data name="lblVersion.Help" xml:space="preserve">
     <value>Select the version to view and download the language pack from.</value>
   </data>
-  <data name="plLocale.Help" xml:space="preserve">
-    <value>Specify a locale in the xx-YY format to download. If generic packs are available, the specific pack will be populated by that data.</value>
+  <data name="LastModified.Header" xml:space="preserve">
+    <value>Last Modified</value>
   </data>
-  <data name="plLocale.Text" xml:space="preserve">
-    <value>Locale</value>
+  <data name="PartnerName.Header" xml:space="preserve">
+    <value>Partner</value>
+  </data>
+  <data name="AvailablePacks.Header" xml:space="preserve">
+    <value>Available Packs</value>
   </data>
 </root>

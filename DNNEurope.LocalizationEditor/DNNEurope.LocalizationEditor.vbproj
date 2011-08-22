@@ -144,6 +144,7 @@
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
     <Import Include="System.Collections.Specialized" />
     <Import Include="System.Configuration" />
     <Import Include="System.Data" />
@@ -157,48 +158,69 @@
     <Import Include="System.Web.UI.WebControls" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\Business\Cube.vb" />
-    <Compile Include="Components\Business\ModuleInfo.vb" />
-    <Compile Include="Components\Business\ObjectCoreVersionInfo_Interfaces.vb" />
-    <Compile Include="Components\Business\ObjectCoreVersionInfo_Properties.vb" />
-    <Compile Include="Components\Business\ObjectCoreVersionsController.vb" />
-    <Compile Include="Components\Business\ObjectInfo.vb" />
-    <Compile Include="Components\Business\ObjectController.vb" />
-    <Compile Include="Components\Business\StatisticInfo_Interfaces.vb" />
-    <Compile Include="Components\Business\StatisticInfo_Properties.vb" />
-    <Compile Include="Components\Business\StatisticsController.vb" />
-    <Compile Include="Components\Business\StatisticsController_CRUD.vb" />
-    <Compile Include="Components\Business\StatisticsController_FK.vb" />
-    <Compile Include="Components\Business\TranslationInfo_Interfaces.vb" />
-    <Compile Include="Components\Business\TranslationInfo_Properties.vb" />
-    <Compile Include="Components\Business\TranslationsController_CRUD.vb" />
-    <Compile Include="Components\Business\TranslationsController_FK.vb" />
-    <Compile Include="Components\Business\UsersController.vb" />
-    <Compile Include="Components\Business\TranslationsController.vb" />
-    <Compile Include="Components\Business\LocalizationController.vb" />
-    <Compile Include="Components\Business\PermissionInfo.vb" />
-    <Compile Include="Components\Business\PermissionsController.vb" />
-    <Compile Include="Components\Business\TextInfo.vb" />
     <Compile Include="Components\Data\DataProvider.vb" />
+    <Compile Include="Components\Data\DataProvider_CRUD.vb" />
+    <Compile Include="Components\Data\DataProvider_FK.vb" />
+    <Compile Include="Components\Data\SqlDataProvider_CRUD.vb" />
+    <Compile Include="Components\Data\SqlDataProvider_FK.vb" />
+    <Compile Include="Components\Entities\Objects\ModuleInfo.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectCoreVersionInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectCoreVersionInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectCoreVersionsController.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectInfo.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectMetrics.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectsController.vb" />
+    <Compile Include="Components\Entities\Objects\ObjectsController_CRUD.vb" />
+    <Compile Include="Components\Entities\PartnerPacks\PartnerPackInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\PartnerPacks\PartnerPackInfo_Properties.vb" />
+    <Compile Include="Components\Entities\PartnerPacks\PartnerPacksController.vb" />
+    <Compile Include="Components\Entities\PartnerPacks\PartnerPacksController_CRUD.vb" />
+    <Compile Include="Components\Entities\PartnerPacks\PartnerPacksController_FK.vb" />
+    <Compile Include="Components\Entities\Partners\PartnerInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Partners\PartnerInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Partners\PartnersController.vb" />
+    <Compile Include="Components\Entities\Partners\PartnersController_CRUD.vb" />
+    <Compile Include="Components\Entities\Partners\PartnersController_FK.vb" />
+    <Compile Include="Components\Entities\Permissions\PermissionInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Permissions\PermissionInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Permissions\PermissionsController.vb" />
+    <Compile Include="Components\Entities\Permissions\PermissionsController_CRUD.vb" />
+    <Compile Include="Components\Entities\Statistics\StatisticInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Statistics\StatisticInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Statistics\StatisticsController.vb" />
+    <Compile Include="Components\Entities\Statistics\StatisticsController_CRUD.vb" />
+    <Compile Include="Components\Entities\Statistics\StatisticsController_FK.vb" />
+    <Compile Include="Components\Entities\Texts\TextInfo.vb" />
+    <Compile Include="Components\Entities\Texts\TextInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Texts\TextInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Texts\TextsController.vb" />
+    <Compile Include="Components\Entities\Texts\TextsController_CRUD.vb" />
+    <Compile Include="Components\Entities\Translations\TranslationInfo_Interfaces.vb" />
+    <Compile Include="Components\Entities\Translations\TranslationInfo_Properties.vb" />
+    <Compile Include="Components\Entities\Translations\TranslationsController.vb" />
+    <Compile Include="Components\Entities\Translations\TranslationsController_CRUD.vb" />
+    <Compile Include="Components\Entities\Translations\TranslationsController_FK.vb" />
     <Compile Include="Components\Globals.vb" />
-    <Compile Include="Components\Helpers\ManifestReader.vb" />
     <Compile Include="Components\Helpers\TranslateHelper.vb" />
     <Compile Include="Components\Helpers\ZipHelper.vb" />
-    <Compile Include="Components\LocaleFile\LanguagePackType.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFileCollection.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFileInfo.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFilePack.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFilePackReader.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFileUtil.vb" />
-    <Compile Include="Components\LocaleFile\LocaleType.vb" />
-    <Compile Include="Components\Logger.vb" />
     <Compile Include="Components\ModuleBase.vb">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Components\ModuleSettings.vb" />
-    <Compile Include="Components\Business\TextsController.vb" />
     <Compile Include="Components\Data\SqlDataProvider.vb" />
-    <Compile Include="Components\LocaleFile\LocaleFilePackWriter.vb" />
+    <Compile Include="Components\Services\DataExchange\Cube.vb" />
+    <Compile Include="Components\Services\DataExchange\FeedImporter.vb" />
+    <Compile Include="Components\Services\DataExchange\RequestList.vb" />
+    <Compile Include="Components\Services\DataExchange\ScanPacksTask.vb" />
+    <Compile Include="Components\Services\DataExchange\WebPage.vb" />
+    <Compile Include="Components\Services\DataExchange\WebRequest.vb" />
+    <Compile Include="Components\Services\Logging\LogEntry.vb" />
+    <Compile Include="Components\Services\Logging\Logger.vb" />
+    <Compile Include="Components\Services\Logging\LogType.vb" />
+    <Compile Include="Components\Services\Packaging\PackageReader.vb" />
+    <Compile Include="Components\Services\Packaging\PackageWriter.vb" />
     <Compile Include="Controls\Editor.ascx.designer.vb">
       <DependentUpon>Editor.ascx</DependentUpon>
     </Compile>
@@ -213,6 +235,13 @@
       <DependentUpon>DownloadPack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="EditPartner.ascx.designer.vb">
+      <DependentUpon>EditPartner.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="EditPartner.ascx.vb">
+      <DependentUpon>EditPartner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="GetCube.ashx.vb">
       <DependentUpon>GetCube.ashx</DependentUpon>
     </Compile>
@@ -224,6 +253,16 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Packs.ashx.vb">
+      <DependentUpon>Packs.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Partners.ascx.designer.vb">
+      <DependentUpon>Partners.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Partners.ascx.vb">
+      <DependentUpon>Partners.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Settings.ascx.designer.vb">
       <DependentUpon>Settings.ascx</DependentUpon>
     </Compile>
@@ -280,11 +319,16 @@
       <DependentUpon>Users.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Content Include="EditPartner.ascx" />
+    <Content Include="js\AutoSuggest.js" />
+    <Content Include="js\Users.ascx.js" />
     <Content Include="module.css" />
     <Content Include="App_LocalResources\LocalizationEditor.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Partners.ascx" />
     <Content Include="_Installation\ReleaseNotes\Notes.html" />
+    <Content Include="Packs.ashx" />
     <None Include="_Installation\DNNEurope.LocalizationEditor.dnn" />
     <Content Include="GetCube.ashx" />
     <None Include="_Installation\SQL2005\03.00.00.sqldataprovider" />
@@ -297,7 +341,8 @@
     <None Include="_Installation\SQL2005\03.03.02.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.04.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.04.01.sqldataprovider" />
-    <None Include="_Installation\SQL2005\Install.03.04.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\04.00.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\Install.04.00.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Uninstall.sqldataprovider" />
   </ItemGroup>
   <ItemGroup>
@@ -325,7 +370,6 @@
     <Content Include="App_LocalResources\RequestPack.aspx.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="AutoSuggest.js" />
     <Content Include="DownloadPack.ascx" />
     <Content Include="ManageObjects.ascx" />
     <Content Include="UploadPack.ascx" />
@@ -336,7 +380,6 @@
     <Content Include="App_LocalResources\Template.resx">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Users.ascx.js" />
     <Content Include="App_LocalResources\ManageObjects.ascx.resx">
       <SubType>Designer</SubType>
     </Content>
@@ -358,6 +401,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_LocalResources\SharedResources.ascx.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_LocalResources\EditPartner.ascx.resx" />
+    <Content Include="App_LocalResources\Partners.ascx.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <PropertyGroup>

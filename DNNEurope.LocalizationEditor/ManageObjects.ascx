@@ -1,5 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="ManageObjects.ascx.vb"
- Inherits="DNNEurope.Modules.LocalizationEditor.ManageObjects" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="ManageObjects.ascx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.ManageObjects" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
 <h2>
  <asp:Label ID="lblImportObject" runat="server" resourcekey="lblImportObject" /></h2>
@@ -12,8 +11,7 @@
    <asp:FileUpload runat="server" ID="ctlUpload" />
   </td>
   <td>
-   <asp:LinkButton ID="lbImportPackage" runat="server" resourcekey="lbImportPackage"
-    Text="Import Package" CssClass="CommandButton" />
+   <asp:LinkButton ID="lbImportPackage" runat="server" resourcekey="lbImportPackage" Text="Import Package" CssClass="CommandButton" />
   </td>
  </tr>
 </table>

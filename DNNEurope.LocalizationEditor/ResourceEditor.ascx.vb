@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -17,11 +19,14 @@
 Imports DNNEurope.Modules.LocalizationEditor.Data
 Imports Google.API
 Imports DNNEurope.Modules.LocalizationEditor.Controls
-Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
 Imports Google.API.Translate
 Imports DotNetNuke.Services.Localization
 Imports DotNetNuke.UI.UserControls
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Translations
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Statistics
 
 Partial Public Class ResourceEditor
  Inherits ModuleBase
@@ -128,15 +133,15 @@ Partial Public Class ResourceEditor
 #Region " Event Handlers "
 
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
-  Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Locale", Locale)
-  Globals.ReadQuerystringValue(Me.Request.Params, "SourceLocale", SourceLocale)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Selection", Selection)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Editor", Editor)
+  Globals.ReadValue(Me.Request.Params, "ObjectId", ObjectId)
+  Globals.ReadValue(Me.Request.Params, "Locale", Locale)
+  Globals.ReadValue(Me.Request.Params, "SourceLocale", SourceLocale)
+  Globals.ReadValue(Me.Request.Params, "Version", Version)
+  Globals.ReadValue(Me.Request.Params, "Selection", Selection)
+  Globals.ReadValue(Me.Request.Params, "Editor", Editor)
   If Me.Request.Params("AutoTranslate") = "1" Then AutoTranslate = True
 
-  Dim tm As ObjectInfo = ObjectController.GetObject(ObjectId)
+  Dim tm As ObjectInfo = ObjectsController.GetObject(ObjectId)
   If tm Is Nothing Then Throw New ArgumentException(String.Format("ObjectId with value {0} is not valid.", ObjectId))
   ModuleFriendlyName = tm.FriendlyName
 

@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="cmdDownload.Text" xml:space="preserve">
-    <value>Get Pack</value>
-  </data>
-  <data name="InvalidLocale.Error" xml:space="preserve">
-    <value>Locale must be 2 letters followed by '-' followed by 2 letters</value>
-  </data>
-  <data name="lblNrOfMissingTranslations.Text" xml:space="preserve">
-    <value>Nr Of Missing Translations</value>
-  </data>
   <data name="lblTotalTranslations.Text" xml:space="preserve">
     <value>Total Nr Texts:</value>
   </data>
   <data name="Locale.Header" xml:space="preserve">
-    <value>Locale</value>
-  </data>
-  <data name="MissingTranslations.Header" xml:space="preserve">
-    <value>Missing Translations</value>
-  </data>
-  <data name="plLocale.Help" xml:space="preserve">
-    <value>Specify locale in lang2-country2 code (e.g. 'en-GB')</value>
-  </data>
-  <data name="plLocale.Text" xml:space="preserve">
     <value>Locale</value>
   </data>
   <data name="PercentComplete.Header" xml:space="preserve">
@@ -148,7 +130,7 @@
     <value>Get Language Pack</value>
   </data>
   <data name="lblHelp.Text" xml:space="preserve">
-    <value>&lt;p&gt;Get your language pack here. Note that generic language packs that just consisting of a 2 letter language code (e.g. 'en', 'nl') are not downloadable. You download language packs with a full locale code, i.e. 2 letter language code - 2 letter culture code (e.g. 'en-US', 'nl-NL'). When you specify a full code in the locale box below and click 'Get Pack', the processor will look for the generic language code and pack any overriding translations specific to that culture over it. This means that if you specify download 'nl-BE' (Flemish) and only 'nl' exists, all 'nl' texts will be used. Any other cultures like 'nl-NL' will be ignored. If 'nl-BE' texts are present they will override the 'nl' texts in the pack.&lt;/p&gt;</value>
+    <value>&lt;p&gt;Get your language pack here. The list also shows our best estimate for how complete the language packs are and when they were last worked on. Optionally we may include links to third party producers of language packs. It is up to you to decide based on this information which packs are best suited for you. Naturally it is preferable to take the most complete and most recently worked on packs.&lt;/p&gt;</value>
   </data>
   <data name="Version.Header" xml:space="preserve">
     <value>Version</value>
@@ -161,5 +143,14 @@
   </data>
   <data name="ObjectNotFound.Error" xml:space="preserve">
     <value>No translations were found for the requested object!</value>
+  </data>
+  <data name="LastModified.Header" xml:space="preserve">
+    <value>Last Modified</value>
+  </data>
+  <data name="PartnerName.Header" xml:space="preserve">
+    <value>Partner</value>
+  </data>
+  <data name="AvailablePacks.Header" xml:space="preserve">
+    <value>Available Packs</value>
   </data>
 </root>

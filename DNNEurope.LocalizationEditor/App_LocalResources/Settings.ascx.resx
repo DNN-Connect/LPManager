@@ -141,6 +141,12 @@
   <data name="plAllowDirectDownload.Text" xml:space="preserve">
     <value>Allow Direct Download</value>
   </data>
+  <data name="plAutoImportObjects.Help" xml:space="preserve">
+    <value>If selected then objects managed by partners will be imported into your system so they can be found by others.</value>
+  </data>
+  <data name="plAutoImportObjects.Text" xml:space="preserve">
+    <value>Auto Import Objects</value>
+  </data>
   <data name="plCachePacks.Help" xml:space="preserve">
     <value>If selected downloaded packs will be cached on disk as plain zip files for faster access in future downloads</value>
   </data>
@@ -158,6 +164,12 @@
   </data>
   <data name="plLicense.Text" xml:space="preserve">
     <value>License</value>
+  </data>
+  <data name="plModuleKey.Help" xml:space="preserve">
+    <value>Used to uniquely identify this module for a remote request for available packages. Not normally required unless you have programmed another module to retrieve language packs from your server.</value>
+  </data>
+  <data name="plModuleKey.Text" xml:space="preserve">
+    <value>Module Key</value>
   </data>
   <data name="plOwnerEmail.Help" xml:space="preserve">
     <value>Owner email to include in pack manifests</value>

@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -14,90 +16,39 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-
 Imports DNNEurope.Modules.LocalizationEditor.Data
-Imports DNNEurope.Modules.LocalizationEditor.Business
-Imports DotNetNuke.UI.Utilities
 Imports DotNetNuke.Services.Localization
-Imports System.Collections.Generic
 Imports System.Globalization
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Texts
 
 Partial Public Class DownloadPack
  Inherits ModuleBase
 
 #Region " Private Members "
-
- Private _ObjectId As Integer = -1
- Private _objectname As String = ""
- Private _version As String = ""
- Private _friendlyName As String = ""
- Private _totalItems As Integer = -1
-
 #End Region
 
 #Region " Properties "
-
- Public Property Objectname() As String
-  Get
-   Return _objectname
-  End Get
-  Set(ByVal value As String)
-   _objectname = value
-  End Set
- End Property
-
- Public Property Version() As String
-  Get
-   Return _version
-  End Get
-  Set(ByVal value As String)
-   _version = value
-  End Set
- End Property
-
- Public Property ObjectId() As Integer
-  Get
-   Return _ObjectId
-  End Get
-  Set(ByVal value As Integer)
-   _ObjectId = value
-  End Set
- End Property
-
- Public Property FriendlyName() As String
-  Get
-   Return _friendlyName
-  End Get
-  Set(ByVal value As String)
-   _friendlyName = value
-  End Set
- End Property
-
- Public Property TotalItems() As Integer
-  Get
-   Return _totalItems
-  End Get
-  Set(ByVal value As Integer)
-   _totalItems = value
-  End Set
- End Property
-
+ Public Property Objectname As String = ""
+ Public Property Version As String = ""
+ Public Property ObjectId As Integer = -1
+ Public Property FriendlyName As String = ""
+ Public Property TotalItems As Integer = 0
+ Public Property HasPartnerPacks As Boolean = False
 #End Region
 
 #Region " Event Handlers "
-
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
-  DNNClientAPI.AddBodyOnloadEventHandler(Me.Page, "")
 
-  Globals.ReadQuerystringValue(Me.Request.Params, "Object", Objectname)
-  Globals.ReadQuerystringValue(Me.Request.Params, "Version", Version)
+  Globals.ReadValue(Me.Request.Params, "Object", Objectname)
+  Globals.ReadValue(Me.Request.Params, "Version", Version)
   If Objectname = "" Then
-   Globals.ReadQuerystringValue(Me.Request.Params, "ObjectId", ObjectId)
-   Dim tm As ObjectInfo = ObjectController.GetObject(ObjectId)
+   Globals.ReadValue(Me.Request.Params, "ObjectId", ObjectId)
+   Dim tm As ObjectInfo = ObjectsController.GetObject(ObjectId)
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   Else
-   Dim tm As ObjectInfo = ObjectController.GetObjectByObjectName(ModuleId, Objectname)
+   Dim tm As ObjectInfo = ObjectsController.GetObjectByObjectName(ModuleId, Objectname)
    Objectname = tm.ObjectName
    FriendlyName = tm.FriendlyName
   End If
@@ -126,61 +77,54 @@ Partial Public Class DownloadPack
 
   If Not Me.IsPostBack Then
    Dim dt As DataTable = DotNetNuke.Common.ConvertDataReaderToDataTable(DataProvider.Instance.GetLanguagePacks(ObjectId, Version))
-   dt.Columns.Add(New DataColumn("MissingTranslations", GetType(Integer)))
-   dt.Columns.Add(New DataColumn("PercentComplete", GetType(Double)))
-   For Each dr As DataRow In dt.Rows
-    Dim missing As Integer = TextsController.NrOfMissingTranslations(ObjectId, CStr(dr.Item("Locale")), CStr(dr.Item("Version")))
-    dr.Item("MissingTranslations") = missing
-    dr.Item("PercentComplete") = ((TotalItems - missing) * 100) / TotalItems
-   Next
-   Dim dv As New DataView(dt)
-   dv.Sort = "Locale"
-   dgLocales.DataSource = dv
+   dgLocales.DataSource = dt
    dgLocales.DataBind()
-
    cmdReturn.NavigateUrl = DotNetNuke.Common.NavigateURL
   End If
 
  End Sub
 
+ Private Sub Page_PreRender(sender As Object, e As System.EventArgs) Handles Me.PreRender
+  dgLocales.Columns(2).Visible = HasPartnerPacks
+ End Sub
+
  Private Sub ddVersion_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddVersion.SelectedIndexChanged
   Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "DownloadPack", "&Version=" & ddVersion.SelectedValue))
  End Sub
-
- Private Sub cmdDownload_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdDownload.Click
-
-  Dim locale As String = txtLocale.Text
-  If locale.Length > 2 Then
-   locale = LCase(Left(locale, 2)) & "-" & UCase(Mid(locale, 4))
-  Else
-   locale = LCase(Left(locale, 2))
-  End If
-  Dim url As String = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
-  url &= "?ObjectId=" & ObjectId
-  url &= "&Locale=" & locale
-  url &= "&Version=" & ddVersion.SelectedValue
-  Me.Response.Redirect(url, False)
-
- End Sub
-
 #End Region
 
 #Region " Public Methods "
- Public Function DownloadPackList(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As String
-  Dim o As ObjectInfo = ObjectController.GetObject(ObjectId)
-  Dim packPath As String = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")
+ Public Function DownloadPackList(ByVal packUrl As String, ByVal objectId As Integer, ByVal remoteObjectId As Integer, ByVal locale As String, ByVal version As String) As String
+  Dim o As ObjectInfo = ObjectsController.GetObject(objectId)
+  If packUrl = "" Then
+   packUrl = Globals.PackUrl
+  Else
+   objectId = remoteObjectId
+   HasPartnerPacks = True
+  End If
   If o.IsCore Then
    Dim res1 As String = "Core: "
    Dim res2 As String = "Full: "
-   For Each drv As DataRowView In GetLocalesByCode(Locale)
-    res1 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Core"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
-    res2 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Full"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+   Dim i As Integer = 1
+   For Each drv As DataRowView In GetLocalesByCode(locale)
+    res1 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Core"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
+    res2 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Full"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
+    If i Mod 4 = 0 Then
+     res1 &= "<br />"
+     res2 &= "<br />"
+    End If
+    i += 1
    Next
    Return String.Format("{0}<br />{1}", res1, res2)
   Else
    Dim res As String = ""
-   For Each drv As DataRowView In GetLocalesByCode(Locale)
-    res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packPath, ObjectId, drv.Item("Locale"), Version)
+   Dim i As Integer = 1
+   For Each drv As DataRowView In GetLocalesByCode(locale)
+    res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
+    If i Mod 4 = 0 Then
+     res &= "<br />"
+    End If
+    i += 1
    Next
    Return res
   End If

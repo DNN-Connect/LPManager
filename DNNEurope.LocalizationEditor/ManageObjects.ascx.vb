@@ -1,4 +1,6 @@
-﻿'
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
 ' without restriction, including without limitation the rights to use, copy, modify, merge, 
@@ -14,15 +16,13 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-Imports DNNEurope.Modules.LocalizationEditor.Business
 Imports DotNetNuke.Framework
 Imports DotNetNuke.Services.Localization
-Imports DotNetNuke.Entities.Modules
-Imports System.IO
-Imports System.Xml
 Imports System.Collections.Generic
 Imports DotNetNuke.Security.Permissions
 Imports DotNetNuke.Common
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Services.Packaging
 
 Partial Public Class ManageObjects
  Inherits ModuleBase
@@ -54,7 +54,7 @@ Partial Public Class ManageObjects
    Return
   End If
 
-  ManifestReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, "", False)
+  PackageReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, "", False)
 
   ' Reload data
   BindData()
@@ -66,7 +66,7 @@ Partial Public Class ManageObjects
 
  Private Sub dlTranslateObjects_DeleteCommand(ByVal source As Object, ByVal e As DataListCommandEventArgs) Handles dlTranslateObjects.DeleteCommand
   Dim ObjectId As Integer = CInt(dlTranslateObjects.DataKeys(e.Item.ItemIndex))
-  ObjectController.DeleteObject(ObjectId)
+  ObjectsController.DeleteObject(ObjectId)
   BindData()
  End Sub
 
@@ -76,7 +76,7 @@ Partial Public Class ManageObjects
 
  Private Sub BindData()
   ' Load all imported modules
-  Dim translatedModules As ArrayList = ObjectController.GetObjectList(ModuleId)
+  Dim translatedModules As List(Of ObjectInfo) = ObjectsController.GetObjects(ModuleId)
   dlTranslateObjects.DataSource = translatedModules
   dlTranslateObjects.DataBind()
  End Sub

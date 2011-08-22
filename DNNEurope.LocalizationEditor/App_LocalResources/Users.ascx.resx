@@ -120,9 +120,6 @@
   <data name="cmdAdd.Text" xml:space="preserve">
     <value>Add</value>
   </data>
-  <data name="Core.Text" xml:space="preserve">
-    <value>DNN Core</value>
-  </data>
   <data name="UserNotFound.Text" xml:space="preserve">
     <value>User {0} not found</value>
   </data>
@@ -141,12 +138,6 @@
   <data name="lblLocale.Text" xml:space="preserve">
     <value>Locale</value>
   </data>
-  <data name="lblObjects.Help" xml:space="preserve">
-    <value>Select the object for which the user can edit the resources</value>
-  </data>
-  <data name="lblObjects.Text" xml:space="preserve">
-    <value>Objects</value>
-  </data>
   <data name="lblUsername.Help" xml:space="preserve">
     <value>Specify the username for the user which will recieve rights to edit the resources</value>
   </data>
@@ -158,9 +149,6 @@
   </data>
   <data name="Locale.Header" xml:space="preserve">
     <value>Locale</value>
-  </data>
-  <data name="Object.Header" xml:space="preserve">
-    <value>Object</value>
   </data>
   <data name="User.Header" xml:space="preserve">
     <value>User</value>
