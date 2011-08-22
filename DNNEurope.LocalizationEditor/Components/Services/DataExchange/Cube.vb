@@ -1,6 +1,26 @@
-﻿Imports System.Xml
+﻿' 
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
+'
+' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+' software and associated documentation files (the "Software"), to deal in the Software 
+' without restriction, including without limitation the rights to use, copy, modify, merge, 
+' publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons 
+' to whom the Software is furnished to do so, subject to the following conditions:
+'
+' The above copyright notice and this permission notice shall be included in all copies or 
+' substantial portions of the Software.
 
-Namespace Business
+' THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+' INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR 
+' PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE 
+' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
+' 
+Imports System.Xml
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Statistics
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Partners
+
+Namespace Services.DataExchange
  Public Class Cube
 
   Private _moduleId As Integer = -1
@@ -25,7 +45,7 @@ Namespace Business
    output.WriteAttributeString("ownerEmail", ms.OwnerEmail)
    output.WriteAttributeString("ownerOrganization", ms.OwnerOrganization)
    output.WriteAttributeString("ownerUrl", ms.OwnerUrl)
-   output.WriteAttributeString("packUrl", DotNetNuke.Common.AddHTTP(DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings.PortalAlias.HTTPAlias & "/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx"))
+   output.WriteAttributeString("packUrl", Globals.PackUrl)
    output.WriteAttributeString("allowDirectDownload", ms.AllowDirectDownload.ToString)
    output.WriteElementString("license", DotNetNuke.Common.Utilities.XmlUtils.XMLEncode(ms.License))
    Using ir As IDataReader = Data.DataProvider.Instance().GetCube(_moduleId)
@@ -88,6 +108,13 @@ Namespace Business
      output.WriteEndElement() ' object
     End If
    End Using
+   output.WriteStartElement("partners")
+   For Each p As PartnerInfo In PartnersController.GetPartnersByModule(_moduleId)
+    If p.AllowRedistribute AndAlso Not String.IsNullOrEmpty(p.LastCube) Then
+     output.WriteRaw(p.LastCube)
+    End If
+   Next
+   output.WriteEndElement() ' partners
    output.WriteEndElement() ' cube
 
   End Sub

@@ -1,5 +1,5 @@
 ' 
-' Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+' Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
 '
 ' Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 ' software and associated documentation files (the "Software"), to deal in the Software 
@@ -16,17 +16,31 @@
 ' FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
-Imports DNNEurope.Modules.LocalizationEditor.Data
-Imports DotNetNuke.Common.Utilities
 
-Namespace Business
+Namespace Services.Logging
+ Public Class LogEntry
+  Private m_Type As LogType
+  Private m_Description As [String]
 
- Public Class TranslationsController
-  Public Shared Sub SetTranslation(ByVal objTranslation As TranslationInfo)
-
-   DataProvider.Instance().SetTranslation(objTranslation.LastModified, objTranslation.LastModifiedUserId, objTranslation.Locale, objTranslation.TextId, objTranslation.TextValue)
-
+  Public Sub New(ByVal type As LogType, ByVal description As [String])
+   m_Type = type
+   m_Description = description
   End Sub
- End Class
 
+  Public ReadOnly Property Type() As LogType
+   Get
+    Return m_Type
+   End Get
+  End Property
+
+  Public ReadOnly Property Description() As [String]
+   Get
+    If m_Description Is Nothing Then
+     Return "..."
+    Else
+     Return m_Description
+    End If
+   End Get
+  End Property
+ End Class
 End Namespace

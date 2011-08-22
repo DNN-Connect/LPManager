@@ -1,5 +1,5 @@
 ﻿// 
-// Copyright (c) 2004-2009 DNN-Europe, http://www.dnn-europe.net
+// Copyright (c) 2004-2011 DNN-Europe, http://www.dnn-europe.net
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this 
 // software and associated documentation files (the "Software"), to deal in the Software 
