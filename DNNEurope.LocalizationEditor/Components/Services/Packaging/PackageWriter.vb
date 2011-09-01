@@ -111,7 +111,11 @@ Namespace Services.Packaging
         resDoc.Load(DotNetNuke.Common.ApplicationMapPath & "\DesktopModules\DNNEurope\LocalizationEditor\App_LocalResources\Template.resx")
         Dim root As XmlNode = resDoc.DocumentElement
         For Each ti As Entities.Texts.TextInfo In texts.Values
-         Globals.AddResourceText(root, ti.TextKey, ti.TextValue)
+         Try
+          Globals.AddResourceText(root, ti.TextKey, ti.TextValue)
+         Catch ex As Exception
+          ' ignore errors
+         End Try
         Next
         myZipEntry = New ZipEntry(targetPath & "\" & resFileName)
         strmZipStream.PutNextEntry(myZipEntry)
@@ -173,7 +177,7 @@ Namespace Services.Packaging
    Dim basePath As String = GetObjectBasePath(objObjects(0))
    Globals.AddElement(files, "basePath", basePath) ' basepath needs to be added to object
    For Each o As ObjectInfo In objObjects
-    For Each filePath As String In TextsController.GetFileList(o.ObjectId, o.Version)
+    For Each filePath As String In TextsController.GetFileList(o.ObjectId, version)
      If TextsController.GetTextsByObjectAndFile(o.ModuleId, o.ObjectId, filePath, loc.Name, version, False).Count > 0 Then
       AddPackResourcePathToManifestV5(files, filePath, loc.Name, basePath)
      End If

@@ -68,7 +68,8 @@ Namespace Services.DataExchange
 
    ' process Partner data
    partner.AllowDirectDownload = CBool(cube.Attributes("allowDirectDownload").InnerText)
-   partner.PartnerName = cube.Attributes("ownerName").InnerText
+   partner.PartnerName = cube.Attributes("ownerOrganization").InnerText
+   If partner.PartnerName = "" Then partner.PartnerName = cube.Attributes("ownerName").InnerText
    If partner.PartnerName = "" Then Exit Sub
    partner.PartnerUrl = Globals.CorrectHttp(cube.Attributes("ownerUrl").InnerText)
    partner.PackUrl = cube.Attributes("packUrl").InnerText
@@ -136,7 +137,8 @@ Namespace Services.DataExchange
    ' recurse if applicable
    If downloadAffiliates Then
     For Each affiliate As XmlNode In cube.SelectNodes("partners/cube")
-     Dim partnerName As String = affiliate.Attributes("ownerName").InnerText
+     Dim partnerName As String = affiliate.Attributes("ownerOrganization").InnerText
+     If partnerName = "" Then partnerName = affiliate.Attributes("ownerName").InnerText
      If partnerName <> _settings.OwnerName And Not _handledPartners.Contains(partnerName) Then
       Dim p As PartnerInfo = PartnersController.GetPartnerByName(_moduleId, partnerName)
       If p Is Nothing Then

@@ -70,7 +70,8 @@ Namespace Services.DataExchange
         Dim remoteObjectId As Integer = CInt(ir.Item("RemoteObjectId"))
         Dim percComplete As Double = CDbl(ir.Item("PercentComplete"))
         If partnerId = -1 Then
-         name = Settings(o.ModuleId).OwnerName
+         name = Settings(o.ModuleId).OwnerOrganization
+         If name = "" Then name = Settings(o.ModuleId).OwnerName
          url = Settings(o.ModuleId).OwnerUrl
          packUrl = Globals.PackUrl
          remoteObjectId = o.ObjectId
