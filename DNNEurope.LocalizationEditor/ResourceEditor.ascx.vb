@@ -355,6 +355,7 @@ Partial Public Class ResourceEditor
   End Select
   dv.Sort = "FilePath, TextKey"
 
+  Dim firstResourceFile As Boolean = True
   For Each drv As DataRowView In dv
    Dim filePath As String = CStr(drv.Item("FilePath"))
 
@@ -367,6 +368,10 @@ Partial Public Class ResourceEditor
     shc.IsExpanded = False
     shc.CssClass = "Head"
     shc.Text = filePath
+    If firstResourceFile Then
+     shc.IsExpanded = True
+     firstResourceFile = False
+    End If
     PlaceHolder1.Controls.Add(shc)
 
     table = New HtmlTable

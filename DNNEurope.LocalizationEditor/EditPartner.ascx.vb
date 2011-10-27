@@ -49,7 +49,10 @@ Public Class EditPartner
     Response.Redirect(AccessDeniedURL(), True)
    End If
   End If
-  If _partnerId = -1 Then cmdUpdate.Enabled = False
+  If _partnerId = -1 Then
+   cmdUpdate.Enabled = False
+   cmdDelete.Enabled = False
+  End If
  End Sub
 
  Private Sub Page_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -58,7 +61,8 @@ Public Class EditPartner
    DotNetNuke.UI.Utilities.ClientAPI.AddButtonConfirm(cmdDelete, DotNetNuke.Services.Localization.Localization.GetString("Delete.Confirm", Me.LocalResourceFile))
    If _partnerId <> -1 Then
     pnlDetails.Visible = True
-    tblCubeUrl.Visible = False
+    'tblCubeUrl.Visible = False
+    txtCubeUrl.Enabled = False
     If Not _partner Is Nothing Then
      'set screen
      With _partner
@@ -125,6 +129,8 @@ Public Class EditPartner
 
  Private Sub cmdDownload_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdDownload.Click
 
+  Dim reload As Boolean = False
+
   If _partner Is Nothing Then
    _partner = New PartnerInfo
    With _partner
@@ -137,9 +143,8 @@ Public Class EditPartner
    cmdDownload.Enabled = False
    txtCubeUrl.Enabled = False
    cmdUpdate.Enabled = True
+   reload = True
   End If
-
-  EditUrl("PartnerId", _partnerId.ToString, "EditPartner")
 
   With _partner
    'set values
@@ -154,6 +159,8 @@ Public Class EditPartner
   txtPartnerUrl.Text = _partner.PartnerUrl
   txtPackUrl.Text = _partner.PartnerUrl
   plhDownload.Controls.Add(New LiteralControl(fImport.Log.ToString))
+
+  If reload Then Response.Redirect(EditUrl("PartnerId", _partnerId.ToString, "EditPartner"), False)
 
  End Sub
 #End Region

@@ -86,11 +86,12 @@
   </td>
  </tr>
 </table>
-<p>
+</asp:Panel>
+
+<p style="padding-top:30px;">
  <asp:linkbutton id="cmdUpdate" CssClass="CommandButton" runat="server" Text="Update" BorderStyle="none" ResourceKey="cmdUpdate" />&nbsp;
  <asp:linkbutton id="cmdCancel" CssClass="CommandButton" runat="server" Text="Cancel" BorderStyle="none" CausesValidation="False" ResourceKey="cmdCancel" />&nbsp;
  <asp:LinkButton id="cmdDelete" runat="server" CssClass="CommandButton" CausesValidation="False" BorderStyle="none" Text="Delete" ResourceKey="cmdDelete" />
 </p>
-</asp:Panel>
 
 <pre><asp:PlaceHolder runat="server" ID="plhDownload" /></pre>

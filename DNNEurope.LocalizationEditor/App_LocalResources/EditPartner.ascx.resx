@@ -183,7 +183,7 @@
   <data name="Delete.Confirm" xml:space="preserve">
     <value>Are you sure you wish to delete this partner? Note you will also delete associated information such as the language packs that partner has available.</value>
   </data>
-  <data name="lblImportOverride.Text" xml:space="preserve">
+  <data name="plImportOverride.Text" xml:space="preserve">
     <value>Override import object</value>
   </data>
   <data name="plDownload.Help" xml:space="preserve">
@@ -191,5 +191,8 @@
   </data>
   <data name="plDownload.Text" xml:space="preserve">
     <value>Download</value>
+  </data>
+  <data name="plImportOverride.Help" xml:space="preserve">
+    <value>Selecting this checkbox will automatically add objects managed by the partner to your database of objects if they're not already present.</value>
   </data>
 </root>
