@@ -22,6 +22,7 @@ Imports System.Collections.Generic
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Texts
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
 Imports DNNEurope.Modules.LocalizationEditor.Helpers
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Packages
 
 Namespace Services.Packaging
  Public Class PackageReader
@@ -37,7 +38,7 @@ Namespace Services.Packaging
    Public Version As String = "0"
    Public PackageType As String = "Module"
    Public ResourceFiles As New SortedList
-   Public DnnCoreVersion As String = ""
+   'Public DnnCoreVersion As String = ""
   End Class
 
   ''' <summary>
@@ -45,11 +46,12 @@ Namespace Services.Packaging
   ''' </summary>
   ''' <param name="moduleContent">Package content as stream</param>
   ''' <param name="HomeDirectoryMapPath">HomeDirectoryMapPath of this portal (needed for the temp path)</param>
-  ''' <param name="ModuleId">To be used for an installed module</param>
+  ''' <param name="ModuleId">Module ID of the Localization Editor</param>
   ''' <remarks></remarks>
-  Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal HomeDirectoryMapPath As String, ByVal ModuleId As Integer, DnnCoreVersion As String, InstalledByDefault As Boolean)
+  Public Shared Sub ImportModulePackage(ByVal moduleContent As IO.Stream, ByVal homeDirectoryMapPath As String, ByVal moduleId As Integer, ByVal parentPackage As ObjectInfo)
+
    ' Create a temporary directory to unpack the package
-   Dim tempDirectory As String = HomeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
+   Dim tempDirectory As String = homeDirectoryMapPath & "LocalizationEditor\~tmp" & Now.ToString("yyyyMMdd-hhmmss") & "-" & (CInt(Rnd() * 1000)).ToString
 
    ' Check if the temporary directory already exists
    If Not Directory.Exists(tempDirectory) Then
@@ -57,26 +59,59 @@ Namespace Services.Packaging
    Else
     Throw New IOException("New directory " & tempDirectory & " already exists")
    End If
-   Globals.CleanupTempDirs(HomeDirectoryMapPath & "LocalizationEditor")
+   Globals.CleanupTempDirs(homeDirectoryMapPath & "LocalizationEditor")
 
    ' Unzip file contents
    ZipHelper.Unzip(moduleContent, tempDirectory)
 
    ' Find the DNN manifest file
-   Dim dnnFiles As String() = Directory.GetFiles(tempDirectory, "*.dnn")
+   ' Multiple manifests are allowed (.dnn and .dnn5 etc) so we look for the highest
+   Dim dnnFiles As String() = Directory.GetFiles(tempDirectory, "*.dnn6")
+   If dnnFiles.Length = 0 Then
+    dnnFiles = Directory.GetFiles(tempDirectory, "*.dnn5")
+   End If
+   If dnnFiles.Length = 0 Then
+    dnnFiles = Directory.GetFiles(tempDirectory, "*.dnn")
+   End If
    If dnnFiles.Length = 0 Then
     If Directory.GetFiles(tempDirectory, "Default.aspx").Length = 0 Then
      Throw New FileNotFoundException("No DNN Manifest file found, nor a core distribution")
     End If
    End If
-   ' Multiple manifests are allowed (.dnn and .dnn5)
 
    ' Now process what has been uploaded
+   Dim package As ObjectInfo = Nothing
    Dim manifestModules As New List(Of ManifestModuleInfo)
 
    If dnnFiles.Length = 0 Then ' we're processing the core
 
     Dim parsedVersion As String = Globals.GetAssemblyVersion(tempDirectory & "\bin\DotNetNuke.dll")
+
+    ' Now determine which Core flavor!
+    Dim packagename As String = "DNNCE"
+    Dim packageFriendlyname As String = "DotNetNuke Community Edition"
+    If IO.File.Exists(String.Format("{0}\Install\Module\DNNPro_{1}_Install.zip", tempDirectory, parsedVersion)) Then
+     packagename = "DNNPE"
+     packageFriendlyname = "DotNetNuke Professional Edition"
+    End If
+    If IO.File.Exists(String.Format("{0}\Install\Module\DNNXE_{1}_Install.zip", tempDirectory, parsedVersion)) Then
+     packagename = "DNNEE"
+     packageFriendlyname = "DotNetNuke Enterprise Edition"
+    End If
+    package = ObjectsController.GetObjectByObjectName(moduleId, packagename)
+    If package Is Nothing Then
+     package = New ObjectInfo
+     With package
+      .ModuleId = moduleId
+      .FriendlyName = packageFriendlyname
+      .ObjectName = packagename
+      .InstallPath = ""
+      .PackageType = "Pack"
+     End With
+     ObjectsController.AddObject(package)
+    End If
+    package.Version = parsedVersion
+    parentPackage = package
 
     Dim core As New ManifestModuleInfo
     With core
@@ -93,7 +128,7 @@ Namespace Services.Packaging
     For Each d As DirectoryInfo In (New DirectoryInfo(tempDirectory & "\Install")).GetDirectories
      For Each obj As FileInfo In d.GetFiles("*.zip")
       Using objStream As New IO.FileStream(obj.FullName, FileMode.Open, FileAccess.Read)
-       ImportModulePackage(objStream, HomeDirectoryMapPath, ModuleId, parsedVersion, True)
+       ImportModulePackage(objStream, homeDirectoryMapPath, moduleId, package)
       End Using
      Next
     Next
@@ -103,7 +138,7 @@ Namespace Services.Packaging
      For Each obj As FileInfo In d.GetFiles("*.resources")
       Using objStream As New IO.FileStream(obj.FullName, FileMode.Open, FileAccess.Read)
        Try
-        ImportModulePackage(objStream, HomeDirectoryMapPath, ModuleId, parsedVersion, False)
+        ImportModulePackage(objStream, homeDirectoryMapPath, moduleId, Nothing) ' do not wire to the parent package here
        Catch ex As Exception
         ' ignore errors
        End Try
@@ -132,6 +167,32 @@ Namespace Services.Packaging
      End If
     End If
 
+    ' Get the 'package'
+    If mainNodes.Count > 1 Then
+     Try
+      Dim packagename As String = mainNodes.Item(0).SelectSingleNode("@name").InnerText.Trim & "_Pack"
+      package = ObjectsController.GetObjectByObjectName(moduleId, packagename)
+      If package Is Nothing Then
+       package = New ObjectInfo
+       With package
+        .ModuleId = moduleId
+        .FriendlyName = packagename
+        .ObjectName = packagename
+        .InstallPath = ""
+        .PackageType = "Pack"
+       End With
+       ObjectsController.AddObject(package)
+      End If
+      package.Version = Globals.FormatVersion(mainNodes.Item(0).SelectSingleNode("@version").InnerText.Trim)
+      If parentPackage IsNot Nothing Then
+       PackagesController.RegisterPackageItem(parentPackage.ObjectId, parentPackage.Version, package.ObjectId, package.Version)
+      End If
+      parentPackage = package
+     Catch ex As Exception
+      ' ignore any errors for now
+     End Try
+    End If
+
     If manifestVersion = 5 Then
      ' Remark about DNN 5 manifest file: it is assumed that only one <desktopModule> node per <package> node exists.
 
@@ -139,13 +200,13 @@ Namespace Services.Packaging
      For Each packageNode As XmlNode In mainNodes
 
       Dim manifestModule As New ManifestModuleInfo()
-      manifestModule.DnnCoreVersion = DnnCoreVersion
+      ' manifestModule.DnnCoreVersion = DnnCoreVersion
 
       ' Determine the version
       If Not packageNode.SelectSingleNode("@version") Is Nothing Then
        manifestModule.Version = Globals.FormatVersion(packageNode.SelectSingleNode("@version").InnerText.Trim)
        If String.IsNullOrEmpty(manifestModule.Version) Then
-        manifestModule.Version = "0"
+        manifestModule.Version = "00.00.00"
         '2009-06-26 Janga:  Default version.
        End If
       Else : Throw New Exception("Could not retrieve version information in DNN Manifest file")
@@ -177,9 +238,10 @@ Namespace Services.Packaging
         If moduleNodes.Count = 0 Then
          Throw New Exception("Could not retrieve desktop module information in DNN Manifest file")
         End If
-        If moduleNodes.Count > 1 Then
-         Throw New Exception("Multiple desktop modules found in DNN Manifest file")
-        End If
+        ' Actually this is legal
+        'If moduleNodes.Count > 1 Then
+        ' Throw New Exception("Multiple desktop modules found in DNN Manifest file")
+        'End If
 
         For Each dmNode As XmlNode In moduleNodes
          ' Determine the folder name
@@ -299,7 +361,7 @@ Namespace Services.Packaging
      For Each folderNode As XmlNode In mainNodes
 
       Dim manifestModule As New ManifestModuleInfo()
-      manifestModule.DnnCoreVersion = DnnCoreVersion
+      ' manifestModule.DnnCoreVersion = DnnCoreVersion
 
       ' Determine the module name
       If Not folderNode("modulename") Is Nothing Then
@@ -373,19 +435,33 @@ Namespace Services.Packaging
     If manifestModule.ObjectName IsNot Nothing Then
      If manifestModule.ResourceFiles.Count > 0 Then
 
-      ' Check if the module is already imported
-      Dim objObjectInfo As ObjectInfo = ObjectsController.GetObjectByObjectName(ModuleId, manifestModule.ObjectName)
-      If objObjectInfo Is Nothing Then
-       ' Create a new translate module
-       objObjectInfo = New ObjectInfo(0, manifestModule.FriendlyName, ModuleId, manifestModule.FolderName, manifestModule.ObjectName, manifestModule.PackageType)
-       objObjectInfo.ObjectId = ObjectsController.AddObject(objObjectInfo)
-      End If
-      If manifestModule.DnnCoreVersion <> "" Then
-       ObjectCoreVersionsController.SetObjectCoreVersion(objObjectInfo.ObjectId, manifestModule.Version, manifestModule.DnnCoreVersion, InstalledByDefault)
+      ' Hack to solve PE/EE modules with same name like DNN_HTML
+      If Globals.glbProPackages.Contains(manifestModule.ObjectName) AndAlso parentPackage IsNot Nothing Then
+       Select Case parentPackage.ObjectName
+        Case "DNNPE", "DNNEE"
+         manifestModule.ObjectName &= "_PRO"
+       End Select
       End If
 
+      ' Check if the module is already imported
+      Dim objObjectInfo As ObjectInfo = ObjectsController.GetObjectByObjectName(moduleId, manifestModule.ObjectName)
+      If objObjectInfo Is Nothing Then
+       ' Create a new translate module
+       objObjectInfo = New ObjectInfo(0, manifestModule.FriendlyName, moduleId, manifestModule.FolderName, manifestModule.ObjectName, manifestModule.PackageType)
+       objObjectInfo.ObjectId = ObjectsController.AddObject(objObjectInfo)
+      End If
+      objObjectInfo.Version = manifestModule.Version
+
+      ' Now add it to the package
+      If parentPackage IsNot Nothing Then
+       PackagesController.RegisterPackageItem(parentPackage.ObjectId, parentPackage.Version, objObjectInfo.ObjectId, manifestModule.Version)
+      End If
+      'If manifestModule.DnnCoreVersion <> "" Then
+      ' ObjectCoreVersionsController.SetObjectCoreVersion(objObjectInfo.ObjectId, manifestModule.Version, manifestModule.DnnCoreVersion, InstalledByDefault)
+      'End If
+
       ' Import or update resource files for this module
-      ProcessResourceFiles(manifestModule.ResourceFiles, tempDirectory, objObjectInfo, manifestModule.Version)
+      ProcessResourceFiles(manifestModule.ResourceFiles, tempDirectory, objObjectInfo)
 
      End If
     End If
@@ -422,7 +498,7 @@ Namespace Services.Packaging
 
   End Sub
 
-  Public Shared Sub ProcessResourceFiles(ByVal resourceFileList As SortedList, ByVal rootPath As String, ByVal objObjectInfo As ObjectInfo, ByVal version As String)
+  Public Shared Sub ProcessResourceFiles(ByVal resourceFileList As SortedList, ByVal rootPath As String, ByVal objObjectInfo As ObjectInfo)
 
    Const pattern As String = ".resx"
 
@@ -456,22 +532,50 @@ Namespace Services.Packaging
      Dim key As String = x.Attributes("name").InnerText
      Dim value As String = x.SelectSingleNode("value").InnerXml
      currentVersionKeys.Add(fileKey.ToLower & ";" & key.ToLower)
-     Dim ti As Entities.Texts.TextInfo = TextsController.GetLatestText(objObjectInfo.ObjectId, fileKey, "", key)
+     'Dim ti As Entities.Texts.TextInfo = TextsController.GetLatestText(objObjectInfo.ObjectId, fileKey, "", key)
+     Dim ti As Entities.Texts.TextInfo = TextsController.GetTextByVersion(objObjectInfo.ObjectId, fileKey, key, objObjectInfo.Version)
 
      Try
       If ti Is Nothing Then
-       ti = New Entities.Texts.TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, version)
-       TextsController.AddText(ti)
-      ElseIf ti.OriginalValue <> value Then
-       If ti.Version = version Then
+       Dim nextTi As Entities.Texts.TextInfo = TextsController.GetOldestText(objObjectInfo.ObjectId, fileKey, key) ' check if we're uploading something older
+       If nextTi Is Nothing Then ' really nothing there
+        ti = New Entities.Texts.TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
+        TextsController.AddText(ti)
+       Else ' we are uploading something older than the oldest on record
+        If nextTi.OriginalValue = value Then ' it is the same
+         nextTi.Version = objObjectInfo.Version
+         TextsController.UpdateText(nextTi)
+        Else ' it is different
+         ti = New Entities.Texts.TextInfo(-1, nextTi.Version, fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
+         TextsController.AddText(ti)
+        End If
+       End If
+      ElseIf ti.OriginalValue <> value Then ' the text has changed
+       If ti.Version = objObjectInfo.Version Then ' edge case: we are reuploading and the text has changed
         ti.OriginalValue = value
         TextsController.UpdateText(ti)
-       Else ' new version
+       ElseIf Not String.IsNullOrEmpty(ti.DeprecatedIn) Then ' the existing text was assumed to be deprecated later but should now be deprecated earlier
+        Dim nextTi As Entities.Texts.TextInfo = TextsController.GetTextByVersion(objObjectInfo.ObjectId, fileKey, key, ti.DeprecatedIn) ' get the next text
+        If nextTi.OriginalValue = value Then ' indeed the next version was the version we now found
+         ' Reset the deprecation
+         ti.DeprecatedIn = objObjectInfo.Version
+         TextsController.UpdateText(ti)
+         nextTi.Version = objObjectInfo.Version
+         TextsController.UpdateText(nextTi)
+        Else ' we have an intermediate version
+         ' deprecate the old one
+         ti.DeprecatedIn = objObjectInfo.Version
+         TextsController.UpdateText(ti)
+         ' add new one in between
+         ti = New Entities.Texts.TextInfo(-1, nextTi.Version, fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
+         TextsController.AddText(ti)
+        End If
+       ElseIf String.IsNullOrEmpty(ti.DeprecatedIn) Then ' the existing text was assumed to be the latest
         ' deprecate the old one
-        ti.DeprecatedIn = version
+        ti.DeprecatedIn = objObjectInfo.Version
         TextsController.UpdateText(ti)
         ' add new one
-        ti = New Entities.Texts.TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, version)
+        ti = New Entities.Texts.TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
         TextsController.AddText(ti)
        End If
       End If
@@ -482,10 +586,10 @@ Namespace Services.Packaging
    Next
 
    ' Deprecate old stuff
-   For Each ti As Entities.Texts.TextInfo In TextsController.GetTextsByObject(objObjectInfo.ModuleId, objObjectInfo.ObjectId, "", version).Values
-    If ti.Version <> version Then ' it's an old one
+   For Each ti As Entities.Texts.TextInfo In TextsController.GetTextsByObject(objObjectInfo.ModuleId, objObjectInfo.ObjectId, "", objObjectInfo.Version).Values
+    If ti.Version < objObjectInfo.Version Then ' it's an old one
      If Not currentVersionKeys.Contains(ti.FilePath.ToLower & ";" & ti.TextKey.ToLower) Then
-      ti.DeprecatedIn = version
+      ti.DeprecatedIn = objObjectInfo.Version
       TextsController.UpdateText(ti)
      End If
     End If

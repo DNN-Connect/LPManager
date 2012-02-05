@@ -150,4 +150,10 @@
   <data name="AvailablePacks.Header" xml:space="preserve">
     <value>Available Packs</value>
   </data>
+  <data name="Download.Header" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>

@@ -30,6 +30,14 @@ Namespace Entities.Texts
    Return CType(CBO.FillObject(DataProvider.Instance().GetLatestText(ObjectId, FilePath, Locale, TextKey), GetType(TextInfo)), TextInfo)
   End Function
 
+  Public Shared Function GetTextByVersion(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal TextKey As String, ByVal Version As String) As TextInfo
+   Return CType(CBO.FillObject(DataProvider.Instance().GetTextByVersion(ObjectId, FilePath, TextKey, Version), GetType(TextInfo)), TextInfo)
+  End Function
+
+  Public Shared Function GetOldestText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal TextKey As String) As TextInfo
+   Return CType(CBO.FillObject(DataProvider.Instance().GetOldestText(ObjectId, FilePath, TextKey), GetType(TextInfo)), TextInfo)
+  End Function
+
   Public Shared Function GetText(ByVal ObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal TextKey As String) As TextInfo
    Return CType(CBO.FillObject(DataProvider.Instance().GetText(ObjectId, FilePath, Locale, Version, TextKey), GetType(TextInfo)), TextInfo)
   End Function
@@ -70,12 +78,13 @@ Namespace Entities.Texts
   End Function
 
   Public Shared Function NrOfItems(ByVal ObjectId As Integer, ByVal Version As String) As Integer
-   Using ir As IDataReader = DataProvider.Instance.NrOfItems(ObjectId, Version)
-    If ir.Read Then
-     Return Globals.GetAnInteger(ir.Item(0))
-    End If
-   End Using
-   Return -1
+   Return DataProvider.Instance.NrOfItems(ObjectId, Version)
+   'Using ir As IDataReader = DataProvider.Instance.NrOfItems(ObjectId, Version)
+   ' If ir.Read Then
+   '  Return Globals.GetAnInteger(ir.Item(0))
+   ' End If
+   'End Using
+   'Return -1
   End Function
 
   Public Shared Function NrOfMissingTranslations(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As Integer

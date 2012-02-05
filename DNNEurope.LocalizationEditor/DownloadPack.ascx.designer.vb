@@ -68,6 +68,24 @@ Partial Public Class DownloadPack
  Protected WithEvents dgLocales As Global.System.Web.UI.WebControls.DataGrid
 
  '''<summary>
+ '''pnlVersions control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents pnlVersions As Global.System.Web.UI.WebControls.Panel
+
+ '''<summary>
+ '''dgVersions control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents dgVersions As Global.System.Web.UI.WebControls.DataGrid
+
+ '''<summary>
  '''cmdReturn control.
  '''</summary>
  '''<remarks>

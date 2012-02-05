@@ -186,4 +186,10 @@
   <data name="plObject.Text" xml:space="preserve">
     <value>Object</value>
   </data>
+  <data name="plUser.Help" xml:space="preserve">
+    <value>If the credits for this pack go to someone else then fill in that user's username here</value>
+  </data>
+  <data name="plUser.Text" xml:space="preserve">
+    <value>User</value>
+  </data>
 </root>

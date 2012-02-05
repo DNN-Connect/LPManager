@@ -35,6 +35,8 @@ Partial Public Class LocalizationEditor
 #End Region
 
 #Region " Properties "
+ Public Property Locale As String = ""
+
  Public Property UserLocales As List(Of String)
   Get
    If _userLocales Is Nothing Then
@@ -72,6 +74,7 @@ Partial Public Class LocalizationEditor
 #Region " Event Handlers "
 
  Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
+  Globals.ReadValue(Me.Request.Params, "Locale", Locale)
   If UserInfo.IsSuperUser Then
    _userId = PortalSettings.AdministratorId
   End If
@@ -84,6 +87,7 @@ Partial Public Class LocalizationEditor
    cmdManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    cmdManagePartners.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    cmdClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") And Me.Settings.CachePacks
+   cmdUploadPack.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
 
    If Not Me.IsPostBack Then
 
@@ -133,52 +137,127 @@ Partial Public Class LocalizationEditor
 #End Region
 
 #Region " Public Methods "
- Public Function Localeheaders() As String
-  Dim res As String = ""
-  For Each Loc As String In AllLocales
-   res &= String.Format("<th>{0}</th>", Loc)
-  Next
-  Return res
+ Public Function GetObjectLocalePerctComplete(ByVal r As Object) As String
+  'Dim record As System.Data.Common.DbDataRecord = CType(CType(r, DataListItem).DataItem, System.Data.Common.DbDataRecord)
+  Dim record As DataRowView = CType(r, DataRowView)
+  Try
+   Dim perct As Double = CInt(record.Item("TextCount")) * 100
+   If CInt(record.Item("LastVersionTextCount")) = 0 Then Return ""
+   perct = perct / CInt(record.Item("LastVersionTextCount"))
+   Return String.Format("{0} %", Math.Round(perct))
+  Catch ex As Exception
+  End Try
+  Return ""
  End Function
 
- Public Function GetObjectLocales(ByVal r As Object) As String
-  Dim record As System.Data.Common.DbDataRecord = CType(CType(r, DataListItem).DataItem, System.Data.Common.DbDataRecord)
-  Dim res As New StringBuilder
-  For Each l As String In AllLocales
-   res.Append("<td>")
-   If UserLocales.Contains(l) Then
-    res.AppendFormat("<a href=""{0}"" class=""CommandButton"">", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & l))
-   End If
-   Dim perct As Double = CInt(record.Item(l.Replace("-", ""))) * 100 / CInt(record.Item("LastVersionTextCount"))
-   'Dim pperct As Double = Globals.GetADouble(record.Item("PartnerComplete"))
-   res.AppendFormat("{0} %", Math.Round(perct))
-   'If perct < pperct Then
-   ' res.AppendFormat(" ({0} %)", Math.Round(pperct))
-   'End If
-   If UserLocales.Contains(l) Then
-    res.Append("</a>")
-   End If
-   res.AppendLine("</td>")
-  Next
-  Return res.ToString
+ Public Function GetEditColumn(ByVal r As Object) As String
+  Dim record As DataRowView = CType(r, DataRowView)
+  If UserLocales.Contains(Locale) Then
+   Return String.Format("<a href=""{0}"" class=""CommandButton""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale), ResolveUrl("~/images/edit_pen.gif"), GetString("Edit", LocalResourceFile))
+  End If
+  Return ""
  End Function
 
  Public Function GetObjectUrl(ByVal objectId As Integer) As String
-  Return EditUrl("ObjectId", objectId.ToString, "DownloadPack")
+  Return EditUrl("ObjectId", objectId.ToString, "DownloadPack", "Locale=" & Locale)
  End Function
 
+#End Region
+
+#Region " Private Methods "
+ Private Function ListCacheKey() As String
+  Return String.Format("LocList{0}", ModuleId)
+ End Function
 #End Region
 
 #Region " Overrides "
 
  Public Overrides Sub DataBind()
 
-  dlObjects.DataSource = DataProvider.Instance.GetObjectsWithStatus(ModuleId)
-  dlObjects.DataBind()
-  If dlObjects.Items.Count = 0 Then
-   pnlEdit.Visible = False
+  If _locale = "" Then
+   Dim locList As String = CType(DotNetNuke.Common.Utilities.DataCache.GetCache(ListCacheKey), String)
+   If locList Is Nothing Then
+    Dim llb As New StringBuilder
+    Dim ourUrl As String = DotNetNuke.Common.NavigateURL(TabId)
+    If ourUrl.Contains("?") Then
+     ourUrl &= "&"
+    Else
+     ourUrl &= "?"
+    End If
+    ourUrl &= "locale="
+    ' top level of generic cultures
+    Dim gLocs As New List(Of String)
+    For Each l As String In AllLocales
+     If Not gLocs.Contains(Left(l, 2)) Then
+      gLocs.Add(Left(l, 2))
+     End If
+    Next
+    Dim genericLocales As New SortedDictionary(Of String, Globalization.CultureInfo)
+    For Each c As Globalization.CultureInfo In Globalization.CultureInfo.GetCultures(Globalization.CultureTypes.NeutralCultures)
+     If gLocs.Contains(c.Name) Then
+      genericLocales.Add(c.NativeName, c)
+     End If
+    Next
+    Dim handledLocales As New List(Of String)
+    For Each gl As String In genericLocales.Keys
+     handledLocales.Add(genericLocales(gl).Name)
+     llb.AppendFormat("<div class=""genericLocale"">{0} ({1})</div>", gl, genericLocales(gl).EnglishName)
+     If AllLocales.Contains(genericLocales(gl).Name) Then ' we have the generic variant in our system
+      For Each c As Globalization.CultureInfo In Globalization.CultureInfo.GetCultures(Globalization.CultureTypes.SpecificCultures)
+       If Left(c.Name, 2) = genericLocales(gl).Name Then
+        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, c.NativeName)
+        handledLocales.Add(c.Name)
+       End If
+      Next
+     Else ' we just have a specific locale here
+      For Each l As String In AllLocales
+       If Left(l, 2) = genericLocales(gl).Name Then
+        Dim c As New Globalization.CultureInfo(l)
+        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, c.NativeName)
+        handledLocales.Add(l)
+       End If
+      Next
+     End If
+    Next
+    ' Now for any overlooked specific locales
+    Dim overlookedLocales As New List(Of String)
+    For Each l As String In AllLocales
+     If Not handledLocales.Contains(l) Then
+      overlookedLocales.Add(l)
+     End If
+    Next
+    If overlookedLocales.Count > 0 Then
+     llb.AppendFormat("<div class=""genericLocale"">{0}</div>", GetString("Other", LocalResourceFile))
+     For Each l As String In overlookedLocales
+      Dim c As New Globalization.CultureInfo(l)
+      llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, c.NativeName)
+     Next
+    End If
+    locList = llb.ToString
+   End If
+   DotNetNuke.Common.Utilities.DataCache.SetCache(ListCacheKey, locList, Now.AddMinutes(30))
+   plhLocales.Controls.Add(New LiteralControl(locList))
+   pnlLocaleRequest.Visible = False
+  Else
+   pnlLocaleRequest.Visible = True
+   Dim oList As DataTable = DotNetNuke.Common.ConvertDataReaderToDataTable(DataProvider.Instance.GetObjectsWithStatus(ModuleId, Locale))
+   dlObjects.DataSource = New DataView(oList, "PackageType<>'Pack' And TextCount>0", "FriendlyName", DataViewRowState.CurrentRows)
+   dlObjects.DataBind()
+   dlPackages.DataSource = New DataView(oList, "PackageType='Pack' And ChildCount>0", "FriendlyName", DataViewRowState.CurrentRows)
+   dlPackages.DataBind()
+   If dlObjects.Items.Count = 0 Then
+    pnlLocaleRequest.Visible = False
+   End If
   End If
-  cmdUploadPack.Visible = CBool(UserLocales.Count > 0)
+  'Dim sb As New StringBuilder
+  'sb.Append("<table>")
+  'For Each c As Globalization.CultureInfo In Globalization.CultureInfo.GetCultures(Globalization.CultureTypes.AllCultures)
+  ' sb.AppendFormat("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>", c.Name, c.NativeName, c.EnglishName, c.DisplayName)
+  'Next
+  'sb.Append("</table>")
+  'plhLocales.Controls.Add(New LiteralControl(sb.ToString))
+
+  cmdUploadPack.Visible = cmdUploadPack.Visible Or CBool(UserLocales.Count > 0)
 
  End Sub
 

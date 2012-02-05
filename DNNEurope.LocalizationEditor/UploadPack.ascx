@@ -37,6 +37,7 @@
      </td>
      <td>
       <asp:DropDownList runat="server" ID="ddLocale" DataTextField="Locale" DataValueField="Locale" />
+      <asp:TextBox runat="server" ID="txtLocale" Width="100" />
      </td>
     </tr>
     <tr runat="server" id="trObject">
@@ -54,6 +55,14 @@
       <td>
         <asp:DropDownList ID="ddVersion" runat="server" DataValueField="Version" DataTextField="Version" />
       </td>
+    </tr>
+    <tr>
+     <td class="SubHead" width="165">
+      <dnn:Label ID="plUser" runat="server" Suffix=":" />
+     </td>
+     <td>
+      <asp:TextBox runat="server" ID="txtUsername" Width="200" />
+     </td>
     </tr>
    </table>
   </asp:WizardStep>

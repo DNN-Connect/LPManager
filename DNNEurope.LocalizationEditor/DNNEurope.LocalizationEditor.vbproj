@@ -164,15 +164,13 @@
     <Compile Include="Components\Data\SqlDataProvider_CRUD.vb" />
     <Compile Include="Components\Data\SqlDataProvider_FK.vb" />
     <Compile Include="Components\Entities\Objects\ModuleInfo.vb" />
-    <Compile Include="Components\Entities\Objects\ObjectCoreVersionInfo_Interfaces.vb" />
-    <Compile Include="Components\Entities\Objects\ObjectCoreVersionInfo_Properties.vb" />
-    <Compile Include="Components\Entities\Objects\ObjectCoreVersionsController.vb" />
     <Compile Include="Components\Entities\Objects\ObjectInfo.vb" />
     <Compile Include="Components\Entities\Objects\ObjectInfo_Interfaces.vb" />
     <Compile Include="Components\Entities\Objects\ObjectInfo_Properties.vb" />
     <Compile Include="Components\Entities\Objects\ObjectMetrics.vb" />
     <Compile Include="Components\Entities\Objects\ObjectsController.vb" />
     <Compile Include="Components\Entities\Objects\ObjectsController_CRUD.vb" />
+    <Compile Include="Components\Entities\Packages\PackagesController.vb" />
     <Compile Include="Components\Entities\PartnerPacks\PartnerPackInfo_Interfaces.vb" />
     <Compile Include="Components\Entities\PartnerPacks\PartnerPackInfo_Properties.vb" />
     <Compile Include="Components\Entities\PartnerPacks\PartnerPacksController.vb" />
@@ -320,6 +318,26 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Content Include="EditPartner.ascx" />
+    <Content Include="images\chat_16.png" />
+    <Content Include="images\chat_32.png" />
+    <Content Include="images\clients_16.png" />
+    <Content Include="images\clients_32.png" />
+    <Content Include="images\down_16.png" />
+    <Content Include="images\down_32.png" />
+    <Content Include="images\file_16.png" />
+    <Content Include="images\file_32.png" />
+    <Content Include="images\network_connector_16.png" />
+    <Content Include="images\network_connector_32.png" />
+    <Content Include="images\pencil_16.png" />
+    <Content Include="images\pencil_32.png" />
+    <Content Include="images\recycle_bin_16.png" />
+    <Content Include="images\recycle_bin_32.png" />
+    <Content Include="images\up_16.png" />
+    <Content Include="images\up_32.png" />
+    <Content Include="images\user_16.png" />
+    <Content Include="images\user_32.png" />
+    <Content Include="images\zoom_16.png" />
+    <Content Include="images\zoom_32.png" />
     <Content Include="js\AutoSuggest.js" />
     <Content Include="js\Users.ascx.js" />
     <Content Include="module.css" />
@@ -342,7 +360,8 @@
     <None Include="_Installation\SQL2005\03.04.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\03.04.01.sqldataprovider" />
     <None Include="_Installation\SQL2005\04.00.00.sqldataprovider" />
-    <None Include="_Installation\SQL2005\Install.04.00.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\04.01.00.sqldataprovider" />
+    <None Include="_Installation\SQL2005\Install.04.01.00.sqldataprovider" />
     <None Include="_Installation\SQL2005\Uninstall.sqldataprovider" />
   </ItemGroup>
   <ItemGroup>

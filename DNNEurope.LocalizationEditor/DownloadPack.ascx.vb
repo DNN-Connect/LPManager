@@ -35,6 +35,8 @@ Partial Public Class DownloadPack
  Public Property FriendlyName As String = ""
  Public Property TotalItems As Integer = 0
  Public Property HasPartnerPacks As Boolean = False
+ Public Property Component As ObjectInfo = Nothing
+ Public Property Locale As String = ""
 #End Region
 
 #Region " Event Handlers "
@@ -42,44 +44,60 @@ Partial Public Class DownloadPack
 
   Globals.ReadValue(Me.Request.Params, "Object", Objectname)
   Globals.ReadValue(Me.Request.Params, "Version", Version)
+  Globals.ReadValue(Me.Request.Params, "Locale", Locale)
   If Objectname = "" Then
    Globals.ReadValue(Me.Request.Params, "ObjectId", ObjectId)
-   Dim tm As ObjectInfo = ObjectsController.GetObject(ObjectId)
-   Objectname = tm.ObjectName
-   FriendlyName = tm.FriendlyName
+   Component = ObjectsController.GetObject(ObjectId)
+   Objectname = Component.ObjectName
+   FriendlyName = Component.FriendlyName
   Else
-   Dim tm As ObjectInfo = ObjectsController.GetObjectByObjectName(ModuleId, Objectname)
-   Objectname = tm.ObjectName
-   FriendlyName = tm.FriendlyName
+   Component = ObjectsController.GetObjectByObjectName(ModuleId, Objectname)
+   Objectname = Component.ObjectName
+   FriendlyName = Component.FriendlyName
+   ObjectId = Component.ObjectId
   End If
-  If Not Me.IsPostBack Then
-   ddVersion.DataSource = DataProvider.Instance.GetVersions(Me.ObjectId)
-   ddVersion.DataBind()
-  End If
-  Try
-   If String.IsNullOrEmpty(Version) Then
-    Version = ddVersion.Items(ddVersion.Items.Count - 1).Text
-   End If
-   ddVersion.Items.FindByText(Version).Selected = True
-  Catch
-  End Try
-  TotalItems = TextsController.NrOfItems(ObjectId, Version)
-  Localization.LocalizeDataGrid(dgLocales, Me.LocalResourceFile)
 
-  ' Hide all if there are not items and show message to user
-  If TotalItems = 0 Then
+  If Locale = "" Then
+   pnlVersions.Visible = False
+   If Not Me.IsPostBack Then
+    ddVersion.DataSource = DataProvider.Instance.GetVersions(Me.ObjectId)
+    ddVersion.DataBind()
+   End If
+   Try
+    If String.IsNullOrEmpty(Version) Then
+     Version = ddVersion.Items(ddVersion.Items.Count - 1).Text
+    End If
+    ddVersion.Items.FindByText(Version).Selected = True
+   Catch
+   End Try
+   TotalItems = TextsController.NrOfItems(ObjectId, Version)
+   Localization.LocalizeDataGrid(dgLocales, Me.LocalResourceFile)
+   ' Hide all if there are not items and show message to user
+   If TotalItems = 0 Then
+    pnlTranslations.Visible = False
+    lblNoResourceFiles.Visible = True
+   End If
+  Else ' we already have a locale
    pnlTranslations.Visible = False
-   lblNoResourceFiles.Visible = True
+   pnlVersions.Visible = True
+   Localization.LocalizeDataGrid(dgVersions, Me.LocalResourceFile)
   End If
+
  End Sub
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
 
   If Not Me.IsPostBack Then
-   Dim dt As DataTable = DotNetNuke.Common.ConvertDataReaderToDataTable(DataProvider.Instance.GetLanguagePacks(ObjectId, Version))
-   dgLocales.DataSource = dt
-   dgLocales.DataBind()
-   cmdReturn.NavigateUrl = DotNetNuke.Common.NavigateURL
+   If Locale = "" Then
+    Dim dt As DataTable = DotNetNuke.Common.ConvertDataReaderToDataTable(DataProvider.Instance.GetLanguagePacks(ObjectId, Version))
+    dgLocales.DataSource = dt
+    dgLocales.DataBind()
+    cmdReturn.NavigateUrl = DotNetNuke.Common.NavigateURL
+   Else
+    dgVersions.DataSource = DataProvider.Instance.GetObjectVersionList(ObjectId, Locale)
+    dgVersions.DataBind()
+    cmdReturn.NavigateUrl = DotNetNuke.Common.NavigateURL("", "Locale=" & Locale)
+   End If
   End If
 
  End Sub
@@ -102,32 +120,16 @@ Partial Public Class DownloadPack
    objectId = remoteObjectId
    HasPartnerPacks = True
   End If
-  If o.IsCore Then
-   Dim res1 As String = "Core: "
-   Dim res2 As String = "Full: "
-   Dim i As Integer = 1
-   For Each drv As DataRowView In GetLocalesByCode(locale)
-    res1 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Core"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
-    res2 &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}&Type=Full"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
-    If i Mod 4 = 0 Then
-     res1 &= "<br />"
-     res2 &= "<br />"
-    End If
-    i += 1
-   Next
-   Return String.Format("{0}<br />{1}", res1, res2)
-  Else
-   Dim res As String = ""
-   Dim i As Integer = 1
-   For Each drv As DataRowView In GetLocalesByCode(locale)
-    res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
-    If i Mod 4 = 0 Then
-     res &= "<br />"
-    End If
-    i += 1
-   Next
-   Return res
-  End If
+  Dim res As String = ""
+  Dim i As Integer = 1
+  For Each drv As DataRowView In GetLocalesByCode(locale)
+   res &= String.Format("<a href=""{0}?ObjectId={1}&Locale={2}&Version={3}"">{2}</a>&nbsp;", packUrl, objectId, drv.Item("Locale"), version)
+   If i Mod 4 = 0 Then
+    res &= "<br />"
+   End If
+   i += 1
+  Next
+  Return res
  End Function
 #End Region
 

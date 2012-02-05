@@ -45,6 +45,23 @@
   </asp:DataGrid>
  </p>
 </asp:Panel>
+<asp:Panel runat="server" ID="pnlVersions">
+  <h2><%=(New Globalization.CultureInfo(Locale)).NativeName %></h2>
+  <asp:DataGrid ID="dgVersions" runat="server" GridLines="Horizontal" BorderWidth="1px" CellPadding="4" CellSpacing="0" AutoGenerateColumns="False" CssClass="le_tbl" HeaderStyle-CssClass="SubHead" ItemStyle-CssClass="Normal">
+   <Columns>
+    <asp:BoundColumn DataField="Version" HeaderText="Version" />
+    <asp:BoundColumn DataField="PercentComplete" HeaderText="PercentComplete" DataFormatString="{0:F0}" />
+    <asp:TemplateColumn HeaderText="Download">
+     <ItemTemplate>
+     <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "Version")%>&Locale=<%=Locale%>"
+       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>">
+      <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
+     </a>
+     </ItemTemplate>
+    </asp:TemplateColumn>
+   </Columns>
+  </asp:DataGrid>
+</asp:Panel>
 <p style="margin-top: 20px;">
  <asp:HyperLink runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return"  CssClass="CommandButton" />
 </p>

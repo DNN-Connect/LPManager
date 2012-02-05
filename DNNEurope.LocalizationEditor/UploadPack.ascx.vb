@@ -81,8 +81,15 @@ Partial Public Class Import
 
   If Not Me.IsPostBack Then
 
-   ddLocale.DataSource = DataProvider.Instance().GetLocalesForUser(UserId, PortalId, ModuleId)
-   ddLocale.DataBind()
+   If DotNetNuke.Security.Permissions.ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+    ddLocale.Visible = False
+    txtLocale.Visible = True
+   Else
+    ddLocale.Visible = True
+    txtLocale.Visible = False
+    ddLocale.DataSource = DataProvider.Instance().GetLocalesForUser(UserId, PortalId, ModuleId)
+    ddLocale.DataBind()
+   End If
 
    ddObject.DataSource = DataProvider.Instance().GetObjects(ModuleId)
    ddObject.DataBind()
@@ -95,6 +102,8 @@ Partial Public Class Import
 
    trVersion.Visible = False
    trObject.Visible = False
+
+   txtUsername.Text = UserInfo.Username
 
   End If
 
@@ -152,6 +161,7 @@ Partial Public Class Import
    End If
   Catch
   End Try
+  DotNetNuke.Common.Utilities.DataCache.RemoveCache(String.Format("LocList{0}", ModuleId))
   Me.Response.Redirect(NavigateURL(), False)
  End Sub
 
@@ -203,6 +213,18 @@ Partial Public Class Import
    Dim files As String() = IO.Directory.GetFiles(TempDirectory, "*.dnn")
    If files.Length > 0 Then
     ManifestFile = files(0)
+    ' try and parse out the locale already
+    Dim manifest As New XmlDocument
+    manifest.Load(ManifestFile)
+    If manifest.SelectSingleNode("dotnetnuke/packages/package[position()=1]/components/component/languageFiles/code") IsNot Nothing Then
+     Dim l As String = manifest.SelectSingleNode("dotnetnuke/packages/package[position()=1]/components/component/languageFiles/code").InnerText
+     Try
+      ddLocale.ClearSelection()
+      ddLocale.Items.FindByValue(l).Selected = True
+     Catch ex As Exception
+     End Try
+     txtLocale.Text = l
+    End If
    ElseIf IO.File.Exists(TempDirectory & "\Manifest.Xml") Then
     trObject.Visible = True
     trVersion.Visible = True
@@ -313,7 +335,10 @@ Partial Public Class Import
   resFile.Load(TempDirectory & "\" & tempResFile)
   report.AppendLine("Mapped to " & resFileKey)
   Dim hits As Integer = 0
-  Dim Locale As String = ddLocale.SelectedValue
+  Dim Locale As String = txtLocale.Text
+  If ddLocale.Visible = True Then
+   Locale = ddLocale.SelectedValue
+  End If
   Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
    Do While ir.Read
     hits += 1
@@ -339,7 +364,7 @@ Partial Public Class Import
    Loop
   End Using
   If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
-   Using ir As IDataReader = DataProvider.Instance.GetAdjacentTextsForCore(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
+   Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
     Do While ir.Read
      hits += 1
      Dim textKey As String = CStr(ir.Item("TextKey"))
@@ -450,10 +475,21 @@ Partial Public Class Import
   'Fix slashes (from / to \ )
   resFileKey = resFileKey.Replace("/"c, "\"c)
 
+  Dim authorUserId As Integer = UserId
+  If txtUsername.Text.Trim <> "" Then
+   Dim u As DotNetNuke.Entities.Users.UserInfo = DotNetNuke.Entities.Users.UserController.GetUserByName(PortalId, txtUsername.Text.Trim)
+   If u IsNot Nothing Then
+    authorUserId = u.UserID
+   End If
+  End If
+
   Dim updateList As New List(Of TranslationInfo)
   Dim addList As New List(Of TranslationInfo)
   Dim addStatisticsList As New Dictionary(Of Integer, Integer)
-  Dim Locale As String = ddLocale.SelectedValue
+  Dim Locale As String = txtLocale.Text
+  If ddLocale.Visible = True Then
+   Locale = ddLocale.SelectedValue
+  End If
   Dim hits As Integer = 0
   Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
    Do While ir.Read
@@ -482,12 +518,12 @@ Partial Public Class Import
          End If
          With tr
           .LastModified = Now
-          .LastModifiedUserId = UserId
+          .LastModifiedUserId = authorUserId
           .TextValue = transValue
          End With
          updateList.Add(tr)
          If Settings.KeepStatistics Then
-          StatisticsController.RecordStatistic(tr.TextId, Locale, UserId, stat)
+          StatisticsController.RecordStatistic(tr.TextId, Locale, authorUserId, stat)
          End If
         End If
        Else
@@ -496,7 +532,7 @@ Partial Public Class Import
          .TextId = textId
          .Locale = Locale
          .LastModified = Now
-         .LastModifiedUserId = UserId
+         .LastModifiedUserId = authorUserId
          .TextValue = transValue
         End With
         addList.Add(tr)
@@ -512,7 +548,7 @@ Partial Public Class Import
    Loop
   End Using
   If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
-   Using ir As IDataReader = DataProvider.Instance.GetAdjacentTextsForCore(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
+   Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
     Do While ir.Read
      Dim textKey As String = CStr(ir.Item("TextKey"))
      Dim textId As Integer = CInt(ir.Item("TextId"))
@@ -538,12 +574,12 @@ Partial Public Class Import
           End If
           With tr
            .LastModified = Now
-           .LastModifiedUserId = UserId
+           .LastModifiedUserId = authorUserId
            .TextValue = transValue
           End With
           updateList.Add(tr)
           If Settings.KeepStatistics Then
-           StatisticsController.RecordStatistic(textId, Locale, UserId, stat)
+           StatisticsController.RecordStatistic(textId, Locale, authorUserId, stat)
           End If
          End If
         Else
@@ -552,7 +588,7 @@ Partial Public Class Import
           .TextId = textId
           .Locale = Locale
           .LastModified = Now
-          .LastModifiedUserId = UserId
+          .LastModifiedUserId = authorUserId
           .TextValue = transValue
          End With
          addList.Add(tr)
@@ -578,7 +614,7 @@ Partial Public Class Import
 
   If Settings.KeepStatistics Then
    For Each tr As TranslationInfo In addList
-    StatisticsController.RecordStatistic(tr.TextId, tr.Locale, UserId, addStatisticsList(tr.TextId))
+    StatisticsController.RecordStatistic(tr.TextId, tr.Locale, authorUserId, addStatisticsList(tr.TextId))
    Next
   End If
 

@@ -54,13 +54,14 @@ Partial Public Class ManageObjects
    Return
   End If
 
-  PackageReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, "", False)
+  PackageReader.ImportModulePackage(ctlUpload.FileContent, PortalSettings.HomeDirectoryMapPath, ModuleId, Nothing)
 
   ' Reload data
   BindData()
  End Sub
 
  Private Sub cmdReturn_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdReturn.Click
+  DotNetNuke.Common.Utilities.DataCache.RemoveCache(String.Format("LocList{0}", ModuleId))
   Me.Response.Redirect(DotNetNuke.Common.NavigateURL, False)
  End Sub
 

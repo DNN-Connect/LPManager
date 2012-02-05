@@ -14,13 +14,31 @@ Option Explicit On
 Partial Public Class LocalizationEditor
 
  '''<summary>
- '''pnlEdit control.
+ '''plhLocales control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents pnlEdit As Global.System.Web.UI.WebControls.Panel
+ Protected WithEvents plhLocales As Global.System.Web.UI.WebControls.PlaceHolder
+
+ '''<summary>
+ '''pnlLocaleRequest control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents pnlLocaleRequest As Global.System.Web.UI.WebControls.Panel
+
+ '''<summary>
+ '''dlPackages control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents dlPackages As Global.System.Web.UI.WebControls.DataList
 
  '''<summary>
  '''dlObjects control.

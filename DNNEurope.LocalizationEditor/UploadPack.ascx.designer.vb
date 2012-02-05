@@ -104,6 +104,15 @@ Partial Public Class Import
  Protected WithEvents ddLocale As Global.System.Web.UI.WebControls.DropDownList
 
  '''<summary>
+ '''txtLocale control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtLocale As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
  '''trObject control.
  '''</summary>
  '''<remarks>
@@ -156,6 +165,24 @@ Partial Public Class Import
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
  Protected WithEvents ddVersion As Global.System.Web.UI.WebControls.DropDownList
+
+ '''<summary>
+ '''plUser control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plUser As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtUsername control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtUsername As Global.System.Web.UI.WebControls.TextBox
 
  '''<summary>
  '''WizardStep3 control.

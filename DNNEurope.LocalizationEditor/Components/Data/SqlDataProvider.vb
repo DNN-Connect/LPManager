@@ -22,22 +22,10 @@ Namespace Data
  Public Class SqlDataProvider
   Inherits DataProvider
 
-#Region " ObjectCoreVersion Methods "
-
-  Public Overrides Sub SetObjectCoreVersion(ObjectId As Int32, Version As String, DnnVersion As String, InstalledByDefault As Boolean)
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetObjectCoreVersion", ObjectId, Version, DnnVersion, InstalledByDefault)
-  End Sub
-
-  Public Overrides Function GetCoreObjects(ByVal DnnVersion As String, GetAllObjects As Boolean) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetCoreObjects", DnnVersion, GetAllObjects), IDataReader)
-  End Function
-
-#End Region
-
 #Region " Objects Methods "
 
   Public Overrides Function GetObjects(ByVal moduleId As Integer) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjects", ModuleId), IDataReader)
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjects", moduleId), IDataReader)
   End Function
 
   Public Overrides Function GetObjectByObjectNameAndModuleKey(ByVal portalId As Integer, ByVal objectName As String, ByVal moduleKey As String) As IDataReader
@@ -45,49 +33,27 @@ Namespace Data
   End Function
 
   Public Overrides Function GetObjectByObjectName(moduleId As Integer, ByVal objectName As String) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectName", ModuleId, ObjectName), IDataReader)
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectName", moduleId, objectName), IDataReader)
   End Function
 
   Public Overrides Function GetObjectsByObjectName(ByVal objectName As String) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsByObjectName", ObjectName), IDataReader)
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsByObjectName", objectName), IDataReader)
   End Function
 
-  Public Overrides Function GetObjectsWithStatus(ByVal moduleId As Integer) As IDataReader
-
-   Dim locales As List(Of String) = Entities.Translations.TranslationsController.GetLocales(ModuleId)
-   Dim sql As New StringBuilder
-   'sql.Append("SELECT o.ObjectId, o.ObjectName, o.FriendlyName, o.InstallPath, o.ModuleId, o.PackageType, o.LastVersion, COUNT(t.textId) NrTexts, MAX(ISNULL(pp.PercentComplete,0)) PartnerComplete")
-   sql.Append("SELECT o.ObjectId, o.ObjectName, o.FriendlyName, o.InstallPath, o.ModuleId, o.PackageType, o.LastVersion, o.LastVersionTextCount")
-   Dim i As Integer = 1
-   For Each Loc As String In locales
-    sql.AppendFormat(",COUNT(t{0}.TextId) {1}", i, Loc.Replace("-", ""))
-    i += 1
-   Next
-   sql.AppendLine()
-   sql.AppendFormat("FROM {0}{1}vw_LocalizationEditor_Objects o", DatabaseOwner, ObjectQualifier)
-   sql.AppendLine()
-   sql.AppendFormat(" LEFT JOIN {0}{1}LocalizationEditor_Texts t ON o.ObjectId=t.ObjectId AND (t.DeprecatedIn IS NULL) AND NOT (t.OriginalValue IS NULL OR t.OriginalValue='')", DatabaseOwner, ObjectQualifier)
-   sql.AppendLine()
-   i = 1
-   For Each Loc As String In locales
-    If Loc.Length > 2 Then
-     sql.AppendFormat(" LEFT JOIN {2}{3}LocalizationEditor_Translations t{0} ON t{0}.TextId=t.TextId AND (t{0}.Locale='{1}' OR t{0}.Locale='{4}')", i, Loc, DatabaseOwner, ObjectQualifier, Left(Loc, 2))
-    Else
-     sql.AppendFormat(" LEFT JOIN {2}{3}LocalizationEditor_Translations t{0} ON t{0}.TextId=t.TextId AND t{0}.Locale='{1}'", i, Loc, DatabaseOwner, ObjectQualifier)
-    End If
-    i += 1
-   Next
-   sql.AppendLine()
-   'sql.AppendFormat(" LEFT JOIN {0}{1}LocalizationEditor_PartnerPacks pp ON pp.ObjectId=o.ObjectId AND pp.Version=o.LastVersion", DatabaseOwner, ObjectQualifier)
-   'sql.AppendLine()
-   sql.AppendLine("GROUP BY o.ObjectId, o.ObjectName, o.FriendlyName, o.InstallPath, o.ModuleId, o.PackageType, o.LastVersion, o.LastVersionTextCount")
-   sql.AppendFormat("HAVING o.ModuleId={0}", ModuleId)
-   sql.AppendLine()
-   sql.AppendLine("ORDER BY o.FriendlyName")
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, CommandType.Text, sql.ToString), IDataReader)
-
+  Public Overrides Function GetObjectsWithStatus(ByVal moduleId As Integer, locale As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsWithStatus", moduleId, locale), IDataReader)
   End Function
 
+#End Region
+
+#Region " Package Methods "
+  Public Overrides Function GetObjectsByPackage(packageObjectId As Integer, version As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsByPackage", packageObjectId, version), IDataReader)
+  End Function
+
+  Public Overrides Sub RegisterPackageItem(ParentObjectId As Integer, ParentVersion As String, ChildObjectId As Integer, ChildVersion As String)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "RegisterPackageItem", ParentObjectId, ParentVersion, ChildObjectId, ChildVersion)
+  End Sub
 #End Region
 
 #Region " Permissions Methods "
@@ -132,8 +98,8 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTextsByObjectAndFile", ModuleId, ObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
   End Function
 
-  Public Overrides Function GetAdjacentTextsForCore(ByVal ModuleId As Integer, ByVal CoreObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetAdjacentTextsForCore", ModuleId, CoreObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
+  Public Overrides Function GetDependentTextsForObject(ByVal ModuleId As Integer, ByVal ParentObjectId As Integer, ByVal FilePath As String, ByVal Locale As String, ByVal Version As String, ByVal IncludeNonTranslated As Boolean) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetDependentTextsForObject", ModuleId, ParentObjectId, FilePath, Locale, Version, IncludeNonTranslated), IDataReader)
   End Function
 
   Public Overrides Function CurrentVersion(ByVal ObjectId As Integer, ByVal Locale As String) As IDataReader
@@ -148,8 +114,8 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "NrOfFiles", ObjectId, Version), IDataReader)
   End Function
 
-  Public Overrides Function NrOfItems(ByVal ObjectId As Integer, ByVal Version As String) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "NrOfItems", ObjectId, Version), IDataReader)
+  Public Overrides Function NrOfItems(ByVal ObjectId As Integer, ByVal Version As String) As Integer
+   Return CType(SqlHelper.ExecuteScalar(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "NrOfItems", ObjectId, Version), Integer)
   End Function
 
   Public Overrides Function NrOfMissingTranslations(ByVal ObjectId As Integer, ByVal Locale As String, ByVal Version As String) As IDataReader
@@ -168,12 +134,20 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslationList", ObjectId, Locale, SourceLocale, Version), IDataReader)
   End Function
 
+  Public Overrides Function GetTextByVersion(ObjectId As Integer, FilePath As String, TextKey As String, Version As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTextByVersion", ObjectId, FilePath, TextKey, Version), IDataReader)
+  End Function
+
+  Public Overrides Function GetOldestText(ObjectId As Integer, FilePath As String, TextKey As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetOldestText", ObjectId, FilePath, TextKey), IDataReader)
+  End Function
+
 #End Region
 
 #Region " Translations Methods "
 
   Public Overrides Function SetTranslation(ByVal lastModified As Date, ByVal lastModifiedUserId As Int32, ByVal locale As String, ByVal textId As Int32, ByVal textValue As String) As Integer
-   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetTranslation", GetNull(LastModified), GetNull(LastModifiedUserId), Locale, TextId, GetNull(TextValue))
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "SetTranslation", GetNull(lastModified), GetNull(lastModifiedUserId), locale, textId, GetNull(textValue))
   End Function
 
 #End Region
@@ -195,7 +169,7 @@ Namespace Data
   End Function
 
   Public Overrides Function GetLocales(ByVal moduleId As Integer) As IDataReader
-   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetLocales", ModuleId), IDataReader)
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetLocales", moduleId), IDataReader)
   End Function
 
   Public Overrides Function GetLocalesForUser(ByVal UserId As Integer, ByVal PortalId As Integer, ByVal ModuleId As Integer) As IDataReader
@@ -226,6 +200,13 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetCube", ModuleId), IDataReader)
   End Function
 
+  Public Overrides Function GetObjectVersionList(ObjectId As Integer, Locale As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectVersionList", ObjectId, Locale), IDataReader)
+  End Function
+
+  Public Overrides Function GetObjectPackList(ObjectId As Integer, Version As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectPackList", ObjectId, Version), IDataReader)
+  End Function
 #End Region
 
  End Class

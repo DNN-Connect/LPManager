@@ -124,13 +124,13 @@
     <value>Manage objects</value>
   </data>
   <data name="lblObjects.Text" xml:space="preserve">
-    <value>Objects</value>
+    <value>Component</value>
   </data>
   <data name="lbManagePermissions.Text" xml:space="preserve">
     <value>Manage permissions</value>
   </data>
   <data name="lblLocaleAction.Text" xml:space="preserve">
-    <value>% translation completed</value>
+    <value>% Complete</value>
   </data>
   <data name="lblObjectAction.Text" xml:space="preserve">
     <value>Click to download pack</value>
@@ -177,5 +177,29 @@
   </data>
   <data name="lbManagePartners.Text" xml:space="preserve">
     <value>Manage Partners</value>
+  </data>
+  <data name="Other.Text" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Components.Text" xml:space="preserve">
+    <value>Components</value>
+  </data>
+  <data name="Download.Text" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Edit.Text" xml:space="preserve">
+    <value>Edit Resources</value>
+  </data>
+  <data name="lblPackage.Text" xml:space="preserve">
+    <value>Package</value>
+  </data>
+  <data name="OtherVersions.Text" xml:space="preserve">
+    <value>Older Versions</value>
+  </data>
+  <data name="Packages.Text" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="Back.Text" xml:space="preserve">
+    <value>Back to Main List</value>
   </data>
 </root>

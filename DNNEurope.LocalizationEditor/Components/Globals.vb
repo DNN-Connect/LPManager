@@ -25,6 +25,7 @@ Public Class Globals
  Public Const glbCoreName As String = "Core"
  Public Const glbCoreFriendlyName As String = "DNN Core"
  Public Const glbSharedResources As String = "DesktopModules/DNNEurope/LocalizationEditor/App_LocalResources/SharedResources"
+ Public Shared glbProPackages As String() = {"DNN_HTML"}
 
  Public Shared Function PackUrl() As String
   Return CorrectUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")

@@ -63,3 +63,34 @@ table.le_tbl tbody tr.le_thdr td
 {
  font-weight: bold;
 }
+
+div.genericLocale 
+{
+ display:block;
+ font-size:large;
+ font-weight:bold;
+ margin: 14px 0px 10px 0px;
+ padding-bottom: 4px;
+ width: 100%;
+ border-bottom: 1px dotted #324565;
+}
+
+div.specificLocale
+{
+ display: inline-block;
+ padding: 4px;
+ margin: 2px 4px 2px 0px;
+ border: 1px solid #eee;
+ background-color: #324565;
+}
+div.specificLocale a
+{
+ white-space: nowrap;
+ color: #fff;
+ font-weight: bold;
+}
+div.specificLocale a:hover, div.specificLocale a:active
+{
+ color: #ABBBD6;
+ text-decoration:none;
+}

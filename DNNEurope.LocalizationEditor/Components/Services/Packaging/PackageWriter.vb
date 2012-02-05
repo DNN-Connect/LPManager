@@ -23,6 +23,7 @@ Imports System.Globalization
 Imports ICSharpCode.SharpZipLib.Zip
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Texts
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Packages
 
 Namespace Services.Packaging
  Public Class PackageWriter
@@ -37,14 +38,7 @@ Namespace Services.Packaging
    End If
    Dim fileName As String = ""
 
-   Dim objectsToPack As New List(Of ObjectInfo)
-   objectsToPack.Add(objObject)
-   ' If it's a Core pack we include default objects
-   If objObject.IsCore Then
-    For Each o As ObjectInfo In ObjectCoreVersionsController.GetCoreObjects(version, isFullPack)
-     objectsToPack.Add(o)
-    Next
-   End If
+   Dim objectsToPack As List(Of ObjectInfo) = ObjectsController.GetObjectPackList(objObject.ObjectId, version)
 
    Dim strmZipFile As FileStream = Nothing
 
@@ -52,11 +46,6 @@ Namespace Services.Packaging
 
     Dim packName As String = objObject.ObjectName
     fileName = "ResourcePack." & CleanName(packName)
-    If objObject.IsCore Then
-     If isFullPack Then
-      fileName &= ".Full"
-     End If
-    End If
     fileName &= "." & version & "." & locale & ".zip"
 
     Dim packPath As String = DotNetNuke.Common.ApplicationMapPath & "\" & objObject.Module.HomeDirectory & "\LocalizationEditor\Cache\" & objObject.ModuleId.ToString & "\"
@@ -82,29 +71,25 @@ Namespace Services.Packaging
 
     strmZipFile = File.Create(packPath & fileName)
     Dim strmZipStream As ZipOutputStream = Nothing
+
     Try
+
      strmZipStream = New ZipOutputStream(strmZipFile)
-
      Dim myZipEntry As ZipEntry
-
      Dim loc As New CultureInfo(locale)
-     Dim manifestName As String = packName & "_" & loc.Name & ".dnn"
-     manifestName = manifestName.Replace("/", "_").Replace("\", "_")
-     myZipEntry = New ZipEntry(manifestName)
-     strmZipStream.PutNextEntry(myZipEntry)
-     strmZipStream.SetLevel(compressionLevel)
-     Dim manifestV5 As XmlDocument = GetLanguagePackManifestV5(objectsToPack, version, locale)
-     Dim quirkPack As Boolean = CBool(objectsToPack(0).IsCore And version < "06.00.00")
-     Dim fileData As Byte() = Encoding.UTF8.GetBytes(manifestV5.OuterXml)
-     strmZipStream.Write(fileData, 0, fileData.Length)
+     Dim fileData As Byte()
+     'Dim quirkPack As Boolean = CBool(objectsToPack(0).IsCore And version < "06.00.00")
+     Dim packedObjects As New List(Of ObjectInfo)
 
      For Each o As ObjectInfo In objectsToPack
-      Dim basePath As String = ""
-      If Not quirkPack Then basePath = GetObjectBasePath(o)
+      'Dim basePath As String = ""
+      'If Not quirkPack Then basePath = GetObjectBasePath(o)
+      Dim hasTexts As Boolean = False
       For Each filePath As String In TextsController.GetFileList(o.ObjectId, version)
        Dim resFileName As String = Mid(filePath, filePath.LastIndexOf("\") + 2)
        resFileName = resFileName.Replace(".resx", pattern)
-       Dim targetPath As String = GetResourceZipPathV5(filePath, basePath)
+       'Dim targetPath As String = GetResourceZipPathV5(filePath, basePath)
+       Dim targetPath As String = GetResourceZipPathV5(filePath, "")
        Dim texts As IDictionary(Of Integer, Entities.Texts.TextInfo) = TextsController.GetTextsByObjectAndFile(o.ModuleId, o.ObjectId, filePath, locale, version, False)
        If texts.Count > 0 Then ' do not write an empty file
         Dim resDoc As New XmlDocument
@@ -127,9 +112,26 @@ Namespace Services.Packaging
          fileData = w.ToArray()
         End Using
         strmZipStream.Write(fileData, 0, fileData.Length)
+        hasTexts = True
        End If
       Next
+      If hasTexts Then
+       If o.IsCore Then
+        packedObjects.Insert(0, o)
+       Else
+        packedObjects.Add(o)
+       End If
+      End If
      Next
+
+     Dim manifestName As String = packName & "_" & loc.Name & ".dnn"
+     manifestName = manifestName.Replace("/", "_").Replace("\", "_")
+     myZipEntry = New ZipEntry(manifestName)
+     strmZipStream.PutNextEntry(myZipEntry)
+     strmZipStream.SetLevel(compressionLevel)
+     Dim manifestV5 As XmlDocument = GetLanguagePackManifestV5(packedObjects, locale)
+     fileData = Encoding.UTF8.GetBytes(manifestV5.OuterXml)
+     strmZipStream.Write(fileData, 0, fileData.Length)
 
     Catch ex As Exception
 
@@ -187,7 +189,7 @@ Namespace Services.Packaging
 #End Region
 
 #Region " Pack Creation V5 DNN 6+ "
-  Private Shared Function GetLanguagePackManifestV5(ByVal objObjects As List(Of ObjectInfo), ByVal version As String, ByVal locale As String) As XmlDocument
+  Private Shared Function GetLanguagePackManifestV5(ByVal objObjects As List(Of ObjectInfo), ByVal locale As String) As XmlDocument
    Dim loc As New CultureInfo(locale)
    Dim manifest As New XmlDocument
    manifest.AppendChild(manifest.CreateXmlDeclaration("1.0", Nothing, Nothing))
@@ -196,29 +198,24 @@ Namespace Services.Packaging
    Globals.AddAttribute(root, "type", "Package")
    Globals.AddAttribute(root, "version", "5.0")
    Dim package As XmlNode = Globals.AddElement(root, "packages")
-   If objObjects(0).IsCore And version < "06.00.00" Then
-    ' Special provision as DNN 5 installer fails if a dependant package is not installed
-    AddCoreV5ManifestDnn5(package, objObjects, version, loc)
-   Else
-    For Each objObject As ObjectInfo In objObjects
-     AddObjectToV5Manifest(package, objObject, version, loc)
-    Next
-   End If
+   For Each objObject As ObjectInfo In objObjects
+    AddObjectToV5Manifest(package, objObject, loc)
+   Next
    Return manifest
   End Function
 
-  Private Shared Sub AddObjectToV5Manifest(ByRef packagesNode As XmlNode, ByVal objObject As ObjectInfo, ByVal version As String, ByVal loc As CultureInfo)
+  Private Shared Sub AddObjectToV5Manifest(ByRef packagesNode As XmlNode, ByVal objObject As ObjectInfo, ByVal loc As CultureInfo)
 
    Dim package As XmlNode = Globals.AddElement(packagesNode, "package")
-   Globals.AddAttribute(package, "name", objObject.ObjectName & " " & loc.NativeName) ' Our package name. The convention is Objectname + verbose language
+   Globals.AddAttribute(package, "name", objObject.ObjectName & "_" & loc.Name) ' Our package name.
    If objObject.IsCore Then
     Globals.AddAttribute(package, "type", "CoreLanguagePack")
    Else
     Globals.AddAttribute(package, "type", "ExtensionLanguagePack")
    End If
-   Globals.AddAttribute(package, "version", version)
-   Globals.AddElement(package, "friendlyName", objObject.ObjectName & " " & loc.NativeName) ' little to add here to name
-   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.ObjectName))
+   Globals.AddAttribute(package, "version", objObject.Version)
+   Globals.AddElement(package, "friendlyName", objObject.FriendlyName & " " & loc.NativeName) ' little to add here to name
+   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.FriendlyName))
    Dim owner As XmlNode = Globals.AddElement(package, "owner")
    Globals.AddElement(owner, "name", objObject.Module.OwnerName)
    Globals.AddElement(owner, "organization", objObject.Module.OwnerOrganization)
@@ -240,16 +237,21 @@ Namespace Services.Packaging
     Dim dnnPackage As New DotNetNuke.Services.Installer.Packages.PackageInfo
     With dnnPackage
      .PackageType = objObject.PackageType
-     .Name = objObject.ObjectName
+     If Right(objObject.ObjectName, 4) = "_PRO" AndAlso Globals.glbProPackages.Contains(objObject.ObjectName.Replace("_PRO", "")) Then
+      .Name = objObject.ObjectName.Replace("_PRO", "")
+     Else
+      .Name = objObject.ObjectName
+     End If
      .FriendlyName = objObject.FriendlyName
     End With
     DotNetNuke.Services.Installer.LegacyUtil.ParsePackageName(dnnPackage)
     Globals.AddElement(files, "package", dnnPackage.Name) ' this creates the dependency between lang pack and object (ignored for Core)
    End If
-   Dim basePath As String = GetObjectBasePath(objObject)
+   'Dim basePath As String = GetObjectBasePath(objObject)
+   Dim basePath As String = ""
    Globals.AddElement(files, "basePath", basePath) ' basepath needs to be added to object
-   For Each filePath As String In TextsController.GetFileList(objObject.ObjectId, version)
-    If TextsController.GetTextsByObjectAndFile(objObject.ModuleId, objObject.ObjectId, filePath, loc.Name, version, False).Count > 0 Then
+   For Each filePath As String In TextsController.GetFileList(objObject.ObjectId, objObject.Version)
+    If TextsController.GetTextsByObjectAndFile(objObject.ModuleId, objObject.ObjectId, filePath, loc.Name, objObject.Version, False).Count > 0 Then
      AddPackResourcePathToManifestV5(files, filePath, loc.Name, basePath)
     End If
    Next
