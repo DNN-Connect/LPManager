@@ -504,9 +504,9 @@ Partial Public Class Import
      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
      If xNode IsNot Nothing Then
       Try
-       Dim transValue As String = xNode.SelectSingleNode("value").InnerText
+       Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
        If hasValue Then
-        Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
+        Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, CStr(ir.Item("Locale")))
         If tr.TextValue <> transValue Then
          Dim stat As Integer = 0
          If Settings.KeepStatistics Then
@@ -560,7 +560,7 @@ Partial Public Class Import
       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
       If xNode IsNot Nothing Then
        Try
-        Dim transValue As String = xNode.SelectSingleNode("value").InnerText
+        Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
         If hasValue Then
          Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
          If tr.TextValue <> transValue Then

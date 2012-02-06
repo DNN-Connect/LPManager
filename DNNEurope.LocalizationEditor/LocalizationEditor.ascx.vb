@@ -36,6 +36,8 @@ Partial Public Class LocalizationEditor
 
 #Region " Properties "
  Public Property Locale As String = ""
+ Public Property IsEditorSpecificLocale As Boolean = False
+ Public Property IsEditorGenericLocale As Boolean = False
 
  Public Property UserLocales As List(Of String)
   Get
@@ -78,6 +80,8 @@ Partial Public Class LocalizationEditor
   If UserInfo.IsSuperUser Then
    _userId = PortalSettings.AdministratorId
   End If
+  IsEditorSpecificLocale = UserLocales.Contains(Locale)
+  IsEditorGenericLocale = UserLocales.Contains(Left(Locale, 2))
  End Sub
 
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
@@ -152,10 +156,14 @@ Partial Public Class LocalizationEditor
 
  Public Function GetEditColumn(ByVal r As Object) As String
   Dim record As DataRowView = CType(r, DataRowView)
-  If UserLocales.Contains(Locale) Then
-   Return String.Format("<a href=""{0}"" class=""CommandButton""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale), ResolveUrl("~/images/edit_pen.gif"), GetString("Edit", LocalResourceFile))
+  Dim res As String = ""
+  If IsEditorSpecificLocale Then
+   res = String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale, "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Locale))
   End If
-  Return ""
+  If IsEditorGenericLocale Then
+   res &= String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Left(Locale, 2), "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Left(Locale, 2)))
+  End If
+  Return res
  End Function
 
  Public Function GetObjectUrl(ByVal objectId As Integer) As String
@@ -241,7 +249,11 @@ Partial Public Class LocalizationEditor
   Else
    pnlLocaleRequest.Visible = True
    Dim oList As DataTable = DotNetNuke.Common.ConvertDataReaderToDataTable(DataProvider.Instance.GetObjectsWithStatus(ModuleId, Locale))
-   dlObjects.DataSource = New DataView(oList, "PackageType<>'Pack' And TextCount>0", "FriendlyName", DataViewRowState.CurrentRows)
+   If IsEditorGenericLocale Or IsEditorSpecificLocale Then
+    dlObjects.DataSource = New DataView(oList, "PackageType<>'Pack'", "FriendlyName", DataViewRowState.CurrentRows)
+   Else
+    dlObjects.DataSource = New DataView(oList, "PackageType<>'Pack' And TextCount>0", "FriendlyName", DataViewRowState.CurrentRows)
+   End If
    dlObjects.DataBind()
    dlPackages.DataSource = New DataView(oList, "PackageType='Pack' And ChildCount>0", "FriendlyName", DataViewRowState.CurrentRows)
    dlPackages.DataBind()
@@ -249,13 +261,6 @@ Partial Public Class LocalizationEditor
     pnlLocaleRequest.Visible = False
    End If
   End If
-  'Dim sb As New StringBuilder
-  'sb.Append("<table>")
-  'For Each c As Globalization.CultureInfo In Globalization.CultureInfo.GetCultures(Globalization.CultureTypes.AllCultures)
-  ' sb.AppendFormat("<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>", c.Name, c.NativeName, c.EnglishName, c.DisplayName)
-  'Next
-  'sb.Append("</table>")
-  'plhLocales.Controls.Add(New LiteralControl(sb.ToString))
 
   cmdUploadPack.Visible = cmdUploadPack.Visible Or CBool(UserLocales.Count > 0)
 

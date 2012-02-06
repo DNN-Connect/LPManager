@@ -188,7 +188,7 @@
     <value>Download</value>
   </data>
   <data name="Edit.Text" xml:space="preserve">
-    <value>Edit Resources</value>
+    <value>Edit {0} Resources</value>
   </data>
   <data name="lblPackage.Text" xml:space="preserve">
     <value>Package</value>
