@@ -38,6 +38,7 @@ Partial Public Class LocalizationEditor
  Public Property Locale As String = ""
  Public Property IsEditorSpecificLocale As Boolean = False
  Public Property IsEditorGenericLocale As Boolean = False
+ Public Property IsEditor As Boolean = False
 
  Public Property UserLocales As List(Of String)
   Get
@@ -64,6 +65,11 @@ Partial Public Class LocalizationEditor
   Get
    If _allLocales Is Nothing Then
     _allLocales = Entities.Translations.TranslationsController.GetLocales(ModuleId)
+    For Each l As String In UserLocales
+     If Not _allLocales.Contains(l) Then
+      _allLocales.Add(l)
+     End If
+    Next
    End If
    Return _allLocales
   End Get
@@ -82,6 +88,7 @@ Partial Public Class LocalizationEditor
   End If
   IsEditorSpecificLocale = UserLocales.Contains(Locale)
   IsEditorGenericLocale = UserLocales.Contains(Left(Locale, 2))
+  IsEditor = CBool(UserLocales.Count > 0)
  End Sub
 
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
@@ -91,7 +98,7 @@ Partial Public Class LocalizationEditor
    cmdManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    cmdManagePartners.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
    cmdClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") And Me.Settings.CachePacks
-   cmdUploadPack.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
+   cmdUploadPack.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Or IsEditor
 
    If Not Me.IsPostBack Then
 
@@ -182,8 +189,11 @@ Partial Public Class LocalizationEditor
 
  Public Overrides Sub DataBind()
 
-  If _locale = "" Then
-   Dim locList As String = CType(DotNetNuke.Common.Utilities.DataCache.GetCache(ListCacheKey), String)
+  If _Locale = "" Then
+   Dim locList As String = Nothing
+   If Not IsEditor Then
+    locList = CType(DotNetNuke.Common.Utilities.DataCache.GetCache(ListCacheKey), String)
+   End If
    If locList Is Nothing Then
     Dim llb As New StringBuilder
     Dim ourUrl As String = DotNetNuke.Common.NavigateURL(TabId)
@@ -243,7 +253,9 @@ Partial Public Class LocalizationEditor
     End If
     locList = llb.ToString
    End If
-   DotNetNuke.Common.Utilities.DataCache.SetCache(ListCacheKey, locList, Now.AddMinutes(30))
+   If Not IsEditor Then
+    DotNetNuke.Common.Utilities.DataCache.SetCache(ListCacheKey, locList)
+   End If
    plhLocales.Controls.Add(New LiteralControl(locList))
    pnlLocaleRequest.Visible = False
   Else
@@ -261,8 +273,6 @@ Partial Public Class LocalizationEditor
     pnlLocaleRequest.Visible = False
    End If
   End If
-
-  cmdUploadPack.Visible = cmdUploadPack.Visible Or CBool(UserLocales.Count > 0)
 
  End Sub
 

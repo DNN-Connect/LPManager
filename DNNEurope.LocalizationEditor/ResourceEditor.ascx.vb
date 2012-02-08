@@ -171,6 +171,7 @@ Partial Public Class ResourceEditor
 
  Private Sub cmdUpdate_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdUpdate.Click
   Update()
+  DotNetNuke.Common.Utilities.DataCache.RemoveCache(String.Format("LocList{0}", ModuleId))
   Me.Response.Redirect(EditUrl("ObjectId", ObjectId.ToString, "ObjectSummary", "Locale=" & Locale), False)
  End Sub
 

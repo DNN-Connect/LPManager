@@ -481,14 +481,11 @@ Namespace Services.Packaging
     keyBasePath &= "\"
    End If
 
-   For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*.as?x.resx")
+   For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*.resx")
     If manifestModule.ResourceFiles(keyBasePath & f.Name) Is Nothing Then
-     manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
-    End If
-   Next
-   For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*Resources.resx")
-    If manifestModule.ResourceFiles(keyBasePath & f.Name) Is Nothing Then
-     manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
+     If Not Regex.Match(f.Name, "\.\w{2,3}-\w\w\.").Success Then ' filter out all files that are not default locale
+      manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
+     End If
     End If
    Next
 
