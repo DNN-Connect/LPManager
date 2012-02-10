@@ -141,6 +141,12 @@
   <data name="plAllowDirectDownload.Text" xml:space="preserve">
     <value>Allow Direct Download</value>
   </data>
+  <data name="plAttribution.Help" xml:space="preserve">
+    <value>Text fragment that will be added to the pack description and release notes for atribution. This uses token replace and finds contributing users from the statistics</value>
+  </data>
+  <data name="plAttribution.Text" xml:space="preserve">
+    <value>Attribution</value>
+  </data>
   <data name="plAutoImportObjects.Help" xml:space="preserve">
     <value>If selected then objects managed by partners will be imported into your system so they can be found by others.</value>
   </data>

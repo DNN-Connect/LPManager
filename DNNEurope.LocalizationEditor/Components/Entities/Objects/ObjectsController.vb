@@ -45,6 +45,10 @@ Namespace Entities.Objects
    Return CBO.FillCollection(Of ObjectInfo)(DataProvider.Instance().GetObjectPackList(ObjectId, Version))
   End Function
 
+  Public Shared Function GetContributorList(ByVal ObjectId As Integer, Version As String, locale As String) As List(Of DotNetNuke.Entities.Users.UserInfo)
+   Return CBO.FillCollection(Of DotNetNuke.Entities.Users.UserInfo)(DataProvider.Instance().GetContributorList(ObjectId, Version, locale))
+  End Function
+
   Public Shared Function GetObjectMetrics(ByVal objectId As Integer, ByVal locale As String) As ObjectMetrics
    Dim res As New ObjectMetrics
    With res

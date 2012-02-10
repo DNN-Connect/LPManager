@@ -122,6 +122,24 @@ Partial Public Class Settings
  Protected WithEvents txtLicense As Global.System.Web.UI.WebControls.TextBox
 
  '''<summary>
+ '''plAttribution control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plAttribution As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtAttribution control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtAttribution As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
  '''lblOther control.
  '''</summary>
  '''<remarks>

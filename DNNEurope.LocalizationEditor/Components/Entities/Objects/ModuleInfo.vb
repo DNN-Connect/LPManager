@@ -26,17 +26,7 @@ Namespace Entities.Objects
  <Serializable(), XmlRoot("Module")> Public Class ModuleInfo
   Implements IHydratable
 
-  ' local property declarations
-  Private _moduleId As Integer
-  Private _HomeDirectory As String
-  Private _OwnerName As String
-  Private _OwnerEmail As String
-  Private _OwnerOrganization As String
-  Private _OwnerUrl As String
-  Private _CachePacks As Boolean
-
 #Region " Constructors "
-
   Public Sub New(ByVal objectId As Integer)
    MyBase.New()
    Using ir As IDataReader = Data.DataProvider.Instance().GetModuleForObject(objectId)
@@ -45,75 +35,17 @@ Namespace Entities.Objects
     End If
    End Using
   End Sub
-
 #End Region
 
 #Region " Public Properties "
-
-  Public Property ModuleId() As Integer
-   Get
-    Return _moduleId
-   End Get
-   Set(ByVal value As Integer)
-    _moduleId = value
-   End Set
-  End Property
-
-  Public Property HomeDirectory() As String
-   Get
-    Return _HomeDirectory
-   End Get
-   Set(ByVal Value As String)
-    _HomeDirectory = Value
-   End Set
-  End Property
-
-  Public Property OwnerName() As String
-   Get
-    Return _OwnerName
-   End Get
-   Set(ByVal Value As String)
-    _OwnerName = Value
-   End Set
-  End Property
-
-  Public Property OwnerEmail() As String
-   Get
-    Return _OwnerEmail
-   End Get
-   Set(ByVal value As String)
-    _OwnerEmail = value
-   End Set
-  End Property
-
-  Public Property OwnerOrganization() As String
-   Get
-    Return _OwnerOrganization
-   End Get
-   Set(ByVal value As String)
-    _OwnerOrganization = value
-   End Set
-  End Property
-
-  Public Property OwnerUrl() As String
-   Get
-    Return _OwnerUrl
-   End Get
-   Set(ByVal value As String)
-    _OwnerUrl = value
-   End Set
-  End Property
-
-  Public Property CachePacks() As Boolean
-   Get
-    Return _CachePacks
-   End Get
-   Set(ByVal value As Boolean)
-    _CachePacks = value
-   End Set
-  End Property
-
-
+  Public Property ModuleId As Integer = -1
+  Public Property HomeDirectory As String = ""
+  Public Property OwnerName As String = ""
+  Public Property OwnerEmail As String = ""
+  Public Property OwnerOrganization As String = ""
+  Public Property OwnerUrl As String = ""
+  Public Property CachePacks As Boolean = True
+  Public Property Attribution As String = ""
 #End Region
 
 #Region " IHydratable Implementation "
@@ -137,6 +69,7 @@ Namespace Entities.Objects
     OwnerOrganization = Convert.ToString(Null.SetNull(dr.Item("OwnerOrganization"), OwnerOrganization))
     OwnerUrl = Convert.ToString(Null.SetNull(dr.Item("OwnerUrl"), OwnerUrl))
     CachePacks = Convert.ToBoolean(Null.SetNull(dr.Item("CachePacks"), CachePacks))
+    Attribution = Convert.ToString(Null.SetNull(dr.Item("Attribution"), Attribution))
    Catch ex As Exception
    End Try
   End Sub

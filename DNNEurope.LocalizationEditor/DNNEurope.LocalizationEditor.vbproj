@@ -219,6 +219,7 @@
     <Compile Include="Components\Services\Logging\LogType.vb" />
     <Compile Include="Components\Services\Packaging\PackageReader.vb" />
     <Compile Include="Components\Services\Packaging\PackageWriter.vb" />
+    <Compile Include="Components\Services\Packaging\TokenReplace.vb" />
     <Compile Include="Controls\Editor.ascx.designer.vb">
       <DependentUpon>Editor.ascx</DependentUpon>
     </Compile>

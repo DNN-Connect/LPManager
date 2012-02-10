@@ -44,6 +44,14 @@ Namespace Entities.Objects
 
 #End Region
 
+#Region " Public Methods "
+
+  Public Function GetParents() As List(Of ObjectInfo)
+   Return Packages.PackagesController.GetParentObjects(ObjectId, Version)
+  End Function
+
+#End Region
+
  End Class
 
 End Namespace

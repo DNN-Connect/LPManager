@@ -31,7 +31,8 @@
     </td>
     <td>
      <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>&Locale=<%=Locale%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>">
+       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>"
+       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>">
       <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
      </a>
     </td>

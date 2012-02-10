@@ -23,17 +23,18 @@ Imports DNNEurope.Modules.LocalizationEditor.Globals
 Public Class ModuleSettings
 
 #Region " Properties "
- Public Property OwnerName() As String = ""
- Public Property OwnerEmail() As String = ""
- Public Property OwnerUrl() As String = ""
- Public Property OwnerOrganization() As String = ""
- Public Property License() As String = ""
- Public Property CachePacks() As Boolean = True
- Public Property AllowDirectDownload() As Boolean = True
- Public Property AllowDataExtract() As Boolean = True
- Public Property KeepStatistics() As Boolean = False
- Public Property AutoImportObjects() As Boolean = False
+ Public Property OwnerName As String = ""
+ Public Property OwnerEmail As String = ""
+ Public Property OwnerUrl As String = ""
+ Public Property OwnerOrganization As String = ""
+ Public Property License As String = ""
+ Public Property CachePacks As Boolean = True
+ Public Property AllowDirectDownload As Boolean = True
+ Public Property AllowDataExtract As Boolean = True
+ Public Property KeepStatistics As Boolean = False
+ Public Property AutoImportObjects As Boolean = False
  Public Property ModuleKey As String = ""
+ Public Property Attribution As String = ""
 #End Region
 
 #Region " Constructors "
@@ -54,6 +55,7 @@ Public Class ModuleSettings
   ReadValue(settings, "KeepStatistics", KeepStatistics)
   ReadValue(settings, "AutoImportObjects", AutoImportObjects)
   ReadValue(settings, "ModuleKey", ModuleKey)
+  ReadValue(settings, "Attribution", Attribution)
 
   If portalHomeDirMapPath <> "" Then
    License = Globals.GetLicense(portalHomeDirMapPath, moduleId)
@@ -76,6 +78,7 @@ Public Class ModuleSettings
   objModules.UpdateModuleSetting(ModuleId, "AllowDataExtract", Me.AllowDataExtract.ToString)
   objModules.UpdateModuleSetting(moduleId, "KeepStatistics", Me.KeepStatistics.ToString)
   objModules.UpdateModuleSetting(moduleId, "ModuleKey", Me.ModuleKey)
+  objModules.UpdateModuleSetting(moduleId, "Attribution", Me.Attribution)
   DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey(moduleId), Me)
   Globals.WriteLicense(portalHomeDirMapPath, ModuleId, License)
 

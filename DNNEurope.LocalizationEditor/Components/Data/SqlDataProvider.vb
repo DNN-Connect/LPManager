@@ -54,6 +54,10 @@ Namespace Data
   Public Overrides Sub RegisterPackageItem(ParentObjectId As Integer, ParentVersion As String, ChildObjectId As Integer, ChildVersion As String)
    SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "RegisterPackageItem", ParentObjectId, ParentVersion, ChildObjectId, ChildVersion)
   End Sub
+
+  Public Overrides Function GetParentObjects(objectId As Integer, version As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetParentObjects", objectId, version), IDataReader)
+  End Function
 #End Region
 
 #Region " Permissions Methods "
@@ -206,6 +210,10 @@ Namespace Data
 
   Public Overrides Function GetObjectPackList(ObjectId As Integer, Version As String) As System.Data.IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectPackList", ObjectId, Version), IDataReader)
+  End Function
+
+  Public Overrides Function GetContributorList(ObjectId As Integer, Version As String, locale As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetContributorList", ObjectId, Version, locale), IDataReader)
   End Function
 #End Region
 

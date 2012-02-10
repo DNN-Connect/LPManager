@@ -52,6 +52,14 @@
   </td>
  </tr>
  <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plAttribution" runat="server" controlname="txtAttribution" suffix=":" />
+  </td>
+  <td>
+   <asp:TextBox runat="server" ID="txtAttribution" Width="250" Height="100" TextMode="MultiLine" />
+  </td>
+ </tr>
+ <tr>
   <td colspan="2" class="NormalRed">
    <asp:Label runat="server" id="lblOther" resourcekey="lblOther" />
   </td>

@@ -34,6 +34,7 @@ Namespace Data
 
   Public MustOverride Function GetObjectsByPackage(ByVal packageObjectId As Integer, ByVal version As String) As IDataReader
   Public MustOverride Sub RegisterPackageItem(ByVal ParentObjectId As Integer, ByVal ParentVersion As String, ByVal ChildObjectId As Integer, ByVal ChildVersion As String)
+  Public MustOverride Function GetParentObjects(ByVal objectId As Integer, ByVal version As String) As IDataReader
 
 #End Region
 
@@ -86,6 +87,7 @@ Namespace Data
   Public MustOverride Function GetCube(ByVal ModuleId As Integer) As IDataReader
   Public MustOverride Function GetObjectVersionList(ByVal ObjectId As Integer, ByVal Locale As String) As IDataReader
   Public MustOverride Function GetObjectPackList(ByVal ObjectId As Integer, ByVal Version As String) As IDataReader
+  Public MustOverride Function GetContributorList(ByVal ObjectId As Integer, ByVal Version As String, locale As String) As IDataReader
 #End Region
 
  End Class

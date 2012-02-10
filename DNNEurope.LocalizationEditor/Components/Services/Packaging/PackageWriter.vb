@@ -156,36 +156,36 @@ Namespace Services.Packaging
 #End Region
 
 #Region " Pack Creation V5 DNN 5 "
-  Private Shared Sub AddCoreV5ManifestDnn5(ByRef packagesNode As XmlNode, ByVal objObjects As List(Of ObjectInfo), ByVal version As String, ByVal loc As CultureInfo)
-   Dim package As XmlNode = Globals.AddElement(packagesNode, "package")
-   Globals.AddAttribute(package, "name", Globals.glbCoreName & " " & loc.NativeName) ' Our package name. The convention is Objectname + verbose language
-   Globals.AddAttribute(package, "type", "CoreLanguagePack")
-   Globals.AddAttribute(package, "version", version)
-   Globals.AddElement(package, "friendlyName", Globals.glbCoreFriendlyName & " " & loc.NativeName) ' little to add here to name
-   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, Globals.glbCoreFriendlyName))
-   Dim owner As XmlNode = Globals.AddElement(package, "owner")
-   Globals.AddElement(owner, "name", objObjects(0).Module.OwnerName)
-   Globals.AddElement(owner, "organization", objObjects(0).Module.OwnerOrganization)
-   Globals.AddElement(owner, "url", objObjects(0).Module.OwnerUrl)
-   Globals.AddElement(owner, "email", objObjects(0).Module.OwnerEmail)
-   Globals.AddElement(package, "license", Globals.GetLicense(DotNetNuke.Common.ApplicationMapPath & "\" & objObjects(0).Module.HomeDirectory & "\", objObjects(0).Module.ModuleId))
-   Globals.AddElement(package, "releaseNotes", "")
-   Dim component As XmlNode = Globals.AddElement(package, "components")
-   component = Globals.AddElement(component, "component")
-   Globals.AddAttribute(component, "type", "CoreLanguage")
-   Dim files As XmlNode = Globals.AddElement(component, "languageFiles")
-   Globals.AddElement(files, "code", loc.Name)
-   Globals.AddElement(files, "displayName", loc.NativeName)
-   Dim basePath As String = GetObjectBasePath(objObjects(0))
-   Globals.AddElement(files, "basePath", basePath) ' basepath needs to be added to object
-   For Each o As ObjectInfo In objObjects
-    For Each filePath As String In TextsController.GetFileList(o.ObjectId, version)
-     If TextsController.GetTextsByObjectAndFile(o.ModuleId, o.ObjectId, filePath, loc.Name, version, False).Count > 0 Then
-      AddPackResourcePathToManifestV5(files, filePath, loc.Name, basePath)
-     End If
-    Next
-   Next
-  End Sub
+  'Private Shared Sub AddCoreV5ManifestDnn5(ByRef packagesNode As XmlNode, ByVal objObjects As List(Of ObjectInfo), ByVal version As String, ByVal loc As CultureInfo)
+  ' Dim package As XmlNode = Globals.AddElement(packagesNode, "package")
+  ' Globals.AddAttribute(package, "name", Globals.glbCoreName & " " & loc.NativeName) ' Our package name. The convention is Objectname + verbose language
+  ' Globals.AddAttribute(package, "type", "CoreLanguagePack")
+  ' Globals.AddAttribute(package, "version", version)
+  ' Globals.AddElement(package, "friendlyName", Globals.glbCoreFriendlyName & " " & loc.NativeName) ' little to add here to name
+  ' Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, Globals.glbCoreFriendlyName))
+  ' Dim owner As XmlNode = Globals.AddElement(package, "owner")
+  ' Globals.AddElement(owner, "name", objObjects(0).Module.OwnerName)
+  ' Globals.AddElement(owner, "organization", objObjects(0).Module.OwnerOrganization)
+  ' Globals.AddElement(owner, "url", objObjects(0).Module.OwnerUrl)
+  ' Globals.AddElement(owner, "email", objObjects(0).Module.OwnerEmail)
+  ' Globals.AddElement(package, "license", Globals.GetLicense(DotNetNuke.Common.ApplicationMapPath & "\" & objObjects(0).Module.HomeDirectory & "\", objObjects(0).Module.ModuleId))
+  ' Globals.AddElement(package, "releaseNotes", "")
+  ' Dim component As XmlNode = Globals.AddElement(package, "components")
+  ' component = Globals.AddElement(component, "component")
+  ' Globals.AddAttribute(component, "type", "CoreLanguage")
+  ' Dim files As XmlNode = Globals.AddElement(component, "languageFiles")
+  ' Globals.AddElement(files, "code", loc.Name)
+  ' Globals.AddElement(files, "displayName", loc.NativeName)
+  ' Dim basePath As String = GetObjectBasePath(objObjects(0))
+  ' Globals.AddElement(files, "basePath", basePath) ' basepath needs to be added to object
+  ' For Each o As ObjectInfo In objObjects
+  '  For Each filePath As String In TextsController.GetFileList(o.ObjectId, version)
+  '   If TextsController.GetTextsByObjectAndFile(o.ModuleId, o.ObjectId, filePath, loc.Name, version, False).Count > 0 Then
+  '    AddPackResourcePathToManifestV5(files, filePath, loc.Name, basePath)
+  '   End If
+  '  Next
+  ' Next
+  'End Sub
 #End Region
 
 #Region " Pack Creation V5 DNN 6+ "
@@ -215,14 +215,21 @@ Namespace Services.Packaging
    End If
    Globals.AddAttribute(package, "version", objObject.Version)
    Globals.AddElement(package, "friendlyName", objObject.FriendlyName & " " & loc.NativeName) ' little to add here to name
-   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.FriendlyName))
+   Dim attributionText As String = ""
+   If objObject.Module.Attribution.Trim <> "" Then
+    For Each u As DotNetNuke.Entities.Users.UserInfo In ObjectsController.GetContributorList(objObject.ObjectId, objObject.Version, loc.Name)
+     Dim tr As New TokenReplace(objObject, u, loc.Name)
+     attributionText &= tr.ReplaceEnvironmentTokens(objObject.Module.Attribution)
+    Next
+   End If
+   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.FriendlyName) & " " & attributionText)
    Dim owner As XmlNode = Globals.AddElement(package, "owner")
    Globals.AddElement(owner, "name", objObject.Module.OwnerName)
    Globals.AddElement(owner, "organization", objObject.Module.OwnerOrganization)
    Globals.AddElement(owner, "url", objObject.Module.OwnerUrl)
    Globals.AddElement(owner, "email", objObject.Module.OwnerEmail)
    Globals.AddElement(package, "license", Globals.GetLicense(DotNetNuke.Common.ApplicationMapPath & "\" & objObject.Module.HomeDirectory & "\", objObject.Module.ModuleId))
-   Globals.AddElement(package, "releaseNotes", "")
+   Globals.AddElement(package, "releaseNotes", attributionText)
    Dim component As XmlNode = Globals.AddElement(package, "components")
    component = Globals.AddElement(component, "component")
    If objObject.IsCore Then

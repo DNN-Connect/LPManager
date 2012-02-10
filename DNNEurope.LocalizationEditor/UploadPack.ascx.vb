@@ -339,6 +339,7 @@ Partial Public Class Import
   If ddLocale.Visible = True Then
    Locale = ddLocale.SelectedValue
   End If
+  obj.Version = version
   Using ir As IDataReader = DataProvider.Instance.GetTextsByObjectAndFile(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
    Do While ir.Read
     hits += 1
@@ -364,30 +365,32 @@ Partial Public Class Import
    Loop
   End Using
   If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
-   Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
-    Do While ir.Read
-     hits += 1
-     Dim textKey As String = CStr(ir.Item("TextKey"))
-     Dim hasValue As Boolean = False
-     If ir.Item("TextValue") IsNot DBNull.Value Then
-      hasValue = True
-     End If
-     Try
-      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
-      If xNode Is Nothing Then
-       report.AppendLine("Nothing for " & textKey)
-      Else
-       If hasValue Then
-        report.AppendLine("Overwrite " & textKey)
-       Else
-        report.AppendLine("Add " & textKey)
-       End If
+   For Each parentObject As ObjectInfo In obj.GetParents
+    Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, parentObject.ObjectId, resFileKey, Locale, parentObject.Version, True)
+     Do While ir.Read
+      hits += 1
+      Dim textKey As String = CStr(ir.Item("TextKey"))
+      Dim hasValue As Boolean = False
+      If ir.Item("TextValue") IsNot DBNull.Value Then
+       hasValue = True
       End If
-     Catch ex As XPathException
-      report.AppendLine("!!!! Invalid token in attribute value: " & textKey)
-     End Try
-    Loop
-   End Using
+      Try
+       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+       If xNode Is Nothing Then
+        report.AppendLine("Nothing for " & textKey)
+       Else
+        If hasValue Then
+         report.AppendLine("Overwrite " & textKey)
+        Else
+         report.AppendLine("Add " & textKey)
+        End If
+       End If
+      Catch ex As XPathException
+       report.AppendLine("!!!! Invalid token in attribute value: " & textKey)
+      End Try
+     Loop
+    End Using
+   Next
   End If
   If hits = 0 Then
    report.AppendLine("This file was not found in the original data or it was empty")
@@ -470,6 +473,8 @@ Partial Public Class Import
 
  Private Sub ImportFile(obj As ObjectInfo, version As String, ByVal tempResFile As String, ByVal resFileKey As String)
 
+  obj.Version = version
+
   Dim resFile As New XmlDocument
   resFile.Load(TempDirectory & "\" & tempResFile)
   'Fix slashes (from / to \ )
@@ -548,61 +553,63 @@ Partial Public Class Import
    Loop
   End Using
   If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
-   Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, obj.ObjectId, resFileKey, Locale, version, True)
-    Do While ir.Read
-     Dim textKey As String = CStr(ir.Item("TextKey"))
-     Dim textId As Integer = CInt(ir.Item("TextId"))
-     Dim hasValue As Boolean = False
-     If ir.Item("TextValue") IsNot DBNull.Value Then
-      hasValue = True
-     End If
-     Try
-      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
-      If xNode IsNot Nothing Then
-       Try
-        Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
-        If hasValue Then
-         Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
-         If tr.TextValue <> transValue Then
-          Dim stat As Integer = 0
-          If Settings.KeepStatistics Then
-           If transValue.Length > 200 Then
-            stat = Math.Abs(transValue.Length - tr.TextValue.Length)
-           Else
-            stat = Globals.LevenshteinDistance(tr.TextValue, transValue)
+   For Each parentObject As ObjectInfo In obj.GetParents
+    Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, parentObject.ObjectId, resFileKey, Locale, parentObject.Version, True)
+     Do While ir.Read
+      Dim textKey As String = CStr(ir.Item("TextKey"))
+      Dim textId As Integer = CInt(ir.Item("TextId"))
+      Dim hasValue As Boolean = False
+      If ir.Item("TextValue") IsNot DBNull.Value Then
+       hasValue = True
+      End If
+      Try
+       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+       If xNode IsNot Nothing Then
+        Try
+         Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
+         If hasValue Then
+          Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
+          If tr.TextValue <> transValue Then
+           Dim stat As Integer = 0
+           If Settings.KeepStatistics Then
+            If transValue.Length > 200 Then
+             stat = Math.Abs(transValue.Length - tr.TextValue.Length)
+            Else
+             stat = Globals.LevenshteinDistance(tr.TextValue, transValue)
+            End If
+           End If
+           With tr
+            .LastModified = Now
+            .LastModifiedUserId = authorUserId
+            .TextValue = transValue
+           End With
+           updateList.Add(tr)
+           If Settings.KeepStatistics Then
+            StatisticsController.RecordStatistic(textId, Locale, authorUserId, stat)
            End If
           End If
+         Else
+          Dim tr As New TranslationInfo
           With tr
+           .TextId = textId
+           .Locale = Locale
            .LastModified = Now
            .LastModifiedUserId = authorUserId
            .TextValue = transValue
           End With
-          updateList.Add(tr)
-          If Settings.KeepStatistics Then
-           StatisticsController.RecordStatistic(textId, Locale, authorUserId, stat)
-          End If
+          addList.Add(tr)
+          addStatisticsList.Add(textId, transValue.Length)
          End If
-        Else
-         Dim tr As New TranslationInfo
-         With tr
-          .TextId = textId
-          .Locale = Locale
-          .LastModified = Now
-          .LastModifiedUserId = authorUserId
-          .TextValue = transValue
-         End With
-         addList.Add(tr)
-         addStatisticsList.Add(textId, transValue.Length)
-        End If
-       Catch
-        ' ignore errors
-       End Try
-      End If
-     Catch ex As XPathException
-      ' ignore XPath errors
-     End Try
-    Loop
-   End Using
+        Catch
+         ' ignore errors
+        End Try
+       End If
+      Catch ex As XPathException
+       ' ignore XPath errors
+      End Try
+     Loop
+    End Using
+   Next
   End If
 
   For Each tr As TranslationInfo In updateList

@@ -40,6 +40,7 @@ Partial Public Class Settings
      chkKeepStatistics.Checked = .KeepStatistics
      chkAutoImportObjects.Checked = .AutoImportObjects
      txtModuleKey.Text = .ModuleKey
+     txtAttribution.Text = .Attribution
     End With
    End If
   Catch exc As Exception
@@ -63,6 +64,7 @@ Partial Public Class Settings
     .KeepStatistics = chkKeepStatistics.Checked
     .AutoImportObjects = chkAutoImportObjects.Checked
     .ModuleKey = txtModuleKey.Text.Trim
+    .Attribution = txtAttribution.Text
     .SaveSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End With
 
