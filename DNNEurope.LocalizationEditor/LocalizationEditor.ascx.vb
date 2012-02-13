@@ -39,6 +39,7 @@ Partial Public Class LocalizationEditor
  Public Property IsEditorSpecificLocale As Boolean = False
  Public Property IsEditorGenericLocale As Boolean = False
  Public Property IsEditor As Boolean = False
+ Public Property IsAdmin As Boolean = False
 
  Public Property UserLocales As List(Of String)
   Get
@@ -85,6 +86,10 @@ Partial Public Class LocalizationEditor
   Globals.ReadValue(Me.Request.Params, "Locale", Locale)
   If UserInfo.IsSuperUser Then
    _userId = PortalSettings.AdministratorId
+   IsAdmin = True
+  End If
+  If UserInfo.IsInRole(PortalSettings.AdministratorRoleName) Then
+   IsAdmin = True
   End If
   IsEditorSpecificLocale = UserLocales.Contains(Locale)
   IsEditorGenericLocale = UserLocales.Contains(Left(Locale, 2))

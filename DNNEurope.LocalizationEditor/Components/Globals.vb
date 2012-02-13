@@ -348,17 +348,33 @@ Public Class Globals
  ''' <param name="node"></param>
  ''' <param name="elementName"></param>
  ''' <param name="elementValue"></param>
+ ''' <param name="AddCData"></param>
  ''' <param name="attributes"></param>
  ''' <remarks></remarks>
- Public Shared Sub AddElement(ByRef node As XmlNode, ByVal elementName As String, ByVal elementValue As String, ByVal ParamArray attributes() As String)
+ Public Shared Sub AddElement(ByRef node As XmlNode, ByVal elementName As String, ByVal elementValue As String, AddCData As Boolean, ByVal ParamArray attributes() As String)
   Dim newNode As XmlNode = node.OwnerDocument.CreateElement(elementName)
   'newNode.InnerText = elementValue
+  If AddCData Then
+   elementValue = "<![CDATA[" & elementValue & "]]>"
+  End If
   newNode.InnerXml = elementValue
   node.AppendChild(newNode)
   For Each xAttribute As String In attributes
    Dim x As String() = xAttribute.Split("="c)
    AddAttribute(newNode, x(0), x(1))
   Next
+ End Sub
+
+ ''' <summary>
+ ''' Adds an XML element 
+ ''' </summary>
+ ''' <param name="node"></param>
+ ''' <param name="elementName"></param>
+ ''' <param name="elementValue"></param>
+ ''' <param name="attributes"></param>
+ ''' <remarks></remarks>
+ Public Shared Sub AddElement(ByRef node As XmlNode, ByVal elementName As String, ByVal elementValue As String, ByVal ParamArray attributes() As String)
+  AddElement(node, elementName, elementValue, False, attributes)
  End Sub
 
  ''' <summary>

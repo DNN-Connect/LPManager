@@ -60,6 +60,9 @@
      <th>
       <asp:Label runat="server" ID="lblLastVersion" resourcekey="lblLastVersion" />
      </th>
+     <th style="display:<%#IIF(IsEditor Or IsAdmin,"block","none")%>">
+      <asp:Label runat="server" ID="lblNrKeys" resourcekey="lblNrKeys" />
+     </th>
      <th>
       <asp:Label runat="server" ID="lblLocaleAction" resourcekey="lblLocaleAction" />
      </th>
@@ -73,6 +76,9 @@
     </td>
     <td>
      <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
+    </td>
+    <td style="display:<%#IIF(IsEditor Or IsAdmin,"block","none")%>">
+     <%#DataBinder.Eval(Container.DataItem, "LastVersionTextCount")%>
     </td>
     <td>
      <%#GetObjectLocalePerctComplete(Container.DataItem)%>

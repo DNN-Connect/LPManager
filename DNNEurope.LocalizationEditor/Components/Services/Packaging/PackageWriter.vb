@@ -219,17 +219,23 @@ Namespace Services.Packaging
    If objObject.Module.Attribution.Trim <> "" Then
     For Each u As DotNetNuke.Entities.Users.UserInfo In ObjectsController.GetContributorList(objObject.ObjectId, objObject.Version, loc.Name)
      Dim tr As New TokenReplace(objObject, u, loc.Name)
-     attributionText &= tr.ReplaceEnvironmentTokens(objObject.Module.Attribution)
+     attributionText &= "<br />" & tr.ReplaceEnvironmentTokens(objObject.Module.Attribution)
     Next
    End If
-   Globals.AddElement(package, "description", String.Format(DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name), loc.NativeName, objObject.FriendlyName) & " " & attributionText)
+   Dim description As String = DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, loc.Name)
+   If description = DotNetNuke.Services.Localization.Localization.GetString("ManifestDescription", Globals.glbSharedResources, "en-US") Then
+    description = String.Format(description, loc.EnglishName, objObject.FriendlyName)
+   Else
+    description = String.Format(description, loc.NativeName, objObject.FriendlyName)
+   End If
+   Globals.AddElement(package, "description", description & attributionText, True)
    Dim owner As XmlNode = Globals.AddElement(package, "owner")
    Globals.AddElement(owner, "name", objObject.Module.OwnerName)
    Globals.AddElement(owner, "organization", objObject.Module.OwnerOrganization)
    Globals.AddElement(owner, "url", objObject.Module.OwnerUrl)
    Globals.AddElement(owner, "email", objObject.Module.OwnerEmail)
-   Globals.AddElement(package, "license", Globals.GetLicense(DotNetNuke.Common.ApplicationMapPath & "\" & objObject.Module.HomeDirectory & "\", objObject.Module.ModuleId))
-   Globals.AddElement(package, "releaseNotes", attributionText)
+   Globals.AddElement(package, "license", Globals.GetLicense(DotNetNuke.Common.ApplicationMapPath & "\" & objObject.Module.HomeDirectory & "\", objObject.Module.ModuleId), True)
+   Globals.AddElement(package, "releaseNotes", attributionText, True)
    Dim component As XmlNode = Globals.AddElement(package, "components")
    component = Globals.AddElement(component, "component")
    If objObject.IsCore Then

@@ -202,4 +202,7 @@
   <data name="Back.Text" xml:space="preserve">
     <value>Back to Main List</value>
   </data>
+  <data name="lblNrKeys.Text" xml:space="preserve">
+    <value>Nr Keys</value>
+  </data>
 </root>
