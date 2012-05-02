@@ -88,7 +88,7 @@ Partial Public Class LocalizationEditor
    _userId = PortalSettings.AdministratorId
    IsAdmin = True
   End If
-  If UserInfo.IsInRole(PortalSettings.AdministratorRoleName) Then
+  If ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
    IsAdmin = True
   End If
   IsEditorSpecificLocale = UserLocales.Contains(Locale)
@@ -99,15 +99,15 @@ Partial Public Class LocalizationEditor
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
   Try
    ' Show functions for authorized users
-   cmdManagePermissions.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
-   cmdManageObjects.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
-   cmdManagePartners.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT")
-   cmdClearCaches.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") And Me.Settings.CachePacks
-   cmdUploadPack.Visible = ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Or IsEditor
+   cmdManagePermissions.Visible = IsAdmin
+   cmdManageObjects.Visible = IsAdmin
+   cmdManagePartners.Visible = IsAdmin
+   cmdClearCaches.Visible = IsAdmin And Me.Settings.CachePacks
+   cmdUploadPack.Visible = IsAdmin Or IsEditor
 
    If Not Me.IsPostBack Then
 
-    If Settings.AllowDataExtract AndAlso ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+    If Settings.AllowDataExtract AndAlso IsAdmin Then
      hlCube.NavigateUrl = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString
      hlCube.ToolTip = GetString("hlCube", LocalResourceFile)
      hlCube.Visible = True
@@ -169,10 +169,10 @@ Partial Public Class LocalizationEditor
  Public Function GetEditColumn(ByVal r As Object) As String
   Dim record As DataRowView = CType(r, DataRowView)
   Dim res As String = ""
-  If IsEditorSpecificLocale Then
+  If IsAdmin Or IsEditorSpecificLocale Then
    res = String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale, "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Locale))
   End If
-  If IsEditorGenericLocale Then
+  If IsAdmin Or IsEditorGenericLocale Then
    res &= String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Left(Locale, 2), "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Left(Locale, 2)))
   End If
   Return res
@@ -224,11 +224,11 @@ Partial Public Class LocalizationEditor
     Dim handledLocales As New List(Of String)
     For Each gl As String In genericLocales.Keys
      handledLocales.Add(genericLocales(gl).Name)
-     llb.AppendFormat("<div class=""genericLocale"">{0} ({1})</div>", gl, genericLocales(gl).EnglishName)
+     llb.AppendFormat("<div class=""genericLocale"">{0} ({1})</div>", CultureTextInfo.ToTitleCase(gl), CultureTextInfo.ToTitleCase(genericLocales(gl).EnglishName))
      If AllLocales.Contains(genericLocales(gl).Name) Then ' we have the generic variant in our system
       For Each c As Globalization.CultureInfo In Globalization.CultureInfo.GetCultures(Globalization.CultureTypes.SpecificCultures)
        If Left(c.Name, 2) = genericLocales(gl).Name Then
-        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, c.NativeName)
+        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, CultureTextInfo.ToTitleCase(c.NativeName))
         handledLocales.Add(c.Name)
        End If
       Next
@@ -236,7 +236,7 @@ Partial Public Class LocalizationEditor
       For Each l As String In AllLocales
        If Left(l, 2) = genericLocales(gl).Name Then
         Dim c As New Globalization.CultureInfo(l)
-        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, c.NativeName)
+        llb.AppendFormat("<div class=""specificLocale""><a href=""{0}{1}"">{2}</a></div>", ourUrl, c.Name, CultureTextInfo.ToTitleCase(c.NativeName))
         handledLocales.Add(l)
        End If
       Next
@@ -272,8 +272,12 @@ Partial Public Class LocalizationEditor
     dlObjects.DataSource = New DataView(oList, "PackageType<>'Pack' And TextCount>0", "FriendlyName", DataViewRowState.CurrentRows)
    End If
    dlObjects.DataBind()
-   dlPackages.DataSource = New DataView(oList, "PackageType='Pack' And ChildCount>0", "FriendlyName", DataViewRowState.CurrentRows)
+   dlCorePackages.DataSource = New DataView(oList, "PackageType='Pack' And ChildCount>0 And PercentComplete>0 And (ObjectName='DNNCE' Or ObjectName='DNNPE' Or ObjectName='DNNEE')", "FriendlyName", DataViewRowState.CurrentRows)
+   dlCorePackages.DataBind()
+   If dlCorePackages.Items.Count < 1 Then pnlCorePackages.Visible = False
+   dlPackages.DataSource = New DataView(oList, "PackageType='Pack' And ChildCount>0 And PercentComplete>0 And Not (ObjectName='DNNCE' Or ObjectName='DNNPE' Or ObjectName='DNNEE')", "FriendlyName", DataViewRowState.CurrentRows)
    dlPackages.DataBind()
+   If dlPackages.Items.Count < 1 Then pnlPackages.Visible = False
    If dlObjects.Items.Count = 0 Then
     pnlLocaleRequest.Visible = False
    End If

@@ -263,7 +263,13 @@ Partial Public Class Import
     moduleName = xNode.Attributes("ModuleName").InnerText & "\"
    End If
    Dim fileKey As String = fileType & "\" & moduleName & fileName
-   AnalyzeFileV3(report, fileKey)
+   Try
+    AnalyzeFileV3(report, fileKey)
+   Catch ex As Exception
+    report.AppendFormat("Error Occurred trying to process file {0}" & vbCrLf, fileName)
+    report.AppendLine("Error: " & ex.Message)
+    report.AppendLine(ex.StackTrace)
+   End Try
   Next
   Return report.ToString
  End Function
@@ -318,7 +324,13 @@ Partial Public Class Import
       End If
       Dim fileName As String = xNode.SelectSingleNode("name").InnerText
       Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-      AnalyzeFile(report, depObject, depVersion, filePath & fileName, fileKey)
+      Try
+       AnalyzeFile(report, depObject, depVersion, filePath & fileName, fileKey)
+      Catch ex As Exception
+       report.AppendFormat("Error Occurred trying to process file {0}" & vbCrLf, fileName)
+       report.AppendLine("Error: " & ex.Message)
+       report.AppendLine(ex.StackTrace)
+      End Try
      Next
     End If
    Catch ex As Exception
@@ -418,7 +430,10 @@ Partial Public Class Import
     sModuleName = xNode.Attributes("ModuleName").InnerText & "\"
    End If
    Dim sPath As String = sFileType & "\" & sModuleName & sFileName
-   ImportFileV3(sPath)
+   Try
+    ImportFileV3(sPath)
+   Catch ex As Exception
+   End Try
   Next
  End Sub
 
@@ -464,7 +479,10 @@ Partial Public Class Import
      End If
      Dim fileName As String = xNode.SelectSingleNode("name").InnerText
      Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-     ImportFile(depObject, depVersion, filePath & fileName, fileKey)
+     Try
+      ImportFile(depObject, depVersion, filePath & fileName, fileKey)
+     Catch ex As Exception
+     End Try
     Next
    Catch ex As Exception
    End Try

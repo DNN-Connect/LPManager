@@ -197,12 +197,15 @@
     <value>Older Versions</value>
   </data>
   <data name="Packages.Text" xml:space="preserve">
-    <value>Packages</value>
+    <value>Other Packages</value>
   </data>
   <data name="Back.Text" xml:space="preserve">
     <value>Back to Main List</value>
   </data>
   <data name="lblNrKeys.Text" xml:space="preserve">
     <value>Nr Keys</value>
+  </data>
+  <data name="CorePackages.Text" xml:space="preserve">
+    <value>Core Packages</value>
   </data>
 </root>

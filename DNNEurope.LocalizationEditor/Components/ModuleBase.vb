@@ -30,6 +30,12 @@ Public Class ModuleBase
 
 #Region " Properties "
 
+ Public ReadOnly Property CultureTextInfo As Globalization.TextInfo
+  Get
+   Return Threading.Thread.CurrentThread.CurrentCulture.TextInfo
+  End Get
+ End Property
+
  Public Shadows Property Settings() As ModuleSettings
   Get
 

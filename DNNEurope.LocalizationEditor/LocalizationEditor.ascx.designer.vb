@@ -32,6 +32,33 @@ Partial Public Class LocalizationEditor
  Protected WithEvents pnlLocaleRequest As Global.System.Web.UI.WebControls.Panel
 
  '''<summary>
+ '''pnlCorePackages control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents pnlCorePackages As Global.System.Web.UI.WebControls.Panel
+
+ '''<summary>
+ '''dlCorePackages control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents dlCorePackages As Global.System.Web.UI.WebControls.DataList
+
+ '''<summary>
+ '''pnlPackages control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents pnlPackages As Global.System.Web.UI.WebControls.Panel
+
+ '''<summary>
  '''dlPackages control.
  '''</summary>
  '''<remarks>

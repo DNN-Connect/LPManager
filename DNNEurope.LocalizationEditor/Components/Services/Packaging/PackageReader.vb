@@ -272,29 +272,6 @@ Namespace Services.Packaging
          Next
         Next
 
-       Case "provider"
-
-        ' Find the resource files using the manifest xml
-        For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='File']/files")
-         Dim resourceFiles As String = ""
-         Dim basePath As String = ""
-         If fileGroupNode("basePath") IsNot Nothing Then
-          basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
-         End If
-         For Each node As XmlNode In fileGroupNode.SelectNodes("file")
-          Dim resFile As String = ""
-          Dim resDir As String = ""
-          If Not node("name") Is Nothing Then resFile = node("name").InnerText
-          If Not node("path") Is Nothing Then resDir = node("path").InnerText
-          If resFile.ToLower.EndsWith(".resx") Then
-           Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
-           If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
-           Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
-           manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
-          End If
-         Next
-        Next
-
        Case "skin"
 
         ' Find the resource files using the manifest xml
@@ -338,6 +315,32 @@ Namespace Services.Packaging
           End If
          Next
         Next
+
+       Case Else ' providers/auth_system/etc
+
+        Try
+         ' Find the resource files using the manifest xml
+         For Each fileGroupNode As XmlNode In packageNode.SelectNodes("components/component[@type='File']/files")
+          Dim resourceFiles As String = ""
+          Dim basePath As String = ""
+          If fileGroupNode("basePath") IsNot Nothing Then
+           basePath = fileGroupNode("basePath").InnerText.Replace("/"c, "\"c).Trim("\"c)
+          End If
+          For Each node As XmlNode In fileGroupNode.SelectNodes("file")
+           Dim resFile As String = ""
+           Dim resDir As String = ""
+           If Not node("name") Is Nothing Then resFile = node("name").InnerText
+           If Not node("path") Is Nothing Then resDir = node("path").InnerText
+           If resFile.ToLower.EndsWith(".resx") Then
+            Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
+            If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
+            Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
+            manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
+           End If
+          Next
+         Next
+        Catch ex As Exception
+        End Try
 
       End Select
 
@@ -483,7 +486,8 @@ Namespace Services.Packaging
 
    For Each f As FileInfo In (New DirectoryInfo(path)).GetFiles("*.resx")
     If manifestModule.ResourceFiles(keyBasePath & f.Name) Is Nothing Then
-     If Not Regex.Match(f.Name, "\.\w{2,3}-\w\w\.").Success Then ' filter out all files that are not default locale
+     Dim m As Match = Regex.Match(f.Name, "\.(\w{2,3}-\w\w)\.")
+     If (Not m.Success) OrElse m.Groups(1).Value.ToLower = "en-us" Then ' filter out all files that are not default locale
       manifestModule.ResourceFiles.Add(keyBasePath & f.Name, f)
      End If
     End If
@@ -503,6 +507,7 @@ Namespace Services.Packaging
    Dim currentVersionKeys As New List(Of String)
    For Each file As DictionaryEntry In resourceFileList
     Dim fileKey As String = file.Key.ToString.Replace(rootPath, "").Replace(pattern, ".resx")
+    fileKey = Regex.Replace(fileKey, "\.\w{2,3}-\w\w\.", ".") ' remove any locale specifiers
     Dim resFile As New XmlDocument
 
     Dim fi As FileInfo = CType(file.Value, FileInfo)

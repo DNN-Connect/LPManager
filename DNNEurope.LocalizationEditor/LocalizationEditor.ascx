@@ -7,6 +7,51 @@
  <p>
   <a href="<%=DotNetNuke.Common.NavigateUrl() %>" class="CommandButton"><%=DotNetNuke.Services.Localization.Localization.GetString("Back",LocalResourceFile) %></a>
  </p>
+ <asp:Panel runat="server" ID="pnlCorePackages">
+ <h3><%=DotNetNuke.Services.Localization.Localization.GetString("CorePackages",LocalResourceFile) %></h3>
+  <asp:DataList runat="server" ID="dlCorePackages">
+  <HeaderTemplate>
+   <table cellpadding="4" cellspacing="1">
+    <tr align="left">
+     <th>
+      <asp:Label runat="server" ID="lblPackageCP" resourcekey="lblPackage" />
+     </th>
+     <th>
+      <asp:Label runat="server" ID="lblLastVersion2CP" resourcekey="lblLastVersion" />
+     </th>
+     <th colspan="2">&nbsp;</th>
+    </tr>
+  </HeaderTemplate>
+  <ItemTemplate>
+   <tr align="left">
+    <td>
+     <%#DataBinder.Eval(Container.DataItem, "FriendlyName")%>
+    </td>
+    <td>
+     <%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>
+    </td>
+    <td>
+     <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>&Locale=<%=Locale%>"
+       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>"
+       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>">
+      <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
+     </a>
+    </td>
+    <td>
+     <a href="<%#GetObjectUrl(DataBinder.Eval(Container.DataItem, "ObjectId"))%>"
+       title="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>">
+      <img src="<%=ResolveUrl("~/images/rt.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>" />
+     </a>
+    </td>     
+   </tr>
+  </ItemTemplate>
+  <FooterTemplate>
+   </table>
+  </FooterTemplate>
+ </asp:DataList>
+ </asp:Panel>
+
+ <asp:Panel runat="server" ID="pnlPackages">
  <h3><%=DotNetNuke.Services.Localization.Localization.GetString("Packages",LocalResourceFile) %></h3>
   <asp:DataList runat="server" ID="dlPackages">
   <HeaderTemplate>
@@ -48,6 +93,7 @@
    </table>
   </FooterTemplate>
  </asp:DataList>
+ </asp:Panel>
 
  <h3><%=DotNetNuke.Services.Localization.Localization.GetString("Components",LocalResourceFile) %></h3>
  <asp:DataList runat="server" ID="dlObjects">
