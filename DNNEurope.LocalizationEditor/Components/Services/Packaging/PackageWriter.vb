@@ -78,20 +78,18 @@ Namespace Services.Packaging
      Dim myZipEntry As ZipEntry
      Dim loc As New CultureInfo(locale)
      Dim fileData As Byte()
-     'Dim quirkPack As Boolean = CBool(objectsToPack(0).IsCore And version < "06.00.00")
      Dim packedObjects As New List(Of ObjectInfo)
+     Dim packedFiles As New List(Of String)
 
      For Each o As ObjectInfo In objectsToPack
-      'Dim basePath As String = ""
-      'If Not quirkPack Then basePath = GetObjectBasePath(o)
       Dim hasTexts As Boolean = False
       For Each filePath As String In TextsController.GetFileList(o.ObjectId, version)
        Dim resFileName As String = Mid(filePath, filePath.LastIndexOf("\") + 2)
        resFileName = resFileName.Replace(".resx", pattern)
-       'Dim targetPath As String = GetResourceZipPathV5(filePath, basePath)
        Dim targetPath As String = GetResourceZipPathV5(filePath, "")
        Dim texts As IDictionary(Of Integer, Entities.Texts.TextInfo) = TextsController.GetTextsByObjectAndFile(o.ModuleId, o.ObjectId, filePath, locale, version, False)
-       If texts.Count > 0 Then ' do not write an empty file
+       If texts.Count > 0 AndAlso Not packedFiles.Contains(filePath) Then ' do not write an empty file or overwrite a previous file
+        packedFiles.Add(filePath)
         Dim resDoc As New XmlDocument
         resDoc.Load(DotNetNuke.Common.ApplicationMapPath & "\DesktopModules\DNNEurope\LocalizationEditor\App_LocalResources\Template.resx")
         Dim root As XmlNode = resDoc.DocumentElement

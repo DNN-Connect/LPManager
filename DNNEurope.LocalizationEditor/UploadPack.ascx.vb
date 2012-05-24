@@ -361,7 +361,7 @@ Partial Public Class Import
      hasValue = True
     End If
     Try
-     Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+     Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
      If xNode Is Nothing Then
       report.AppendLine("Nothing for " & textKey)
      Else
@@ -376,7 +376,7 @@ Partial Public Class Import
     End Try
    Loop
   End Using
-  If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
+  If obj.IsCore Then ' maybe this core pack includes resources from dependent objects
    For Each parentObject As ObjectInfo In obj.GetParents
     Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, parentObject.ObjectId, resFileKey, Locale, parentObject.Version, True)
      Do While ir.Read
@@ -387,7 +387,7 @@ Partial Public Class Import
        hasValue = True
       End If
       Try
-       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
        If xNode Is Nothing Then
         report.AppendLine("Nothing for " & textKey)
        Else
@@ -524,7 +524,7 @@ Partial Public Class Import
      hasValue = True
     End If
     Try
-     Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+     Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
      If xNode IsNot Nothing Then
       Try
        Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
@@ -570,7 +570,7 @@ Partial Public Class Import
     End Try
    Loop
   End Using
-  If hits = 0 And obj.IsCore Then ' maybe this core pack includes resources from dependent objects
+  If obj.IsCore Then ' maybe this core pack includes resources from dependent objects
    For Each parentObject As ObjectInfo In obj.GetParents
     Using ir As IDataReader = DataProvider.Instance.GetDependentTextsForObject(ModuleId, parentObject.ObjectId, resFileKey, Locale, parentObject.Version, True)
      Do While ir.Read
@@ -581,7 +581,7 @@ Partial Public Class Import
        hasValue = True
       End If
       Try
-       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name='" & textKey & "']")
+       Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
        If xNode IsNot Nothing Then
         Try
          Dim transValue As String = xNode.SelectSingleNode("value").InnerXml

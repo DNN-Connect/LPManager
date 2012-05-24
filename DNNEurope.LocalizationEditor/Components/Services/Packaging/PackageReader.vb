@@ -335,6 +335,7 @@ Namespace Services.Packaging
             Dim resPath As String = Path.Combine(Path.Combine(tempDirectory, resDir), resFile)
             If Not node("sourceFileName") Is Nothing Then resPath = Path.Combine(Path.Combine(tempDirectory, resDir), node("sourceFileName").InnerText)
             Dim resKey As String = Path.Combine(Path.Combine(basePath, resDir), resFile)
+            'Globals.SimpleLog(String.Format("Adding '{0}' for {1}", resKey, manifestModule.ObjectName))
             manifestModule.ResourceFiles.Add(resKey, New FileInfo(resPath))
            End If
           Next
@@ -508,6 +509,7 @@ Namespace Services.Packaging
    For Each file As DictionaryEntry In resourceFileList
     Dim fileKey As String = file.Key.ToString.Replace(rootPath, "").Replace(pattern, ".resx")
     fileKey = Regex.Replace(fileKey, "\.\w{2,3}-\w\w\.", ".") ' remove any locale specifiers
+    'Globals.SimpleLog(String.Format("Key '{0}' translated to {1}", file.Key.ToString, fileKey))
     Dim resFile As New XmlDocument
 
     Dim fi As FileInfo = CType(file.Value, FileInfo)
