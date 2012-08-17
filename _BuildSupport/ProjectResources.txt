@@ -1,0 +1,210 @@
+Start Analysis of project ..\DNNEurope.LocalizationEditor.vbproj
+Ascx File: ..\localizationeditor.ascx
+VB File: ..\localizationeditor.ascx.vb
+Analyzing App_LocalResources\LocalizationEditor.ascx.resx
+editcontent.action                                
+lbmanageobjects.text                              ascx vb
+lblobjects.text                                   ascx
+lbmanagepermissions.text                          ascx vb
+lbllocaleaction.text                              ascx
+lblobjectaction.text                              ascx
+lbllastversion.text                               ascx
+lbclearcaches.text                                ascx
+hlcube.text                                       vb vb
+lbuploadpack.text                                 ascx vb
+lblnrtexts.text                                   ascx
+modulehelp.text                                   
+lbmanagepartners.text                             ascx vb
+
+Ascx File: ..\resourceeditor.ascx
+VB File: ..\resourceeditor.ascx.vb
+Analyzing App_LocalResources\ResourceEditor.ascx.resx
+key.header                                        vb
+transfer.text                                     vb
+default.header                                    vb
+modulehelp.text                                   
+cmdsave.text                                      ascx
+controltitle_edit.text                            
+clearall.text                                     vb
+transferall.text                                  vb
+translateall.text                                 vb
+translate.text                                    vb
+translator.text                                   vb
+cmdcancel.text                                    ascx
+cmdupdate.text                                    ascx
+
+Ascx File: ..\users.ascx
+VB File: ..\users.ascx.vb
+Analyzing App_LocalResources\Users.ascx.resx
+cmdadd.text                                       ascx
+usernotfound.text                                 vb
+cmdreturn.text                                    ascx
+invalidlocale.error                               ascx
+required.error                                    ascx
+lbllocale.help                                    ascx
+lbllocale.text                                    ascx
+lblusername.help                                  ascx
+lblusername.text                                  ascx
+controltitle_users.text                           
+locale.header                                     ascx
+user.header                                       ascx
+
+Ascx File: ..\objectsummary.ascx
+VB File: ..\objectsummary.ascx.vb
+Analyzing App_LocalResources\ObjectSummary.ascx.resx
+all.text                                          vb
+new.text                                          vb
+nosource.text                                     vb
+plselection.help                                  ascx
+plselection.text                                  ascx
+plsourcelocale.help                               ascx
+plsourcelocale.text                               ascx
+plversion.help                                    ascx
+plversion.text                                    ascx
+untranslated.text                                 vb
+cmddownload.text                                  ascx
+cmdedit.text                                      ascx
+lblcurrentversion.text                            ascx
+lblcurrentversionloc.text                         ascx
+lbledit.text                                      ascx
+lblnrofchangedtexts.text                          ascx
+lblnroffiles.text                                 ascx
+lblnrofitems.text                                 ascx
+lblnrofmissingtranslations.text                   ascx
+controltitle_objectsummary.text                   
+lblpercentagecomplete.text                        ascx
+
+Ascx File: ..\uploadpack.ascx
+VB File: ..\uploadpack.ascx.vb
+Analyzing App_LocalResources\UploadPack.ascx.resx
+cancel.text                                       vb
+finish.text                                       vb
+next.text                                         vb vb
+nofile.text                                       vb
+plresult.help                                     ascx
+plresult.text                                     ascx
+plversion.help                                    ascx
+plversion.text                                    ascx
+previous.text                                     vb vb
+stepconfirm.help                                  
+stepconfirm.title                                 
+stepparameters.help                               
+stepparameters.title                              
+stepupload.help                                   
+stepupload.title                                  
+wrongfile.text                                    vb
+planalysis.help                                   ascx
+planalysis.text                                   ascx
+pllocale.help                                     ascx
+pllocale.text                                     ascx
+controltitle_uploadpack.text                      
+plobject.help                                     ascx
+plobject.text                                     ascx
+
+Ascx File: ..\manageobjects.ascx
+VB File: ..\manageobjects.ascx.vb
+Analyzing App_LocalResources\ManageObjects.ascx.resx
+cmdreturn.text                                    ascx
+lblcurrentobjects.text                            ascx
+lblimportobject.text                              ascx
+lblpackagefile.help                               ascx
+lblpackagefile.text                               ascx
+nofile.text                                       vb
+controltitle_manageobjects.text                   
+deleteitem.text                                   ascx
+friendlyname.header                               ascx
+objectname.header                                 ascx
+lastversion.header                                ascx
+lbimportpackage.text                              ascx
+
+Ascx File: ..\downloadpack.ascx
+VB File: ..\downloadpack.ascx.vb
+Analyzing App_LocalResources\DownloadPack.ascx.resx
+lbltotaltranslations.text                         ascx
+locale.header                                     
+percentcomplete.header                            
+lblversion.text                                   ascx
+lblnoresourcefiles.text                           ascx
+controltitle_downloadpack.text                    
+lbltotaltranslations.help                         ascx
+lblversion.help                                   ascx
+lastmodified.header                               
+partnername.header                                
+availablepacks.header                             
+
+Ascx File: ..\settings.ascx
+VB File: ..\settings.ascx.vb
+Analyzing App_LocalResources\Settings.ascx.resx
+controltitle_settings.text                        
+lbllicense.text                                   ascx
+lblother.text                                     ascx
+lblowner.text                                     ascx
+plallowdataextract.help                           ascx
+plallowdataextract.text                           ascx
+plallowdirectdownload.help                        ascx
+plallowdirectdownload.text                        ascx
+plautoimportobjects.help                          ascx
+plautoimportobjects.text                          ascx
+plcachepacks.help                                 ascx
+plcachepacks.text                                 ascx
+plkeepstatistics.help                             ascx
+plkeepstatistics.text                             ascx
+pllicense.help                                    ascx
+pllicense.text                                    ascx
+plmodulekey.help                                  ascx
+plmodulekey.text                                  ascx
+plowneremail.help                                 ascx
+plowneremail.text                                 ascx
+plownername.help                                  ascx
+plownername.text                                  ascx
+plownerorganization.help                          ascx
+plownerorganization.text                          ascx
+plownerurl.help                                   ascx
+plownerurl.text                                   ascx
+
+Ascx File: ..\sharedresources.ascx
+VB File: ..\sharedresources.ascx.vb
+Analyzing App_LocalResources\SharedResources.ascx.resx
+manifestdescription.text                          
+
+Ascx File: ..\partners.ascx
+VB File: ..\partners.ascx.vb
+Analyzing App_LocalResources\Partners.ascx.resx
+cmdback.text                                      ascx
+controltitle_partners.text                        
+cubeurl.header                                    
+edit.text                                         
+partnername.header                                
+partnerurl.header                                 
+cmdadd.text                                       ascx
+
+Ascx File: ..\editpartner.ascx
+VB File: ..\editpartner.ascx.vb
+Analyzing App_LocalResources\EditPartner.ascx.resx
+cmdupdate.text                                    ascx
+cmdcancel.text                                    ascx
+cmddelete.text                                    ascx
+plallowdirectdownload.text                        ascx
+plallowdirectdownload.help                        ascx
+plallowredistribute.text                          ascx
+plallowredistribute.help                          ascx
+plcubeurl.text                                    ascx
+plcubeurl.help                                    ascx
+pldownloadaffiliates.text                         ascx
+pldownloadaffiliates.help                         ascx
+plpackurl.text                                    ascx
+plpackurl.help                                    ascx
+plpartnername.text                                ascx
+plpartnername.help                                ascx
+plpartnerurl.text                                 ascx
+plpartnerurl.help                                 ascx
+plpartnerusername.text                            ascx
+plpartnerusername.help                            ascx
+controltitle_editpartner.text                     
+cmddownload.text                                  ascx
+delete.confirm                                    vb
+lblimportoverride.text                            ascx
+pldownload.help                                   
+pldownload.text                                   
+
+

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- targets to be executed, when omitted from command line default is run -->
+<project name="LocalizationEditor" default="all" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://nant.sf.net/release/0.91/nant.xsd D:\Programs\Nant\schema\nant.xsd" xmlns="http://nant.sf.net/release/0.91/nant.xsd">
+ <include buildfile="D:\Programs\Nant\Bring2mind.build" />
+ <call target="set.parameters"/>
+ <property value="DNNEurope.LocalizationEditor" name="backupdir" />
+ <property name="nant.settings.currentframework" value="net-4.0"/>
+ <property value="DNNEurope.Modules" name="prefix" />
+ <property value="DNNEurope.Modules.LocalizationEditor.dll" name="mainassemblyfilename"/>
+ <property name="packagename" value="DNNEurope.Modules.LocalizationEditor"/>
+</project>

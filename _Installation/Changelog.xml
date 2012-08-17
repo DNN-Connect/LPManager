@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<changelog project="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="D:\Programs\Nant\Changelog.xsd">
+ <release version="03.00.00">
+  <change type="Change">First DNN 5 version (DNN 5.1.1. is minimal required version)</change>
+  <change type="Enhancement">Added support for Google Translation (for on the fly translation of resources)</change>
+  <change type="Enhancement">Added import feature, which allows for translation of objects that are not installed</change>
+ </release>
+ <release version="03.03.00">
+  <change type="Change">Removed the link of users to locale to object. It was too finegrained. Users now edit a single locale for all objects in the module.</change>
+  <change type="Change">"Full" packs no longer supported. New developments in DNN have made this unsustainable.</change>
+  <change type="Enhancement">Added statistics gathering. This is for future use in conjunction with DNN.com. Switch it on to start building stats internally on who translated stuff.</change>
+  <change type="Change">Various fixes to packaging.</change>
+ </release>
+ <release version="03.03.02">
+  <change type="Fix">Fixed SPROC so that when logged in as admin one no longer sees all languages repeated as many times as users are there</change>
+  <change type="Change">Reorganized files to improve packaging consistency</change>
+  <change type="Fix">Fix to GetObjects which threw an error if permissions were defined but not objects</change>
+  <change type="Fix">Fix to paths for resource files as they were parsed from a package</change>
+  <change type="Enhancement">Added description to language pack manifests stored in shared resources file</change>
+ </release>
+ <release version="03.04.00">
+  <change type="Enhancement">Support for FULL and CORE packs</change>
+  <change type="Enhancement">Improved pack import</change>
+  <change type="Fix">Fix issue where HtmlProvider texts were not read</change>
+ </release>
+ <release version="03.04.01">
+  <change type="Fix">Fix for sql server connection pattern in DNN 6</change>
+  <change type="Enhancement">Deprecated TranslationId column to make adding and updating translations less error prone</change>
+  <change type="Change">Dependency to DNN 5.2.3</change>
+ </release>
+ <release version="04.00.00">
+  <change type="Enhancement">Module now aggregates information from 3rd party developers through "Partners" (see module help)</change>
+  <change type="Enhancement">Improved help documentation on home screen of module</change>
+  <change type="Enhancement">New data exchange interface to allow others to query for specific language packs</change>
+  <change type="Fix">Big rearrangement and cleanup of code and SQL</change>
+ </release>
+ <release version="04.00.01">
+  <change type="Fix">Use ownerOrganization in display for partners</change>
+  <change type="Fix">Ignore errors when adding individual texts to the resource file to ensure filling continues</change>
+  <change type="Fix">Pack content as XML not text to avoid double XML encoding</change>
+ </release> 
+ <release version="04.00.02">
+  <change type="Fix">Corrected behavior of Edit Partner page</change>
+ </release> 
+ <release version="04.00.03">
+  <change type="Fix">No longer XML encoding of text values - fixed/reversed bad fix in 4.0.1</change>
+  <change type="Enhancement">Removed redundant schema declaration from resource files</change>
+  <change type="Enhancement">Expand resource file in editor if it's the only one</change>
+ </release>
+ <release version="04.01.00">
+  <change type="New Feature">Support for PE/EE as well as CE side by side</change>
+  <change type="New Feature">Support for packaged modules consisting of multiple modules</change>
+  <change type="Enhancement">Support for intermediate versions when uploading objects</change>
+  <change type="Enhancement">You can now specify another user when uploading a translated pack for the statistics</change>
+  <change type="Enhancement">Revised UI for browsing and downloading packs</change>
+  <change type="New Feature">Ability to give attribution to contributing translators in the distributed pack mainfest</change>
+ </release>
+ <release version="04.01.01">
+  <change type="Enhancement">Seperate Core packages from the rest at the top of the package list</change>
+ </release>
+ <release version="04.01.02">
+  <change type="Enhancement">Resource files in downloaded packs now have Visual Studio headers so they can be loaded into the VS editor</change>
+  <change type="Enhancement">More robust loading of non-module extensions. With the new Auth_System type it was clear we needed to just catch anything during processing.</change>
+  <change type="Enhancement">Accept .en-US.resx files as if they were .resx files. This allows us to process the new Template resource files which erroneously have been named thus.</change>
+  <change type="Enhancement">More robust handling of lang pack uploads. Ignore errors on resource files that don't load or were badly named.</change>
+ </release>
+ <release version="04.01.04">
+  <change type="Fix">Fix to avoid files being added multiple times to a zip</change>
+  <change type="Fix">Better parsing of alternative location of keys when uploading packs</change>
+ </release>
+ <release version="04.01.05">
+  <change type="Fix">Templates include empty keys as well</change>
+  <change type="Fix">Value nodes set to xml:space preserve</change>
+  <change type="Enhancement">Allow multiple uploads of same version of objects to facilitate betas</change>
+ </release>
+</changelog>

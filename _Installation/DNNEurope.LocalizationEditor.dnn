@@ -1,0 +1,127 @@
+<dotnetnuke type="Package" version="5.0">
+ <packages>
+  <package name="DNNEurope.LocalizationEditor" type="Module" version="03.03.00">
+   <friendlyName>Localization Editor</friendlyName>
+   <description>Editor for extension/core localization.</description>
+   <owner>
+    <name>DNN Europe</name>
+    <organization>DNN-Europe</organization>
+    <url>http://localizationeditor.codeplex.com//</url>
+    <email>no-reply@dnn-europe.net</email>
+   </owner>
+   <license src="License.txt"/>
+   <releaseNotes src="ReleaseNotes.txt"/>
+   <dependencies>
+    <dependency type="CoreVersion">05.02.03</dependency>
+   </dependencies>
+   <components>
+    <component type="Module">
+     <desktopModule>
+      <moduleName>DNNEurope.Modules.LocalizationEditor</moduleName>
+      <foldername>DNNEurope\LocalizationEditor</foldername>
+      <businessControllerClass />
+      <supportedFeatures />
+      <moduleDefinitions>
+       <moduleDefinition>
+        <friendlyName>Localization Editor</friendlyName>
+        <defaultCacheTime>-1</defaultCacheTime>
+        <moduleControls>
+         <moduleControl>
+          <controlKey>DownloadPack</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/DownloadPack.ascx</controlSrc>
+          <supportsPartialRendering>False</supportsPartialRendering>
+          <controlTitle>Download Pack</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey />
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/LocalizationEditor.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Localization Editor</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>ManageObjects</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ManageObjects.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Manage modules</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>ObjectSummary</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ObjectSummary.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Object Localization Summary</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Edit</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/ResourceEditor.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Edit Resources</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>UploadPack</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/UploadPack.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Upload Pack</controlTitle>
+          <controlType>View</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Users</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Users.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>User Permissions</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Partners</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Partners.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Partners</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>EditPartner</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/EditPartner.ascx</controlSrc>
+          <supportsPartialRendering>True</supportsPartialRendering>
+          <controlTitle>Edit Partner</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+         <moduleControl>
+          <controlKey>Settings</controlKey>
+          <controlSrc>DesktopModules/DNNEurope/LocalizationEditor/Settings.ascx</controlSrc>
+          <supportsPartialRendering>False</supportsPartialRendering>
+          <controlTitle>Localization Editor Settings</controlTitle>
+          <controlType>Edit</controlType>
+          <iconFile />
+          <helpUrl></helpUrl>
+         </moduleControl>
+        </moduleControls>
+       </moduleDefinition>
+      </moduleDefinitions>
+     </desktopModule>
+    </component>
+   </components>
+  </package>
+ </packages>
+</dotnetnuke>

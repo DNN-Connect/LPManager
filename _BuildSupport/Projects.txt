@@ -1,0 +1,1 @@
+DNNEurope.LocalizationEditor.vbproj;04.02.00

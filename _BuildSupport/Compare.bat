@@ -1,0 +1,1 @@
+"C:\Program Files (x86)\Araxis\Araxis Merge\Merge.exe" "E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor" "E:\Documents\CodePlex\Localization Editor"

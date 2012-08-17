@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<code-summaries>
+  <code-summary date="2011-04-04T17:32:22.0569211+02:00" buildname="3.3.2.0">
+    <linecount label="VB" totalLineCount="10868" emptyLineCount="1553" commentLineCount="2547">
+      <file-summaries>
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\Cube.vb" totalLineCount="97" emptyLineCount="7" commentLineCount="7" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\LocalizationController.vb" totalLineCount="580" emptyLineCount="53" commentLineCount="52" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\ModuleInfo.vb" totalLineCount="172" emptyLineCount="23" commentLineCount="38" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\ObjectController.vb" totalLineCount="47" emptyLineCount="9" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\ObjectInfo.vb" totalLineCount="300" emptyLineCount="36" commentLineCount="60" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\PermissionInfo.vb" totalLineCount="284" emptyLineCount="39" commentLineCount="69" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\PermissionsController.vb" totalLineCount="57" emptyLineCount="9" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\StatisticInfo.vb" totalLineCount="249" emptyLineCount="32" commentLineCount="51" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\StatisticsController.vb" totalLineCount="102" emptyLineCount="30" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\TextInfo.vb" totalLineCount="331" emptyLineCount="42" commentLineCount="61" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\TextsController.vb" totalLineCount="128" emptyLineCount="20" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\TranslationInfo.vb" totalLineCount="282" emptyLineCount="38" commentLineCount="69" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\TranslationsController.vb" totalLineCount="58" emptyLineCount="15" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Business\UsersController.vb" totalLineCount="35" emptyLineCount="8" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider.vb" totalLineCount="171" emptyLineCount="66" commentLineCount="21" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider.vb" totalLineCount="338" emptyLineCount="90" commentLineCount="22" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Helpers\ManifestReader.vb" totalLineCount="433" emptyLineCount="67" commentLineCount="72" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Helpers\TranslateHelper.vb" totalLineCount="69" emptyLineCount="8" commentLineCount="30" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Helpers\ZipHelper.vb" totalLineCount="62" emptyLineCount="5" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LanguagePackType.vb" totalLineCount="28" emptyLineCount="3" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFileCollection.vb" totalLineCount="188" emptyLineCount="26" commentLineCount="83" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFileInfo.vb" totalLineCount="90" emptyLineCount="13" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFilePack.vb" totalLineCount="55" emptyLineCount="5" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFilePackReader.vb" totalLineCount="288" emptyLineCount="54" commentLineCount="37" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFilePackWriter.vb" totalLineCount="437" emptyLineCount="67" commentLineCount="33" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleFileUtil.vb" totalLineCount="35" emptyLineCount="3" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\LocaleFile\LocaleType.vb" totalLineCount="29" emptyLineCount="2" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Globals.vb" totalLineCount="518" emptyLineCount="53" commentLineCount="183" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\Logger.vb" totalLineCount="194" emptyLineCount="35" commentLineCount="25" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\ModuleBase.vb" totalLineCount="59" emptyLineCount="13" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Components\ModuleSettings.vb" totalLineCount="189" emptyLineCount="37" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx" totalLineCount="19" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx.designer.vb" totalLineCount="64" emptyLineCount="9" commentLineCount="44" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx.vb" totalLineCount="274" emptyLineCount="41" commentLineCount="30" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\AutoSuggest.js" totalLineCount="396" emptyLineCount="71" commentLineCount="143" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx" totalLineCount="76" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx.designer.vb" totalLineCount="134" emptyLineCount="17" commentLineCount="100" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx.vb" totalLineCount="201" emptyLineCount="30" commentLineCount="16" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb" totalLineCount="24" emptyLineCount="6" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx" totalLineCount="52" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb" totalLineCount="69" emptyLineCount="9" commentLineCount="50" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb" totalLineCount="126" emptyLineCount="26" commentLineCount="17" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx" totalLineCount="71" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.designer.vb" totalLineCount="89" emptyLineCount="12" commentLineCount="65" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.vb" totalLineCount="86" emptyLineCount="15" commentLineCount="25" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx" totalLineCount="105" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx.designer.vb" totalLineCount="179" emptyLineCount="22" commentLineCount="135" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx.vb" totalLineCount="149" emptyLineCount="30" commentLineCount="20" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Pack.aspx.designer.vb" totalLineCount="18" emptyLineCount="5" commentLineCount="9" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Pack.aspx.vb" totalLineCount="103" emptyLineCount="19" commentLineCount="15" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\RequestPack.aspx.designer.vb" totalLineCount="142" emptyLineCount="17" commentLineCount="107" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\RequestPack.aspx.vb" totalLineCount="177" emptyLineCount="28" commentLineCount="16" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx" totalLineCount="214" emptyLineCount="34" commentLineCount="42" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx.designer.vb" totalLineCount="52" emptyLineCount="7" commentLineCount="37" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\ResourceEditor.ascx.vb" totalLineCount="656" emptyLineCount="76" commentLineCount="96" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Settings.ascx" totalLineCount="91" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Settings.ascx.designer.vb" totalLineCount="206" emptyLineCount="25" commentLineCount="156" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Settings.ascx.vb" totalLineCount="58" emptyLineCount="8" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx" totalLineCount="70" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx.designer.vb" totalLineCount="151" emptyLineCount="18" commentLineCount="114" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\UploadPack.ascx.vb" totalLineCount="499" emptyLineCount="58" commentLineCount="22" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx" totalLineCount="78" emptyLineCount="0" commentLineCount="0" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.designer.vb" totalLineCount="116" emptyLineCount="15" commentLineCount="86" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.js" totalLineCount="91" emptyLineCount="19" commentLineCount="28" />
+        <file-summary name="H:\WebProjects\LEDev\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.vb" totalLineCount="127" emptyLineCount="28" commentLineCount="23" />
+      </file-summaries>
+    </linecount>
+  </code-summary>
+</code-summaries>
