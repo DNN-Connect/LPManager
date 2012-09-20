@@ -112,4 +112,12 @@
    <asp:CheckBox runat="server" ID="chkAutoImportObjects" />
   </td>
  </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plWhiteSpaceSignificant" runat="server" controlname="chkWhiteSpaceSignificant" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkWhiteSpaceSignificant" />
+  </td>
+ </tr>
 </table>

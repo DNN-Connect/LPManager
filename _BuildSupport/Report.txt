@@ -30,7 +30,7 @@ set.buildvars:
 
 set.versions:
 
-     [echo] Set Version 04.01.07 on DNNEurope.LocalizationEditor.vbproj
+     [echo] Set Version 04.02.00 on DNNEurope.LocalizationEditor.vbproj
 Checking ..\My Project\AssemblyInfo.vb
 Checking ..\_Installation\DNNEurope.LocalizationEditor.dnn
 Reset References to _References\
@@ -69,7 +69,7 @@ clean.bindirectory:
 compile.projects:
 
      [echo] Building DNNEurope.LocalizationEditor.vbproj
-  [msbuild] Build started 21/07/2012 15:01:51.
+  [msbuild] Build started 17/08/2012 10:51:26.
   [msbuild] Overriding target "GetFrameworkPaths" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "GetFrameworkPaths" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.NETFramework.targets".
   [msbuild] Overriding target "SatelliteDllsProjectOutputGroup" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "SatelliteDllsProjectOutputGroup" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.WinFX.targets".
   [msbuild] Project "E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" on node 1 (Rebuild target(s)).
@@ -2224,7 +2224,7 @@ compile.projects:
   [msbuild]     0 Warning(s)
   [msbuild]     0 Error(s)
   [msbuild] 
-  [msbuild] Time Elapsed 00:00:02.49
+  [msbuild] Time Elapsed 00:00:02.46
 
 make.doc:
 
@@ -2235,11 +2235,11 @@ compileandpackage:
 
 read.version:
 
-     [echo] shortVersion: 04.01.07
-     [echo] version: 4.1.7.0
+     [echo] shortVersion: 04.02.00
+     [echo] version: 4.2.0.0
      [echo] major: 04
-     [echo] minor: 01
-     [echo] build: 07
+     [echo] minor: 02
+     [echo] build: 00
 
 make.codestats:
 
@@ -2352,7 +2352,7 @@ make.codestats:
 
 check.sqlscripts:
 
-     [echo] Version: 04.01.07
+     [echo] Version: 04.02.00
 
 make.package:
 
@@ -2369,7 +2369,7 @@ make.package:
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 17 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 22 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.01.07_Install.zip'.
+      [zip] Zipping 22 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.02.00_Install.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
      [echo] Building Source
 
@@ -2382,7 +2382,7 @@ make.package:
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 17 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 22 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.01.07_Source.zip'.
+      [zip] Zipping 22 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.02.00_Source.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
 
 all:
@@ -2393,16 +2393,16 @@ backup.project:
      [echo] Backing Up to \\192.168.123.240\src
      [echo] Backing Up to D:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2012-7-21\DNNEurope.Modules.LocalizationEditor_04.01.07_Install.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2012-8-17\DNNEurope.Modules.LocalizationEditor_04.02.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2012-7-21\DNNEurope.Modules.LocalizationEditor_04.01.07_Source.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2012-8-17\DNNEurope.Modules.LocalizationEditor_04.02.00_Source.zip'.
      [echo] Backing Up to G:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2012-7-21\DNNEurope.Modules.LocalizationEditor_04.01.07_Install.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2012-8-17\DNNEurope.Modules.LocalizationEditor_04.02.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2012-7-21\DNNEurope.Modules.LocalizationEditor_04.01.07_Source.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2012-8-17\DNNEurope.Modules.LocalizationEditor_04.02.00_Source.zip'.
 
 BUILD SUCCEEDED
 
-Total time: 33.3 seconds.
+Total time: 33.7 seconds.
 

@@ -41,6 +41,7 @@ Partial Public Class Settings
      chkAutoImportObjects.Checked = .AutoImportObjects
      txtModuleKey.Text = .ModuleKey
      txtAttribution.Text = .Attribution
+     chkWhiteSpaceSignificant.Checked = .WhiteSpaceSignificant
     End With
    End If
   Catch exc As Exception
@@ -65,6 +66,7 @@ Partial Public Class Settings
     .AutoImportObjects = chkAutoImportObjects.Checked
     .ModuleKey = txtModuleKey.Text.Trim
     .Attribution = txtAttribution.Text
+    .WhiteSpaceSignificant = chkWhiteSpaceSignificant.Checked
     .SaveSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End With
 

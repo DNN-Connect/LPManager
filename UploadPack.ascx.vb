@@ -528,6 +528,9 @@ Partial Public Class Import
      If xNode IsNot Nothing Then
       Try
        Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
+       If Not Settings.WhiteSpaceSignificant Then
+        transValue = transValue.Trim
+       End If
        If hasValue Then
         Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, CStr(ir.Item("Locale")))
         If tr.TextValue <> transValue Then
@@ -585,6 +588,9 @@ Partial Public Class Import
        If xNode IsNot Nothing Then
         Try
          Dim transValue As String = xNode.SelectSingleNode("value").InnerXml
+         If Not Settings.WhiteSpaceSignificant Then
+          transValue = transValue.Trim
+         End If
          If hasValue Then
           Dim tr As TranslationInfo = TranslationsController.GetTranslation(textId, Locale)
           If tr.TextValue <> transValue Then

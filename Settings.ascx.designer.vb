@@ -255,4 +255,22 @@ Partial Public Class Settings
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
  Protected WithEvents chkAutoImportObjects As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''plWhiteSpaceSignificant control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plWhiteSpaceSignificant As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkWhiteSpaceSignificant control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkWhiteSpaceSignificant As Global.System.Web.UI.WebControls.CheckBox
 End Class

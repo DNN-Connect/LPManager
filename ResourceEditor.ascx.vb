@@ -199,21 +199,25 @@ Partial Public Class ResourceEditor
        cell = row.Cells.Item(3)
       End If
       Dim txtBox As Editor = CType(cell.Controls(0), Editor)
-      If txtBox.Value <> "" Then
+      Dim newValue As String = txtBox.Value
+      If Not Settings.WhiteSpaceSignificant Then
+       newValue = newValue.Trim
+      End If
+      If newValue <> "" Then
        Dim trans As TranslationInfo = TranslationsController.GetTranslation(txtBox.TextId, Locale)
-       Dim stat As Integer = txtBox.Value.Length
+       Dim stat As Integer = newValue.Length
        If trans Is Nothing Then
-        trans = New TranslationInfo(txtBox.TextId, Locale, Now, UserId, txtBox.Value)
+        trans = New TranslationInfo(txtBox.TextId, Locale, Now, UserId, newValue)
         TranslationsController.SetTranslation(trans)
-       ElseIf trans.TextValue <> txtBox.Value Then ' editor has changed the text
+       ElseIf trans.TextValue <> newValue Then ' editor has changed the text
         If Settings.KeepStatistics Then
-         If txtBox.Value.Length > 200 Then
-          stat = Math.Abs(txtBox.Value.Length - trans.TextValue.Length)
+         If newValue.Length > 200 Then
+          stat = Math.Abs(newValue.Length - trans.TextValue.Length)
          Else
-          stat = Globals.LevenshteinDistance(trans.TextValue, txtBox.Value)
+          stat = Globals.LevenshteinDistance(trans.TextValue, newValue)
          End If
         End If
-        trans.TextValue = txtBox.Value
+        trans.TextValue = newValue
         trans.LastModified = Now
         trans.LastModifiedUserId = UserId
         TranslationsController.SetTranslation(trans)

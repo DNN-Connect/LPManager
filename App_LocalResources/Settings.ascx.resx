@@ -201,4 +201,10 @@
   <data name="plOwnerUrl.Text" xml:space="preserve">
     <value>Url</value>
   </data>
+  <data name="plWhiteSpaceSignificant.Help" xml:space="preserve">
+    <value>If checked then during import and editing the module will not trim strings. So white space at the end or the beginning of strings is preserved. Note that if you leave this checked you trust your editors to be conscientious about whitespace.</value>
+  </data>
+  <data name="plWhiteSpaceSignificant.Text" xml:space="preserve">
+    <value>Whitespace Significant</value>
+  </data>
 </root>

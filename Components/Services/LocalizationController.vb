@@ -97,7 +97,8 @@ Namespace Services
   <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
   Public Function UpdateResources(tabId As Integer, moduleId As Integer) As ActionResult
 
-   Dim keepStatistics As Boolean = ModuleSettings.GetSettings(PortalSettings.HomeDirectoryMapPath, moduleId).KeepStatistics
+   Dim settings As ModuleSettings = ModuleSettings.GetSettings(PortalSettings.HomeDirectoryMapPath, moduleId)
+   Dim keepStatistics As Boolean = settings.KeepStatistics
 
    Dim serializer As New DataContractJsonSerializer(GetType(List(Of Entities.Texts.TextInfo)))
    Dim textList As New List(Of Entities.Texts.TextInfo)
@@ -121,6 +122,9 @@ Namespace Services
     okObjects.Add(o.ObjectId)
    Next
    For Each t As Entities.Texts.TextInfo In textList
+    If Not settings.WhiteSpaceSignificant Then
+     t.Translation = t.Translation.Trim
+    End If
     If okObjects.Contains(t.ObjectId) Then
      Dim check As Entities.Texts.TextInfo = Entities.Texts.TextsController.GetTextByVersion(t.ObjectId, t.FilePath, t.TextKey, t.Version)
      If check IsNot Nothing Then
