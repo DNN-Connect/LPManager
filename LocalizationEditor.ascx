@@ -158,7 +158,6 @@
  <dnn:CommandButton ID="cmdManagePermissions" ResourceKey="lbManagePermissions" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/user_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
  <dnn:CommandButton ID="cmdManagePartners" ResourceKey="lbManagePartners" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/clients_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
  <dnn:CommandButton ID="cmdClearCaches" ResourceKey="lbClearCaches" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/recycle_bin_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <asp:HyperLink runat="server" ID="hlCube" Visible="false">
-  <asp:Image runat="server" ID="imgCube" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_32.png" BorderWidth="0" />
- </asp:HyperLink>
+ <dnn:CommandButton ID="cmdCube" ResourceKey="lbCube" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
+ <dnn:CommandButton ID="cmdService" ResourceKey="lbService" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_32.png" DisplayLink="False" CausesValidation="false" Visible="true" />
 </p>

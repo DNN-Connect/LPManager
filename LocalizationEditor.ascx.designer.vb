@@ -122,20 +122,20 @@ Partial Public Class LocalizationEditor
  Protected WithEvents cmdClearCaches As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
- '''hlCube control.
+ '''cmdCube control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents hlCube As Global.System.Web.UI.WebControls.HyperLink
+ Protected WithEvents cmdCube As Global.DotNetNuke.UI.WebControls.CommandButton
 
  '''<summary>
- '''imgCube control.
+ '''cmdService control.
  '''</summary>
  '''<remarks>
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents imgCube As Global.System.Web.UI.WebControls.Image
+ Protected WithEvents cmdService As Global.DotNetNuke.UI.WebControls.CommandButton
 End Class

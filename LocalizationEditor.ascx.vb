@@ -107,12 +107,6 @@ Partial Public Class LocalizationEditor
 
    If Not Me.IsPostBack Then
 
-    If Settings.AllowDataExtract AndAlso IsAdmin Then
-     hlCube.NavigateUrl = ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString
-     hlCube.ToolTip = GetString("hlCube", LocalResourceFile)
-     hlCube.Visible = True
-    End If
-
     Me.DataBind()
 
    End If
@@ -122,20 +116,28 @@ Partial Public Class LocalizationEditor
   End Try
  End Sub
 
+ Private Sub cmdCube_Click(sender As Object, e As System.EventArgs) Handles cmdCube.Click
+  Response.Redirect(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString, False)
+ End Sub
+
+ Private Sub cmdService_Click(sender As Object, e As System.EventArgs) Handles cmdService.Click
+  Response.Redirect(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/API") & "?tabid=" & TabId.ToString & "&moduleid=" & ModuleId.ToString, False)
+ End Sub
+
  Private Sub cmdUploadPack_Click(sender As Object, e As System.EventArgs) Handles cmdUploadPack.Click
-  Response.Redirect(EditUrl("UploadPack"))
+  Response.Redirect(EditUrl("UploadPack"), False)
  End Sub
 
  Protected Sub cmdManagePermissions_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdManagePermissions.Click
-  Response.Redirect(EditUrl("Users"))
+  Response.Redirect(EditUrl("Users"), False)
  End Sub
 
  Private Sub cmdManagePartners_Click(sender As Object, e As System.EventArgs) Handles cmdManagePartners.Click
-  Response.Redirect(EditUrl("Partners"))
+  Response.Redirect(EditUrl("Partners"), False)
  End Sub
 
  Protected Sub cmdManageObjects_Click(ByVal sender As Object, ByVal e As EventArgs) Handles cmdManageObjects.Click
-  Response.Redirect(EditUrl("ManageObjects"))
+  Response.Redirect(EditUrl("ManageObjects"), False)
  End Sub
 
  Private Sub cmdClearCaches_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdClearCaches.Click

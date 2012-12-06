@@ -3,14 +3,16 @@
 Imports DotNetNuke.Security
 Imports DotNetNuke.Entities.Modules
 Imports DotNetNuke.Entities.Users
-'Imports DotNetNuke.Security.Permissions
 
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
 Imports System.Threading
+Imports DotNetNuke.Web.Api
+Imports DotNetNuke.Common
 
 Namespace Services
  Public Class LocalizationEditorAuthorizeAttribute
-  Inherits DotNetNuke.Web.Services.AuthorizeAttributeBase
+  Inherits AuthorizeAttributeBase
+  Implements IOverrideDefaultAuthLevel
 
   Public Sub New()
    AccessLevel = SecurityAccessLevel.Admin
@@ -31,17 +33,17 @@ Namespace Services
 
   Public Property UserInfo() As UserInfo
 
-  Protected Overrides Function AuthorizeCore(context As HttpContextBase) As Boolean
+  Public Overrides Function IsAuthorized(context As DotNetNuke.Web.Api.AuthFilterContext) As Boolean
 
    If AccessLevel = SecurityAccessLevel.Anonymous Then Return True
 
-   Dim activeModule As ModuleInfo = context.FindModuleInfo()
+   Dim activeModule As ModuleInfo = context.ActionContext.Request.FindModuleInfo()
 
-   If context.User Is Nothing Then
+   If Not HttpContextSource.Current.Request.IsAuthenticated Then
     _UserInfo = New UserInfo
    Else
     Dim portalSettings As DotNetNuke.Entities.Portals.PortalSettings = DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings()
-    _UserInfo = UserController.GetCachedUser(portalSettings.PortalId, context.User.Identity.Name)
+    _UserInfo = UserController.GetCachedUser(portalSettings.PortalId, HttpContextSource.Current.User.Identity.Name)
     If _UserInfo Is Nothing Then _UserInfo = New UserInfo
    End If
 
@@ -95,6 +97,7 @@ Namespace Services
    End If
    Return isAuthorized
   End Function
+
  End Class
 
  Public Enum SecurityAccessLevel As Integer

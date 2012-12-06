@@ -8,7 +8,7 @@ Namespace Services
   Private Const ModuleIdKey As String = "ModuleId"
   Private Const TabIdKey As String = "TabId"
 
-  <System.Runtime.CompilerServices.Extension()> _
+  <System.Runtime.CompilerServices.Extension()>
   Public Function FindTabId(context As HttpContextBase) As Integer
    Dim res As Integer = -1
    Dim url As String = context.Request.RawUrl
@@ -19,7 +19,7 @@ Namespace Services
    Return res
   End Function
 
-  <System.Runtime.CompilerServices.Extension()> _
+  <System.Runtime.CompilerServices.Extension()>
   Public Function FindModuleId(context As HttpContextBase) As Integer
    Dim res As Integer = -1
    Dim url As String = context.Request.RawUrl
@@ -30,7 +30,7 @@ Namespace Services
    Return res
   End Function
 
-  <System.Runtime.CompilerServices.Extension()> _
+  <System.Runtime.CompilerServices.Extension()>
   Public Function FindModuleInfo(context As HttpContextBase) As ModuleInfo
    Dim tabId As Integer = context.FindTabId()
    Dim moduleId As Integer = context.FindModuleId()

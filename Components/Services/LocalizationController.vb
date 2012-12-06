@@ -1,103 +1,127 @@
-﻿Imports System.Web.Mvc
-Imports DotNetNuke.Web.Services
-Imports DotNetNuke.Security.Permissions
+﻿Imports DotNetNuke.Security.Permissions
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
 Imports System.Globalization
+Imports System.Runtime.Serialization
 Imports System.Runtime.Serialization.Json
+Imports System.Net
+Imports System.Net.Http
+Imports System.Web.Http
+Imports DotNetNuke.Web.Api
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Packages
 
 Namespace Services
  Public Class LocalizationController
-  Inherits DnnController
+  Inherits DnnApiController
   Implements IServiceRouteMapper
 
-  Public Sub RegisterRoutes(mapRouteManager As DotNetNuke.Web.Services.IMapRoute) Implements DotNetNuke.Web.Services.IServiceRouteMapper.RegisterRoutes
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "", New With {.Controller = "Localization", .Action = "PublicModules"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}", New With {.Controller = "Localization", .Action = "ListObjects"}, New With {.tabId = "\d*", .moduleId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}/Objects", New With {.Controller = "Localization", .Action = "ListObjects"}, New With {.tabId = "\d*", .moduleId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}/EditLocales", New With {.Controller = "Localization", .Action = "GetEditLocales"}, New With {.tabId = "\d*", .moduleId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}/{objectName}/{objectVersion}/Resources", New With {.Controller = "Localization", .Action = "GetResources"}, New With {.tabId = "\d*", .moduleId = "\d*", .objectVersion = "\d+\.\d+\.\d+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}/UpdateResources", New With {.Controller = "Localization", .Action = "UpdateResources"}, New With {.tabId = "\d*", .moduleId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
-   mapRouteManager.MapRoute("DNNEurope/LocalizationEditor", "{tabid}/{moduleId}/{objectName}/{objectVersion}/File/{*fileKey}", New With {.Controller = "Localization", .Action = "GetResourceFile"}, New With {.tabId = "\d*", .moduleId = "\d*", .objectVersion = "\d+\.\d+\.\d+", .fileKey = "[^?]*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+  Public Sub RegisterRoutes(mapRouteManager As DotNetNuke.Web.Api.IMapRoute) Implements DotNetNuke.Web.Api.IServiceRouteMapper.RegisterRoutes
+   ' Public Routes
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "Default", "", New With {.Controller = "Localization", .Action = "ListObjects"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListObjects", "Objects", New With {.Controller = "Localization", .Action = "ListObjects"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListAllPacks1", "Object/{objectId}", New With {.Controller = "Localization", .Action = "ListAllPacks"}, New With {.objectId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListAllPacks2", "Object/{objectId}/Packs", New With {.Controller = "Localization", .Action = "ListAllPacks"}, New With {.objectId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListPacksByLocale1", "Object/{objectId}/Locale/{locale}", New With {.Controller = "Localization", .Action = "ListPacksByLocale"}, New With {.objectId = "\d*", .locale = "\w+-\w+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListPacksByLocale2", "Object/{objectId}/Locale/{locale}/Packs", New With {.Controller = "Localization", .Action = "ListPacksByLocale"}, New With {.objectId = "\d*", .locale = "\w+-\w+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListPacksByVersion1", "Object/{objectId}/Version/{version}", New With {.Controller = "Localization", .Action = "ListPacksByVersion"}, New With {.objectId = "\d*", .version = "\d+\.\d+\.\d+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "ListPacksByVersion2", "Object/{objectId}/Version/{version}/Packs", New With {.Controller = "Localization", .Action = "ListPacksByVersion"}, New With {.objectId = "\d*", .version = "\d+\.\d+\.\d+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   ' Translator Routes
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetEditLocales", "EditLocales", New With {.Controller = "Localization", .Action = "GetEditLocales"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetResources", "Object/{objectName}/Version/{objectVersion}/Resources", New With {.Controller = "Localization", .Action = "GetResources"}, New With {.objectVersion = "\d+\.\d+\.\d+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetResourceFile", "Object/{objectName}/Version/{objectVersion}/File/{*fileKey}", New With {.Controller = "Localization", .Action = "GetResourceFile"}, New With {.objectVersion = "\d+\.\d+\.\d+", .fileKey = "[^?]*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "UpdateResources", "UpdateResources", New With {.Controller = "Localization", .Action = "UpdateResources"}, New With {.tabId = "\d*", .moduleId = "\d*"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   ' Helpers
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "AFT", "aft", New With {.controller = "Localization", .action = "Aft"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
   End Sub
 
-  <DnnAuthorize(AllowAnonymous:=True)>
-  Public Function PublicModules() As ActionResult
-   Dim mc As New DotNetNuke.Entities.Modules.ModuleController()
-   Dim modules As New Dictionary(Of String, String)()
-   For Each m As DotNetNuke.Entities.Modules.ModuleInfo In GetLEModules(PortalSettings.PortalId)
-    If ModulePermissionController.HasModuleAccess(DotNetNuke.Security.SecurityAccessLevel.View, "", m) Then
-     modules.Add(String.Format("{0}/{1}", m.TabID, m.ModuleID), m.ModuleTitle)
-    End If
-   Next
-   Return Json(modules, JsonRequestBehavior.AllowGet)
+#Region " Public Part "
+  <HttpGet()>
+  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  Public Function ListObjects() As HttpResponseMessage
+   Dim translatedModules As List(Of ObjectInfo) = ObjectsController.GetObjects(ActiveModule.ModuleID)
+   Return Request.CreateResponse(HttpStatusCode.OK, translatedModules)
   End Function
 
-  <DnnAuthorize(AllowAnonymous:=True)>
-  <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.View)>
-  Public Function GetLEModules(portalID As Integer) As List(Of DotNetNuke.Entities.Modules.ModuleInfo)
-   Return DotNetNuke.Common.Utilities.CBO.FillCollection(Of DotNetNuke.Entities.Modules.ModuleInfo)(DotNetNuke.Data.DataProvider.Instance().GetModuleByDefinition(portalID, "Localization Editor"))
+  <HttpGet()>
+  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  Public Function ListAllPacks(objectId As Integer) As HttpResponseMessage
+   Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackages(ActiveModule.ModuleID, objectId))
   End Function
 
-  <DnnAuthorize(AllowAnonymous:=True)>
+  <HttpGet()>
+  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  Public Function ListPacksByLocale(objectId As Integer, locale As String) As HttpResponseMessage
+   Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackagesByLocale(ActiveModule.ModuleID, objectId, locale))
+  End Function
+
+  <HttpGet()>
+  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  Public Function ListPacksByVersion(objectId As Integer, version As String) As HttpResponseMessage
+   Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackagesByVersion(ActiveModule.ModuleID, objectId, version))
+  End Function
+#End Region
+
+#Region " Translator Part "
+  <HttpGet()>
   <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
-  Public Function ListObjects(tabId As Integer, moduleId As Integer) As ActionResult
-   Dim translatedModules As List(Of ObjectInfo) = ObjectsController.GetObjects(moduleId)
-   Return Json(translatedModules, JsonRequestBehavior.AllowGet)
-  End Function
-
-  <DnnAuthorize(AllowAnonymous:=True)>
-  <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
-  Public Function GetEditLocales(tabId As Integer, moduleId As Integer) As ActionResult
+  Public Function GetEditLocales(tabId As Integer, moduleId As Integer) As HttpResponseMessage
    Dim res As New List(Of String)
    For Each p As Entities.Permissions.PermissionInfo In Entities.Permissions.PermissionsController.GetPermissions(moduleId)
     If p.UserId = UserInfo.UserID Then
      res.Add(p.Locale)
     End If
    Next
-   Return Json(res, JsonRequestBehavior.AllowGet)
+   Return Request.CreateResponse(HttpStatusCode.OK, res)
   End Function
 
-  <DnnAuthorize(AllowAnonymous:=True)>
+  <HttpGet()>
   <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
-  Public Function GetResources(tabId As Integer, moduleId As Integer, objectName As String, objectVersion As String) As ActionResult
-   Dim obj As ObjectInfo = ObjectsController.GetObjectByObjectName(moduleId, objectName)
-   If obj Is Nothing Then Return Json(New List(Of Entities.Texts.TextInfo), JsonRequestBehavior.AllowGet)
+  Public Function GetResources(objectName As String, objectVersion As String) As HttpResponseMessage
+   Dim obj As ObjectInfo = ObjectsController.GetObjectByObjectName(ActiveModule.ModuleID, objectName)
+   If obj Is Nothing Then Return Request.CreateResponse(HttpStatusCode.OK, New List(Of Entities.Texts.TextInfo))
    Dim locale As String = ""
-   If HttpContext.Request.Params("locale") IsNot Nothing Then
-    locale = HttpContext.Request.Params("locale")
+   Dim queryString As NameValueCollection = HttpUtility.ParseQueryString(Me.Request.RequestUri.Query)
+   If queryString("locale") IsNot Nothing Then
+    locale = queryString("locale")
    End If
    Dim res As New List(Of Entities.Texts.TextInfo)
    For Each o As ObjectInfo In ObjectsController.GetObjectPackList(obj.ObjectId, objectVersion)
-    For Each ti As Entities.Texts.TextInfo In Entities.Texts.TextsController.GetTextsByObject(moduleId, o.ObjectId, locale, objectVersion).Values
+    For Each ti As Entities.Texts.TextInfo In Entities.Texts.TextsController.GetTextsByObject(ActiveModule.ModuleID, o.ObjectId, locale, objectVersion).Values
      res.Add(ti)
     Next
    Next
-   Return New LargeJsonResult() With {.Data = res, .MaxJsonLength = Int32.MaxValue, .JsonRequestBehavior = JsonRequestBehavior.AllowGet}
+   Return Request.CreateResponse(HttpStatusCode.OK, res)
   End Function
 
-  <DnnAuthorize(AllowAnonymous:=True)>
+  <HttpGet()>
   <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
-  Public Function GetResourceFile(tabId As Integer, moduleId As Integer, objectName As String, objectVersion As String, fileKey As String) As ActionResult
+  Public Function GetResourceFile(objectName As String, objectVersion As String, fileKey As String) As HttpResponseMessage
    fileKey = fileKey.Replace("=", "_").Replace("-", ".").Replace("/", "\")
-   Dim obj As ObjectInfo = ObjectsController.GetObjectByObjectName(moduleId, objectName)
-   If obj Is Nothing Then Return Json(New List(Of Entities.Texts.TextInfo), JsonRequestBehavior.AllowGet)
+   Dim obj As ObjectInfo = ObjectsController.GetObjectByObjectName(ActiveModule.ModuleID, objectName)
+   If obj Is Nothing Then Return Request.CreateResponse(HttpStatusCode.OK, New List(Of Entities.Texts.TextInfo))
    Dim locale As String = ""
-   If HttpContext.Request.Params("locale") IsNot Nothing Then
-    locale = HttpContext.Request.Params("locale")
+   Dim queryString As NameValueCollection = HttpUtility.ParseQueryString(Me.Request.RequestUri.Query)
+   If queryString("locale") IsNot Nothing Then
+    locale = queryString("locale")
    End If
    Dim res As New List(Of Entities.Texts.TextInfo)
-   For Each ti As Entities.Texts.TextInfo In Entities.Texts.TextsController.GetTextsByObjectAndFile(moduleId, obj.ObjectId, fileKey, locale, objectVersion, True).Values
+   For Each ti As Entities.Texts.TextInfo In Entities.Texts.TextsController.GetTextsByObjectAndFile(ActiveModule.ModuleID, obj.ObjectId, fileKey, locale, objectVersion, True).Values
     res.Add(ti)
    Next
-   Return New LargeJsonResult() With {.Data = res, .MaxJsonLength = Int32.MaxValue, .JsonRequestBehavior = JsonRequestBehavior.AllowGet}
+   Return Request.CreateResponse(HttpStatusCode.OK, res)
   End Function
 
-
-  <DnnAuthorize(AllowAnonymous:=True)>
+  <HttpPost()>
   <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
-  Public Function UpdateResources(tabId As Integer, moduleId As Integer) As ActionResult
+  <ValidateAntiForgeryToken()>
+  Public Function UpdateResources() As HttpResponseMessage
 
-   Dim settings As ModuleSettings = ModuleSettings.GetSettings(PortalSettings.HomeDirectoryMapPath, moduleId)
+   Dim settings As ModuleSettings = ModuleSettings.GetSettings(PortalSettings.HomeDirectoryMapPath, ActiveModule.ModuleID)
    Dim keepStatistics As Boolean = settings.KeepStatistics
 
    Dim serializer As New DataContractJsonSerializer(GetType(List(Of Entities.Texts.TextInfo)))
@@ -108,17 +132,17 @@ Namespace Services
     End Using
    Catch ex As Exception
    End Try
-   If textList.Count = 0 Then Return Json("OK", JsonRequestBehavior.AllowGet)
+   If textList.Count = 0 Then Request.CreateResponse(HttpStatusCode.OK, "OK")
 
    ' all texts should be for the same locale - check the user's status on this
    Dim targetLocale As String = textList(0).Locale
-   If Not Entities.Permissions.PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, moduleId, targetLocale) Then
-    Return Json("Access Denied", JsonRequestBehavior.AllowGet)
+   If Not Entities.Permissions.PermissionsController.HasAccess(UserInfo, PortalSettings.AdministratorRoleName, ActiveModule.ModuleID, targetLocale) Then
+    Return Request.CreateResponse(HttpStatusCode.Unauthorized, "Access Denied")
    End If
 
    ' begin but keep checking object and text ids
    Dim okObjects As New List(Of Integer)
-   For Each o As ObjectInfo In ObjectsController.GetObjects(moduleId)
+   For Each o As ObjectInfo In ObjectsController.GetObjects(ActiveModule.ModuleID)
     okObjects.Add(o.ObjectId)
    Next
    For Each t As Entities.Texts.TextInfo In textList
@@ -152,8 +176,20 @@ Namespace Services
     End If
    Next
 
-   Return Json("OK", JsonRequestBehavior.AllowGet)
+   Return Request.CreateResponse(HttpStatusCode.OK, "OK")
 
+  End Function
+#End Region
+
+#Region " Helpers "
+  <HttpGet()>
+  Public Function Aft() As HttpResponseMessage
+   Dim afhtml As String = System.Web.Helpers.AntiForgery.GetHtml.ToString
+   afhtml = System.Text.RegularExpressions.Regex.Match(afhtml, "value=""([^""]*)""").Groups(1).Value
+   If System.Web.HttpContext.Current.Response.Cookies(System.Web.Helpers.AntiForgeryConfig.CookieName) Is Nothing Then
+    System.Web.HttpContext.Current.Response.Cookies.Add(New System.Web.HttpCookie(System.Web.Helpers.AntiForgeryConfig.CookieName, afhtml))
+   End If
+   Return Request.CreateResponse(HttpStatusCode.OK, afhtml)
   End Function
 
   Public Structure Resource
@@ -162,6 +198,7 @@ Namespace Services
    Public OriginalValue As String
    Public Translation As String
   End Structure
+#End Region
 
  End Class
 End Namespace
