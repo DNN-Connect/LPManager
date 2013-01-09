@@ -126,13 +126,17 @@ Namespace Services
 
    Dim serializer As New DataContractJsonSerializer(GetType(List(Of Entities.Texts.TextInfo)))
    Dim textList As New List(Of Entities.Texts.TextInfo)
+   Dim requestBody As String = System.Web.HttpContext.Current.Request.Form("body")
    Try
-    Using s As IO.Stream = System.Web.HttpContext.Current.Request.InputStream
-     textList = CType(serializer.ReadObject(s), Global.System.Collections.Generic.List(Of Entities.Texts.TextInfo))
+    Using memStream As New IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(requestBody))
+     memStream.Seek(0, IO.SeekOrigin.Begin)
+     textList = CType(serializer.ReadObject(memStream), Global.System.Collections.Generic.List(Of Entities.Texts.TextInfo))
     End Using
    Catch ex As Exception
    End Try
-   If textList.Count = 0 Then Request.CreateResponse(HttpStatusCode.OK, "OK")
+   If textList.Count = 0 Then
+    Return Request.CreateResponse(HttpStatusCode.OK, "OK")
+   End If
 
    ' all texts should be for the same locale - check the user's status on this
    Dim targetLocale As String = textList(0).Locale
@@ -149,9 +153,12 @@ Namespace Services
     If Not settings.WhiteSpaceSignificant Then
      t.Translation = t.Translation.Trim
     End If
-    If okObjects.Contains(t.ObjectId) Then
-     Dim check As Entities.Texts.TextInfo = Entities.Texts.TextsController.GetTextByVersion(t.ObjectId, t.FilePath, t.TextKey, t.Version)
-     If check IsNot Nothing Then
+    Dim check As Entities.Texts.TextInfo = Entities.Texts.TextsController.GetTextByVersion(t.ObjectId, t.FilePath, t.TextKey, t.Version)
+    If check IsNot Nothing Then
+     If t.ObjectId < 0 Then ' what if we receive a text that has not been bound to an object yet?
+      t.ObjectId = check.ObjectId
+     End If
+     If okObjects.Contains(t.ObjectId) Then
       Dim trans As Entities.Translations.TranslationInfo = Entities.Translations.TranslationsController.GetTranslation(check.TextId, targetLocale)
       Dim stat As Integer = t.Translation.Length
       If trans Is Nothing Then
@@ -167,9 +174,9 @@ Namespace Services
        trans.LastModified = Now
        trans.LastModifiedUserId = UserInfo.UserID
        trans.TextValue = t.Translation
-       If stat > 0 And keepStatistics Then
-        Entities.Statistics.StatisticsController.RecordStatistic(check.TextId, targetLocale, UserInfo.UserID, stat)
-       End If
+      End If
+      If stat > 0 And keepStatistics Then
+       Entities.Statistics.StatisticsController.RecordStatistic(check.TextId, targetLocale, UserInfo.UserID, stat)
       End If
       Entities.Translations.TranslationsController.SetTranslation(trans)
      End If
@@ -183,6 +190,7 @@ Namespace Services
 
 #Region " Helpers "
   <HttpGet()>
+  <LocalizationEditorAuthorizeAttribute(Services.SecurityAccessLevel.Translator)>
   Public Function Aft() As HttpResponseMessage
    Dim afhtml As String = System.Web.Helpers.AntiForgery.GetHtml.ToString
    afhtml = System.Text.RegularExpressions.Regex.Match(afhtml, "value=""([^""]*)""").Groups(1).Value
