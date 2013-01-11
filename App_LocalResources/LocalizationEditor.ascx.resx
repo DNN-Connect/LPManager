@@ -211,4 +211,10 @@
   <data name="lbService.Text" xml:space="preserve">
     <value>Service Url</value>
   </data>
+  <data name="SendConfirm.Text" xml:space="preserve">
+    <value>Are you sure you want to send this to the update service?</value>
+  </data>
+  <data name="SendToService.Text" xml:space="preserve">
+    <value>Send to Update Service</value>
+  </data>
 </root>

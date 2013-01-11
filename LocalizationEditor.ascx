@@ -43,6 +43,13 @@
       <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59249;</span>
      </a>
     </td>     
+    <td>
+     <a href="http://update.dotnetnuke.com/localization.aspx?type=Framework&name=DNNCORP.<%#CStr(DataBinder.Eval(Container.DataItem, "ObjectName")).SubString(3)%>&version=<%#CStr(DataBinder.Eval(Container.DataItem, "LastPackVersion")).Replace(".","")%>&culture=<%=Locale%>&url=<%#HttpUtility.UrlEncode(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx") & "?ObjectId=" & CStr(DataBinder.Eval(Container.DataItem, "ObjectId")) & "&Version=" & CStr(DataBinder.Eval(Container.DataItem, "LastPackVersion")) & "&Locale=" & Locale)%>"
+       onclick="return confirm('<%=LocalizeString("SendConfirm") %>')" target="_blank"
+       title="<%=LocalizeString("SendToService") %>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59153;</span>
+     </a>
+    </td>     
    </tr>
   </ItemTemplate>
   <FooterTemplate>
