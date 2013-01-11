@@ -2,6 +2,42 @@
     CSS STYLES FOR Module LocalizationEditor
    ================================
 */
+@font-face {
+    font-family: 'EntypoRegular';
+    src: url('images/entypo.eot');
+    src: url('images/entypo.eot?#iefix') format('embedded-opentype'),
+         url('images/entypo.woff') format('woff'),
+         url('images/entypo.ttf') format('truetype'),
+         url('images/entypo.svg#EntypoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+a.entypoButton, a.entypoButton:link, a.entypoButton:visited
+{
+ font-family: EntypoRegular;
+ font-size: 5em;
+ text-decoration: none;
+ color: #666;
+ padding: 4px;
+}
+a.entypoButton:hover, a.entypoButton:active
+{
+ color: #000;
+}
+span.entypoIcon
+{
+ font-family: EntypoRegular;
+ color: #666;
+}
+span.icon16
+{
+ font-size: 3em;
+}
+a.iconLink, a.iconLink:link, a.iconLink:hover, a.iconLink:visited, a.iconLink:active
+{
+ text-decoration: none;
+}
+
 .LabelEditTextClass
 {
  background-color: White;
@@ -72,7 +108,7 @@ div.genericLocale
  margin: 14px 0px 10px 0px;
  padding-bottom: 4px;
  width: 100%;
- border-bottom: 1px dotted #324565;
+ border-bottom: 1px dotted #666;
 }
 
 div.specificLocale
@@ -81,16 +117,17 @@ div.specificLocale
  padding: 4px;
  margin: 2px 4px 2px 0px;
  border: 1px solid #eee;
- background-color: #324565;
+ background-color: #666;
 }
 div.specificLocale a
 {
  white-space: nowrap;
  color: #fff;
  font-weight: bold;
+ text-decoration: none;
 }
 div.specificLocale a:hover, div.specificLocale a:active
 {
- color: #ABBBD6;
+ color: #ddd;
  text-decoration:none;
 }

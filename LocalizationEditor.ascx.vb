@@ -24,7 +24,6 @@ Imports DotNetNuke.Entities.Modules.Actions
 
 Partial Public Class LocalizationEditor
  Inherits ModuleBase
- Implements DotNetNuke.Entities.Modules.IActionable
 
 #Region " Private Members "
 
@@ -94,6 +93,14 @@ Partial Public Class LocalizationEditor
   IsEditorSpecificLocale = UserLocales.Contains(Locale)
   IsEditorGenericLocale = UserLocales.Contains(Left(Locale, 2))
   IsEditor = CBool(UserLocales.Count > 0)
+
+  cmdUploadPack.ToolTip = LocalizeString("lbUploadPack")
+  cmdManageObjects.ToolTip = LocalizeString("lbManageObjects")
+  cmdManagePermissions.ToolTip = LocalizeString("lbManagePermissions")
+  cmdManagePartners.ToolTip = LocalizeString("lbManagePartners")
+  cmdClearCaches.ToolTip = LocalizeString("lbClearCaches")
+  cmdCube.ToolTip = LocalizeString("lbCube")
+  cmdService.ToolTip = LocalizeString("lbService")
  End Sub
 
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
@@ -172,10 +179,10 @@ Partial Public Class LocalizationEditor
   Dim record As DataRowView = CType(r, DataRowView)
   Dim res As String = ""
   If IsAdmin Or IsEditorSpecificLocale Then
-   res = String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale, "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Locale))
+   res = String.Format("<a href=""{0}"" title=""{2}"" class=""iconLink""><span class=""entypoIcon icon16"" title=""{2}"">{1}</span></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Locale, "Version=" & CStr(record.Item("LastVersion"))), "&#9998;", String.Format(GetString("Edit", LocalResourceFile), Locale))
   End If
   If IsAdmin Or IsEditorGenericLocale Then
-   res &= String.Format("<a href=""{0}"" class=""CommandButton"" title=""{2}""><img src=""{1}"" border=""0"" alt=""{2}"" /></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Left(Locale, 2), "Version=" & CStr(record.Item("LastVersion"))), ResolveUrl("~/images/edit_pen.gif"), String.Format(GetString("Edit", LocalResourceFile), Left(Locale, 2)))
+   res &= String.Format("<a href=""{0}"" title=""{2}""class=""iconLink""><span class=""entypoIcon icon16"" title=""{2}"">{1}</span></a>", EditUrl("ObjectId", CStr(record.Item("ObjectId")), "ObjectSummary", "Locale=" & Left(Locale, 2), "Version=" & CStr(record.Item("LastVersion"))), "&#9998;", String.Format(GetString("Edit", LocalResourceFile), Left(Locale, 2)))
   End If
   Return res
  End Function
@@ -287,24 +294,6 @@ Partial Public Class LocalizationEditor
 
  End Sub
 
-#End Region
-
-#Region " IActionable "
- Public ReadOnly Property ModuleActions As ModuleActionCollection Implements DotNetNuke.Entities.Modules.IActionable.ModuleActions
-  Get
-   Dim modActions As New DotNetNuke.Entities.Modules.Actions.ModuleActionCollection
-   modActions.Add(GetNextActionID, GetString("lbManageObjects", Me.LocalResourceFile), ModuleActionType.ContentOptions, "", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/images/file_16.png"), EditUrl("ManageObjects"), False, DotNetNuke.Security.SecurityAccessLevel.Edit, True, False)
-   modActions.Add(GetNextActionID, GetString("lbManagePermissions", Me.LocalResourceFile), ModuleActionType.ContentOptions, "", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/images/user_16.png"), EditUrl("Users"), False, DotNetNuke.Security.SecurityAccessLevel.Edit, True, False)
-   modActions.Add(GetNextActionID, GetString("lbManagePartners", Me.LocalResourceFile), ModuleActionType.ContentOptions, "", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/images/clients_16.png"), EditUrl("Partners"), False, DotNetNuke.Security.SecurityAccessLevel.Edit, True, False)
-   If UserLocales.Count > 0 Then
-    modActions.Add(GetNextActionID, GetString("lbUploadPack", Me.LocalResourceFile), ModuleActionType.ContentOptions, "", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/images/up_16.png"), EditUrl("UploadPack"), False, DotNetNuke.Security.SecurityAccessLevel.View, True, False)
-   End If
-   If Settings.AllowDataExtract Then
-    modActions.Add(GetNextActionID, GetString("hlCube", Me.LocalResourceFile), ModuleActionType.ContentOptions, "", ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_16.png"), ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString, False, DotNetNuke.Security.SecurityAccessLevel.View, True, False)
-   End If
-   Return modActions
-  End Get
- End Property
 #End Region
 
 End Class

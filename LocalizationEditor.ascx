@@ -5,10 +5,10 @@
 <asp:Panel ID="pnlLocaleRequest" runat="server">
  <div class="genericLocale"><%=(New Globalization.CultureInfo(Locale)).NativeName %></div>
  <p>
-  <a href="<%=DotNetNuke.Common.NavigateUrl() %>" class="CommandButton"><%=DotNetNuke.Services.Localization.Localization.GetString("Back",LocalResourceFile) %></a>
+  <a href="<%=DotNetNuke.Common.NavigateUrl() %>" class="CommandButton"><%=LocalizeString("Back")%></a>
  </p>
  <asp:Panel runat="server" ID="pnlCorePackages">
- <h3><%=DotNetNuke.Services.Localization.Localization.GetString("CorePackages",LocalResourceFile) %></h3>
+ <h3><%=LocalizeString("CorePackages")%></h3>
   <asp:DataList runat="server" ID="dlCorePackages">
   <HeaderTemplate>
    <table cellpadding="4" cellspacing="1">
@@ -32,15 +32,15 @@
     </td>
     <td>
      <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>&Locale=<%=Locale%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>"
-       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>">
-      <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
+       title="<%=LocalizeString("Download") %>"
+       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("Download") %>">&#128190;</span>
      </a>
     </td>
     <td>
      <a href="<%#GetObjectUrl(DataBinder.Eval(Container.DataItem, "ObjectId"))%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>">
-      <img src="<%=ResolveUrl("~/images/rt.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>" />
+       title="<%=LocalizeString("OtherVersions") %>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59249;</span>
      </a>
     </td>     
    </tr>
@@ -52,7 +52,7 @@
  </asp:Panel>
 
  <asp:Panel runat="server" ID="pnlPackages">
- <h3><%=DotNetNuke.Services.Localization.Localization.GetString("Packages",LocalResourceFile) %></h3>
+ <h3><%=LocalizeString("Packages")%></h3>
   <asp:DataList runat="server" ID="dlPackages">
   <HeaderTemplate>
    <table cellpadding="4" cellspacing="1">
@@ -76,15 +76,15 @@
     </td>
     <td>
      <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>&Locale=<%=Locale%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>"
-       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>">
-      <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
+       title="<%=LocalizeString("Download") %>"
+       style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "PercentComplete")>0,"block","none")%>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("Download") %>">&#128190;</span>
      </a>
     </td>
     <td>
      <a href="<%#GetObjectUrl(DataBinder.Eval(Container.DataItem, "ObjectId"))%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>">
-      <img src="<%=ResolveUrl("~/images/rt.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>" />
+       title="<%=LocalizeString("OtherVersions") %>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59249;</span>
      </a>
     </td>     
    </tr>
@@ -95,7 +95,7 @@
  </asp:DataList>
  </asp:Panel>
 
- <h3><%=DotNetNuke.Services.Localization.Localization.GetString("Components",LocalResourceFile) %></h3>
+ <h3><%=LocalizeString("Components")%></h3>
  <asp:DataList runat="server" ID="dlObjects">
   <HeaderTemplate>
    <table cellpadding="4" cellspacing="1">
@@ -123,22 +123,24 @@
     <td>
      <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
     </td>
-    <td style="display:<%#IIF(IsEditor Or IsAdmin,"block","none")%>">
+    <%If IsEditor Or IsAdmin Then%>
+    <td>
      <%#DataBinder.Eval(Container.DataItem, "LastVersionTextCount")%>
     </td>
+    <%End If%>
     <td>
      <%#GetObjectLocalePerctComplete(Container.DataItem)%>
     </td>
     <td>
      <a href="<%=ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx")%>?ObjectId=<%#DataBinder.Eval(Container.DataItem, "ObjectId")%>&Version=<%#DataBinder.Eval(Container.DataItem, "LastVersion")%>&Locale=<%=Locale%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "TextCount")>0,"block","none")%>">
-      <img src="<%=ResolveUrl("~/images/eip_save.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("Download",LocalResourceFile) %>" />
+       title="<%=LocalizeString("Download") %>" style="display:<%#IIF(DataBinder.Eval(Container.DataItem, "TextCount")>0,"block","none")%>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("Download") %>">&#128190;</span>
      </a>
     </td>
     <td>
      <a href="<%#GetObjectUrl(DataBinder.Eval(Container.DataItem, "ObjectId"))%>"
-       title="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>">
-      <img src="<%=ResolveUrl("~/images/rt.gif")%>" border="0" alt="<%=DotNetNuke.Services.Localization.Localization.GetString("OtherVersions",LocalResourceFile) %>" />
+       title="<%=LocalizeString("OtherVersions") %>" class="iconLink">
+      <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59249;</span>
      </a>
     </td>     
     <td>
@@ -153,11 +155,11 @@
 </asp:Panel>
 
 <p style="margin-top: 20px;">
- <dnn:CommandButton ID="cmdUploadPack" ResourceKey="lbUploadPack" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/up_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdManageObjects" ResourceKey="lbManageObjects" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/file_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdManagePermissions" ResourceKey="lbManagePermissions" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/user_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdManagePartners" ResourceKey="lbManagePartners" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/clients_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdClearCaches" ResourceKey="lbClearCaches" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/recycle_bin_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdCube" ResourceKey="lbCube" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_32.png" DisplayLink="False" CausesValidation="false" Visible="false" />
- <dnn:CommandButton ID="cmdService" ResourceKey="lbService" runat="server" ImageUrl="~/DesktopModules/DNNEurope/LocalizationEditor/images/network_connector_32.png" DisplayLink="False" CausesValidation="false" Visible="true" />
+ <asp:LinkButton ID="cmdUploadPack" runat="server" CausesValidation="false" Visible="false" Text="&#128228;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdManageObjects" runat="server" CausesValidation="false" Visible="false" Text="&#59213;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdManagePermissions" runat="server" CausesValidation="false" Visible="false" Text="&#128101;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdManagePartners" runat="server" CausesValidation="false" Visible="false" Text="&#128362;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdClearCaches" runat="server" CausesValidation="false" Visible="false" Text="&#59159;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdCube" runat="server" CausesValidation="false" Visible="false" Text="&#8646;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdService" runat="server" CausesValidation="false" Visible="true" Text="&#8646;" CssClass="entypoButton" />
 </p>

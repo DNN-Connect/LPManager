@@ -83,7 +83,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdUploadPack As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdUploadPack As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdManageObjects control.
@@ -92,7 +92,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdManageObjects As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdManageObjects As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdManagePermissions control.
@@ -101,7 +101,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdManagePermissions As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdManagePermissions As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdManagePartners control.
@@ -110,7 +110,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdManagePartners As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdManagePartners As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdClearCaches control.
@@ -119,7 +119,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdClearCaches As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdClearCaches As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdCube control.
@@ -128,7 +128,7 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdCube As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdCube As Global.System.Web.UI.WebControls.LinkButton
 
  '''<summary>
  '''cmdService control.
@@ -137,5 +137,5 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdService As Global.DotNetNuke.UI.WebControls.CommandButton
+ Protected WithEvents cmdService As Global.System.Web.UI.WebControls.LinkButton
 End Class
