@@ -12,7 +12,7 @@
    <license src="License.txt"/>
    <releaseNotes src="ReleaseNotes.txt"/>
    <dependencies>
-    <dependency type="CoreVersion">05.02.03</dependency>
+    <dependency type="CoreVersion">07.00.00</dependency>
    </dependencies>
    <components>
     <component type="Module">

@@ -38,10 +38,10 @@
   <change type="Fix">Use ownerOrganization in display for partners</change>
   <change type="Fix">Ignore errors when adding individual texts to the resource file to ensure filling continues</change>
   <change type="Fix">Pack content as XML not text to avoid double XML encoding</change>
- </release> 
+ </release>
  <release version="04.00.02">
   <change type="Fix">Corrected behavior of Edit Partner page</change>
- </release> 
+ </release>
  <release version="04.00.03">
   <change type="Fix">No longer XML encoding of text values - fixed/reversed bad fix in 4.0.1</change>
   <change type="Enhancement">Removed redundant schema declaration from resource files</change>
@@ -72,5 +72,12 @@
   <change type="Fix">Templates include empty keys as well</change>
   <change type="Fix">Value nodes set to xml:space preserve</change>
   <change type="Enhancement">Allow multiple uploads of same version of objects to facilitate betas</change>
+ </release>
+ <release version="04.03.00">
+  <change type="Change">Now using GIT</change>
+  <change type="New Feature">Web API Services</change>
+  <change type="Enhancement">Entypo icons</change>
+  <change type="Fix">Attribution now only for most contributing user</change>
+  <change type="Enhancement">Added DNN notification button for core packs</change>
  </release>
 </changelog>
