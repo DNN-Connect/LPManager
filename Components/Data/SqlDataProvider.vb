@@ -215,6 +215,10 @@ Namespace Data
   Public Overrides Function GetContributorList(ObjectId As Integer, Version As String, locale As String) As System.Data.IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetContributorList", ObjectId, Version, locale), IDataReader)
   End Function
+
+  Public Overrides Function GetTranslationStatusByObject(portalId As Integer, objectName As String, version As String, locale As String) As System.Data.IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetTranslationStatusByObject", portalId, objectName, version, locale), IDataReader)
+  End Function
 #End Region
 
  End Class

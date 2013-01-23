@@ -6,6 +6,7 @@ Imports System.Runtime.Serialization.Json
 Imports System.Net
 Imports System.Net.Http
 Imports System.Web.Http
+Imports DotNetNuke.Common.Utilities
 Imports DotNetNuke.Web.Api
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Packages
 
@@ -36,6 +37,9 @@ Namespace Services
 
    ' Helpers
    mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "AFT", "aft", New With {.controller = "Localization", .action = "Aft"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+
+   ' Updater routes
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetUpdateStatus", "Status", New With {.Controller = "Localization", .Action = "GetUpdateStatus"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
 
   End Sub
 
@@ -184,6 +188,43 @@ Namespace Services
    Next
 
    Return Request.CreateResponse(HttpStatusCode.OK, "OK")
+
+  End Function
+#End Region
+
+#Region " Update Service "
+  <HttpPost()>
+  <AllowAnonymous()>
+  Public Function GetUpdateStatus() As HttpResponseMessage
+
+   Dim serializer As New DataContractJsonSerializer(GetType(List(Of UpdateService.DnnPackage)))
+   Dim requestBody As String = System.Web.HttpContext.Current.Request.Form("body")
+   Dim packageList As New List(Of UpdateService.DnnPackage)
+   Try
+    Using memStream As New IO.MemoryStream(System.Text.Encoding.UTF8.GetBytes(requestBody))
+     memStream.Seek(0, IO.SeekOrigin.Begin)
+     packageList = CType(serializer.ReadObject(memStream), Global.System.Collections.Generic.List(Of UpdateService.DnnPackage))
+    End Using
+   Catch ex As Exception
+   End Try
+   If packageList.Count = 0 Then
+    Return Request.CreateResponse(HttpStatusCode.OK, "OK")
+   End If
+
+   Dim res As New List(Of UpdateService.DnnPackage)
+   For Each package As UpdateService.DnnPackage In packageList
+    Using ir As IDataReader = Data.DataProvider.Instance().GetTranslationStatusByObject(PortalSettings.PortalId, package.PackageName, package.Version, package.TargetLocale)
+     If ir.Read Then
+      package.ObjectId = Convert.ToInt32(Null.SetNull(ir.Item("ObjectId"), package.ObjectId))
+      package.TextCount = Convert.ToInt32(Null.SetNull(ir.Item("TextCount"), package.TextCount))
+      package.Translated = Convert.ToInt32(Null.SetNull(ir.Item("Translated"), package.Translated))
+      package.LastChange = CDate(Null.SetNull(ir.Item("LastModified"), package.LastChange))
+      res.Add(package.Clone)
+     End If
+    End Using
+   Next
+
+   Return Request.CreateResponse(HttpStatusCode.OK, res)
 
   End Function
 #End Region

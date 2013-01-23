@@ -253,6 +253,7 @@
     <Compile Include="Components\Services\DataExchange\WebRequest.vb" />
     <Compile Include="Components\Services\Packaging\TokenReplace.vb" />
     <Compile Include="Components\Services\LocalizationController.vb" />
+    <Compile Include="Components\Services\UpdateService\DnnPackage.vb" />
     <Compile Include="Controls\Editor.ascx.designer.vb">
       <DependentUpon>Editor.ascx</DependentUpon>
     </Compile>

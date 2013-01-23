@@ -88,6 +88,7 @@ Namespace Data
   Public MustOverride Function GetObjectVersionList(ByVal ObjectId As Integer, ByVal Locale As String) As IDataReader
   Public MustOverride Function GetObjectPackList(ByVal ObjectId As Integer, ByVal Version As String) As IDataReader
   Public MustOverride Function GetContributorList(ByVal ObjectId As Integer, ByVal Version As String, locale As String) As IDataReader
+  Public MustOverride Function GetTranslationStatusByObject(portalId As Integer, objectName As String, version As String, locale As String) As IDataReader
 #End Region
 
  End Class
