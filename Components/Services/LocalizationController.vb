@@ -40,6 +40,7 @@ Namespace Services
 
    ' Updater routes
    mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetUpdateStatus", "Status", New With {.Controller = "Localization", .Action = "GetUpdateStatus"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
+   mapRouteManager.MapHttpRoute("DNNEurope/LocalizationEditor", "GetObjectPack", "ObjectId/{objectId}/Version/{objectVersion}/Locale/{locale}/Pack", New With {.Controller = "Localization", .Action = "GetObjectPack"}, New With {.objectId = "\d+", .locale = "\w+-\w+"}, New String() {"DNNEurope.Modules.LocalizationEditor.Services"})
 
   End Sub
 
@@ -216,8 +217,8 @@ Namespace Services
     Using ir As IDataReader = Data.DataProvider.Instance().GetTranslationStatusByObject(PortalSettings.PortalId, package.PackageName, package.Version, package.TargetLocale)
      If ir.Read Then
       package.ObjectId = Convert.ToInt32(Null.SetNull(ir.Item("ObjectId"), package.ObjectId))
-      package.TextCount = Convert.ToInt32(Null.SetNull(ir.Item("TextCount"), package.TextCount))
-      package.Translated = Convert.ToInt32(Null.SetNull(ir.Item("Translated"), package.Translated))
+      'package.TextCount = Convert.ToInt32(Null.SetNull(ir.Item("TextCount"), package.TextCount))
+      package.Available = Convert.ToInt32(Null.SetNull(ir.Item("Translated"), package.Available))
       package.LastChange = CDate(Null.SetNull(ir.Item("LastModified"), package.LastChange))
       res.Add(package.Clone)
      End If
@@ -225,6 +226,31 @@ Namespace Services
    Next
 
    Return Request.CreateResponse(HttpStatusCode.OK, res)
+
+  End Function
+
+  <HttpGet()>
+  <AllowAnonymous()>
+  Public Function GetObjectPack(objectId As Integer, objectVersion As String, locale As String) As HttpResponseMessage
+
+   Dim response As HttpResponse = HttpContext.Current.Response
+   Dim fn As String = ""
+   Dim _requestedObject As ObjectInfo = ObjectsController.GetObject(objectId)
+   fn = Services.Packaging.PackageWriter.CreateResourcePack(_requestedObject, objectVersion, locale, False)
+   response.Clear()
+   response.AppendHeader("Content-Disposition", "attachment; filename=""" & fn & """")
+   response.AppendHeader("Content-Encoding", "identity")
+   Using fileIn As New IO.FileStream(DotNetNuke.Common.ApplicationMapPath & "\" & _requestedObject.Module.HomeDirectory & "\LocalizationEditor\Cache\" & _requestedObject.ModuleId.ToString & "\" & fn, IO.FileMode.Open, IO.FileAccess.Read)
+    Dim bBuffer(25000) As Byte
+    Dim iLengthOfReadChunk As Int32
+    Do
+     iLengthOfReadChunk = fileIn.Read(bBuffer, 0, 25000)
+     response.OutputStream.Write(bBuffer, 0, iLengthOfReadChunk)
+     If iLengthOfReadChunk = 0 Then Exit Do
+    Loop
+   End Using
+
+   Return Request.CreateResponse(HttpStatusCode.OK, "")
 
   End Function
 #End Region
