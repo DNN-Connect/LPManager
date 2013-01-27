@@ -148,6 +148,7 @@ Partial Public Class LocalizationEditor
  End Sub
 
  Private Sub cmdClearCaches_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles cmdClearCaches.Click
+  If Not IsEditor Then Exit Sub
   Dim packPath As String = PortalSettings.HomeDirectoryMapPath & "\LocalizationEditor\Cache\" & ModuleId.ToString & "\"
   If IO.Directory.Exists(packPath) Then
    Dim zipFiles() As String = IO.Directory.GetFiles(packPath, "*.zip")
@@ -158,6 +159,26 @@ Partial Public Class LocalizationEditor
     End Try
    Next
   End If
+ End Sub
+
+ Private Sub dlCorePackages_ItemCommand(source As Object, e As System.Web.UI.WebControls.DataListCommandEventArgs) Handles dlCorePackages.ItemCommand
+  If Not IsEditor Then Exit Sub
+  Dim command As String = e.CommandName.ToLower
+  Dim args() As String = CStr(e.CommandArgument).Split("|"c)
+  Dim objectId As Integer = CInt(args(0))
+  Dim version As String = args(1)
+  Dim obj As Entities.Objects.ObjectInfo = Entities.Objects.ObjectsController.GetObject(objectId)
+  Select Case command
+   Case "notify"
+    Dim packUrl As String = String.Format("{0}?ObjectId={1}&Locale={2}&Version={3}", Globals.PackUrl, objectId, Locale, version)
+    Dim url As String = String.Format("http://update.dotnetnuke.com/localization.aspx?type=Framework&name=DNNCORP.{0}&version={1}&culture={2}&url={3}", obj.ObjectName.Substring(3), version, Locale, HttpUtility.UrlEncode(packUrl))
+    Dim req As New Services.DataExchange.WebRequest
+    With req
+     .Url = url
+     .PostMode = Services.DataExchange.WebRequest.PostModeType.URLEncoded
+    End With
+    Dim res As Object = req.GetResponse
+  End Select
  End Sub
 #End Region
 

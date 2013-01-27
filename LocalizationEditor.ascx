@@ -1,6 +1,11 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="LocalizationEditor.ascx.vb" Inherits="DNNEurope.Modules.LocalizationEditor.LocalizationEditor" %>
 <%@ Register TagPrefix="dnn" Namespace="DotNetNuke.UI.WebControls" Assembly="DotNetNuke" %>
 <%@ Register TagPrefix="dnn" TagName="Label" Src="~/controls/LabelControl.ascx" %>
+<script language="javascript">
+ function confirmSend() {
+  return confirm('<%=LocalizeString("SendConfirm") %>');
+ }
+</script>
 <asp:PlaceHolder ID="plhLocales" runat="server" />
 <asp:Panel ID="pnlLocaleRequest" runat="server">
  <div class="genericLocale"><%=(New Globalization.CultureInfo(Locale)).NativeName %></div>
@@ -44,11 +49,7 @@
      </a>
     </td>     
     <td>
-     <a href="http://update.dotnetnuke.com/localization.aspx?type=Framework&name=DNNCORP.<%#CStr(DataBinder.Eval(Container.DataItem, "ObjectName")).SubString(3)%>&version=<%#CStr(DataBinder.Eval(Container.DataItem, "LastPackVersion")).Replace(".","")%>&culture=<%=Locale%>&url=<%#HttpUtility.UrlEncode(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/Pack.aspx") & "?ObjectId=" & CStr(DataBinder.Eval(Container.DataItem, "ObjectId")) & "&Version=" & CStr(DataBinder.Eval(Container.DataItem, "LastPackVersion")) & "&Locale=" & Locale)%>"
-       onclick="return confirm('<%=LocalizeString("SendConfirm") %>')" target="_blank"
-       title="<%=LocalizeString("SendToService") %>" class="iconLink">
-      <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59153;</span>
-     </a>
+    <asp:LinkButton runat="server" ID="cmdNotifyDnn" CommandName="Notify" CommandArgument='<%#DataBinder.Eval(Container.DataItem, "ObjectId") & "|" & DataBinder.Eval(Container.DataItem, "LastPackVersion") %>' Text='<span class="entypoIcon icon16">&#59153;</span>' CssClass="iconLink" ToolTip='<%#LocalizeString("SendToService") %>' OnClientClick='return confirmSend()' Visible='<%#IsEditor.ToString%>' />
     </td>     
    </tr>
   </ItemTemplate>
