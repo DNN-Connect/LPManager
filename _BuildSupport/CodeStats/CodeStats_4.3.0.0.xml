@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <code-summaries>
-  <code-summary date="2013-01-22T12:01:49.8173828+01:00" buildname="4.3.0.0">
-    <linecount label="VB" totalLineCount="14462" emptyLineCount="1907" commentLineCount="3666">
+  <code-summary date="2013-01-27T17:54:49.1279297+01:00" buildname="4.3.0.0">
+    <linecount label="VB" totalLineCount="14484" emptyLineCount="1908" commentLineCount="3666">
       <file-summaries>
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider.vb" totalLineCount="94" emptyLineCount="15" commentLineCount="17" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_CRUD.vb" totalLineCount="109" emptyLineCount="30" commentLineCount="21" />
@@ -80,9 +80,9 @@
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.designer.vb" totalLineCount="249" emptyLineCount="29" commentLineCount="190" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.vb" totalLineCount="168" emptyLineCount="19" commentLineCount="25" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb" totalLineCount="42" emptyLineCount="7" commentLineCount="17" />
-        <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx" totalLineCount="172" emptyLineCount="3" commentLineCount="0" />
+        <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx" totalLineCount="173" emptyLineCount="3" commentLineCount="0" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb" totalLineCount="141" emptyLineCount="17" commentLineCount="106" />
-        <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb" totalLineCount="299" emptyLineCount="34" commentLineCount="21" />
+        <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb" totalLineCount="320" emptyLineCount="35" commentLineCount="21" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx" totalLineCount="69" emptyLineCount="0" commentLineCount="0" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.designer.vb" totalLineCount="87" emptyLineCount="11" commentLineCount="64" />
         <file-summary name="E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.vb" totalLineCount="87" emptyLineCount="15" commentLineCount="27" />

@@ -25,6 +25,7 @@ Imports ICSharpCode.SharpZipLib.Zip
 Imports System.Xml
 Imports System.Xml.XPath
 Imports System.Collections.Generic
+Imports DNNEurope.Modules.LocalizationEditor.Common
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Translations
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Statistics
@@ -298,7 +299,7 @@ Partial Public Class Import
     If basePath <> "" And Not basePath.EndsWith("\") Then
      basePath &= "\"
     End If
-    Dim depObject As ObjectInfo = Nothing
+    Dim depObjects As New List(Of ObjectInfo)
     Dim dependentPackage As String = ""
     If packType = "corelanguage" Then
      dependentPackage = Globals.glbCoreName
@@ -307,14 +308,18 @@ Partial Public Class Import
      dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
     End If
     Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
-    depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
-    If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
-     dependentPackage = Mid(dependentPackage, 12)
-     depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
+    depObjects.TryAdd(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage))
+    If Globals.glbProPackages.Contains(dependentPackage) Then
+     depObjects.TryAdd(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage & "_PRO"))
     End If
-    If depObject Is Nothing Then
+    If depObjects.Count = 0 AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
+     dependentPackage = Mid(dependentPackage, 12)
+     depObjects.TryAdd(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage))
+    End If
+    If depObjects.Count = 0 Then
      report.AppendLine(String.Format("Could not find dependent component {0}", dependentPackage))
     Else
+     For Each depObject As ObjectInfo In depObjects
      packLocale = p.SelectSingleNode("components/component/languageFiles/code").InnerText
      report.AppendLine(String.Format("Uploading package for {0} {1}", depObject.ObjectName, depVersion))
      For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
@@ -331,6 +336,7 @@ Partial Public Class Import
        report.AppendLine("Error: " & ex.Message)
        report.AppendLine(ex.StackTrace)
       End Try
+     Next
      Next
     End If
    Catch ex As Exception
@@ -356,9 +362,11 @@ Partial Public Class Import
    Do While ir.Read
     hits += 1
     Dim textKey As String = CStr(ir.Item("TextKey"))
+    Dim textValue As String = ""
     Dim hasValue As Boolean = False
     If ir.Item("TextValue") IsNot DBNull.Value Then
      hasValue = True
+     textValue = CStr(ir.Item("TextValue"))
     End If
     Try
      Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
@@ -366,7 +374,9 @@ Partial Public Class Import
       report.AppendLine("Nothing for " & textKey)
      Else
       If hasValue Then
+       If textValue <> xNode.SelectSingleNode("value").InnerXml Then
        report.AppendLine("Overwrite " & textKey)
+       End If
       Else
        report.AppendLine("Add " & textKey)
       End If
@@ -382,9 +392,11 @@ Partial Public Class Import
      Do While ir.Read
       hits += 1
       Dim textKey As String = CStr(ir.Item("TextKey"))
+      Dim textValue As String = ""
       Dim hasValue As Boolean = False
       If ir.Item("TextValue") IsNot DBNull.Value Then
        hasValue = True
+       textValue = CStr(ir.Item("TextValue"))
       End If
       Try
        Dim xNode As XmlNode = resFile.SelectSingleNode("root/data[@name=""" & textKey & """]")
@@ -392,7 +404,9 @@ Partial Public Class Import
         report.AppendLine("Nothing for " & textKey)
        Else
         If hasValue Then
+         If textValue <> xNode.SelectSingleNode("value").InnerXml Then
          report.AppendLine("Overwrite " & textKey)
+         End If
         Else
          report.AppendLine("Add " & textKey)
         End If
@@ -458,7 +472,7 @@ Partial Public Class Import
     If basePath <> "" And Not basePath.EndsWith("\") Then
      basePath &= "\"
     End If
-    Dim depObject As ObjectInfo = Nothing
+    Dim depObjects As New List(Of ObjectInfo)
     Dim dependentPackage As String = ""
     If packType = "corelanguage" Then
      dependentPackage = Globals.glbCoreName
@@ -466,12 +480,16 @@ Partial Public Class Import
     If p.SelectSingleNode("components/component/languageFiles/package") IsNot Nothing Then
      dependentPackage = p.SelectSingleNode("components/component/languageFiles/package").InnerText
     End If
-    depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
-    If depObject Is Nothing AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
+    depObjects.TryAdd(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage))
+    If Globals.glbProPackages.Contains(dependentPackage) Then
+     depObjects.TryAdd(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage & "_PRO"))
+    End If
+    If depObjects.Count = 0 AndAlso dependentPackage.ToLower.StartsWith("dotnetnuke.") Then
      dependentPackage = Mid(dependentPackage, 12)
-     depObject = ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage)
+     depObjects.Add(ObjectsController.GetObjectByObjectName(ModuleId, dependentPackage))
     End If
     Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
+    For Each depObject As ObjectInfo In depObjects
     For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
      Dim filePath As String = xNode.SelectSingleNode("path").InnerText
      If filePath <> "" And Not filePath.EndsWith("\") Then
@@ -483,6 +501,7 @@ Partial Public Class Import
       ImportFile(depObject, depVersion, filePath & fileName, fileKey)
      Catch ex As Exception
      End Try
+    Next
     Next
    Catch ex As Exception
    End Try

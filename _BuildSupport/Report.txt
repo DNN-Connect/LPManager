@@ -76,7 +76,7 @@ clean.bindirectory:
 compile.projects:
 
      [echo] Building DNNEurope.LocalizationEditor.vbproj
-  [msbuild] Build started 22/01/2013 12:01:46.
+  [msbuild] Build started 27/01/2013 17:54:45.
   [msbuild] Overriding target "GetFrameworkPaths" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "GetFrameworkPaths" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.NETFramework.targets".
   [msbuild] Overriding target "SatelliteDllsProjectOutputGroup" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "SatelliteDllsProjectOutputGroup" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.WinFX.targets".
   [msbuild] Project "E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" on node 1 (Rebuild target(s)).
@@ -3873,7 +3873,7 @@ compile.projects:
   [msbuild]     0 Warning(s)
   [msbuild]     0 Error(s)
   [msbuild] 
-  [msbuild] Time Elapsed 00:00:03.44
+  [msbuild] Time Elapsed 00:00:03.33
 
 make.doc:
 
@@ -3969,9 +3969,9 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.designer.vb Totals: [T] 249 [C] 190 [E] 29
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.vb Totals: [T] 168 [C] 25 [E] 19
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb Totals: [T] 42 [C] 17 [E] 7
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 172 [C] 0 [E] 3
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 173 [C] 0 [E] 3
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb Totals: [T] 141 [C] 106 [E] 17
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 299 [C] 21 [E] 34
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 320 [C] 21 [E] 35
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx Totals: [T] 69 [C] 0 [E] 0
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.designer.vb Totals: [T] 87 [C] 64 [E] 11
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.vb Totals: [T] 87 [C] 27 [E] 15
@@ -3998,7 +3998,7 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx Totals: [T] 77 [C] 0 [E] 0
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.designer.vb Totals: [T] 114 [C] 85 [E] 14
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.vb Totals: [T] 127 [C] 25 [E] 27
-[codestats] Totals: [VB]  [T] 14462 [C] 3666 [E] 1907
+[codestats] Totals: [VB]  [T] 14484 [C] 3666 [E] 1908
 
 check.sqlscripts:
 
@@ -4045,16 +4045,16 @@ backup.project:
      [echo] Backing Up to \\192.168.123.240\src
      [echo] Backing Up to D:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2013-1-22\DNNEurope.Modules.LocalizationEditor_04.03.00_Install.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2013-1-27\DNNEurope.Modules.LocalizationEditor_04.03.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2013-1-22\DNNEurope.Modules.LocalizationEditor_04.03.00_Source.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2013-1-27\DNNEurope.Modules.LocalizationEditor_04.03.00_Source.zip'.
      [echo] Backing Up to G:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2013-1-22\DNNEurope.Modules.LocalizationEditor_04.03.00_Install.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2013-1-27\DNNEurope.Modules.LocalizationEditor_04.03.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2013-1-22\DNNEurope.Modules.LocalizationEditor_04.03.00_Source.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2013-1-27\DNNEurope.Modules.LocalizationEditor_04.03.00_Source.zip'.
 
 BUILD SUCCEEDED
 
-Total time: 32.7 seconds.
+Total time: 33.3 seconds.
 
