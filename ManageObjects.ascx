@@ -45,9 +45,11 @@
  <ItemTemplate>
   <tr align="left">
    <td>
+   <% If CanDelete Then%>
     <asp:ImageButton ID="cmdDeleteTranslateObject" runat="server" CausesValidation="false"
      CommandName="Delete" ImageUrl="~/images/delete.gif" OnClientClick='<%# String.Concat("return confirm(""", DotNetNuke.Services.Localization.Localization.GetString("DeleteItem.Text", LocalResourceFile), """);") %>'
      AlternateText="Delete" resourcekey="cmdDelete" />
+   <% End If %>
    </td>
    <td>
     <%#DataBinder.Eval(Container.DataItem, "FriendlyName")%>

@@ -27,12 +27,16 @@ Imports DNNEurope.Modules.LocalizationEditor.Services.Packaging
 Partial Public Class ManageObjects
  Inherits ModuleBase
 
-#Region " Event Handlers "
+#Region " Properties "
+ Public Property CanDelete As Boolean = False
+#End Region
 
+#Region " Event Handlers "
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+  If Not (IsAdmin Or ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, Globals.glbObjectMgrPermission)) Then
    Response.Redirect(AccessDeniedURL())
   End If
+  CanDelete = Settings.ManagersCanDelete Or IsAdmin
   ' Force full postback when using upload control
   AJAX.RegisterPostBackControl(lbImportPackage)
 
@@ -66,22 +70,21 @@ Partial Public Class ManageObjects
  End Sub
 
  Private Sub dlTranslateObjects_DeleteCommand(ByVal source As Object, ByVal e As DataListCommandEventArgs) Handles dlTranslateObjects.DeleteCommand
-  Dim ObjectId As Integer = CInt(dlTranslateObjects.DataKeys(e.Item.ItemIndex))
-  ObjectsController.DeleteObject(ObjectId)
+  If CanDelete Then
+   Dim ObjectId As Integer = CInt(dlTranslateObjects.DataKeys(e.Item.ItemIndex))
+   ObjectsController.DeleteObject(ObjectId)
+  End If
   BindData()
  End Sub
-
 #End Region
 
 #Region " Private Methods "
-
  Private Sub BindData()
   ' Load all imported modules
   Dim translatedModules As List(Of ObjectInfo) = ObjectsController.GetObjects(ModuleId)
   dlTranslateObjects.DataSource = translatedModules
   dlTranslateObjects.DataBind()
  End Sub
-
 #End Region
 
 End Class

@@ -120,4 +120,12 @@
    <asp:CheckBox runat="server" ID="chkWhiteSpaceSignificant" />
   </td>
  </tr>
+ <tr>
+  <td class="SubHead" width="165">
+   <dnn:label id="plManagersCanDelete" runat="server" controlname="chkManagersCanDelete" suffix=":" />
+  </td>
+  <td>
+   <asp:CheckBox runat="server" ID="chkManagersCanDelete" />
+  </td>
+ </tr>
 </table>

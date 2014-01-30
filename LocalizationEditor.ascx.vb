@@ -38,7 +38,6 @@ Partial Public Class LocalizationEditor
  Public Property IsEditorSpecificLocale As Boolean = False
  Public Property IsEditorGenericLocale As Boolean = False
  Public Property IsEditor As Boolean = False
- Public Property IsAdmin As Boolean = False
 
  Public Property UserLocales As List(Of String)
   Get
@@ -85,10 +84,6 @@ Partial Public Class LocalizationEditor
   Globals.ReadValue(Me.Request.Params, "Locale", Locale)
   If UserInfo.IsSuperUser Then
    _userId = PortalSettings.AdministratorId
-   IsAdmin = True
-  End If
-  If ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
-   IsAdmin = True
   End If
   IsEditorSpecificLocale = UserLocales.Contains(Locale)
   IsEditorGenericLocale = UserLocales.Contains(Left(Locale, 2))
@@ -101,16 +96,21 @@ Partial Public Class LocalizationEditor
   cmdClearCaches.ToolTip = LocalizeString("lbClearCaches")
   cmdCube.ToolTip = LocalizeString("lbCube")
   cmdService.ToolTip = LocalizeString("lbService")
+
  End Sub
 
  Private Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+
   Try
+
    ' Show functions for authorized users
    cmdManagePermissions.Visible = IsAdmin
-   cmdManageObjects.Visible = IsAdmin
+   cmdManageObjects.Visible = IsAdmin Or ModulePermissionController.HasModulePermission(ModuleConfiguration.ModulePermissions, Globals.glbObjectMgrPermission)
    cmdManagePartners.Visible = IsAdmin
    cmdClearCaches.Visible = IsAdmin And Me.Settings.CachePacks
    cmdUploadPack.Visible = IsAdmin Or IsEditor
+   cmdCube.Visible = Settings.AllowDataExtract
+   cmdService.Visible = IsEditor
 
    If Not Me.IsPostBack Then
 
@@ -121,6 +121,7 @@ Partial Public Class LocalizationEditor
   Catch exc As Exception
    ProcessModuleLoadException(Me, exc)
   End Try
+
  End Sub
 
  Private Sub cmdCube_Click(sender As Object, e As System.EventArgs) Handles cmdCube.Click

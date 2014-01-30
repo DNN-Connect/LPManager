@@ -18,6 +18,7 @@
 ' 
 
 Imports DotNetNuke.Entities.Modules
+Imports DotNetNuke.Security.Permissions
 
 Public Class ModuleBase
  Inherits PortalModuleBase
@@ -29,6 +30,7 @@ Public Class ModuleBase
 #End Region
 
 #Region " Properties "
+ Public Property IsAdmin As Boolean = False
 
  Public ReadOnly Property CultureTextInfo As Globalization.TextInfo
   Get
@@ -49,7 +51,17 @@ Public Class ModuleBase
    _settings = Value
   End Set
  End Property
+#End Region
 
+#Region " Page Events "
+ Private Sub Page_Init(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Init
+  If UserInfo.IsSuperUser Then
+   IsAdmin = True
+  End If
+  If ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+   IsAdmin = True
+  End If
+ End Sub
 #End Region
 
 End Class

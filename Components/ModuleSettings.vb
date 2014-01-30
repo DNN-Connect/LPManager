@@ -36,6 +36,7 @@ Public Class ModuleSettings
  Public Property ModuleKey As String = ""
  Public Property Attribution As String = ""
  Public Property WhiteSpaceSignificant As Boolean = True
+ Public Property ManagersCanDelete As Boolean = True
 #End Region
 
 #Region " Constructors "
@@ -58,6 +59,7 @@ Public Class ModuleSettings
   ReadValue(settings, "ModuleKey", ModuleKey)
   ReadValue(settings, "Attribution", Attribution)
   ReadValue(settings, "WhiteSpaceSignificant", WhiteSpaceSignificant)
+  ReadValue(settings, "ManagersCanDelete", ManagersCanDelete)
 
   If portalHomeDirMapPath <> "" Then
    License = Globals.GetLicense(portalHomeDirMapPath, moduleId)
@@ -82,6 +84,7 @@ Public Class ModuleSettings
   objModules.UpdateModuleSetting(moduleId, "ModuleKey", Me.ModuleKey)
   objModules.UpdateModuleSetting(moduleId, "Attribution", Me.Attribution)
   objModules.UpdateModuleSetting(moduleId, "WhiteSpaceSignificant", Me.WhiteSpaceSignificant.ToString)
+  objModules.UpdateModuleSetting(moduleId, "ManagersCanDelete", Me.ManagersCanDelete.ToString)
   DotNetNuke.Common.Utilities.DataCache.SetCache(CacheKey(moduleId), Me)
   Globals.WriteLicense(portalHomeDirMapPath, ModuleId, License)
 

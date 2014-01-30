@@ -34,7 +34,7 @@ Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
  End Sub
 
  Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
-  If Not ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+  If Not IsAdmin Then
    Response.Redirect(AccessDeniedURL())
   End If
 

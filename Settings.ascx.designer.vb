@@ -273,4 +273,22 @@ Partial Public Class Settings
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
  Protected WithEvents chkWhiteSpaceSignificant As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''plManagersCanDelete control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plManagersCanDelete As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkManagersCanDelete control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkManagersCanDelete As Global.System.Web.UI.WebControls.CheckBox
 End Class

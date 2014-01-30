@@ -42,6 +42,7 @@ Partial Public Class Settings
      txtModuleKey.Text = .ModuleKey
      txtAttribution.Text = .Attribution
      chkWhiteSpaceSignificant.Checked = .WhiteSpaceSignificant
+     chkManagersCanDelete.Checked = .ManagersCanDelete
     End With
    End If
   Catch exc As Exception
@@ -67,6 +68,7 @@ Partial Public Class Settings
     .ModuleKey = txtModuleKey.Text.Trim
     .Attribution = txtAttribution.Text
     .WhiteSpaceSignificant = chkWhiteSpaceSignificant.Checked
+    .ManagersCanDelete = chkManagersCanDelete.Checked
     .SaveSettings(PortalSettings.HomeDirectoryMapPath, ModuleId)
    End With
 
