@@ -80,4 +80,9 @@
   <change type="Fix">Attribution now only for most contributing user</change>
   <change type="Enhancement">Added DNN notification button for core packs</change>
  </release>
+ <release version="04.04.00">
+  <change type="Enhancement">Change to permissions system to allow others than those with EDIT permission to upload components for translation</change>
+  <change type="Fix">Removal of all MVC references</change>
+  <change type="Change">Cosmetic changes and fixes to button visibility</change>
+ </release>
 </changelog>

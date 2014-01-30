@@ -99,6 +99,7 @@ Backup*/
 UpgradeLog*.XML
 
 #B2M Ignores
+_BuildSupport/
 _Development/
 _Dotfuscated/
 _Packages/
