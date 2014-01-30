@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ControlTitle_settings.Text" xml:space="preserve">
     <value>Localization Editor Settings</value>
@@ -170,6 +170,12 @@
   </data>
   <data name="plLicense.Text" xml:space="preserve">
     <value>License</value>
+  </data>
+  <data name="plManagersCanDelete.Help" xml:space="preserve">
+    <value>If checked then extension managers (i.e. those that can upload new objects to localize) can also delete extensions.</value>
+  </data>
+  <data name="plManagersCanDelete.Text" xml:space="preserve">
+    <value>Managers Can Delete</value>
   </data>
   <data name="plModuleKey.Help" xml:space="preserve">
     <value>Used to uniquely identify this module for a remote request for available packages. Not normally required unless you have programmed another module to retrieve language packs from your server.</value>

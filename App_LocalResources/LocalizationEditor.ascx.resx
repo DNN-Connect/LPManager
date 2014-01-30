@@ -141,7 +141,7 @@
   <data name="lbClearCaches.Text" xml:space="preserve">
     <value>Clear Cache</value>
   </data>
-  <data name="hlCube.Text" xml:space="preserve">
+  <data name="lbCube.Text" xml:space="preserve">
     <value>Get Data Cube</value>
   </data>
   <data name="lbUploadPack.Text" xml:space="preserve">

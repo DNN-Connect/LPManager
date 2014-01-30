@@ -82,7 +82,7 @@ Partial Public Class Import
 
   If Not Me.IsPostBack Then
 
-   If DotNetNuke.Security.Permissions.ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
+   If IsAdmin Then
     ddLocale.Visible = False
     txtLocale.Visible = True
    Else

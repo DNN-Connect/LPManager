@@ -48,9 +48,6 @@
       <span class="entypoIcon icon16" title="<%=LocalizeString("OtherVersions") %>">&#59249;</span>
      </a>
     </td>     
-    <td>
-    <asp:LinkButton runat="server" ID="cmdNotifyDnn" CommandName="Notify" CommandArgument='<%#DataBinder.Eval(Container.DataItem, "ObjectId") & "|" & DataBinder.Eval(Container.DataItem, "LastPackVersion") %>' Text='<span class="entypoIcon icon16">&#59153;</span>' CssClass="iconLink" ToolTip='<%#LocalizeString("SendToService") %>' OnClientClick='return confirmSend()' Visible='<%#IsEditor.ToString%>' />
-    </td>     
    </tr>
   </ItemTemplate>
   <FooterTemplate>
@@ -167,7 +164,7 @@
  <asp:LinkButton ID="cmdManageObjects" runat="server" CausesValidation="false" Visible="false" Text="&#59213;" CssClass="entypoButton" />
  <asp:LinkButton ID="cmdManagePermissions" runat="server" CausesValidation="false" Visible="false" Text="&#128101;" CssClass="entypoButton" />
  <asp:LinkButton ID="cmdManagePartners" runat="server" CausesValidation="false" Visible="false" Text="&#128362;" CssClass="entypoButton" />
- <asp:LinkButton ID="cmdClearCaches" runat="server" CausesValidation="false" Visible="false" Text="&#59159;" CssClass="entypoButton" />
- <asp:LinkButton ID="cmdCube" runat="server" CausesValidation="false" Visible="false" Text="&#8646;" CssClass="entypoButton" />
- <asp:LinkButton ID="cmdService" runat="server" CausesValidation="false" Visible="true" Text="&#8646;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdClearCaches" runat="server" CausesValidation="false" Visible="false" Text="&#59249;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdCube" runat="server" CausesValidation="false" Visible="false" Text="&#59157;" CssClass="entypoButton" />
+ <asp:LinkButton ID="cmdService" runat="server" CausesValidation="false" Visible="true" Text="&#128363;" CssClass="entypoButton" />
 </p>
