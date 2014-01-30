@@ -46,26 +46,26 @@ Namespace Services
 
 #Region " Public Part "
   <HttpGet()>
-  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  <AllowAnonymous()>
   Public Function ListObjects() As HttpResponseMessage
    Dim translatedModules As List(Of ObjectInfo) = ObjectsController.GetObjects(ActiveModule.ModuleID)
    Return Request.CreateResponse(HttpStatusCode.OK, translatedModules)
   End Function
 
   <HttpGet()>
-  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  <AllowAnonymous()>
   Public Function ListAllPacks(objectId As Integer) As HttpResponseMessage
    Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackages(ActiveModule.ModuleID, objectId))
   End Function
 
   <HttpGet()>
-  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  <AllowAnonymous()>
   Public Function ListPacksByLocale(objectId As Integer, locale As String) As HttpResponseMessage
    Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackagesByLocale(ActiveModule.ModuleID, objectId, locale))
   End Function
 
   <HttpGet()>
-  <DnnModuleAuthorize(AccessLevel:=DotNetNuke.Security.SecurityAccessLevel.View)>
+  <AllowAnonymous()>
   Public Function ListPacksByVersion(objectId As Integer, version As String) As HttpResponseMessage
    Return Request.CreateResponse(HttpStatusCode.OK, PackagesController.GetPackagesByVersion(ActiveModule.ModuleID, objectId, version))
   End Function
