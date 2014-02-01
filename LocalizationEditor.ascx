@@ -166,5 +166,27 @@
  <asp:LinkButton ID="cmdManagePartners" runat="server" CausesValidation="false" Visible="false" Text="&#128362;" CssClass="entypoButton" />
  <asp:LinkButton ID="cmdClearCaches" runat="server" CausesValidation="false" Visible="false" Text="&#59249;" CssClass="entypoButton" />
  <asp:LinkButton ID="cmdCube" runat="server" CausesValidation="false" Visible="false" Text="&#59157;" CssClass="entypoButton" />
- <asp:LinkButton ID="cmdService" runat="server" CausesValidation="false" Visible="true" Text="&#128363;" CssClass="entypoButton" />
+ <a href="#" ID="cmdService" runat="server" class="entypoButton" title='<%= LocalizeString("lbService") %>'>&#128363;</a>
 </p>
+
+<script type="text/javascript">
+(function ($, Sys) {
+ $(document).ready(function () {
+<% If UserPermissions.Count>0 Then %>
+  var $dialogConnections = $('<div class="dnnDialog"></div>')
+		.html('<div class="dialogLine"><span><%= LocalizeJSString("ServiceUrl") %></span><input type="text" value="http://<%= Request.Url.Host & DotNetNuke.Common.Globals.ApplicationPath & String.Format("/DesktopModules/DNNEurope/LocalizationEditor/API?tabid={0}&moduleid={1}", TabId, ModuleId) %>" /></div><h3><%= LocalizeJSString("AccessKeys") %></h3><% For Each up As DNNEurope.Modules.LocalizationEditor.Entities.Permissions.PermissionInfo In UserPermissions %><div class="dialogLine"><span><%= up.Locale %></span><input type="text" value="<%= up.PermissionId %>-<%= up.AccessKey %>" /></div><% Next %>')
+		.dialog({
+		 autoOpen: false,
+		 resizable: false,
+		 dialogClass: 'dnnFormPopup dnnClear',
+		 title: '<%= LocalizeJSString("TranslatorAccess") %>',
+		 width: 500
+		});
+		$('#<%=cmdService.ClientId %>').click(function () {
+   $dialogConnections.dialog('open');
+   return false;
+  });
+<% End If %>
+ });
+} (jQuery, window.Sys));
+</script>

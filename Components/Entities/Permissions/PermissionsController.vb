@@ -23,12 +23,27 @@ Imports DotNetNuke.Common.Utilities
 Namespace Entities.Permissions
 
  Public Class PermissionsController
+
   Public Shared Function GetPermission(ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As PermissionInfo
    Return CType(CBO.FillObject(DataProvider.Instance().GetPermission(UserId, Locale, ModuleId), GetType(PermissionInfo)), PermissionInfo)
   End Function
 
-  Public Shared Function GetPermissions(ByVal ModuleId As Integer) As ArrayList
-   Return CBO.FillCollection(DataProvider.Instance().GetPermissions(ModuleId), GetType(PermissionInfo))
+  Public Shared Function GetPermissions(ByVal ModuleId As Integer) As List(Of PermissionInfo)
+   Return GetPermissions(ModuleId, False)
+  End Function
+
+  Public Shared Function GetPermissions(ByVal ModuleId As Integer, refreshCache As Boolean) As List(Of PermissionInfo)
+   Dim cacheKey As String = "LEPermissions" & ModuleId.ToString
+   Dim res As List(Of PermissionInfo) = CType(DotNetNuke.Common.Utilities.DataCache.GetCache(cacheKey), List(Of PermissionInfo))
+   If res Is Nothing Or refreshCache Then
+    res = CBO.FillCollection(Of PermissionInfo)(DataProvider.Instance().GetPermissions(ModuleId))
+    DotNetNuke.Common.Utilities.DataCache.SetCache(cacheKey, res)
+   End If
+   Return res
+  End Function
+
+  Public Shared Function GetPermissionById(permissionId As Integer) As PermissionInfo
+   Return CType(CBO.FillObject(DataProvider.Instance().GetPermissionById(permissionId), GetType(PermissionInfo)), PermissionInfo)
   End Function
 
   Public Shared Function HasAccess(ByVal user As UserInfo, ByVal AdminRole As String, ByVal ModuleId As Integer, ByVal Locale As String) As Boolean

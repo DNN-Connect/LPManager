@@ -70,6 +70,10 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetPermissions", ModuleId), IDataReader)
   End Function
 
+  Public Overrides Function GetPermissionById(permissionId As Integer) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetPermissionById", permissionId), IDataReader)
+  End Function
+
 #End Region
 
 #Region " Statistics Methods "

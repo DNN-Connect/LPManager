@@ -85,4 +85,8 @@
   <change type="Fix">Removal of all MVC references</change>
   <change type="Change">Cosmetic changes and fixes to button visibility</change>
  </release>
+ <release version="04.05.00">
+  <change type="New Feature">New authentication method for services using an "Access Key" to overcome limitations in new DNN 7.2 services framework</change>
+  <change type="Fix">Fix for object names with spaces in them</change>
+ </release>
 </changelog>

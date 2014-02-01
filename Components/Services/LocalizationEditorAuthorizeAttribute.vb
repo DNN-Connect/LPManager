@@ -8,6 +8,7 @@ Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
 Imports System.Threading
 Imports DotNetNuke.Web.Api
 Imports DotNetNuke.Common
+Imports System.Security.Cryptography
 
 Namespace Services
  Public Class LocalizationEditorAuthorizeAttribute
@@ -32,6 +33,9 @@ Namespace Services
   Private m_AccessLevel As SecurityAccessLevel
 
   Public Property UserInfo() As UserInfo
+  Public Property AccessKey As Integer = -1
+  Public Property AccessHash As String = ""
+  Public Property AccessSalt As String = ""
 
   Public Overrides Function IsAuthorized(context As DotNetNuke.Web.Api.AuthFilterContext) As Boolean
 
@@ -39,12 +43,38 @@ Namespace Services
 
    Dim activeModule As ModuleInfo = context.ActionContext.Request.FindModuleInfo()
 
-   If Not HttpContextSource.Current.Request.IsAuthenticated Then
+   Dim values As IEnumerable(Of String) = Nothing
+   If context.ActionContext.Request.Headers.TryGetValues("AccessKey", values) Then
+    Integer.TryParse(values.FirstOrDefault, AccessKey)
+   End If
+
+   If context.ActionContext.Request.Headers.TryGetValues("AccessHash", values) Then
+    AccessHash = values.FirstOrDefault
+   End If
+
+   If context.ActionContext.Request.Headers.TryGetValues("AccessSalt", values) Then
+    AccessSalt = values.FirstOrDefault
+   End If
+
+   If AccessKey <> -1 Then
+    Dim permission As PermissionInfo = PermissionsController.GetPermissionById(AccessKey)
+    If permission IsNot Nothing Then
+     ' check the hash
+     Dim textToEncode As String = permission.AccessKey.ToString & AccessSalt
+     If Not String.IsNullOrEmpty(System.Web.HttpContext.Current.Request.Form("body")) Then
+      textToEncode &= System.Web.HttpContext.Current.Request.Form("body")
+     End If
+     Dim hash As New SHA256Managed
+     Dim result As String = Convert.ToBase64String(hash.ComputeHash(ASCIIEncoding.ASCII.GetBytes(textToEncode)))
+     If result = AccessHash Then
+      Dim portalSettings As DotNetNuke.Entities.Portals.PortalSettings = DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings()
+      _UserInfo = UserController.GetUserById(portalSettings.PortalId, permission.UserId)
+     End If
+    End If
+   End If
+
+   If _UserInfo Is Nothing Then
     _UserInfo = New UserInfo
-   Else
-    Dim portalSettings As DotNetNuke.Entities.Portals.PortalSettings = DotNetNuke.Entities.Portals.PortalController.GetCurrentPortalSettings()
-    _UserInfo = UserController.GetCachedUser(portalSettings.PortalId, HttpContextSource.Current.User.Identity.Name)
-    If _UserInfo Is Nothing Then _UserInfo = New UserInfo
    End If
 
    If activeModule IsNot Nothing Then

@@ -137,5 +137,5 @@ Partial Public Class LocalizationEditor
  '''Auto-generated field.
  '''To modify move field declaration from designer file to code-behind file.
  '''</remarks>
- Protected WithEvents cmdService As Global.System.Web.UI.WebControls.LinkButton
+ Protected WithEvents cmdService As Global.System.Web.UI.HtmlControls.HtmlAnchor
 End Class

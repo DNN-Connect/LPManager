@@ -131,3 +131,16 @@ div.specificLocale a:hover, div.specificLocale a:active
  color: #ddd;
  text-decoration:none;
 }
+.dialogLine 
+{
+}
+.dialogLine span 
+{
+ display: inline-block;
+ min-width: 100px;
+ font-weight: bold;
+}
+.dialogLine input 
+{
+ width: 350px;
+}

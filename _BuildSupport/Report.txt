@@ -30,7 +30,7 @@ set.buildvars:
 
 set.versions:
 
-     [echo] Set Version 04.04.00 on DNNEurope.LocalizationEditor.vbproj
+     [echo] Set Version 04.05.00 on DNNEurope.LocalizationEditor.vbproj
 Checking ..\My Project\AssemblyInfo.vb
 Checking ..\_Installation\DNNEurope.LocalizationEditor.dnn
 Reset References to _References\
@@ -57,8 +57,8 @@ Adjusting 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting Path 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
 Adjusting Path 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
-Adjusting 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
-Adjusting Path 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting Path 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
 Adjusting 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting Path 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting 'System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
@@ -71,7 +71,7 @@ clean.bindirectory:
 compile.projects:
 
      [echo] Building DNNEurope.LocalizationEditor.vbproj
-  [msbuild] Build started 30/01/2014 22:20:12.
+  [msbuild] Build started 01/02/2014 21:37:03.
   [msbuild] Overriding target "GetFrameworkPaths" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "GetFrameworkPaths" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.NETFramework.targets".
   [msbuild] Overriding target "SatelliteDllsProjectOutputGroup" in project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "SatelliteDllsProjectOutputGroup" from project "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.WinFX.targets".
   [msbuild] Project "E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" on node 1 (Rebuild target(s)).
@@ -271,7 +271,7 @@ compile.projects:
   [msbuild]           Private = 'False'
   [msbuild]       System.Data
   [msbuild]           Private = 'False'
-  [msbuild]       System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+  [msbuild]       System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
   [msbuild]           Private = 'False'
   [msbuild]           HintPath = '_References\System.Net.Http.dll'
   [msbuild]           SpecificVersion = 'False'
@@ -464,14 +464,14 @@ compile.projects:
   [msbuild]           Considered "E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\mscorlib.exe", but it didn't exist.
   [msbuild]           For SearchPath "{TargetFrameworkDirectory}".
   [msbuild]           Considered "C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.winmd", but it didn't exist.
-  [msbuild]       Required by "System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
-  [msbuild]       Required by "System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL".
+  [msbuild]       Required by "System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
   [msbuild]       Required by "System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral".
   [msbuild]       Required by "GoogleTranslateAPI, Version=0.2.0.0, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL".
+  [msbuild]       Required by "System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL".
   [msbuild]       Required by "SharpZipLib, Version=0.81.0.1407, Culture=neutral".
   [msbuild]       This reference is not "CopyLocal" because it's a prerequisite file.
   [msbuild]       The ImageRuntimeVersion for this reference is "v4.0.30319".
@@ -1969,7 +1969,7 @@ compile.projects:
   [msbuild]     0 Warning(s)
   [msbuild]     0 Error(s)
   [msbuild] 
-  [msbuild] Time Elapsed 00:00:02.42
+  [msbuild] Time Elapsed 00:00:03.47
 
 make.doc:
 
@@ -1980,19 +1980,19 @@ compileandpackage:
 
 read.version:
 
-     [echo] shortVersion: 04.04.00
-     [echo] version: 4.4.0.0
+     [echo] shortVersion: 04.05.00
+     [echo] version: 4.5.0.0
      [echo] major: 04
-     [echo] minor: 04
+     [echo] minor: 05
      [echo] build: 00
 
 make.codestats:
 
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider.vb Totals: [T] 95 [C] 17 [E] 15
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_CRUD.vb Totals: [T] 109 [C] 21 [E] 30
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider.vb Totals: [T] 96 [C] 17 [E] 15
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_CRUD.vb Totals: [T] 108 [C] 21 [E] 30
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_FK.vb Totals: [T] 57 [C] 17 [E] 14
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider.vb Totals: [T] 225 [C] 17 [E] 57
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider_CRUD.vb Totals: [T] 233 [C] 20 [E] 68
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider.vb Totals: [T] 229 [C] 17 [E] 58
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider_CRUD.vb Totals: [T] 229 [C] 20 [E] 67
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\SqlDataProvider_FK.vb Totals: [T] 75 [C] 17 [E] 20
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Objects\ModuleInfo.vb Totals: [T] 99 [C] 37 [E] 11
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Objects\ObjectInfo.vb Totals: [T] 57 [C] 17 [E] 12
@@ -2013,10 +2013,10 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Partners\PartnersController.vb Totals: [T] 40 [C] 17 [E] 11
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Partners\PartnersController_CRUD.vb Totals: [T] 53 [C] 17 [E] 17
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Partners\PartnersController_FK.vb Totals: [T] 41 [C] 17 [E] 12
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionInfo_Interfaces.vb Totals: [T] 240 [C] 68 [E] 23
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionInfo_Properties.vb Totals: [T] 58 [C] 17 [E] 9
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionsController.vb Totals: [T] 49 [C] 17 [E] 7
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionsController_CRUD.vb Totals: [T] 46 [C] 17 [E] 14
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionInfo_Interfaces.vb Totals: [T] 241 [C] 68 [E] 23
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionInfo_Properties.vb Totals: [T] 61 [C] 17 [E] 9
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionsController.vb Totals: [T] 60 [C] 17 [E] 9
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Permissions\PermissionsController_CRUD.vb Totals: [T] 43 [C] 17 [E] 11
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Statistics\StatisticInfo_Interfaces.vb Totals: [T] 213 [C] 68 [E] 22
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Statistics\StatisticInfo_Properties.vb Totals: [T] 54 [C] 17 [E] 9
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Entities\Statistics\StatisticsController.vb Totals: [T] 71 [C] 17 [E] 15
@@ -2048,11 +2048,11 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\Packaging\TokenReplace.vb Totals: [T] 97 [C] 0 [E] 18
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\UpdateService\DnnPackage.vb Totals: [T] 19 [C] 0 [E] 3
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\HttpContextExtensions.vb Totals: [T] 45 [C] 0 [E] 7
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\LocalizationController.vb Totals: [T] 279 [C] 7 [E] 35
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\LocalizationEditorAuthorizeAttribute.vb Totals: [T] 110 [C] 0 [E] 16
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\LocalizationController.vb Totals: [T] 290 [C] 6 [E] 34
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Services\LocalizationEditorAuthorizeAttribute.vb Totals: [T] 140 [C] 1 [E] 20
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Extensions.vb Totals: [T] 12 [C] 0 [E] 2
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Globals.vb Totals: [T] 809 [C] 185 [E] 87
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\ModuleBase.vb Totals: [T] 67 [C] 17 [E] 13
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\ModuleBase.vb Totals: [T] 77 [C] 17 [E] 15
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\ModuleSettings.vb Totals: [T] 113 [C] 17 [E] 19
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx Totals: [T] 19 [C] 0 [E] 0
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx.designer.vb Totals: [T] 64 [C] 44 [E] 9
@@ -2066,9 +2066,9 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.designer.vb Totals: [T] 249 [C] 190 [E] 29
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.vb Totals: [T] 168 [C] 25 [E] 19
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb Totals: [T] 42 [C] 17 [E] 7
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 170 [C] 0 [E] 3
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 192 [C] 0 [E] 4
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb Totals: [T] 141 [C] 106 [E] 17
-[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 321 [C] 21 [E] 39
+[codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 318 [C] 21 [E] 39
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx Totals: [T] 71 [C] 0 [E] 0
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.designer.vb Totals: [T] 87 [C] 64 [E] 11
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.vb Totals: [T] 90 [C] 27 [E] 12
@@ -2095,11 +2095,11 @@ make.codestats:
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx Totals: [T] 77 [C] 0 [E] 0
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.designer.vb Totals: [T] 114 [C] 85 [E] 14
 [codestats] E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.vb Totals: [T] 127 [C] 25 [E] 27
-[codestats] Totals: [VB]  [T] 14593 [C] 3680 [E] 1920
+[codestats] Totals: [VB]  [T] 14675 [C] 3680 [E] 1925
 
 check.sqlscripts:
 
-     [echo] Version: 04.04.00
+     [echo] Version: 04.05.00
 
 make.package:
 
@@ -2114,9 +2114,9 @@ make.package:
       [zip] Zipping 35 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
      [copy] Copying 2 files to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
-     [copy] Copying 19 files to 'D:\Programs\Nant\Build\Package'.
+     [copy] Copying 20 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 24 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.04.00_Install.zip'.
+      [zip] Zipping 25 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.00_Install.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
      [echo] Building SOURCE
 
@@ -2127,9 +2127,9 @@ make.package:
       [zip] Zipping 132 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
      [copy] Copying 2 files to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
-     [copy] Copying 19 files to 'D:\Programs\Nant\Build\Package'.
+     [copy] Copying 20 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 24 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.04.00_Source.zip'.
+      [zip] Zipping 25 files to 'E:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.00_Source.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
 
 all:
@@ -2140,16 +2140,16 @@ backup.project:
      [echo] Backing Up to \\192.168.123.240\src
      [echo] Backing Up to D:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2014-1-30\DNNEurope.Modules.LocalizationEditor_04.04.00_Install.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2014-2-1\DNNEurope.Modules.LocalizationEditor_04.05.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2014-1-30\DNNEurope.Modules.LocalizationEditor_04.04.00_Source.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2014-2-1\DNNEurope.Modules.LocalizationEditor_04.05.00_Source.zip'.
      [echo] Backing Up to G:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2014-1-30\DNNEurope.Modules.LocalizationEditor_04.04.00_Install.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2014-2-1\DNNEurope.Modules.LocalizationEditor_04.05.00_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2014-1-30\DNNEurope.Modules.LocalizationEditor_04.04.00_Source.zip'.
+     [copy] Copying 1 file to 'G:\src\LocalizationEditor\2014-2-1\DNNEurope.Modules.LocalizationEditor_04.05.00_Source.zip'.
 
 BUILD SUCCEEDED
 
-Total time: 33.2 seconds.
+Total time: 36.4 seconds.
 

@@ -17,10 +17,10 @@
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
 Imports DNNEurope.Modules.LocalizationEditor.Data
-Imports DotNetNuke.Security.Permissions
 Imports DotNetNuke.Services.Exceptions
 Imports DotNetNuke.Services.Localization.Localization
 Imports DotNetNuke.Entities.Modules.Actions
+Imports DNNEurope.Modules.LocalizationEditor.Entities.Permissions
 
 Partial Public Class LocalizationEditor
  Inherits ModuleBase
@@ -39,15 +39,17 @@ Partial Public Class LocalizationEditor
  Public Property IsEditorGenericLocale As Boolean = False
  Public Property IsEditor As Boolean = False
 
+ Public ReadOnly Property UserPermissions As List(Of PermissionInfo)
+  Get
+   Return PermissionsController.GetPermissions(ModuleId).Where(Function(p) p.UserId = UserId).ToList()
+  End Get
+ End Property
+
  Public Property UserLocales As List(Of String)
   Get
    If _userLocales Is Nothing Then
     _userLocales = New List(Of String)
-    Dim uid As Integer = UserId
-    If UserInfo.IsSuperUser Then
-     uid = PortalSettings.AdministratorId
-    End If
-    Using ir As IDataReader = DataProvider.Instance.GetLocalesForUser(uid, PortalId, ModuleId)
+    Using ir As IDataReader = DataProvider.Instance.GetLocalesForUser(UserId, PortalId, ModuleId)
      Do While ir.Read
       _userLocales.Add(CStr(ir.Item("Locale")))
      Loop
@@ -95,7 +97,6 @@ Partial Public Class LocalizationEditor
   cmdManagePartners.ToolTip = LocalizeString("lbManagePartners")
   cmdClearCaches.ToolTip = LocalizeString("lbClearCaches")
   cmdCube.ToolTip = LocalizeString("lbCube")
-  cmdService.ToolTip = LocalizeString("lbService")
 
  End Sub
 
@@ -105,7 +106,7 @@ Partial Public Class LocalizationEditor
 
    ' Show functions for authorized users
    cmdManagePermissions.Visible = IsAdmin
-   cmdManageObjects.Visible = IsAdmin Or ModulePermissionController.HasModulePermission(ModuleConfiguration.ModulePermissions, Globals.glbObjectMgrPermission)
+   cmdManageObjects.Visible = IsAdmin Or DotNetNuke.Security.Permissions.ModulePermissionController.HasModulePermission(ModuleConfiguration.ModulePermissions, Globals.glbObjectMgrPermission)
    cmdManagePartners.Visible = IsAdmin
    cmdClearCaches.Visible = IsAdmin And Me.Settings.CachePacks
    cmdUploadPack.Visible = IsAdmin Or IsEditor
@@ -126,10 +127,6 @@ Partial Public Class LocalizationEditor
 
  Private Sub cmdCube_Click(sender As Object, e As System.EventArgs) Handles cmdCube.Click
   Response.Redirect(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/GetCube.ashx") & "?pid=" & PortalId.ToString & "&mid=" & ModuleId.ToString, False)
- End Sub
-
- Private Sub cmdService_Click(sender As Object, e As System.EventArgs) Handles cmdService.Click
-  Response.Redirect(ResolveUrl("~/DesktopModules/DNNEurope/LocalizationEditor/API") & "?tabid=" & TabId.ToString & "&moduleid=" & ModuleId.ToString, False)
  End Sub
 
  Private Sub cmdUploadPack_Click(sender As Object, e As System.EventArgs) Handles cmdUploadPack.Click

@@ -64,4 +64,14 @@ Public Class ModuleBase
  End Sub
 #End Region
 
+#Region " Public Methods "
+ Public Function LocalizeJSString(resourceKey As String) As String
+  Return DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(LocalizeString(resourceKey))
+ End Function
+
+ Public Function LocalizeJSString(resourceKey As String, resourceFile As String) As String
+  Return DotNetNuke.UI.Utilities.ClientAPI.GetSafeJSString(DotNetNuke.Services.Localization.Localization.GetString(resourceKey, resourceFile))
+ End Function
+#End Region
+
 End Class

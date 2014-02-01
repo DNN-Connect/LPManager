@@ -217,4 +217,13 @@
   <data name="SendToService.Text" xml:space="preserve">
     <value>Send to Update Service</value>
   </data>
+  <data name="AccessKeys.Text" xml:space="preserve">
+    <value>Access Keys</value>
+  </data>
+  <data name="ServiceUrl.Text" xml:space="preserve">
+    <value>Service Url</value>
+  </data>
+  <data name="TranslatorAccess.Text" xml:space="preserve">
+    <value>Translator Access</value>
+  </data>
 </root>

@@ -41,6 +41,7 @@ Namespace Data
 #Region " Permission Methods "
   Public MustOverride Function GetPermission(ByVal UserId As Integer, ByVal Locale As String, ByVal ModuleId As Integer) As IDataReader
   Public MustOverride Function GetPermissions(ByVal ModuleId As Integer) As IDataReader
+  Public MustOverride Function GetPermissionById(permissionId As Integer) As IDataReader
 #End Region
 
 #Region " Statistic Methods "
