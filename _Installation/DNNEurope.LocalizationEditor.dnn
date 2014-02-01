@@ -2,7 +2,8 @@
  <packages>
   <package name="DNNEurope.LocalizationEditor" type="Module" version="03.03.00">
    <friendlyName>Localization Editor</friendlyName>
-   <description>Editor for extension/core localization.</description>
+   <description>Editor and language pack manager for the DNN core and extensions localization</description>
+   <iconFile>~/DesktopModules/DNNEurope/LocalizationEditor/Images/le_32.png</iconFile>
    <owner>
     <name>DNN Europe</name>
     <organization>DNN-Europe</organization>
