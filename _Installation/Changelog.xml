@@ -89,4 +89,7 @@
   <change type="New Feature">New authentication method for services using an "Access Key" to overcome limitations in new DNN 7.2 services framework</change>
   <change type="Fix">Fix for object names with spaces in them</change>
  </release>
+ <release version="04.05.01">
+  <change type="Fix">Fix to UI to show DNN dialogs</change>
+ </release>
 </changelog>

@@ -61,6 +61,7 @@ Public Class ModuleBase
   If ModulePermissionController.HasModulePermission(Me.ModuleConfiguration.ModulePermissions, "EDIT") Then
    IsAdmin = True
   End If
+  DotNetNuke.Framework.jQuery.RequestDnnPluginsRegistration()
  End Sub
 #End Region
 

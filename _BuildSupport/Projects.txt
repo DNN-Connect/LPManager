@@ -1,1 +1,1 @@
-DNNEurope.LocalizationEditor.vbproj;04.05.00
+DNNEurope.LocalizationEditor.vbproj;04.05.01

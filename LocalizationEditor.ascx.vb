@@ -111,7 +111,7 @@ Partial Public Class LocalizationEditor
    cmdClearCaches.Visible = IsAdmin And Me.Settings.CachePacks
    cmdUploadPack.Visible = IsAdmin Or IsEditor
    cmdCube.Visible = Settings.AllowDataExtract
-   cmdService.Visible = IsEditor
+   cmdService.Visible = CBool(UserPermissions.Count > 0)
 
    If Not Me.IsPostBack Then
 
