@@ -24,6 +24,7 @@ Namespace Data
 
   Public MustOverride Function GetObjects(ByVal moduleId As Integer) As IDataReader
   Public MustOverride Function GetObjectByObjectNameAndModuleKey(ByVal portalId As Integer, ByVal objectName As String, ByVal moduleKey As String) As IDataReader
+  Public MustOverride Function GetObjectsByModuleKey(moduleKey As String) As IDataReader
   Public MustOverride Function GetObjectByObjectName(moduleId As Integer, ByVal objectName As String) As IDataReader
   Public MustOverride Function GetObjectsByObjectName(ByVal objectName As String) As IDataReader
   Public MustOverride Function GetObjectsWithStatus(ByVal moduleId As Integer, locale As String) As IDataReader
@@ -74,6 +75,10 @@ Namespace Data
 #Region " Partner Methods "
   Public MustOverride Function GetPartnerByName(ByVal moduleId As Integer, ByVal name As String) As IDataReader
   Public MustOverride Function GetAllPartners() As IDataReader
+#End Region
+
+#Region " PartnerPacks Methods "
+  Public MustOverride Sub DeletePartnerPacksByPartner(ByVal partnerId As Integer)
 #End Region
 
 #Region " Other Procedures "

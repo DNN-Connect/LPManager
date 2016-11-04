@@ -535,9 +535,12 @@ Namespace Services.Packaging
       End Try
      End Try
      For Each x As XmlNode In resFile.DocumentElement.SelectNodes("/root/data")
-      Dim key As String = x.Attributes("name").InnerText
-      Dim value As String = x.SelectSingleNode("value").InnerXml
-      uploadedVersionResources(fileKey & ";" & key) = New TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, "")
+      Try
+       Dim key As String = x.Attributes("name").InnerText
+       Dim value As String = x.SelectSingleNode("value").InnerXml
+       uploadedVersionResources(fileKey & ";" & key) = New TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, "")
+      Catch ex As Exception
+      End Try
      Next
     End If
    Next
@@ -623,113 +626,6 @@ Namespace Services.Packaging
      End If
     End If
    Next
-
-   '' Add new stuff
-   'Dim currentVersionKeys As New List(Of String)
-   'For Each file As DictionaryEntry In resourceFileList
-   ' Dim fileKey As String = file.Key.ToString.Replace(rootPath, "").Replace(pattern, ".resx")
-   ' fileKey = Regex.Replace(fileKey, "\.\w{2,3}-\w\w\.", ".") ' remove any locale specifiers
-   ' 'Globals.SimpleLog(String.Format("Key '{0}' translated to {1}", file.Key.ToString, fileKey))
-   ' Dim resFile As New XmlDocument
-
-   ' Dim fi As FileInfo = CType(file.Value, FileInfo)
-   ' If Not IO.File.Exists(fi.FullName) Then
-   '  ' This can happen in DNN 3 manifests as the location of the resx file can be in the root or the place it should be
-   '  Dim testFile As String = Path.Combine(rootPath, fi.Name)
-   '  If IO.File.Exists(testFile) Then
-   '   fi = New FileInfo(testFile)
-   '  End If
-   ' End If
-
-   ' Try
-   '  resFile.Load(fi.FullName)
-   ' Catch
-   '  Try
-   '   Dim fc As String = Globals.ReadFile(fi.FullName)
-   '   resFile.LoadXml(fc)
-   '  Catch ex As Exception
-   '   Globals.SimpleLog("Original resource file '" & file.Key.ToString & "' is incorrect or could not be read.")
-   '  End Try
-   ' End Try
-
-   ' Dim existingTexts As Dictionary(Of String, TextInfo) = TextsController.GetTextsByObjectAndFile(objObjectInfo.ModuleId, objObjectInfo.ObjectId, fileKey, "", objObjectInfo.Version, True)
-
-   ' For Each x As XmlNode In resFile.DocumentElement.SelectNodes("/root/data")
-   '  Dim key As String = x.Attributes("name").InnerText
-   '  Dim value As String = x.SelectSingleNode("value").InnerXml
-   '  currentVersionKeys.Add(fileKey.ToLower & ";" & key.ToLower)
-
-   '  Try
-   '   If Not existingTexts.ContainsKey(key) Then ' this is a new key
-   '    Dim oldestVersion As TextInfo = TextsController.GetOldestText(objObjectInfo.ObjectId, fileKey, key) ' check if we're uploading something older
-   '    If oldestVersion IsNot Nothing AndAlso oldestVersion.Version > objObjectInfo.Version Then ' we're uploading a previous version of this text to the oldest on record
-   '     If oldestVersion.OriginalValue = value Then ' it is the same - just change the version to the newer oldest version
-   '      oldestVersion.Version = objObjectInfo.Version
-   '      TextsController.UpdateText(oldestVersion)
-   '     Else ' it is different - we insert a new text before the oldest on record which deprecates at the oldest version
-   '      Dim ti As New TextInfo(-1, oldestVersion.Version, fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
-   '      TextsController.AddText(ti)
-   '     End If
-   '    Else ' we're not uploading a version older than the oldest on record
-   '     Dim latestVersion As TextInfo = TextsController.GetLatestText(objObjectInfo.ObjectId, fileKey, "", key) ' check if we're uploading the same version again
-   '     If latestVersion IsNot Nothing AndAlso latestVersion.DeprecatedIn = objObjectInfo.Version Then ' we're re-uploading a text that was falsely deprecated before
-   '      If latestVersion.OriginalValue = value Then ' a previously deleted key is now undeleted
-   '       latestVersion.DeprecatedIn = ""
-   '       TextsController.UpdateText(latestVersion)
-   '      Else ' we are changing a previously deprecated key - we treat it as a new key
-   '       Dim ti As New TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
-   '       TextsController.AddText(ti)
-   '      End If
-   '     Else ' it's really entirely new
-   '      Dim ti As New TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
-   '      TextsController.AddText(ti)
-   '     End If
-   '    End If
-   '   ElseIf existingTexts(key).OriginalValue <> value Then ' the text has changed
-   '    Dim ti As TextInfo = existingTexts(key)
-   '    If ti.Version = objObjectInfo.Version Then ' We are reuploading and the text has changed
-   '     ti.OriginalValue = value
-   '     TextsController.UpdateText(ti)
-   '    ElseIf Not String.IsNullOrEmpty(ti.DeprecatedIn) Then ' the existing text was assumed to be deprecated later but should now be deprecated earlier - we are apparently uploading a version in between
-   '     Dim nextTi As Entities.Texts.TextInfo = TextsController.GetTextByVersion(objObjectInfo.ObjectId, fileKey, key, ti.DeprecatedIn) ' get the next text
-   '     If nextTi.OriginalValue = value Then ' indeed the next version was the version we now found
-   '      ' Reset the deprecation
-   '      ti.DeprecatedIn = objObjectInfo.Version
-   '      TextsController.UpdateText(ti)
-   '      nextTi.Version = objObjectInfo.Version
-   '      TextsController.UpdateText(nextTi)
-   '     Else ' we have an intermediate version
-   '      ' deprecate the old one
-   '      ti.DeprecatedIn = objObjectInfo.Version
-   '      TextsController.UpdateText(ti)
-   '      ' add new one in between
-   '      ti = New Entities.Texts.TextInfo(-1, nextTi.Version, fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
-   '      TextsController.AddText(ti)
-   '     End If
-   '    ElseIf String.IsNullOrEmpty(ti.DeprecatedIn) Then ' the existing text was assumed to be the latest
-   '     ' deprecate the old one
-   '     ti.DeprecatedIn = objObjectInfo.Version
-   '     TextsController.UpdateText(ti)
-   '     ' add new one
-   '     ti = New Entities.Texts.TextInfo(-1, "", fileKey, objObjectInfo.ObjectId, value, key, objObjectInfo.Version)
-   '     TextsController.AddText(ti)
-   '    End If
-   '   End If
-   '  Catch ex As Exception
-   '   Globals.SimpleLog("Error importing resources: " & ex.Message, ex.StackTrace, "Filekey: " & fileKey, "Key    : " & key, "Value  : " & value, "")
-   '  End Try
-   ' Next
-   'Next
-
-   '' Deprecate old stuff
-   'For Each ti As Entities.Texts.TextInfo In TextsController.GetTextsByObject(objObjectInfo.ModuleId, objObjectInfo.ObjectId, "", objObjectInfo.Version).Values
-   ' If ti.Version < objObjectInfo.Version Then ' it's an old one
-   '  If Not currentVersionKeys.Contains(ti.FilePath.ToLower & ";" & ti.TextKey.ToLower) Then
-   '   ti.DeprecatedIn = objObjectInfo.Version
-   '   TextsController.UpdateText(ti)
-   '  End If
-   ' End If
-   'Next
 
   End Sub
 

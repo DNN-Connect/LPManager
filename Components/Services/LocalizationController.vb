@@ -2,6 +2,7 @@
 Imports System.Globalization
 Imports System.Runtime.Serialization
 Imports System.Runtime.Serialization.Json
+Imports System.Linq
 Imports System.Net
 Imports System.Net.Http
 Imports System.Web.Http
@@ -236,17 +237,48 @@ Namespace Services
     Return Request.CreateResponse(HttpStatusCode.OK, "OK")
    End If
 
+   ' Load object list
+   Dim moduleKey As String = System.Web.HttpContext.Current.Request.Params("ModuleKey")
+   Dim objectList As Dictionary(Of String, ObjectInfo) = ObjectsController.GetObjectsByModuleKey(moduleKey)
+   If objectList.Count = 0 Then
+    Return Request.CreateResponse(HttpStatusCode.OK, "OK")
+   End If
+   Dim ms As New ModuleSettings("", objectList.Values(0).ModuleId)
+
    Dim res As New List(Of UpdateService.DnnPackage)
    For Each package As UpdateService.DnnPackage In packageList
-    Using ir As IDataReader = Data.DataProvider.Instance().GetTranslationStatusByObject(PortalSettings.PortalId, package.PackageName, package.Version, package.TargetLocale)
-     If ir.Read Then
-      package.ObjectId = Convert.ToInt32(Null.SetNull(ir.Item("ObjectId"), package.ObjectId))
-      'package.TextCount = Convert.ToInt32(Null.SetNull(ir.Item("TextCount"), package.TextCount))
-      package.Available = Convert.ToInt32(Null.SetNull(ir.Item("Translated"), package.Available))
-      package.LastChange = CDate(Null.SetNull(ir.Item("LastModified"), package.LastChange))
-      res.Add(package.Clone)
+    If objectList.ContainsKey(package.PackageName) Then
+     Using ir As IDataReader = Data.DataProvider.Instance().GetLanguagePacksByObjectVersionLocale(objectList(package.PackageName).ObjectId, package.Version, package.TargetLocale)
+      Do While ir.Read
+       Dim partnerId As Integer = Convert.ToInt32(Null.SetNull(ir.Item("PartnerId"), partnerId))
+       Dim percent As Double = Convert.ToDouble(Null.SetNull(ir.Item("PercentComplete"), percent))
+       If percent > 0 Then
+        If partnerId = -1 Then ' this module
+         package.LanguagePacks.Add(New UpdateService.DnnLanguagePack() With {
+                                   .LastModified = CDate(ir.Item("LastModified")),
+                                   .ObjectId = objectList(package.PackageName).ObjectId,
+                                   .PackUrl = Globals.PackUrl,
+                                   .PercentComplete = CDbl(ir.Item("PercentComplete")),
+                                   .TranslatorName = ms.OwnerOrganization,
+                                   .TranslatorUrl = ms.OwnerUrl
+                                  })
+        Else ' it's a partner's pack
+         package.LanguagePacks.Add(New UpdateService.DnnLanguagePack() With {
+                                   .LastModified = CDate(ir.Item("LastModified")),
+                                   .ObjectId = CInt(ir.Item("RemoteObjectId")),
+                                   .PackUrl = CStr(ir.Item("PackUrl")),
+                                   .PercentComplete = CDbl(ir.Item("PercentComplete")),
+                                   .TranslatorName = CStr(ir.Item("PartnerName")),
+                                   .TranslatorUrl = CStr(ir.Item("PartnerUrl"))
+                                  })
+        End If
+       End If
+      Loop
+     End Using
+     If package.LanguagePacks.Count > 0 Then
+      res.Add(package)
      End If
-    End Using
+    End If
    Next
 
    Return Request.CreateResponse(HttpStatusCode.OK, res)

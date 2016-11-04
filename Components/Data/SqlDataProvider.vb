@@ -32,6 +32,10 @@ Namespace Data
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectNameAndModuleKey", portalId, objectName, moduleKey), IDataReader)
   End Function
 
+  Public Overrides Function GetObjectsByModuleKey(moduleKey As String) As IDataReader
+   Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectsByModuleKey", moduleKey), IDataReader)
+  End Function
+
   Public Overrides Function GetObjectByObjectName(moduleId As Integer, ByVal objectName As String) As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetObjectByObjectName", moduleId, objectName), IDataReader)
   End Function
@@ -168,6 +172,12 @@ Namespace Data
   Public Overrides Function GetAllPartners() As IDataReader
    Return CType(SqlHelper.ExecuteReader(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "GetAllPartners"), IDataReader)
   End Function
+#End Region
+
+#Region " PartnerPacks Methods "
+  Public Overrides Sub DeletePartnerPacksByPartner(partnerId As Integer)
+   SqlHelper.ExecuteNonQuery(ConnectionString, DatabaseOwner & ObjectQualifier & ModuleQualifier & "DeletePartnerPacksByPartner", partnerId)
+  End Sub
 #End Region
 
 #Region " Other Procedures "

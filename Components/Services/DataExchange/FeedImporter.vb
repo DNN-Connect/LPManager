@@ -58,6 +58,7 @@ Namespace Services.DataExchange
    cube.LoadXml(req.GetResponse)
 
    _handledPartners.Add(_partner.PartnerName)
+   PartnerPacksController.DeletePartnerPacksByPartner(_partner.PartnerId)
    ProcessCube(_partner, cube.DocumentElement, overrideAutoImportObjects, _partner.DownloadAffiliates)
 
   End Sub

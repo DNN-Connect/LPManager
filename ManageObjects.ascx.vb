@@ -40,6 +40,19 @@ Partial Public Class ManageObjects
   ' Force full postback when using upload control
   AJAX.RegisterPostBackControl(lbImportPackage)
 
+  ' Check to see if there are any packages ready to import
+  Dim importPath As String = PortalSettings.HomeDirectoryMapPath & "LocalizationEditor\ImportModule"
+  If Not IO.Directory.Exists(importPath) Then
+   IO.Directory.CreateDirectory(importPath)
+  End If
+
+  For Each zipFile As String In IO.Directory.GetFiles(importPath, "*.zip")
+   Using fs As New IO.FileStream(zipFile, IO.FileMode.Open, IO.FileAccess.Read)
+    PackageReader.ImportModulePackage(fs, PortalSettings.HomeDirectoryMapPath, ModuleId, Nothing)
+   End Using
+   IO.File.Delete(zipFile)
+  Next
+
   If Not Me.IsPostBack Then
    BindData()
   End If

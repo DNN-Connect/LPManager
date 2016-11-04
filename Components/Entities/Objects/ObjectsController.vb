@@ -29,6 +29,10 @@ Namespace Entities.Objects
    Return CType(CBO.FillObject(DataProvider.Instance().GetObjectByObjectNameAndModuleKey(portalId, objectName, moduleKey), GetType(ObjectInfo)), ObjectInfo)
   End Function
 
+  Public Shared Function GetObjectsByModuleKey(moduleKey As String) As Dictionary(Of String, ObjectInfo)
+   Return CBO.FillDictionary(Of String, ObjectInfo)("ObjectName", DataProvider.Instance().GetObjectsByModuleKey(moduleKey))
+  End Function
+
   Public Shared Function GetObjectByObjectName(ModuleId As Integer, ByVal ObjectName As String) As ObjectInfo
    Return CType(CBO.FillObject(DataProvider.Instance().GetObjectByObjectName(ModuleId, ObjectName), GetType(ObjectInfo)), ObjectInfo)
   End Function

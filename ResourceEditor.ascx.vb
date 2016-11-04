@@ -640,6 +640,7 @@ Partial Public Class ResourceEditor
    editor.ToLocale = Locale
    editor.AutoTranslate = AutoTranslate
    editor.PanelID = PanelID
+   editor.ModuleConfiguration = Me.ModuleConfiguration
    cell.Controls.Add(editor)
    row.Cells.Add(cell)
    'Cell #6.
