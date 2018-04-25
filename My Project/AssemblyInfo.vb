@@ -27,9 +27,9 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("04.05.01")> 
-<Assembly: AssemblyFileVersionAttribute("04.05.01")> 
-<Assembly: AssemblyInformationalVersion("04.05.01")> 
+<Assembly: AssemblyVersion("04.05.02")> 
+<Assembly: AssemblyFileVersionAttribute("04.05.02")> 
+<Assembly: AssemblyInformationalVersion("04.05.02")> 
 
 'History
 '03.00.00 2009-08-10 Janga: User Interface.
