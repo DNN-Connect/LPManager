@@ -6,16 +6,12 @@
   return confirm('<%=LocalizeString("SendConfirm") %>');
  }
 </script>
-
 <asp:PlaceHolder ID="plhLocales" runat="server" />
-
 <asp:Panel ID="pnlLocaleRequest" runat="server">
-
- <div class="genericLocale"><%=(New Globalization.CultureInfo(Locale)).NativeName %></div>
+ <div class="genericLocale"><%=(New System.Globalization.CultureInfo(Locale)).NativeName %></div>
  <p>
   <a href="<%=DotNetNuke.Common.NavigateUrl() %>" class="CommandButton"><%=LocalizeString("Back")%></a>
  </p>
-
  <asp:Panel runat="server" ID="pnlCorePackages">
  <h3><%=LocalizeString("CorePackages")%></h3>
   <asp:DataList runat="server" ID="dlCorePackages">

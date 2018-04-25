@@ -30,7 +30,7 @@ set.buildvars:
 
 set.versions:
 
-     [echo] Set Version 04.05.02 on DNNEurope.LocalizationEditor.vbproj
+     [echo] Set Version 04.05.03 on DNNEurope.LocalizationEditor.vbproj
 Checking ..\My Project\AssemblyInfo.vb
 Checking ..\_Installation\DNNEurope.LocalizationEditor.dnn
 Reset References to _References\
@@ -57,8 +57,8 @@ Adjusting 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting Path 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
 Adjusting Path 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
-Adjusting 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
-Adjusting Path 'System.Net.Http, Version=4.0.30319.18408 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting Path 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
 Adjusting 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting Path 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting 'System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
@@ -71,7 +71,7 @@ clean.bindirectory:
 compile.projects:
 
      [echo] Building DNNEurope.LocalizationEditor.vbproj
-  [msbuild] Build started 25-Apr-18 09:19:04.
+  [msbuild] Build started 25-Apr-18 10:35:50.
   [msbuild] Overriding target "GetFrameworkPaths" in project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "GetFrameworkPaths" from project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.NetFramework.targets".
   [msbuild] Overriding target "SatelliteDllsProjectOutputGroup" in project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "SatelliteDllsProjectOutputGroup" from project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.WinFx.targets".
   [msbuild] Project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" on node 1 (Rebuild target(s)).
@@ -114,6 +114,12 @@ compile.projects:
   [msbuild]   Comparison path is "obj\release\".
   [msbuild] Done executing task "FindUnderPath".
   [msbuild] Task "Delete"
+  [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\bin\DNNEurope.Modules.LocalizationEditor.dll" doesn't exist. Skipping.
+  [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\bin\DNNEurope.Modules.LocalizationEditor.xml" doesn't exist. Skipping.
+  [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\bin\GoogleTranslateAPI.dll" doesn't exist. Skipping.
+  [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.LocalizationEditor.vbprojResolveAssemblyReference.cache".
+  [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.dll".
+  [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.xml".
   [msbuild] Done executing task "Delete".
   [msbuild] Using "RemoveDuplicates" task from assembly "Microsoft.Build.Tasks.v4.0, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
   [msbuild] Task "RemoveDuplicates"
@@ -265,7 +271,7 @@ compile.projects:
   [msbuild]           Private = 'False'
   [msbuild]       System.Data
   [msbuild]           Private = 'False'
-  [msbuild]       System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+  [msbuild]       System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
   [msbuild]           Private = 'False'
   [msbuild]           HintPath = '_References\System.Net.Http.dll'
   [msbuild]           SpecificVersion = 'False'
@@ -458,12 +464,12 @@ compile.projects:
   [msbuild]           Considered "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\mscorlib.exe", but it didn't exist.
   [msbuild]           For SearchPath "{TargetFrameworkDirectory}".
   [msbuild]           Considered "C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\mscorlib.winmd", but it didn't exist.
-  [msbuild]       Required by "System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
   [msbuild]       Required by "System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL".
   [msbuild]       Required by "System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral".
   [msbuild]       Required by "GoogleTranslateAPI, Version=0.2.0.0, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL".
+  [msbuild]       Required by "System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "SharpZipLib, Version=0.81.0.1407, Culture=neutral".
@@ -1094,23 +1100,23 @@ compile.projects:
   [msbuild]   There was a conflict between "DotNetNuke.Web.Client, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" and "DotNetNuke.Web.Client, Version=6.1.0.272, Culture=neutral, PublicKeyToken=null".
   [msbuild]       "DotNetNuke.Web.Client, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" was chosen because it had a higher version.
   [msbuild]       References which depend on "DotNetNuke.Web.Client, Version=6.1.2.0, Culture=neutral, PublicKeyToken=null" [D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.Client.dll].
+  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll
+  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll".
+  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.dll
   [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.dll".
   [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
-  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll
-  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll".
-  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]       References which depend on "DotNetNuke.Web.Client, Version=6.1.0.272, Culture=neutral, PublicKeyToken=null" [].
-  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebControls.dll
-  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebControls.dll".
-  [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
-  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebUtility.dll
   [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebUtility.dll".
   [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]               DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL
+  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebControls.dll
+  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebControls.dll".
+  [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
+  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]   There was a conflict between "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, PublicKeyToken=null" and "DotNetNuke.WebUtility, Version=4.2.0.185, Culture=neutral, PublicKeyToken=null".
   [msbuild]       "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, PublicKeyToken=null" was chosen because it was primary and "DotNetNuke.WebUtility, Version=4.2.0.185, Culture=neutral, PublicKeyToken=null" was not.
   [msbuild]       References which depend on "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, PublicKeyToken=null" [D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebUtility.dll].
@@ -1119,12 +1125,12 @@ compile.projects:
   [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]               DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL
+  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll
+  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll".
+  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.dll
   [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.dll".
   [msbuild]               DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
-  [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
-  [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll
-  [msbuild]             Project file item includes which caused reference "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll".
   [msbuild]               DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL
   [msbuild]       References which depend on "DotNetNuke.WebUtility, Version=4.2.0.185, Culture=neutral, PublicKeyToken=null" [].
   [msbuild]           D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebControls.dll
@@ -1272,10 +1278,9 @@ compile.projects:
   [msbuild] Target "_SetTargetFrameworkMonikerAttribute" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.VisualBasic.targets" from project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" (target "GenerateTargetFrameworkMonikerAttribute" depends on it):
   [msbuild] Done building target "_SetTargetFrameworkMonikerAttribute" in project "DNNEurope.LocalizationEditor.vbproj".
   [msbuild] Target "GenerateTargetFrameworkMonikerAttribute" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" from project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" (target "BeforeCompile" depends on it):
-  [msbuild] Building target "GenerateTargetFrameworkMonikerAttribute" completely.
-  [msbuild] Output file "C:\Users\peter\AppData\Local\Temp\.NETFramework,Version=v4.0.AssemblyAttributes.vb" does not exist.
-  [msbuild] Task "WriteLinesToFile"
-  [msbuild] Done executing task "WriteLinesToFile".
+  [msbuild] Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+  [msbuild] Input files: C:\Program Files (x86)\MSBuild\14.0\bin\Microsoft.Common.targets
+  [msbuild] Output files: C:\Users\peter\AppData\Local\Temp\.NETFramework,Version=v4.0.AssemblyAttributes.vb
   [msbuild] Done building target "GenerateTargetFrameworkMonikerAttribute" in project "DNNEurope.LocalizationEditor.vbproj".
   [msbuild] Target "GenerateAdditionalSources" skipped, due to false condition; ('@(AssemblyAttributes)' != '' and '$(GenerateAdditionalSources)' == 'true') was evaluated as ('' != '' and '' == 'true').
   [msbuild] Target "BeforeCompile" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" from project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" (target "Compile" depends on it):
@@ -1291,7 +1296,7 @@ compile.projects:
   [msbuild] Target "XsdCodeGen" skipped, due to false condition; ( '$(XsdCodeGenPreCondition)' == 'True' ) was evaluated as ( 'False' == 'True' ).
   [msbuild] Target "CoreCompile" in file "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.VisualBasic.targets" from project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" (target "Compile" depends on it):
   [msbuild] Building target "CoreCompile" completely.
-  [msbuild] Input file "Components\Entities\Objects\ObjectsController.vb" is newer than output file "obj\release\DNNEurope.Modules.LocalizationEditor.dll".
+  [msbuild] Output file "obj\release\DNNEurope.Modules.LocalizationEditor.xml" does not exist.
   [msbuild] Using "Vbc" task from assembly "Microsoft.Build.Tasks.v4.0, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
   [msbuild] Task "Vbc"
   [msbuild]   C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Vbc.exe /noconfig /baseaddress:11000000 /imports:Microsoft.VisualBasic,System,System.Collections,System.Collections.Generic,System.Collections.Specialized,System.Configuration,System.Data,System.Linq,System.Text,System.Text.RegularExpressions,System.Web,System.Web.UI,System.Web.UI.HtmlControls,System.Web.UI.WebControls /optioncompare:Binary /optionexplicit+ /optionstrict+ /nowarn:42016,42017,42018,42019,42032,42353,42354,42355 /nostdlib /removeintchecks- /rootnamespace:DNNEurope.Modules.LocalizationEditor /sdkpath:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0" /highentropyva- /doc:obj\release\DNNEurope.Modules.LocalizationEditor.xml /define:"CONFIG=\"release\",TRACE=-1,_MyType=\"Windows\",PLATFORM=\"AnyCPU\"" /reference:D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.Web.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\DotNetNuke.WebUtility.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\GoogleTranslateAPI.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\Microsoft.ApplicationBlocks.Data.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\SharpZipLib.dll,"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Core.dll","C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Data.dll","C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.dll",D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\System.Net.Http.dll,"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Runtime.Serialization.dll","C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Web.dll",D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\System.Web.Http.dll,D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_References\System.Web.WebPages.dll,"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.dll","C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\System.Xml.Linq.dll" /debug- /optimize+ /out:obj\release\DNNEurope.Modules.LocalizationEditor.dll /target:library /warnaserror- Components\Entities\Packages\PackagesController.vb Components\Entities\Packages\PackInfo.vb Components\Extensions.vb Components\Services\DataExchange\Cube.vb Components\Entities\Objects\ObjectMetrics.vb Components\Entities\Objects\ModuleInfo.vb Components\Entities\Objects\ObjectInfo.vb Components\Entities\Objects\ObjectsController.vb Components\Entities\PartnerPacks\PartnerPacksController.vb Components\Entities\PartnerPacks\PartnerPackInfo_Interfaces.vb Components\Entities\PartnerPacks\PartnerPackInfo_Properties.vb Components\Entities\PartnerPacks\PartnerPacksController_CRUD.vb Components\Entities\PartnerPacks\PartnerPacksController_FK.vb Components\Entities\Partners\PartnersController.vb Components\Entities\Partners\PartnerInfo_Interfaces.vb Components\Entities\Partners\PartnerInfo_Properties.vb Components\Entities\Partners\PartnersController_CRUD.vb Components\Entities\Partners\PartnersController_FK.vb Components\Entities\Statistics\StatisticsController.vb Components\Entities\Translations\TranslationsController.vb Components\Services\HttpContextExtensions.vb Components\Services\LocalizationEditorAuthorizeAttribute.vb Components\Services\Packaging\PackageReader.vb Components\Services\Packaging\PackageWriter.vb Components\Entities\Permissions\PermissionsController.vb Components\Entities\Texts\TextInfo.vb Components\Data\DataProvider.vb Components\Data\DataProvider_CRUD.vb Components\Data\DataProvider_FK.vb Components\Data\SqlDataProvider_CRUD.vb Components\Data\SqlDataProvider_FK.vb Components\Entities\Objects\ObjectInfo_Interfaces.vb Components\Entities\Objects\ObjectInfo_Properties.vb Components\Entities\Objects\ObjectsController_CRUD.vb Components\Entities\Permissions\PermissionInfo_Interfaces.vb Components\Entities\Permissions\PermissionInfo_Properties.vb Components\Entities\Permissions\PermissionsController_CRUD.vb Components\Entities\Statistics\StatisticInfo_Interfaces.vb Components\Entities\Statistics\StatisticInfo_Properties.vb Components\Entities\Statistics\StatisticsController_CRUD.vb Components\Entities\Statistics\StatisticsController_FK.vb Components\Entities\Texts\TextInfo_Interfaces.vb Components\Entities\Texts\TextInfo_Properties.vb Components\Entities\Texts\TextsController_CRUD.vb Components\Entities\Translations\TranslationInfo_Interfaces.vb Components\Entities\Translations\TranslationInfo_Properties.vb Components\Entities\Translations\TranslationsController_CRUD.vb Components\Entities\Translations\TranslationsController_FK.vb Components\Globals.vb Components\Helpers\TranslateHelper.vb Components\Helpers\ZipHelper.vb Components\Services\Logging\LogType.vb Components\Services\Logging\LogEntry.vb Components\Services\Logging\Logger.vb Components\ModuleBase.vb Components\ModuleSettings.vb Components\Entities\Texts\TextsController.vb Components\Data\SqlDataProvider.vb Components\Services\DataExchange\FeedImporter.vb Components\Services\DataExchange\RequestList.vb Components\Services\DataExchange\ScanPacksTask.vb Components\Services\DataExchange\WebPage.vb Components\Services\DataExchange\WebRequest.vb Components\Services\Packaging\TokenReplace.vb Components\Services\LocalizationController.vb Components\Services\UpdateService\DnnLanguagePack.vb Components\Services\UpdateService\DnnPackage.vb Controls\Editor.ascx.designer.vb Controls\Editor.ascx.vb DownloadPack.ascx.designer.vb DownloadPack.ascx.vb EditPartner.ascx.designer.vb EditPartner.ascx.vb GetCube.ashx.vb ManageObjects.ascx.designer.vb ManageObjects.ascx.vb "My Project\AssemblyInfo.vb" Packs.ashx.vb Partners.ascx.designer.vb Partners.ascx.vb Settings.ascx.designer.vb Settings.ascx.vb UploadPack.ascx.designer.vb UploadPack.ascx.vb LocalizationEditor.ascx.designer.vb LocalizationEditor.ascx.vb ObjectSummary.ascx.designer.vb ObjectSummary.ascx.vb Pack.aspx.designer.vb Pack.aspx.vb RequestPack.aspx.designer.vb RequestPack.aspx.vb ResourceEditor.ascx.designer.vb ResourceEditor.ascx.vb Users.ascx.designer.vb Users.ascx.vb "C:\Users\peter\AppData\Local\Temp\.NETFramework,Version=v4.0.AssemblyAttributes.vb"
@@ -1532,7 +1537,7 @@ compile.projects:
   [msbuild]     0 Warning(s)
   [msbuild]     0 Error(s)
   [msbuild] 
-  [msbuild] Time Elapsed 00:00:03.25
+  [msbuild] Time Elapsed 00:00:01.89
 
 make.doc:
 
@@ -1546,11 +1551,11 @@ package:
 
 read.version:
 
-     [echo] shortVersion: 04.05.02
-     [echo] version: 4.5.2.0
+     [echo] shortVersion: 04.05.03
+     [echo] version: 4.5.3.0
      [echo] major: 04
      [echo] minor: 05
-     [echo] build: 02
+     [echo] build: 03
 
 make.codestats:
 
@@ -1742,7 +1747,7 @@ make.codestats:
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.designer.vb Totals: [T] 249 [C] 190 [E] 29
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.vb Totals: [T] 168 [C] 25 [E] 19
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb Totals: [T] 42 [C] 17 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 196 [C] 0 [E] 8
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 192 [C] 0 [E] 4
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb Totals: [T] 141 [C] 106 [E] 17
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 318 [C] 21 [E] 39
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx Totals: [T] 71 [C] 0 [E] 0
@@ -1771,14 +1776,15 @@ make.codestats:
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx Totals: [T] 77 [C] 0 [E] 0
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.designer.vb Totals: [T] 114 [C] 85 [E] 14
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.vb Totals: [T] 127 [C] 25 [E] 27
-[codestats] Totals: [VB]  [T] 29511 [C] 7317 [E] 3883
+[codestats] Totals: [VB]  [T] 29507 [C] 7317 [E] 3879
 
 check.sqlscripts:
 
-     [echo] Version: 04.05.02
+     [echo] Version: 04.05.03
 
 make.package:
 
+   [delete] Deleting directory 'D:\Programs\Nant\Build\Resources'.
      [copy] Copying 69 files to 'D:\Programs\Nant\Build\Resources'.
      [echo] Compacting JS files
     [jsmin] Minifying Javascript
@@ -1794,7 +1800,7 @@ make.package:
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 21 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.02_Install.zip'.
+      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.03_Install.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
      [echo] Building SOURCE
 
@@ -1807,7 +1813,7 @@ make.package:
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 21 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.02_Source.zip'.
+      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.03_Source.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
 
 all:
@@ -1817,12 +1823,12 @@ backup.project:
 
      [echo] Backing Up to D:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.02_Install.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.03_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.02_Source.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.03_Source.zip'.
      [echo] Backing Up to W:\src
 
 BUILD SUCCEEDED
 
-Total time: 13 seconds.
+Total time: 12.6 seconds.
 
