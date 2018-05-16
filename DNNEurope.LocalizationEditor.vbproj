@@ -118,7 +118,7 @@
       <Name>System.Data</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>_References\System.Net.Http.dll</HintPath>
       <Private>False</Private>

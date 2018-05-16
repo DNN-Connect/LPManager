@@ -30,7 +30,7 @@ set.buildvars:
 
 set.versions:
 
-     [echo] Set Version 04.05.03 on DNNEurope.LocalizationEditor.vbproj
+     [echo] Set Version 04.05.04 on DNNEurope.LocalizationEditor.vbproj
 Checking ..\My Project\AssemblyInfo.vb
 Checking ..\_Installation\DNNEurope.LocalizationEditor.dnn
 Reset References to _References\
@@ -57,8 +57,8 @@ Adjusting 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting Path 'Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral'
 Adjusting 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
 Adjusting Path 'SharpZipLib, Version=0.81.0.1407, Culture=neutral'
-Adjusting 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
-Adjusting Path 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
+Adjusting Path 'System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL'
 Adjusting 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting Path 'System.Web.Http, Version=4.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
 Adjusting 'System.Web.WebPages, Version=2.0.20710.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL'
@@ -71,7 +71,7 @@ clean.bindirectory:
 compile.projects:
 
      [echo] Building DNNEurope.LocalizationEditor.vbproj
-  [msbuild] Build started 25-Apr-18 10:35:50.
+  [msbuild] Build started 16-May-18 11:17:56.
   [msbuild] Overriding target "GetFrameworkPaths" in project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "GetFrameworkPaths" from project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.NetFramework.targets".
   [msbuild] Overriding target "SatelliteDllsProjectOutputGroup" in project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.targets" with target "SatelliteDllsProjectOutputGroup" from project "C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\Microsoft.WinFx.targets".
   [msbuild] Project "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DNNEurope.LocalizationEditor.vbproj" on node 1 (Rebuild target(s)).
@@ -118,8 +118,8 @@ compile.projects:
   [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\bin\DNNEurope.Modules.LocalizationEditor.xml" doesn't exist. Skipping.
   [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\bin\GoogleTranslateAPI.dll" doesn't exist. Skipping.
   [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.LocalizationEditor.vbprojResolveAssemblyReference.cache".
-  [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.dll".
-  [msbuild]   Deleting file "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.xml".
+  [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.dll" doesn't exist. Skipping.
+  [msbuild]   File "D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\obj\release\DNNEurope.Modules.LocalizationEditor.xml" doesn't exist. Skipping.
   [msbuild] Done executing task "Delete".
   [msbuild] Using "RemoveDuplicates" task from assembly "Microsoft.Build.Tasks.v4.0, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
   [msbuild] Task "RemoveDuplicates"
@@ -271,7 +271,7 @@ compile.projects:
   [msbuild]           Private = 'False'
   [msbuild]       System.Data
   [msbuild]           Private = 'False'
-  [msbuild]       System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
+  [msbuild]       System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL
   [msbuild]           Private = 'False'
   [msbuild]           HintPath = '_References\System.Net.Http.dll'
   [msbuild]           SpecificVersion = 'False'
@@ -469,7 +469,7 @@ compile.projects:
   [msbuild]       Required by "DotNetNuke, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "Microsoft.ApplicationBlocks.Data, Version=2.0.0.0, Culture=neutral".
   [msbuild]       Required by "GoogleTranslateAPI, Version=0.2.0.0, Culture=neutral, PublicKeyToken=37a8e65b17fcdcbb, processorArchitecture=MSIL".
-  [msbuild]       Required by "System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
+  [msbuild]       Required by "System.Net.Http, Version=4.7.2556.0 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: NET471REL1 built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL built by: FX451RTMGREL, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.Web, Version=7.0.0.1586, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "DotNetNuke.WebUtility, Version=4.2.1.783, Culture=neutral, processorArchitecture=MSIL".
   [msbuild]       Required by "SharpZipLib, Version=0.81.0.1407, Culture=neutral".
@@ -1537,7 +1537,7 @@ compile.projects:
   [msbuild]     0 Warning(s)
   [msbuild]     0 Error(s)
   [msbuild] 
-  [msbuild] Time Elapsed 00:00:01.89
+  [msbuild] Time Elapsed 00:00:03.04
 
 make.doc:
 
@@ -1551,123 +1551,14 @@ package:
 
 read.version:
 
-     [echo] shortVersion: 04.05.03
-     [echo] version: 4.5.3.0
+     [echo] shortVersion: 04.05.04
+     [echo] version: 4.5.4.0
      [echo] major: 04
      [echo] minor: 05
-     [echo] build: 03
+     [echo] build: 04
 
 make.codestats:
 
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\DataProvider.vb Totals: [T] 101 [C] 17 [E] 16
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\DataProvider_CRUD.vb Totals: [T] 108 [C] 21 [E] 30
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\DataProvider_FK.vb Totals: [T] 57 [C] 17 [E] 14
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\SqlDataProvider.vb Totals: [T] 239 [C] 17 [E] 60
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\SqlDataProvider_CRUD.vb Totals: [T] 229 [C] 20 [E] 67
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Data\SqlDataProvider_FK.vb Totals: [T] 75 [C] 17 [E] 20
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ModuleInfo.vb Totals: [T] 99 [C] 37 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectInfo.vb Totals: [T] 57 [C] 17 [E] 12
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectInfo_Interfaces.vb Totals: [T] 252 [C] 113 [E] 23
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectInfo_Properties.vb Totals: [T] 64 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectMetrics.vb Totals: [T] 29 [C] 17 [E] 2
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectsController.vb Totals: [T] 75 [C] 17 [E] 13
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Objects\ObjectsController_CRUD.vb Totals: [T] 48 [C] 17 [E] 14
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Packages\PackagesController.vb Totals: [T] 105 [C] 0 [E] 27
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Packages\PackInfo.vb Totals: [T] 89 [C] 20 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\PartnerPacks\PartnerPackInfo_Interfaces.vb Totals: [T] 230 [C] 68 [E] 22
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\PartnerPacks\PartnerPackInfo_Properties.vb Totals: [T] 63 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\PartnerPacks\PartnerPacksController.vb Totals: [T] 33 [C] 17 [E] 6
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\PartnerPacks\PartnerPacksController_CRUD.vb Totals: [T] 53 [C] 17 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\PartnerPacks\PartnerPacksController_FK.vb Totals: [T] 53 [C] 17 [E] 18
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Partners\PartnerInfo_Interfaces.vb Totals: [T] 258 [C] 68 [E] 22
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Partners\PartnerInfo_Properties.vb Totals: [T] 75 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Partners\PartnersController.vb Totals: [T] 40 [C] 17 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Partners\PartnersController_CRUD.vb Totals: [T] 53 [C] 17 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Partners\PartnersController_FK.vb Totals: [T] 41 [C] 17 [E] 12
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Permissions\PermissionInfo_Interfaces.vb Totals: [T] 241 [C] 68 [E] 23
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Permissions\PermissionInfo_Properties.vb Totals: [T] 61 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Permissions\PermissionsController.vb Totals: [T] 64 [C] 17 [E] 10
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Permissions\PermissionsController_CRUD.vb Totals: [T] 45 [C] 17 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Statistics\StatisticInfo_Interfaces.vb Totals: [T] 213 [C] 68 [E] 22
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Statistics\StatisticInfo_Properties.vb Totals: [T] 54 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Statistics\StatisticsController.vb Totals: [T] 71 [C] 17 [E] 15
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Statistics\StatisticsController_CRUD.vb Totals: [T] 41 [C] 17 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Statistics\StatisticsController_FK.vb Totals: [T] 41 [C] 17 [E] 12
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Texts\TextInfo.vb Totals: [T] 127 [C] 38 [E] 16
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Texts\TextInfo_Interfaces.vb Totals: [T] 110 [C] 17 [E] 13
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Texts\TextInfo_Properties.vb Totals: [T] 63 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Texts\TextsController.vb Totals: [T] 130 [C] 23 [E] 19
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Texts\TextsController_CRUD.vb Totals: [T] 53 [C] 17 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Translations\TranslationInfo_Interfaces.vb Totals: [T] 220 [C] 68 [E] 22
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Translations\TranslationInfo_Properties.vb Totals: [T] 57 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Translations\TranslationsController.vb Totals: [T] 42 [C] 17 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Translations\TranslationsController_CRUD.vb Totals: [T] 41 [C] 17 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Entities\Translations\TranslationsController_FK.vb Totals: [T] 41 [C] 17 [E] 12
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Helpers\TranslateHelper.vb Totals: [T] 69 [C] 30 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Helpers\ZipHelper.vb Totals: [T] 67 [C] 17 [E] 5
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\Cube.vb Totals: [T] 124 [C] 24 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\FeedImporter.vb Totals: [T] 186 [C] 21 [E] 18
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\RequestList.vb Totals: [T] 110 [C] 17 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\ScanPacksTask.vb Totals: [T] 61 [C] 17 [E] 15
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\WebPage.vb Totals: [T] 60 [C] 18 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\DataExchange\WebRequest.vb Totals: [T] 480 [C] 32 [E] 50
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Logging\LogEntry.vb Totals: [T] 46 [C] 17 [E] 5
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Logging\Logger.vb Totals: [T] 141 [C] 17 [E] 18
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Logging\LogType.vb Totals: [T] 28 [C] 17 [E] 2
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Packaging\PackageReader.vb Totals: [T] 737 [C] 198 [E] 82
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Packaging\PackageWriter.vb Totals: [T] 290 [C] 19 [E] 31
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\Packaging\TokenReplace.vb Totals: [T] 97 [C] 0 [E] 18
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\UpdateService\DnnLanguagePack.vb Totals: [T] 16 [C] 0 [E] 3
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\UpdateService\DnnPackage.vb Totals: [T] 14 [C] 0 [E] 3
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\HttpContextExtensions.vb Totals: [T] 45 [C] 0 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\LocalizationController.vb Totals: [T] 324 [C] 6 [E] 35
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Services\LocalizationEditorAuthorizeAttribute.vb Totals: [T] 140 [C] 1 [E] 20
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Extensions.vb Totals: [T] 12 [C] 0 [E] 2
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\Globals.vb Totals: [T] 809 [C] 185 [E] 87
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\ModuleBase.vb Totals: [T] 78 [C] 17 [E] 15
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Components\ModuleSettings.vb Totals: [T] 113 [C] 17 [E] 19
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Controls\Editor.ascx Totals: [T] 19 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Controls\Editor.ascx.designer.vb Totals: [T] 64 [C] 44 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Controls\Editor.ascx.vb Totals: [T] 260 [C] 30 [E] 40
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\js\AutoSuggest.js Totals: [T] 396 [C] 143 [E] 71
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\js\Users.ascx.js Totals: [T] 91 [C] 28 [E] 19
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\My Project\AssemblyInfo.vb Totals: [T] 77 [C] 55 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\DownloadPack.ascx Totals: [T] 71 [C] 0 [E] 1
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\DownloadPack.ascx.designer.vb Totals: [T] 105 [C] 78 [E] 13
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\DownloadPack.ascx.vb Totals: [T] 158 [C] 18 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\EditPartner.ascx Totals: [T] 97 [C] 0 [E] 3
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\EditPartner.ascx.designer.vb Totals: [T] 249 [C] 190 [E] 29
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\EditPartner.ascx.vb Totals: [T] 168 [C] 25 [E] 19
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\GetCube.ashx.vb Totals: [T] 42 [C] 17 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\LocalizationEditor.ascx Totals: [T] 196 [C] 0 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\LocalizationEditor.ascx.designer.vb Totals: [T] 141 [C] 106 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\LocalizationEditor.ascx.vb Totals: [T] 318 [C] 21 [E] 39
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ManageObjects.ascx Totals: [T] 71 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ManageObjects.ascx.designer.vb Totals: [T] 87 [C] 64 [E] 11
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ManageObjects.ascx.vb Totals: [T] 103 [C] 28 [E] 14
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ObjectSummary.ascx Totals: [T] 101 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ObjectSummary.ascx.designer.vb Totals: [T] 168 [C] 127 [E] 20
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ObjectSummary.ascx.vb Totals: [T] 151 [C] 22 [E] 30
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Pack.aspx.designer.vb Totals: [T] 18 [C] 9 [E] 5
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Pack.aspx.vb Totals: [T] 113 [C] 17 [E] 20
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Packs.ashx.vb Totals: [T] 50 [C] 17 [E] 8
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Partners.ascx Totals: [T] 23 [C] 0 [E] 2
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Partners.ascx.designer.vb Totals: [T] 42 [C] 29 [E] 6
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Partners.ascx.vb Totals: [T] 88 [C] 17 [E] 21
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\RequestPack.aspx.designer.vb Totals: [T] 141 [C] 106 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\RequestPack.aspx.vb Totals: [T] 204 [C] 20 [E] 18
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ResourceEditor.ascx Totals: [T] 203 [C] 42 [E] 34
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ResourceEditor.ascx.designer.vb Totals: [T] 51 [C] 36 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\ResourceEditor.ascx.vb Totals: [T] 669 [C] 98 [E] 76
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Settings.ascx Totals: [T] 131 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Settings.ascx.designer.vb Totals: [T] 294 [C] 225 [E] 34
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Settings.ascx.vb Totals: [T] 82 [C] 17 [E] 9
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\UploadPack.ascx Totals: [T] 78 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\UploadPack.ascx.designer.vb Totals: [T] 213 [C] 162 [E] 25
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\UploadPack.ascx.vb Totals: [T] 707 [C] 26 [E] 56
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Users.ascx Totals: [T] 77 [C] 0 [E] 0
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Users.ascx.designer.vb Totals: [T] 114 [C] 85 [E] 14
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Backup\Users.ascx.vb Totals: [T] 127 [C] 25 [E] 27
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider.vb Totals: [T] 101 [C] 17 [E] 16
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_CRUD.vb Totals: [T] 108 [C] 21 [E] 30
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Components\Data\DataProvider_FK.vb Totals: [T] 57 [C] 17 [E] 14
@@ -1740,20 +1631,20 @@ make.codestats:
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Controls\Editor.ascx.vb Totals: [T] 260 [C] 30 [E] 40
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\js\AutoSuggest.js Totals: [T] 396 [C] 143 [E] 71
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\js\Users.ascx.js Totals: [T] 91 [C] 28 [E] 19
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx Totals: [T] 71 [C] 0 [E] 1
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx Totals: [T] 73 [C] 0 [E] 1
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx.designer.vb Totals: [T] 105 [C] 78 [E] 13
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\DownloadPack.ascx.vb Totals: [T] 158 [C] 18 [E] 17
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx Totals: [T] 97 [C] 0 [E] 3
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx Totals: [T] 103 [C] 0 [E] 2
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.designer.vb Totals: [T] 249 [C] 190 [E] 29
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\EditPartner.ascx.vb Totals: [T] 168 [C] 25 [E] 19
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\GetCube.ashx.vb Totals: [T] 42 [C] 17 [E] 7
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 192 [C] 0 [E] 4
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx Totals: [T] 193 [C] 0 [E] 5
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.designer.vb Totals: [T] 141 [C] 106 [E] 17
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\LocalizationEditor.ascx.vb Totals: [T] 318 [C] 21 [E] 39
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx Totals: [T] 71 [C] 0 [E] 0
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx Totals: [T] 73 [C] 0 [E] 0
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.designer.vb Totals: [T] 87 [C] 64 [E] 11
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ManageObjects.ascx.vb Totals: [T] 103 [C] 28 [E] 14
-[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx Totals: [T] 101 [C] 0 [E] 0
+[codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx Totals: [T] 104 [C] 0 [E] 0
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx.designer.vb Totals: [T] 168 [C] 127 [E] 20
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\ObjectSummary.ascx.vb Totals: [T] 151 [C] 22 [E] 30
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Pack.aspx.designer.vb Totals: [T] 18 [C] 9 [E] 5
@@ -1776,44 +1667,41 @@ make.codestats:
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx Totals: [T] 77 [C] 0 [E] 0
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.designer.vb Totals: [T] 114 [C] 85 [E] 14
 [codestats] D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\Users.ascx.vb Totals: [T] 127 [C] 25 [E] 27
-[codestats] Totals: [VB]  [T] 29507 [C] 7317 [E] 3879
+[codestats] Totals: [VB]  [T] 14675 [C] 3581 [E] 1930
 
 check.sqlscripts:
 
-     [echo] Version: 04.05.03
+     [echo] Version: 04.05.04
 
 make.package:
 
    [delete] Deleting directory 'D:\Programs\Nant\Build\Resources'.
-     [copy] Copying 69 files to 'D:\Programs\Nant\Build\Resources'.
+     [copy] Copying 37 files to 'D:\Programs\Nant\Build\Resources'.
      [echo] Compacting JS files
     [jsmin] Minifying Javascript
-    [jsmin] Minified 'D:\Programs\Nant\Build\Resources\Backup\js\AutoSuggest.js' and saved False characters
-    [jsmin] Minified 'D:\Programs\Nant\Build\Resources\Backup\js\Users.ascx.js' and saved False characters
     [jsmin] Minified 'D:\Programs\Nant\Build\Resources\js\AutoSuggest.js' and saved False characters
     [jsmin] Minified 'D:\Programs\Nant\Build\Resources\js\Users.ascx.js' and saved False characters
 [compilecss] Compiling CSS
-[compilecss] Compiling D:\Programs\Nant\Build\Resources\Backup\module.css
 [compilecss] Compiling D:\Programs\Nant\Build\Resources\module.css
-      [zip] Zipping 69 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
+      [zip] Zipping 37 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
      [copy] Copying 2 files to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 21 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.03_Install.zip'.
+      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.04_Install.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
      [echo] Building SOURCE
 
 make.package:
 
    [delete] Deleting directory 'D:\Programs\Nant\Build\Resources'.
-     [copy] Copying 261 files to 'D:\Programs\Nant\Build\Resources'.
-      [zip] Zipping 261 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
+     [copy] Copying 133 files to 'D:\Programs\Nant\Build\Resources'.
+      [zip] Zipping 133 files to 'D:\Programs\Nant\Build\Package\Resources.zip'.
      [copy] Copying 2 files to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 1 file to 'D:\Programs\Nant\Build\Package'.
      [copy] Copying 21 files to 'D:\Programs\Nant\Build\Package'.
      [echo] Transforming D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Installation\DNNEurope.LocalizationEditor.dnn with dnn5.xsl
-      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.03_Source.zip'.
+      [zip] Zipping 26 files to 'D:\Webroot\LEDEV\DesktopModules\DNNEurope\LocalizationEditor\_Packages\DNNEurope.Modules.LocalizationEditor_04.05.04_Source.zip'.
    [delete] Deleting directory 'D:\Programs\Nant\Build\Package'.
 
 all:
@@ -1823,12 +1711,12 @@ backup.project:
 
      [echo] Backing Up to D:\src
      [echo] Backing Up Install
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.03_Install.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-5-16\DNNEurope.Modules.LocalizationEditor_04.05.04_Install.zip'.
      [echo] Backing Up Source
-     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-4-25\DNNEurope.Modules.LocalizationEditor_04.05.03_Source.zip'.
+     [copy] Copying 1 file to 'D:\src\LocalizationEditor\2018-5-16\DNNEurope.Modules.LocalizationEditor_04.05.04_Source.zip'.
      [echo] Backing Up to W:\src
 
 BUILD SUCCEEDED
 
-Total time: 12.6 seconds.
+Total time: 16.4 seconds.
 

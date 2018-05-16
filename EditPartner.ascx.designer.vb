@@ -12,58 +12,238 @@ Option Explicit On
 
 
 Partial Public Class EditPartner
-    
-    '''<summary>
-    '''tblCubeUrl control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblCubeUrl As Global.System.Web.UI.HtmlControls.HtmlTable
-    
-    '''<summary>
-    '''plCubeUrl control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents plCubeUrl As Global.System.Web.UI.UserControl
-    
-    '''<summary>
-    '''txtCubeUrl control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtCubeUrl As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''plImportOverride control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents plImportOverride As Global.System.Web.UI.UserControl
-    
-    '''<summary>
-    '''chkImportOverride control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkImportOverride As Global.System.Web.UI.WebControls.CheckBox
-    
-    '''<summary>
-    '''plDownload control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents plDownload As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''tblCubeUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents tblCubeUrl As Global.System.Web.UI.HtmlControls.HtmlTable
+
+ '''<summary>
+ '''plCubeUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plCubeUrl As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtCubeUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtCubeUrl As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
+ '''plImportOverride control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plImportOverride As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkImportOverride control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkImportOverride As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''plDownload control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plDownload As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''cmdDownload control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdDownload As Global.System.Web.UI.WebControls.LinkButton
+
+ '''<summary>
+ '''pnlDetails control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents pnlDetails As Global.System.Web.UI.WebControls.Panel
+
+ '''<summary>
+ '''plPartnerName control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plPartnerName As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtPartnerName control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtPartnerName As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
+ '''plPartnerUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plPartnerUrl As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtPartnerUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtPartnerUrl As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
+ '''plPackUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plPackUrl As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtPackUrl control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtPackUrl As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
+ '''plAllowDirectDownload control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plAllowDirectDownload As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkAllowDirectDownload control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkAllowDirectDownload As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''plPartnerUsername control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plPartnerUsername As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''txtPartnerUsername control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents txtPartnerUsername As Global.System.Web.UI.WebControls.TextBox
+
+ '''<summary>
+ '''plAllowRedistribute control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plAllowRedistribute As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkAllowRedistribute control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkAllowRedistribute As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''plDownloadAffiliates control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plDownloadAffiliates As Global.System.Web.UI.UserControl
+
+ '''<summary>
+ '''chkDownloadAffiliates control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents chkDownloadAffiliates As Global.System.Web.UI.WebControls.CheckBox
+
+ '''<summary>
+ '''cmdUpdate control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdUpdate As Global.System.Web.UI.WebControls.LinkButton
+
+ '''<summary>
+ '''cmdCancel control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdCancel As Global.System.Web.UI.WebControls.LinkButton
+
+ '''<summary>
+ '''cmdDelete control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents cmdDelete As Global.System.Web.UI.WebControls.LinkButton
+
+ '''<summary>
+ '''plhDownload control.
+ '''</summary>
+ '''<remarks>
+ '''Auto-generated field.
+ '''To modify move field declaration from designer file to code-behind file.
+ '''</remarks>
+ Protected WithEvents plhDownload As Global.System.Web.UI.WebControls.PlaceHolder
 End Class
