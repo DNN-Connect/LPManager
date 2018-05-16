@@ -5,7 +5,7 @@
  StepPreviousButtonType="Link" FinishPreviousButtonType="Link" FinishCompleteButtonType="Link"
  CancelButtonType="Link" DisplaySideBar="False">
  <StepStyle VerticalAlign="Top" />
- <NavigationButtonStyle CssClass="CommandButton" BorderStyle="None" BackColor="Transparent" />
+ <NavigationButtonStyle CssClass="dnnSecondaryAction" BorderStyle="None" BackColor="Transparent" />
  <HeaderTemplate>
   <asp:Label ID="lblTitle" CssClass="Head" runat="server"><%=DotNetNuke.Services.Localization.Localization.GetString(wzdImport.ActiveStep.Title + ".Title", Me.LocalResourceFile)%></asp:Label><br />
   <br />

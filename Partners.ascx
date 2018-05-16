@@ -17,7 +17,7 @@
  </Columns>
 </asp:DataGrid>
 
-<p style="padding-top: 30px;">
-<asp:hyperlink runat="server" id="cmdAdd" resourcekey="cmdAdd" text="Add" cssclass="CommandButton" />&nbsp;
-<asp:hyperlink runat="server" id="cmdBack" resourcekey="cmdBack" text="Back" cssclass="CommandButton" />
-</p>
+<ul class="dnnActions dnnClear">
+<li><asp:hyperlink runat="server" id="cmdAdd" resourcekey="cmdAdd" text="Add" cssclass="dnnPrimaryAction" /></li>
+<li></li><asp:hyperlink runat="server" id="cmdBack" resourcekey="cmdBack" text="Back" cssclass="dnnSecondaryAction" /></li>
+</ul>
