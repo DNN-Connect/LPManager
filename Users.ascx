@@ -25,10 +25,10 @@
     </td>
   </tr>
 </table>
-<p>
-  <asp:LinkButton runat="server" ID="cmdAdd" resourcekey="cmdAdd" Text="Add" CssClass="CommandButton" />&nbsp;&nbsp;
-  <asp:LinkButton runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return" CssClass="CommandButton" CausesValidation="false" />
-</p>
+<ul class="dnnActions dnnClear">
+  <li><asp:LinkButton runat="server" ID="cmdAdd" resourcekey="cmdAdd" Text="Add" CssClass="dnnPrimaryAction" /></li>
+  <li><asp:LinkButton runat="server" ID="cmdReturn" resourcekey="cmdReturn" Text="Return" CssClass="dnnSecondaryAction" CausesValidation="false" /></li>
+</ul>
 <p>
   <asp:Label runat="server" ID="lblError" CssClass="NormalRed" /></p>
 <asp:DataList runat="server" ID="dlUserPermissions" DataKeyField="PermissionId">

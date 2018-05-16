@@ -12,40 +12,13 @@ Option Explicit On
 
 
 Partial Public Class ResourceEditor
-
- '''<summary>
- '''PlaceHolder1 control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents PlaceHolder1 As Global.System.Web.UI.WebControls.PlaceHolder
-
- '''<summary>
- '''cmdUpdate control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents cmdUpdate As Global.System.Web.UI.WebControls.LinkButton
-
- '''<summary>
- '''cmdCancel control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents cmdCancel As Global.System.Web.UI.WebControls.LinkButton
-
- '''<summary>
- '''cmdSave control.
- '''</summary>
- '''<remarks>
- '''Auto-generated field.
- '''To modify move field declaration from designer file to code-behind file.
- '''</remarks>
- Protected WithEvents cmdSave As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''PlaceHolder1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents PlaceHolder1 As Global.System.Web.UI.WebControls.PlaceHolder
 End Class
