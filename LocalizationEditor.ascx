@@ -66,7 +66,7 @@
                         <th>
                             <asp:Label runat="server" ID="lblPackage" resourcekey="lblPackage" />
                         </th>
-                        <th>
+                        <th  align="center">
                             <asp:Label runat="server" ID="lblLastVersion2" resourcekey="lblLastVersion" />
                         </th>
                         <th colspan="2">&nbsp;</th>
@@ -77,7 +77,7 @@
                     <td>
                         <%#DataBinder.Eval(Container.DataItem, "FriendlyName")%>
                     </td>
-                    <td>
+                    <td  align="center">
                         <%#DataBinder.Eval(Container.DataItem, "LastPackVersion")%>
                     </td>
                     <td>
@@ -109,10 +109,10 @@
                     <th>
                         <asp:Label runat="server" ID="lblObjects" resourcekey="lblObjects" />
                     </th>
-                    <th>
+                    <th align="center">
                         <asp:Label runat="server" ID="lblLastVersion" resourcekey="lblLastVersion" />
                     </th>
-                    <th style="display: <%#IIF(IsEditor Or IsAdmin,"block","none")%>">
+                    <th  align="center" style="display: <%#IIF(IsEditor Or IsAdmin,"block","none")%>">
                         <asp:Label runat="server" ID="lblNrKeys" resourcekey="lblNrKeys" />
                     </th>
                     <th>
@@ -126,15 +126,15 @@
                 <td>
                     <%#DataBinder.Eval(Container.DataItem, "FriendlyName")%>
                 </td>
-                <td>
+                <td align="center">
                     <%#DataBinder.Eval(Container.DataItem, "LastVersion")%>
                 </td>
                 <%If IsEditor Or IsAdmin Then%>
-                <td>
+                <td align="center">
                     <%#DataBinder.Eval(Container.DataItem, "LastVersionTextCount")%>
                 </td>
                 <%End If%>
-                <td>
+                <td align="center">
                     <%#GetObjectLocalePerctComplete(Container.DataItem)%>
                 </td>
                 <td>
