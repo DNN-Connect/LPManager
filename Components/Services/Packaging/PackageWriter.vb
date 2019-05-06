@@ -24,6 +24,7 @@ Imports ICSharpCode.SharpZipLib.Zip
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Texts
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Packages
+Imports System.IO.Compression
 
 Namespace Services.Packaging
  Public Class PackageWriter
@@ -70,12 +71,12 @@ Namespace Services.Packaging
     End If
 
     strmZipFile = File.Create(packPath & fileName)
-    Dim strmZipStream As ZipOutputStream = Nothing
+    Dim strmZipStream As ZipArchive = Nothing
 
     Try
 
-     strmZipStream = New ZipOutputStream(strmZipFile)
-     Dim myZipEntry As ZipEntry
+     strmZipStream = New ZipArchive(strmZipFile, ZipArchiveMode.Create)
+     Dim myZipEntry As ZipArchiveEntry
      Dim loc As New CultureInfo(locale)
      Dim fileData As Byte()
      Dim packedObjects As New List(Of ObjectInfo)
@@ -97,17 +98,21 @@ Namespace Services.Packaging
         Dim resDoc As New XmlDocument
         resDoc.Load(DotNetNuke.Common.ApplicationMapPath & "\DesktopModules\DNNEurope\LocalizationEditor\App_LocalResources\Template.resx")
         Dim root As XmlNode = resDoc.DocumentElement
-        For Each ti As Entities.Texts.TextInfo In texts.Values
+        For Each ti As Entities.Texts.TextInfo In texts.Values.OrderBy(Function(t) t.TextKey)
          Try
           Globals.AddResourceText(root, ti.TextKey, ti.TextValue)
          Catch ex As Exception
           ' ignore errors
          End Try
         Next
-        myZipEntry = New ZipEntry(targetPath & "\" & resFileName)
-        strmZipStream.PutNextEntry(myZipEntry)
+        myZipEntry = strmZipStream.CreateEntry(targetPath & "\" & resFileName)
         fileData = Globals.XmlToFormattedByteArray(resDoc)
-        strmZipStream.Write(fileData, 0, fileData.Length)
+        Using zipStream As Stream = myZipEntry.Open()
+         Try
+          zipStream.Write(fileData, 0, fileData.Length)
+         Catch ex As Exception
+         End Try
+        End Using
         hasTexts = True
        End If
       Next
@@ -122,27 +127,27 @@ Namespace Services.Packaging
 
      Dim manifestName As String = packName & "_" & loc.Name & ".dnn"
      manifestName = manifestName.Replace("/", "_").Replace("\", "_")
-     myZipEntry = New ZipEntry(manifestName)
-     strmZipStream.PutNextEntry(myZipEntry)
-     strmZipStream.SetLevel(compressionLevel)
+     myZipEntry = strmZipStream.CreateEntry(manifestName)
      Dim manifestV5 As XmlDocument = GetLanguagePackManifestV5(packedObjects, locale)
      fileData = Globals.XmlToFormattedByteArray(manifestV5)
-     strmZipStream.Write(fileData, 0, fileData.Length)
+     Using zipStream As Stream = myZipEntry.Open()
+      Try
+       zipStream.Write(fileData, 0, fileData.Length)
+      Catch ex As Exception
+      End Try
+     End Using
 
     Catch ex As Exception
 
     Finally
-     If Not strmZipStream Is Nothing Then
-      strmZipStream.Flush()
-      strmZipStream.Finish()
-      strmZipStream.Close()
-     End If
+     strmZipStream.Dispose()
     End Try
    Catch ex As Exception
 
    Finally
     If Not strmZipFile Is Nothing Then
      strmZipFile.Close()
+     strmZipFile.Dispose()
     End If
    End Try
 

@@ -17,18 +17,16 @@
 ' ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
 ' 
 Imports System.IO
-Imports ICSharpCode.SharpZipLib.Zip
+Imports System.IO.Compression
 
 Namespace Helpers
  Public Class ZipHelper
 
   Public Shared Sub Unzip(ByVal fileStream As Stream, ByVal tempDirectory As String)
-   Dim objZipEntry As ZipEntry
-   Using objZipInputStream As New ZipInputStream(fileStream)
-    objZipEntry = objZipInputStream.GetNextEntry
-    While Not objZipEntry Is Nothing
+   Using objZipInputStream As New ZipArchive(fileStream, ZipArchiveMode.Read)
+    For Each objZipEntry As ZipArchiveEntry In objZipInputStream.Entries
      Dim strFileName As String = objZipEntry.Name.Replace("/", "\")
-     If strFileName <> "" And Not objZipEntry.IsDirectory Then
+     If strFileName <> "" Then
       Dim sFile As String = strFileName
       Dim sPath As String = tempDirectory & "\"
       If strFileName.IndexOf("\"c) > 0 Then
@@ -42,18 +40,9 @@ Namespace Helpers
       If Not IO.Directory.Exists(IO.Path.GetDirectoryName(sPath & sFile)) Then
        IO.Directory.CreateDirectory(IO.Path.GetDirectoryName(sPath & sFile))
       End If
-      Using objFileStream As FileStream = File.Create(sPath & sFile)
-       Dim intSize As Integer = 2048
-       Dim arrData(2048) As Byte
-       intSize = objZipInputStream.Read(arrData, 0, arrData.Length)
-       While intSize > 0
-        objFileStream.Write(arrData, 0, intSize)
-        intSize = objZipInputStream.Read(arrData, 0, arrData.Length)
-       End While
-      End Using
+      objZipEntry.ExtractToFile(sPath & sFile)
      End If
-     objZipEntry = objZipInputStream.GetNextEntry
-    End While
+    Next
    End Using
   End Sub
 

@@ -30,7 +30,7 @@ Imports DNNEurope.Modules.LocalizationEditor.Entities.Objects
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Translations
 Imports DNNEurope.Modules.LocalizationEditor.Entities.Statistics
 Imports DNNEurope.Modules.LocalizationEditor.Services.Packaging
-
+Imports System.IO.Compression
 
 Partial Public Class Import
  Inherits ModuleBase
@@ -181,13 +181,12 @@ Partial Public Class Import
    Dim resFilename As String = ctlUpload.FileName
    report.AppendLine("Uploaded " & resFilename)
    report.AppendLine("Unpacking to " & TempDirectory)
-   Dim objZipEntry As ZipEntry
-   Using objZipInputStream As New ZipInputStream(ctlUpload.FileContent)
-    objZipEntry = objZipInputStream.GetNextEntry
-    While Not objZipEntry Is Nothing
+   Using objZipInputStream As New ZipArchive(ctlUpload.FileContent, ZipArchiveMode.Read)
+
+    For Each objZipEntry As ZipArchiveEntry In objZipInputStream.Entries
      Dim strFileName As String = objZipEntry.Name.Replace("/", "\")
      report.AppendLine("Unpacking " & strFileName)
-     If strFileName <> "" And Not objZipEntry.IsDirectory Then
+     If strFileName <> "" Then
       Dim sFile As String = strFileName
       Dim sPath As String = TempDirectory & "\"
       If strFileName.IndexOf("\"c) > 0 Then
@@ -198,18 +197,9 @@ Partial Public Class Import
        End If
        sPath &= "\"
       End If
-      Using objFileStream As FileStream = File.Create(sPath & sFile)
-       Dim intSize As Integer = 2048
-       Dim arrData(2048) As Byte
-       intSize = objZipInputStream.Read(arrData, 0, arrData.Length)
-       While intSize > 0
-        objFileStream.Write(arrData, 0, intSize)
-        intSize = objZipInputStream.Read(arrData, 0, arrData.Length)
-       End While
-      End Using
+      objZipEntry.ExtractToFile(sPath & sFile)
      End If
-     objZipEntry = objZipInputStream.GetNextEntry
-    End While
+    Next
    End Using
    Dim files As String() = IO.Directory.GetFiles(TempDirectory, "*.dnn")
    If files.Length > 0 Then
@@ -320,23 +310,23 @@ Partial Public Class Import
      report.AppendLine(String.Format("Could not find dependent component {0}", dependentPackage))
     Else
      For Each depObject As ObjectInfo In depObjects
-     packLocale = p.SelectSingleNode("components/component/languageFiles/code").InnerText
-     report.AppendLine(String.Format("Uploading package for {0} {1}", depObject.ObjectName, depVersion))
-     For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
-      Dim filePath As String = xNode.SelectSingleNode("path").InnerText
-      If filePath <> "" And Not filePath.EndsWith("\") Then
-       filePath &= "\"
-      End If
-      Dim fileName As String = xNode.SelectSingleNode("name").InnerText
-      Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-      Try
-       AnalyzeFile(report, depObject, depVersion, filePath & fileName, fileKey)
-      Catch ex As Exception
-       report.AppendFormat("Error Occurred trying to process file {0}" & vbCrLf, fileName)
-       report.AppendLine("Error: " & ex.Message)
-       report.AppendLine(ex.StackTrace)
-      End Try
-     Next
+      packLocale = p.SelectSingleNode("components/component/languageFiles/code").InnerText
+      report.AppendLine(String.Format("Uploading package for {0} {1}", depObject.ObjectName, depVersion))
+      For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
+       Dim filePath As String = xNode.SelectSingleNode("path").InnerText
+       If filePath <> "" And Not filePath.EndsWith("\") Then
+        filePath &= "\"
+       End If
+       Dim fileName As String = xNode.SelectSingleNode("name").InnerText
+       Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
+       Try
+        AnalyzeFile(report, depObject, depVersion, filePath & fileName, fileKey)
+       Catch ex As Exception
+        report.AppendFormat("Error Occurred trying to process file {0}" & vbCrLf, fileName)
+        report.AppendLine("Error: " & ex.Message)
+        report.AppendLine(ex.StackTrace)
+       End Try
+      Next
      Next
     End If
    Catch ex As Exception
@@ -375,7 +365,7 @@ Partial Public Class Import
      Else
       If hasValue Then
        If textValue <> xNode.SelectSingleNode("value").InnerXml Then
-       report.AppendLine("Overwrite " & textKey)
+        report.AppendLine("Overwrite " & textKey)
        End If
       Else
        report.AppendLine("Add " & textKey)
@@ -405,7 +395,7 @@ Partial Public Class Import
        Else
         If hasValue Then
          If textValue <> xNode.SelectSingleNode("value").InnerXml Then
-         report.AppendLine("Overwrite " & textKey)
+          report.AppendLine("Overwrite " & textKey)
          End If
         Else
          report.AppendLine("Add " & textKey)
@@ -490,18 +480,18 @@ Partial Public Class Import
     End If
     Dim depVersion As String = Globals.FormatVersion(p.SelectSingleNode("@version").InnerText)
     For Each depObject As ObjectInfo In depObjects
-    For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
-     Dim filePath As String = xNode.SelectSingleNode("path").InnerText
-     If filePath <> "" And Not filePath.EndsWith("\") Then
-      filePath &= "\"
-     End If
-     Dim fileName As String = xNode.SelectSingleNode("name").InnerText
-     Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
-     Try
-      ImportFile(depObject, depVersion, filePath & fileName, fileKey)
-     Catch ex As Exception
-     End Try
-    Next
+     For Each xNode As XmlNode In p.SelectNodes("components/component/languageFiles/languageFile")
+      Dim filePath As String = xNode.SelectSingleNode("path").InnerText
+      If filePath <> "" And Not filePath.EndsWith("\") Then
+       filePath &= "\"
+      End If
+      Dim fileName As String = xNode.SelectSingleNode("name").InnerText
+      Dim fileKey As String = basePath & filePath & Regex.Replace(fileName, "(?i)\.\w{2}(-\w+)?\.resx$(?-i)", ".resx")
+      Try
+       ImportFile(depObject, depVersion, filePath & fileName, fileKey)
+      Catch ex As Exception
+      End Try
+     Next
     Next
    Catch ex As Exception
    End Try
