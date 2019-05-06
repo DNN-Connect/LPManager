@@ -410,10 +410,11 @@ Public Class Globals
  Public Shared Sub AddResourceText(ByRef resourceRoot As XmlNode, ByVal textKey As String, ByVal textValue As String)
   Dim newNode As XmlNode = resourceRoot.OwnerDocument.CreateElement("data")
   AddAttribute(newNode, "name", textKey)
+  AddAttribute(newNode, "xml:space", "preserve")
   If String.IsNullOrEmpty(textValue) Then
    AddElement(newNode, "value", "")
   Else
-   AddElement(newNode, "value", textValue, "xml:space=preserve")
+   AddElement(newNode, "value", textValue)
   End If
   resourceRoot.AppendChild(newNode)
  End Sub
